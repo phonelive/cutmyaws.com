@@ -28,14 +28,14 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://cutmyaws.com' },
         { property: 'og:site_name', content: 'Cut My AWS' },
-        { property: 'og:image', content: 'https://cutmyaws.com/david.png' },
+        { property: 'og:image', content: 'https://cutmyaws.com/og-image.png' },
         { property: 'og:locale', content: 'en_US' },
 
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Cut My AWS — AWS Cost Therapy ($10-150K/mo)' },
         { name: 'twitter:description', content: 'Your tech was built for a business that doesn\'t exist anymore. $99 starts the conversation. Not a dashboard. Just David.' },
-        { name: 'twitter:image', content: 'https://cutmyaws.com/david.png' },
+        { name: 'twitter:image', content: 'https://cutmyaws.com/og-image.png' },
 
         // GEO/AEO: help AI systems understand the page
         { name: 'subject', content: 'AWS Cost Optimization Consulting' },
@@ -63,14 +63,14 @@ export default defineNuxtConfig({
                 alternateName: 'CutMyAWS',
                 url: 'https://cutmyaws.com',
                 logo: 'https://cutmyaws.com/favicon.svg',
-                image: 'https://cutmyaws.com/david.png',
+                image: 'https://cutmyaws.com/og-image.png',
                 description: 'Business-aligned AWS cost optimization for small businesses spending $10-150K/mo. Not a dashboard — a real person with 20+ years of AWS experience who makes your cloud not just cheaper, but better.',
                 founder: {
                   '@type': 'Person',
                   name: 'David Plappert',
                   jobTitle: 'Senior AWS Serverless Architect',
                   url: 'https://www.linkedin.com/in/davidplappert/',
-                  image: 'https://cutmyaws.com/david.png',
+                  image: 'https://cutmyaws.com/og-image.png',
                   sameAs: ['https://www.linkedin.com/in/davidplappert/']
                 },
                 parentOrganization: {
