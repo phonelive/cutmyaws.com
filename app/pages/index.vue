@@ -298,9 +298,10 @@ const fixNet = exampleAnnual - fixFee
     <!-- About -->
     <section class="max-w-5xl mx-auto px-6 py-20">
       <div class="max-w-2xl mx-auto text-center">
+        <img src="/david.png" alt="David Plappert" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover object-top border-2 border-gray-700">
         <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I'm David Plappert &mdash; an actual human with 20+ years of AWS experience who will personally
+          I'm <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="text-brand-400 hover:underline">David Plappert</a> &mdash; an actual human with 20+ years of AWS experience who will personally
           dig through your account, read your architecture, and understand your business. 🍱 Not an AI summary.
           Not a dashboard with red and green dots. Me, on a call, with opinions.
         </p>
@@ -378,7 +379,10 @@ const fixNet = exampleAnnual - fixFee
     <footer class="border-t border-gray-800 bg-gray-900/50">
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
         <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC. All rights reserved.</span>
-        <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
+        <div class="flex items-center gap-4">
+          <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="hover:text-gray-300 transition-colors">💼 LinkedIn</a>
+          <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
+        </div>
       </div>
     </footer>
   </div>
