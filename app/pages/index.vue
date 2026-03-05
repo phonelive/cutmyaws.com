@@ -8,23 +8,23 @@ const promoActive = now < promoEnd
 const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
 
 const stats = [
-  { value: '30-40%', label: '📊 Average waste hiding in AWS accounts' },
-  { value: '$99', label: '🔍 Down payment on your 10% audit fee' },
-  { value: '20+ years', label: '⚡ Of AWS experience. Not an AI. Not a dashboard. A person.' }
+  { value: '$10-50K/mo', label: '🎯 The sweet spot. If this is your AWS bill, we should talk.' },
+  { value: '$99', label: '💸 Down payment on your audit. Not an extra fee. We promise.' },
+  { value: '20+ years', label: '👨‍💻 Of AWS experience. Not an AI. Not a dashboard. Just David.' }
 ]
 
 const wasteSources = [
-  { emoji: '🖥️', name: 'Servers running 24/7 for workloads that should be serverless', savings: '40-70%' },
-  { emoji: '🏗️', name: 'Enterprise-grade databases for apps with 50 users', savings: '30-60%' },
-  { emoji: '🧘', name: 'EC2 instances running hot yoga while doing nothing', savings: '20-40%' },
-  { emoji: '🤷', name: 'Savings Plans you didn\'t know existed', savings: '30-50%' },
-  { emoji: '🦕', name: 'EBS volumes and snapshots from the Obama administration', savings: '$100-1,000/mo' },
-  { emoji: '🍽️', name: 'NAT Gateway quietly eating your budget for lunch', savings: '$200-2,000/mo' },
-  { emoji: '🐿️', name: 'Architecture designed for a business model that pivoted 2 years ago', savings: '20-50%' }
+  { emoji: '🖥️', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm like the rest of us', savings: '40-70%' },
+  { emoji: '🏗️', name: 'An RDS instance the size of a school bus for an app with 50 users', savings: '30-60%' },
+  { emoji: '🧘', name: 'EC2 instances in a meditative state (they\'re not meditating, they\'re idle)', savings: '20-40%' },
+  { emoji: '💳', name: 'Savings Plans that AWS literally wants you to buy but nobody told you about', savings: '30-50%' },
+  { emoji: '🦕', name: 'EBS snapshots so old they remember when us-east-1 was the only region', savings: '$100-1,000/mo' },
+  { emoji: '🍽️', name: 'A NAT Gateway that costs more than your team\'s lunch budget', savings: '$200-2,000/mo' },
+  { emoji: '🐿️', name: 'Architecture built for the business plan you pitched to investors, not the one you\'re actually running', savings: '20-50%' }
 ]
 
-const exampleBefore = 20000
-const exampleSavings = 7000
+const exampleBefore = 25000
+const exampleSavings = 9000
 const exampleAnnual = exampleSavings * 12
 const scanDeposit = 99
 const reportFee = Math.round(exampleAnnual * 0.10)
@@ -38,7 +38,7 @@ const fixNet = exampleAnnual - fixFee
     <!-- Promo Banner -->
     <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
       <a :href="calendlyUrl" target="_blank" class="hover:underline">
-        🔒 FREE security scan with every audit — misconfigs, public buckets, IAM risks — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
+        🔒 FREE security scan with every audit — misconfigs, public buckets, IAM risks, oh my — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
       </a>
     </div>
 
@@ -54,7 +54,7 @@ const fixNet = exampleAnnual - fixFee
           target="_blank"
           class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
         >
-          💸 $99 First Session
+          💸 $99 &mdash; Let's Go
         </a>
       </div>
     </nav>
@@ -62,27 +62,29 @@ const fixNet = exampleAnnual - fixFee
     <!-- Hero -->
     <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
       <div class="max-w-3xl">
-        <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy</p>
+        <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for small businesses spending $10-50K/mo</p>
         <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-          Your tech stack wasn't built for<br>
-          <span class="text-brand-400">how your business actually works. ✂️</span>
+          Your tech was built for a business<br>
+          <span class="text-brand-400">that doesn't exist anymore. ✂️</span>
         </h1>
         <p class="text-xl text-gray-400 mb-4 max-w-2xl">
-          Most AWS accounts aren't just overpriced &mdash; they're misaligned. Servers running 24/7 for workloads that spike 2 hours a day.
-          Enterprise databases for apps with 50 users. Infrastructure built for a business plan that changed three pivots ago. 💸
+          You started on AWS. You grew. You pivoted. You scaled. And somewhere along the way, your infrastructure stopped matching your actual business. 🤷
+          Now you've got servers babysitting workloads that should be serverless, databases sized for traffic that never came, and a bill that goes up every month for reasons nobody can fully explain.
         </p>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
           I don't just find waste &mdash; I find the <strong class="text-gray-200">mismatch between your tech and your business.</strong>
-          The cost savings are a side effect of getting that right.
-          $99 starts the conversation. 🤷
+          The savings are a side effect of getting that right. And yes, I'm a real person who does the actual work. Not a bot. Not a dashboard. Just a guy who's been staring at AWS bills for 20+ years and has opinions about all of them. 😏
         </p>
-        <a
-          :href="calendlyUrl"
-          target="_blank"
-          class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
-        >
-          🗓️ Book Your $99 AWS Intervention
-        </a>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            :href="calendlyUrl"
+            target="_blank"
+            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
+          >
+            🗓️ Book Your $99 AWS Intervention
+          </a>
+          <p class="text-gray-500 text-sm self-center">15 min call. $99 down payment. <br class="sm:hidden">No pitch deck. No discovery phase. Just math.</p>
+        </div>
       </div>
     </section>
 
@@ -99,17 +101,17 @@ const fixNet = exampleAnnual - fixFee
     <!-- Social Proof / One-liner -->
     <section class="max-w-5xl mx-auto px-6 py-16 text-center">
       <p class="text-2xl text-gray-300 font-medium italic max-w-3xl mx-auto">
-        "Most companies don't have a cost problem. They have an alignment problem.
-        The bill is just the symptom." 🎯
+        "You don't have a cost problem. You have a 'we built this in 2021 and the business is completely different now' problem.
+        The bill is just the receipt." 🧾
       </p>
-      <p class="text-gray-500 mt-4">&mdash; David, who has fixed a lot of symptoms by treating the actual disease</p>
+      <p class="text-gray-500 mt-4">&mdash; David, who has seen this exact situation approximately one million times</p>
     </section>
 
     <!-- How It Works -->
     <section class="bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-20">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Two calls. One report. Zero pressure. You decide how far to go after you see the numbers. 🤝</p>
+        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Two calls. One report. Zero PowerPoints. You decide how far to go after you see the numbers. 🤝</p>
 
         <!-- Timeline -->
         <div class="max-w-2xl mx-auto space-y-6">
@@ -120,15 +122,15 @@ const fixNet = exampleAnnual - fixFee
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
               <div>
                 <h3 class="text-xl font-bold">🗓️ Intro Call</h3>
-                <p class="text-gray-500 text-sm">15 min &middot; $99 down payment</p>
+                <p class="text-gray-500 text-sm">15 min &middot; $99 down payment &middot; coffee optional but encouraged ☕</p>
               </div>
             </div>
-            <p class="text-gray-400">You book a call, pay $99, and grant read-only AWS access. We meet, I walk you through what I see, and we make sure I have everything I need to go deep. 🔍</p>
-            <p class="text-gray-500 text-sm mt-3">The $99 is a down payment on your 10% audit fee &mdash; not an extra charge.</p>
+            <p class="text-gray-400">You book a call, pay $99, and grant read-only AWS access. We meet, I poke around your account live, ask annoying questions about your business, and make sure I have everything I need to go deep. 🔍</p>
+            <p class="text-gray-500 text-sm mt-3">The $99 is a down payment on your 10% audit fee. It's not extra. It just proves you're serious and I'm not auditing someone's personal hobby project. (No offense to hobby projects.)</p>
           </div>
 
           <!-- Arrow -->
-          <div class="text-center text-gray-600 text-2xl">⏳ 5-10 business days (I'm digging through your account)</div>
+          <div class="text-center text-gray-600 text-2xl">⏳ 5-10 business days (I'm in your account, learning your business, judging your tag hygiene)</div>
 
           <!-- Step 2: Exploration Call -->
           <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8">
@@ -136,68 +138,72 @@ const fixNet = exampleAnnual - fixFee
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <div>
                 <h3 class="text-xl font-bold">📋 Exploration Call &mdash; The Report</h3>
-                <p class="text-gray-500 text-sm">10% of annual savings found (minus your $99)</p>
+                <p class="text-gray-500 text-sm">10% of annual savings found (minus your $99, because fair is fair)</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-4">I present the full findings: every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business needs. You get everything as a PDF. 📄</p>
+            <p class="text-gray-400 mb-4">I present everything: every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business. It's like a doctor's visit for your infrastructure, except I have better bedside manner. 📄</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Line-by-line savings breakdown your CFO will actually understand</span>
+                <span>Line-by-line savings breakdown your CFO will actually understand (and maybe frame)</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Implementation guide for your team (if you want to DIY) 🛠️</span>
+                <span>Architecture recommendations &mdash; "this should be serverless" and "this database is 10x bigger than it needs to be" 🏗️</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>You keep the report forever. Even if you ghost me. 👻</span>
+                <span>Implementation guide for your team if you want to DIY (I don't gatekeep) 🛠️</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>You keep the report forever. Even if you ghost me. I'll survive. Probably. 👻</span>
               </li>
               <li v-if="promoActive" class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">🎁</span>
-                <span><strong class="text-brand-400">BONUS:</strong> Free AWS security scan included &mdash; misconfigs, public S3 buckets, overprivileged IAM roles ({{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!)</span>
+                <span><strong class="text-brand-400">BONUS:</strong> Free AWS security scan &mdash; misconfigs, public S3 buckets, IAM roles that shouldn't exist ({{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!)</span>
               </li>
             </ul>
-            <p class="text-gray-500 text-sm mt-4">Remainder of the 10% fee is due at this call. Your $99 down payment comes right off.</p>
+            <p class="text-gray-500 text-sm mt-4">Remainder of the 10% fee is due at this call. Your $99 comes right off. Math. 🧮</p>
           </div>
 
           <!-- Arrow -->
-          <div class="text-center text-gray-600 text-2xl">🤔 Want me to fix it too?</div>
+          <div class="text-center text-gray-600 text-2xl">🤔 Want me to actually fix it? (Most people do. Turns out reading a 30-page report isn't fun.)</div>
 
           <!-- Step 3: Implementation (Optional) -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 relative">
-            <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">🔥 OPTIONAL</div>
+            <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">🔥 OPTIONAL (but c'mon)</div>
             <div class="flex items-center gap-3 mb-4">
               <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
               <div>
                 <h3 class="text-xl font-bold">🔧 The Fix &mdash; Implementation</h3>
-                <p class="text-gray-500 text-sm">Decided at the exploration call &middot; scoped together</p>
+                <p class="text-gray-500 text-sm">Decided at the exploration call &middot; scoped together like adults</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-4">At the exploration call, you decide if you want me to implement the fixes. We agree on a timeline, deliverables, and scope before any work starts. 🤝</p>
+            <p class="text-gray-400 mb-4">We agree on a timeline, deliverables, and scope before I touch anything. Then I get to work making your AWS account match your actual business. Serverless migrations, right-sizing, Savings Plans &mdash; the whole shebang. 💪</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>I implement every optimization (you watch or nap, your call 😴)</span>
+                <span>I implement every optimization (you watch, ask questions, or take a nap &mdash; dealer's choice 😴)</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Custom timeline and deliverables we agree on together</span>
+                <span>Custom timeline and deliverables. No mystery. No "we'll circle back." Actual dates.</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>90 days after deliverables are complete, we verify the savings are real 📊</span>
+                <span>90 days after deliverables, we compare bills. Did the savings actually happen? 📊</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span><strong>+15% of verified savings due at the 90-day mark.</strong> If the savings didn't stick, you don't pay. 🤷</span>
+                <span><strong>+15% of verified savings due at the 90-day mark.</strong> If the savings didn't stick? You owe me nothing. I'll go cry into my own AWS bill. 🤷</span>
               </li>
             </ul>
-            <p class="text-gray-500 text-sm mt-4">25% total is the absolute max (10% report + 15% implementation). No surprises. No hidden fees.</p>
+            <p class="text-gray-500 text-sm mt-4">25% total max (10% report + 15% implementation). That's the ceiling. There is no "and also this other fee." 🚫</p>
           </div>
 
           <!-- Arrow -->
-          <div class="text-center text-gray-600 text-2xl">⏳ 90 days later...</div>
+          <div class="text-center text-gray-600 text-2xl">⏳ 90 days later... (the moment of truth 🥁)</div>
 
           <!-- Step 4: Verification -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
@@ -205,10 +211,10 @@ const fixNet = exampleAnnual - fixFee
               <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
               <div>
                 <h3 class="text-xl font-bold">📊 The Proof</h3>
-                <p class="text-gray-500 text-sm">+15% of verified annual savings</p>
+                <p class="text-gray-500 text-sm">+15% of verified annual savings &middot; a.k.a. "show me the receipts"</p>
               </div>
             </div>
-            <p class="text-gray-400">We compare your AWS bill before vs. after. The 15% implementation fee is based on <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections, not estimates. Real numbers on a real bill. If the savings didn't materialize, you owe nothing for implementation. 💰</p>
+            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. The 15% is based on <strong class="text-gray-200">actual, verified, no-BS savings</strong> &mdash; not my projections, not a spreadsheet estimate, not vibes. Real numbers on a real bill. If the savings didn't show up, I don't get paid. That's how confident I am. 💰</p>
           </div>
 
         </div>
@@ -218,23 +224,23 @@ const fixNet = exampleAnnual - fixFee
     <!-- Example -->
     <section class="max-w-5xl mx-auto px-6 py-20">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Real Math, Fake Company</h2>
-      <p class="text-gray-400 text-center mb-8">A totally hypothetical ${{ (exampleBefore).toLocaleString() }}/mo AWS account (it's not hypothetical 👀)</p>
+      <p class="text-gray-400 text-center mb-8">A ${{ (exampleBefore).toLocaleString() }}/mo SaaS company that swore their AWS was "pretty optimized" 👀</p>
 
       <!-- Shared finding -->
       <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-6">
         <div class="flex justify-between mb-2">
-          <span class="text-gray-400">🔥 Monthly waste identified</span>
+          <span class="text-gray-400">🔥 Monthly waste found (whoops)</span>
           <span class="font-semibold text-red-400">${{ exampleSavings.toLocaleString() }}/mo</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-gray-400">💰 Annual savings (just... sitting there)</span>
+          <span class="text-gray-400">💰 Annual savings (just vibing in their account)</span>
           <span class="font-semibold">${{ exampleAnnual.toLocaleString() }}/yr</span>
         </div>
       </div>
 
       <!-- Payment timeline -->
       <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
-        <h3 class="font-bold text-center mb-6">💳 When you pay (with The Fix)</h3>
+        <h3 class="font-bold text-center mb-6">💳 When You Pay (with The Fix)</h3>
         <div class="space-y-4 text-sm">
           <div class="flex justify-between items-center">
             <div>
@@ -250,7 +256,7 @@ const fixNet = exampleAnnual - fixFee
             </div>
             <span class="font-semibold">${{ (reportFee - scanDeposit).toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">10% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} minus ${{ scanDeposit }} down payment</div>
+          <div class="text-gray-500 text-xs pl-4">10% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} &mdash; minus the ${{ scanDeposit }} you already paid</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
@@ -258,7 +264,7 @@ const fixNet = exampleAnnual - fixFee
             </div>
             <span class="font-semibold">${{ (fixFee - reportFee).toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">15% of <strong>verified</strong> savings only. No savings = $0 owed.</div>
+          <div class="text-gray-500 text-xs pl-4">15% of <strong>verified</strong> savings only. No savings? No charge. Pinky swear. 🤙</div>
           <hr class="border-gray-700">
           <div class="flex justify-between text-base">
             <span class="font-bold text-gray-300">Total max (25%)</span>
@@ -269,19 +275,19 @@ const fixNet = exampleAnnual - fixFee
             <span class="font-bold text-brand-400">${{ fixNet.toLocaleString() }}</span>
           </div>
           <div class="flex justify-between text-base">
-            <span class="font-bold text-green-400">🚀 Every year after</span>
+            <span class="font-bold text-green-400">🚀 You keep (every year after that, forever)</span>
             <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
           </div>
         </div>
       </div>
-      <p class="text-gray-500 text-sm text-center mt-4">Report only? Just 10%. Skip the implementation and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. 💰</p>
+      <p class="text-gray-500 text-sm text-center mt-4">Just want the report? 10% and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
     </section>
 
     <!-- Common Waste -->
     <section class="bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-20">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
-        <p class="text-gray-400 text-center mb-8">Tech decisions that made sense once but don't match the business anymore. I find these in almost every account.</p>
+        <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
         <div class="max-w-2xl mx-auto space-y-3">
           <div
             v-for="item in wasteSources"
@@ -301,25 +307,25 @@ const fixNet = exampleAnnual - fixFee
         <img src="/david.png" alt="David Plappert" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover object-top border-2 border-gray-700">
         <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I'm <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="text-brand-400 hover:underline">David Plappert</a> &mdash; an actual human with 20+ years of AWS experience who will personally
-          dig through your account, read your architecture, and understand your business. 🍱 Not an AI summary.
-          Not a dashboard with red and green dots. Me, on a call, with opinions.
+          I'm <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="text-brand-400 hover:underline">David Plappert</a> &mdash; an actual human being with 20+ years of AWS experience who will personally
+          dig through your account, read your architecture, and understand your business. 🍱 Not an AI-generated summary.
+          Not a dashboard with traffic lights. Not a junior analyst following a checklist. Me. On a call. With opinions. And a mildly aggressive sense of humor.
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I build and run production serverless SaaS at Fortune 100 scale. Lambda, API Gateway, S3, SES &mdash;
-          the whole buffet. Most cost tools tell you what you're spending.
-          I tell you <em>why</em> your tech doesn't match your business &mdash; and I make it <strong class="text-gray-200">not just cheaper, but better.</strong> 🎯
+          I build and run production serverless SaaS at Fortune 100 scale &mdash; Lambda, API Gateway, S3, SES, the whole buffet.
+          I know where AWS hides the markup because <strong class="text-gray-200">I've been paying it myself for years.</strong>
+          Most cost tools tell you what you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and I make it <strong class="text-gray-200">not just cheaper, but better.</strong> 🎯
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          Should that EC2 fleet be Lambda functions? Does that RDS instance need to be that big for 200 daily active users?
-          Is your architecture built for a business model that pivoted two years ago? I ask the questions a dashboard can't. 🤔
+          Should that EC2 fleet be Lambda functions? (Probably.) Does that RDS instance need to be that big? (It does not.)
+          Is your architecture built for a business model that pivoted two years ago? (Almost certainly.) I ask the questions a dashboard can't. 🤔
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
           I only need <strong class="text-gray-200">read-only access</strong> for the scan. 🔒
-          No write permissions. I can look but I can't touch. Think of it as window shopping your infrastructure.
+          No write permissions. I can look but I can't touch. Think of it as window shopping your infrastructure. Very judgmentally.
         </p>
         <p class="text-gray-500 text-base">
-          Yes, "Cut My AWS" is a real business name. No, I will not apologize for it. ✂️
+          Yes, "Cut My AWS" is a real business name registered with the state of Florida. No, I will not apologize for it. ✂️
         </p>
       </div>
     </section>
@@ -327,35 +333,39 @@ const fixNet = exampleAnnual - fixFee
     <!-- FAQ -->
     <section class="bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-20">
-        <h2 class="text-3xl font-bold mb-12 text-center">❓ Questions you're definitely asking</h2>
+        <h2 class="text-3xl font-bold mb-12 text-center">❓ Questions you're definitely asking right now</h2>
         <div class="max-w-2xl mx-auto space-y-8">
           <div>
             <h3 class="text-lg font-bold mb-2">🤔 What if you don't find any savings?</h3>
-            <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen and I owe you a genuine apology. You're out $99. In 50+ audits this has happened exactly zero times, but I suppose there's a first for everything.</p>
+            <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen, and honestly? I'll be impressed. You're out $99. In my career this has happened exactly zero times, but I hear there's a first time for everything. I'll send you a congratulatory email.</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤨 When do I actually pay?</h3>
-            <p class="text-gray-400">$99 at booking (down payment). Remainder of 10% at the exploration call when you get the report. If you opt for implementation, the extra 15% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You never pay for results that didn't happen. 😅</p>
+            <p class="text-gray-400">$99 when you book (down payment). Remainder of 10% at the exploration call when you get the report. If you opt for implementation, the extra 15% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>
-            <p class="text-gray-400">More. Way more. Cost tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real savings live. Running servers 24/7 for a workload that spikes twice a day? That's not a billing problem, that's an architecture problem. I fix both.</p>
+            <p class="text-gray-400">Way more. Cost tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real savings live. Running servers 24/7 for a workload that spikes twice a day? That's not a billing problem, that's an architecture problem. I'm a serverless architect who happens to also save you money. The savings are a side effect of good architecture. 🏗️</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">📏 Is $10-50K/mo really the sweet spot?</h3>
+            <p class="text-gray-400">Yep. Below $10K there usually isn't enough waste to justify an engagement. Above $50K you probably have (or should have) a FinOps team. But that $10-50K range? That's where small businesses are big enough to have real infrastructure but too busy to optimize it. That's my people. 🫡</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
-            <p class="text-gray-400">You can! And you should! But Cost Explorer shows you <em>what</em> you're spending. I show you <em>why</em> it's too much and exactly how to fix it. It's the difference between a thermometer and a doctor. 🌡️</p>
+            <p class="text-gray-400">You can! And you should! But Cost Explorer shows you <em>what</em> you're spending. I show you <em>why</em> it's too much and exactly how to fix it. It's the difference between a thermometer and a doctor. One tells you the temperature. The other tells you why you feel terrible and gives you a prescription. 🌡️</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🛠️ What if my team can implement the fixes themselves?</h3>
-            <p class="text-gray-400">Great &mdash; that's what the Audit Report is for. You pay 10%, get the full playbook, and your team runs with it. I don't get offended. I get paid and you get savings. Everyone wins. 🎉</p>
+            <p class="text-gray-400">Awesome &mdash; that's literally what the report is for. You pay 10%, get the full playbook, and your team runs with it. I'll even answer questions if they get stuck. I don't get offended when people don't need me. I get paid and you get savings. Capitalism at its finest. 🎉</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤖 How is this different from CloudHealth / ProsperOps / [insert SaaS tool]?</h3>
-            <p class="text-gray-400">Those are dashboards. They scan your account and show you charts. I'm a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. Dashboards find obvious waste. I find the structural misalignment between your tech and your business that no tool can see. Also, I have opinions and a sense of humor. Dashboards have neither. 😏</p>
+            <p class="text-gray-400">Those are dashboards. They scan your account and show you charts. I'm a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. Dashboards find obvious waste. I find the structural misalignment between your tech and your business that no tool can see. Also, I can explain things using sports metaphors if that helps. Dashboards cannot. 😏</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">😰 How do I know you won't break something?</h3>
-            <p class="text-gray-400">The scan uses read-only access. I literally cannot change anything. For implementation, every change is documented, reviewed with your team, and rolled out carefully. I break things on my own AWS account, not yours. 😅</p>
+            <p class="text-gray-400">The scan uses read-only access. I literally cannot change anything even if I wanted to. For implementation, every change is documented, reviewed with your team, and rolled out carefully. I've been doing this for 20+ years. I break things on my own AWS account, not yours. (My personal bill is a whole separate therapy session.) 😅</p>
           </div>
         </div>
       </div>
@@ -364,7 +374,8 @@ const fixNet = exampleAnnual - fixFee
     <!-- CTA -->
     <section class="max-w-5xl mx-auto px-6 py-20 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
-      <p class="text-xl text-gray-400 mb-8">$99. 15 minutes. One call that might save you thousands. 💰</p>
+      <p class="text-xl text-gray-400 mb-2">$99. 15 minutes. One call that pays for itself about a thousand times over.</p>
+      <p class="text-gray-500 mb-8">Built for small businesses spending $10-50K/mo on AWS who'd rather spend that money on literally anything else. 💰</p>
       <a
         :href="calendlyUrl"
         target="_blank"
@@ -372,13 +383,13 @@ const fixNet = exampleAnnual - fixFee
       >
         🗓️ Book Your $99 AWS Intervention
       </a>
-      <p class="text-gray-600 text-sm mt-4">$99 down payment on your 10% audit fee. No extra charges. No hard sell. Just math. 🧮</p>
+      <p class="text-gray-600 text-sm mt-4">Down payment on your audit. No extra fees. No hard sell. No PowerPoints. Just math. 🧮</p>
     </section>
 
     <!-- Footer -->
     <footer class="border-t border-gray-800 bg-gray-900/50">
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-        <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC. All rights reserved.</span>
+        <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC &middot; Ocala, FL &middot; A real company with a real silly name</span>
         <div class="flex items-center gap-4">
           <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="hover:text-gray-300 transition-colors">💼 LinkedIn</a>
           <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>

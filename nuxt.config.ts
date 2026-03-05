@@ -7,13 +7,13 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Cut My AWS - AWS Cost Optimization',
+      title: 'Cut My AWS ✂️ Business-Aligned AWS Cost Therapy for Small Businesses',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Your AWS bill is too high. $99 scan finds the waste. 10% audit fee, 25% to implement. No savings, no fee.' },
-        { property: 'og:title', content: 'Cut My AWS - AWS Cost Optimization' },
-        { property: 'og:description', content: 'Your AWS bill is too high. $99 scan finds the waste. Pay only for savings found.' },
+        { name: 'description', content: 'Your tech was built for a business that doesn\'t exist anymore. $99 starts a business-aligned AWS audit from a real human with 20+ years experience. Not a dashboard. 10% audit fee, 25% max.' },
+        { property: 'og:title', content: 'Cut My AWS ✂️ AWS Cost Therapy for Small Businesses ($10-50K/mo)' },
+        { property: 'og:description', content: 'Your tech was built for a business that doesn\'t exist anymore. $99 starts the conversation. Not a dashboard. Not an AI. Just David.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://cutmyaws.com' }
       ],
