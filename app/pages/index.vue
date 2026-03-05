@@ -29,8 +29,7 @@ const pricing = {
   reportPct: 15,       // The Report: 15% of annual savings
   fixPct: 35,          // The Fix: 35% total (15% report + 20% implementation)
   implPct: 20,         // Implementation portion (fixPct - reportPct)
-  minAwsReport: 5000,  // Min monthly AWS spend for The Report
-  minAwsFix: 15000,    // Min monthly AWS spend for The Fix
+  minAws: 10000,       // We work best with $10K/mo+ AWS spend
 }
 
 // ── Example numbers ──
@@ -360,7 +359,7 @@ const fixNet = exampleAnnual - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">📏 Is $10-50K/mo really the sweet spot?</h3>
-            <p class="text-gray-400">Yep. Below $10K there usually isn't enough waste to justify an engagement. Above $50K you probably have (or should have) a FinOps team. But that $10-50K range? That's where small businesses are big enough to have real infrastructure but too busy to optimize it. That's my people. 🫡</p>
+            <p class="text-gray-400">We work best with AWS accounts spending $10K/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $50K you probably have (or should have) a FinOps team. But that $10-50K sweet spot? That's where small businesses are big enough to have real infrastructure but too busy to optimize it. That's my people. 🫡</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
