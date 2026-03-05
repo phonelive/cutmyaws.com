@@ -12,7 +12,7 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Your tech was built for a business that doesn\'t exist anymore. $99 starts a business-aligned AWS audit from a real human with 20+ years experience. Not a dashboard. 15% audit fee, 35% max.' },
-        { property: 'og:title', content: 'Cut My AWS ✂️ AWS Cost Therapy for Small Businesses ($10-50K/mo)' },
+        { property: 'og:title', content: 'Cut My AWS ✂️ AWS Cost Therapy for Small Businesses ($10-150K/mo)' },
         { property: 'og:description', content: 'Your tech was built for a business that doesn\'t exist anymore. $99 starts the conversation. Not a dashboard. Not an AI. Just David.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://cutmyaws.com' }

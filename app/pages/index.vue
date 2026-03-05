@@ -8,7 +8,7 @@ const promoActive = now < promoEnd
 const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
 
 const stats = [
-  { value: '$10-50K/mo', label: '🎯 The sweet spot. If this is your AWS bill, we should talk.' },
+  { value: '$10-150K/mo', label: '🎯 The sweet spot. If this is your AWS bill, we should talk.' },
   { value: '$99', label: '💸 Down payment on your audit. Not an extra fee. We promise.' },
   { value: '20+ years', label: '👨‍💻 Of AWS experience. Not an AI. Not a dashboard. Just David.' }
 ]
@@ -29,7 +29,7 @@ const pricing = {
   reportPct: 15,       // The Report: 15% of annual savings
   fixPct: 35,          // The Fix: 35% total (15% report + 20% implementation)
   implPct: 20,         // Implementation portion (fixPct - reportPct)
-  minAws: 10000,       // We work best with $10K/mo+ AWS spend
+  minAws: 10000,       // We work best with $10-150K/mo AWS spend
 }
 
 // ── Example numbers ──
@@ -72,7 +72,7 @@ const fixNet = exampleAnnual - fixFee
     <!-- Hero -->
     <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
       <div class="max-w-3xl">
-        <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for small businesses spending $10-50K/mo</p>
+        <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for small businesses spending $10-150K/mo</p>
         <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
           Your tech was built for a business<br>
           <span class="text-brand-400">that doesn't exist anymore. ✂️</span>
@@ -358,8 +358,8 @@ const fixNet = exampleAnnual - fixFee
             <p class="text-gray-400">Way more. Cost tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real savings live. Running servers 24/7 for a workload that spikes twice a day? That's not a billing problem, that's an architecture problem. I'm a serverless architect who happens to also save you money. The savings are a side effect of good architecture. 🏗️</p>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-2">📏 Is $10-50K/mo really the sweet spot?</h3>
-            <p class="text-gray-400">We work best with AWS accounts spending $10K/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $50K you probably have (or should have) a FinOps team. But that $10-50K sweet spot? That's where small businesses are big enough to have real infrastructure but too busy to optimize it. That's my people. 🫡</p>
+            <h3 class="text-lg font-bold mb-2">📏 Is $10-150K/mo really the sweet spot?</h3>
+            <p class="text-gray-400">We work best with AWS accounts spending $10K/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $150K you probably need a full-time FinOps team (I can help you hire one, actually). But that $10-150K range? That's where businesses are big enough to have real infrastructure but too busy building product to optimize it. That's my people. 🫡</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
@@ -385,7 +385,7 @@ const fixNet = exampleAnnual - fixFee
     <section class="max-w-5xl mx-auto px-6 py-20 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
       <p class="text-xl text-gray-400 mb-2">$99. 15 minutes. One call that pays for itself about a thousand times over.</p>
-      <p class="text-gray-500 mb-8">Built for small businesses spending $10-50K/mo on AWS who'd rather spend that money on literally anything else. 💰</p>
+      <p class="text-gray-500 mb-8">Built for small businesses spending $10-150K/mo on AWS who'd rather spend that money on literally anything else. 💰</p>
       <a
         :href="calendlyUrl"
         target="_blank"
