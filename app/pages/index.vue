@@ -128,20 +128,20 @@ const fixNet = exampleAnnual - fixFee
     <!-- Clients -->
     <section class="max-w-5xl mx-auto px-6 py-16">
       <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-10">Trusted by teams at</p>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center justify-items-center">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto">
         <a
           v-for="client in clients"
           :key="client.name"
           :href="client.url"
           target="_blank"
           rel="noopener"
-          class="group flex items-center justify-center h-16 px-4 rounded-lg hover:bg-gray-900/50 transition-colors"
+          class="group flex items-center justify-center h-20 w-full px-6 rounded-xl bg-gray-900/40 border border-gray-800/50 hover:border-gray-700 hover:bg-gray-900/80 transition-all"
           :title="client.name"
         >
           <img
             :src="client.logo"
             :alt="client.name"
-            class="h-8 max-w-[140px] object-contain opacity-50 group-hover:opacity-90 transition-opacity grayscale group-hover:grayscale-0"
+            class="h-10 max-w-[160px] object-contain opacity-60 group-hover:opacity-100 transition-opacity brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
           >
         </a>
       </div>
