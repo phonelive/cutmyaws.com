@@ -47,9 +47,7 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://cutmyaws.com' }
       ],
       script: [
-        { src: 'https://www.googletagmanager.com/gtag/js?id=G-ZGPX081LFE', async: true },
-        { innerHTML: "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZGPX081LFE');" },
-        // MS Clarity loaded via app/plugins/clarity.client.ts
+        // GA + Clarity loaded via app/plugins/*.client.ts
         // Schema.org structured data
         {
           type: 'application/ld+json',
