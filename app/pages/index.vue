@@ -10,17 +10,17 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
 const stats = [
   { value: '30-40%', label: '📊 Average waste hiding in AWS accounts' },
   { value: '$99', label: '🔍 Down payment on your 10% audit fee' },
-  { value: '1-2 weeks', label: '⚡ From "ouch" to "oh nice"' }
+  { value: '20+ years', label: '⚡ Of AWS experience. Not an AI. Not a dashboard. A person.' }
 ]
 
 const wasteSources = [
+  { emoji: '🖥️', name: 'Servers running 24/7 for workloads that should be serverless', savings: '40-70%' },
+  { emoji: '🏗️', name: 'Enterprise-grade databases for apps with 50 users', savings: '30-60%' },
   { emoji: '🧘', name: 'EC2 instances running hot yoga while doing nothing', savings: '20-40%' },
   { emoji: '🤷', name: 'Savings Plans you didn\'t know existed', savings: '30-50%' },
   { emoji: '🦕', name: 'EBS volumes and snapshots from the Obama administration', savings: '$100-1,000/mo' },
-  { emoji: '🏗️', name: 'RDS instances built for Black Friday traffic on a Tuesday', savings: '20-40%' },
   { emoji: '🍽️', name: 'NAT Gateway quietly eating your budget for lunch', savings: '$200-2,000/mo' },
-  { emoji: '🐿️', name: 'S3 buckets hoarding data like a digital packrat', savings: '10-30%' },
-  { emoji: '🧠', name: 'CloudWatch logs set to "remember everything forever"', savings: '$50-500/mo' }
+  { emoji: '🐿️', name: 'Architecture designed for a business model that pivoted 2 years ago', savings: '20-50%' }
 ]
 
 const exampleBefore = 20000
@@ -64,17 +64,17 @@ const fixNet = exampleAnnual - fixFee
       <div class="max-w-3xl">
         <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy</p>
         <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-          Your AWS bill is lying to you.<br>
-          <span class="text-brand-400">Let's get it to confess. 🔍</span>
+          Your tech stack wasn't built for<br>
+          <span class="text-brand-400">how your business actually works. ✂️</span>
         </h1>
         <p class="text-xl text-gray-400 mb-4 max-w-2xl">
-          Somewhere between "we should optimize our cloud spend" and actually doing it,
-          AWS collected another month of rent on resources you forgot existed. 💸
+          Most AWS accounts aren't just overpriced &mdash; they're misaligned. Servers running 24/7 for workloads that spike 2 hours a day.
+          Enterprise databases for apps with 50 users. Infrastructure built for a business plan that changed three pivots ago. 💸
         </p>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
-          $99 gets you a live scan of your AWS spend. That $99 is your down payment
-          on the 10% audit fee &mdash; not an extra charge.
-          <strong class="text-gray-200">If I find nothing &mdash; and I always find something &mdash; you're out 99 bucks. 🤷</strong>
+          I don't just find waste &mdash; I find the <strong class="text-gray-200">mismatch between your tech and your business.</strong>
+          The cost savings are a side effect of getting that right.
+          $99 starts the conversation. 🤷
         </p>
         <a
           :href="calendlyUrl"
@@ -99,10 +99,10 @@ const fixNet = exampleAnnual - fixFee
     <!-- Social Proof / One-liner -->
     <section class="max-w-5xl mx-auto px-6 py-16 text-center">
       <p class="text-2xl text-gray-300 font-medium italic max-w-3xl mx-auto">
-        "AWS didn't accidentally make their pricing confusing. They have 300+ services
-        and a billing page that requires a PhD to read. I have the PhD." 🎓
+        "Most companies don't have a cost problem. They have an alignment problem.
+        The bill is just the symptom." 🎯
       </p>
-      <p class="text-gray-500 mt-4">&mdash; David, who does not actually have a PhD but has read a lot of invoices</p>
+      <p class="text-gray-500 mt-4">&mdash; David, who has fixed a lot of symptoms by treating the actual disease</p>
     </section>
 
     <!-- How It Works -->
@@ -139,7 +139,7 @@ const fixNet = exampleAnnual - fixFee
                 <p class="text-gray-500 text-sm">10% of annual savings found (minus your $99)</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-4">I present the full findings: every waste item, exact dollar amounts, and a step-by-step plan to fix it. You get the report as a PDF. 📄</p>
+            <p class="text-gray-400 mb-4">I present the full findings: every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business needs. You get everything as a PDF. 📄</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
@@ -281,7 +281,7 @@ const fixNet = exampleAnnual - fixFee
     <section class="bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-20">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
-        <p class="text-gray-400 text-center mb-8">I find these in almost every AWS account. Yours probably has at least 4.</p>
+        <p class="text-gray-400 text-center mb-8">Tech decisions that made sense once but don't match the business anymore. I find these in almost every account.</p>
         <div class="max-w-2xl mx-auto space-y-3">
           <div
             v-for="item in wasteSources"
@@ -300,9 +300,18 @@ const fixNet = exampleAnnual - fixFee
       <div class="max-w-2xl mx-auto text-center">
         <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I'm David Plappert. I build and run production SaaS on AWS &mdash; Lambda, API Gateway,
-          S3, SES, the whole serverless buffet. 🍱 I've done this at Fortune 100 scale and for scrappy
-          startups that count every penny. I know where AWS hides the markup because I've been paying it myself for years.
+          I'm David Plappert &mdash; an actual human with 20+ years of AWS experience who will personally
+          dig through your account, read your architecture, and understand your business. 🍱 Not an AI summary.
+          Not a dashboard with red and green dots. Me, on a call, with opinions.
+        </p>
+        <p class="text-gray-400 text-lg leading-relaxed mb-4">
+          I build and run production serverless SaaS at Fortune 100 scale. Lambda, API Gateway, S3, SES &mdash;
+          the whole buffet. Most cost tools tell you what you're spending.
+          I tell you <em>why</em> your tech doesn't match your business &mdash; and I make it <strong class="text-gray-200">not just cheaper, but better.</strong> 🎯
+        </p>
+        <p class="text-gray-400 text-lg leading-relaxed mb-4">
+          Should that EC2 fleet be Lambda functions? Does that RDS instance need to be that big for 200 daily active users?
+          Is your architecture built for a business model that pivoted two years ago? I ask the questions a dashboard can't. 🤔
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
           I only need <strong class="text-gray-200">read-only access</strong> for the scan. 🔒
@@ -328,12 +337,20 @@ const fixNet = exampleAnnual - fixFee
             <p class="text-gray-400">$99 at booking (down payment). Remainder of 10% at the exploration call when you get the report. If you opt for implementation, the extra 15% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You never pay for results that didn't happen. 😅</p>
           </div>
           <div>
+            <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>
+            <p class="text-gray-400">More. Way more. Cost tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real savings live. Running servers 24/7 for a workload that spikes twice a day? That's not a billing problem, that's an architecture problem. I fix both.</p>
+          </div>
+          <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
             <p class="text-gray-400">You can! And you should! But Cost Explorer shows you <em>what</em> you're spending. I show you <em>why</em> it's too much and exactly how to fix it. It's the difference between a thermometer and a doctor. 🌡️</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🛠️ What if my team can implement the fixes themselves?</h3>
             <p class="text-gray-400">Great &mdash; that's what the Audit Report is for. You pay 10%, get the full playbook, and your team runs with it. I don't get offended. I get paid and you get savings. Everyone wins. 🎉</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">🤖 How is this different from CloudHealth / ProsperOps / [insert SaaS tool]?</h3>
+            <p class="text-gray-400">Those are dashboards. They scan your account and show you charts. I'm a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. Dashboards find obvious waste. I find the structural misalignment between your tech and your business that no tool can see. Also, I have opinions and a sense of humor. Dashboards have neither. 😏</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">😰 How do I know you won't break something?</h3>
