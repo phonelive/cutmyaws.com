@@ -21,9 +21,10 @@ const exampleBefore = 20000
 const exampleSavings = 7000
 const exampleAnnual = exampleSavings * 12
 const scanDeposit = 99
-const auditFee = Math.round(exampleAnnual * 0.10) - scanDeposit
-const implFee = Math.round(exampleAnnual * 0.25)
-const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
+const reportFee = Math.round(exampleAnnual * 0.10)
+const fixFee = Math.round(exampleAnnual * 0.25) // 10% report + 15% implementation = 25% total
+const reportNet = exampleAnnual - reportFee
+const fixNet = exampleAnnual - fixFee
 </script>
 
 <template>
@@ -95,22 +96,24 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
     <section class="bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-20">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Three steps. No lock-in. No write access. You can fire me at any point and keep everything I found. 🤝</p>
+        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">$99 down payment starts everything. Two plans. No lock-in. You can fire me at any point and keep everything I found. 🤝</p>
 
         <!-- Step 1: Scan -->
         <div class="max-w-2xl mx-auto mb-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
-          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 1</div>
-          <h3 class="text-2xl font-bold mb-1">🔍 The Scan</h3>
-          <p class="text-4xl font-bold text-brand-400 mb-4">$99 <span class="text-lg text-gray-400 font-normal">down payment on your 10% audit fee</span></p>
-          <p class="text-gray-400">You grant read-only access. I dig through your account like a detective with a spreadsheet. 🕵️ We hop on a 15-minute call where I show you exactly what I found and what it's costing you. The $99 comes off your audit invoice &mdash; it's not an extra charge.</p>
+          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Every engagement starts here</div>
+          <h3 class="text-2xl font-bold mb-1">🔍 The $99 Scan</h3>
+          <p class="text-gray-400 mt-4">You grant read-only access. I dig through your account like a detective with a spreadsheet. 🕵️ We hop on a 15-minute call where I show you exactly what I found and what it's costing you.</p>
+          <p class="text-gray-500 text-sm mt-3">The $99 is a down payment &mdash; it comes off whichever plan you choose. Not an extra fee.</p>
         </div>
 
+        <!-- Two Plans -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Option A -->
+          <!-- Plan A: Report -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 2</div>
+            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Plan A</div>
             <h3 class="text-2xl font-bold mb-1">📋 The Report</h3>
-            <p class="text-4xl font-bold text-brand-400 mb-4">10% <span class="text-lg text-gray-400 font-normal">of annual savings found</span></p>
+            <p class="text-4xl font-bold text-brand-400 mb-1">10%</p>
+            <p class="text-gray-400 text-sm mb-4">of annual savings found (includes your $99)</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
@@ -129,15 +132,21 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
                 <span>Delivered in 1-2 weeks. You keep it forever. Even if you ghost me. 👻</span>
               </li>
             </ul>
+            <p class="text-gray-500 text-sm mt-6">Best if your team can handle the implementation themselves.</p>
           </div>
 
-          <!-- Option B -->
+          <!-- Plan B: The Fix -->
           <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8 relative">
             <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">🔥 MOST PICK THIS</div>
-            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 3</div>
+            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Plan B</div>
             <h3 class="text-2xl font-bold mb-1">🔧 The Fix</h3>
-            <p class="text-4xl font-bold text-brand-400 mb-4">+25% <span class="text-lg text-gray-400 font-normal">of savings after I prove them</span></p>
+            <p class="text-4xl font-bold text-brand-400 mb-1">10% + 15%</p>
+            <p class="text-gray-400 text-sm mb-4">report + implementation = 25% total max (includes your $99)</p>
             <ul class="space-y-3 text-gray-300">
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Everything in The Report</span>
+              </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
                 <span>I implement every optimization (you watch or nap, your call 😴)</span>
@@ -148,13 +157,10 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>You only pay on <strong>verified, proven</strong> results</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-brand-400 mt-0.5">✅</span>
-                <span>If the savings don't show up on your bill, I don't get paid. Simple. 🤷</span>
+                <span>You only pay on <strong>verified, proven</strong> results. If the savings don't show up, I don't get paid. 🤷</span>
               </li>
             </ul>
+            <p class="text-gray-500 text-sm mt-6">Best if you'd rather someone else deal with it. (I get it.)</p>
           </div>
         </div>
       </div>
@@ -164,40 +170,84 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
     <section class="max-w-5xl mx-auto px-6 py-20">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Real Math, Fake Company</h2>
       <p class="text-gray-400 text-center mb-8">A totally hypothetical ${{ (exampleBefore).toLocaleString() }}/mo AWS account (it's not hypothetical 👀)</p>
-      <div class="max-w-lg mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
-        <div class="space-y-4">
-          <div class="flex justify-between">
-            <span class="text-gray-400">🔥 Monthly waste identified</span>
-            <span class="font-semibold text-red-400">${{ exampleSavings.toLocaleString() }}/mo</span>
+
+      <!-- Shared finding -->
+      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-6">
+        <div class="flex justify-between mb-2">
+          <span class="text-gray-400">🔥 Monthly waste identified</span>
+          <span class="font-semibold text-red-400">${{ exampleSavings.toLocaleString() }}/mo</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">💰 Annual savings (just... sitting there)</span>
+          <span class="font-semibold">${{ exampleAnnual.toLocaleString() }}/yr</span>
+        </div>
+      </div>
+
+      <!-- Side by side plans -->
+      <div class="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <h3 class="font-bold mb-4">📋 The Report (10%)</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-400">Your fee</span>
+              <span class="font-semibold">${{ reportFee.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Down payment</span>
+              <span class="font-semibold">-${{ scanDeposit }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Due at delivery</span>
+              <span class="font-semibold">${{ (reportFee - scanDeposit).toLocaleString() }}</span>
+            </div>
+            <hr class="border-gray-700">
+            <div class="flex justify-between text-base">
+              <span class="font-bold text-brand-400">🎉 You keep (yr 1)</span>
+              <span class="font-bold text-brand-400">${{ reportNet.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between text-base">
+              <span class="font-bold text-green-400">🚀 Every year after</span>
+              <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
+            </div>
           </div>
-          <div class="flex justify-between">
-            <span class="text-gray-400">💰 Annual savings (just... sitting there)</span>
-            <span class="font-semibold">${{ exampleAnnual.toLocaleString() }}/yr</span>
-          </div>
-          <hr class="border-gray-700">
-          <div class="flex justify-between">
-            <span class="text-gray-400">🔍 Down payment (part of audit fee)</span>
-            <span class="font-semibold">${{ scanDeposit }}</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-400">📋 Remaining audit fee (10% minus $99)</span>
-            <span class="font-semibold">${{ auditFee.toLocaleString() }}</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-400">🔧 Implementation fee (25% of proven savings)</span>
-            <span class="font-semibold">${{ implFee.toLocaleString() }}</span>
-          </div>
-          <hr class="border-gray-700">
-          <div class="flex justify-between text-lg">
-            <span class="font-bold text-brand-400">🎉 You keep (year 1)</span>
-            <span class="font-bold text-brand-400">${{ clientNet.toLocaleString() }}</span>
-          </div>
-          <div class="flex justify-between text-lg">
-            <span class="font-bold text-green-400">🚀 You keep (every year after)</span>
-            <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
+        </div>
+
+        <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-6">
+          <h3 class="font-bold mb-4">🔧 The Fix (10% + 15%)</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-400">Report fee (10%)</span>
+              <span class="font-semibold">${{ reportFee.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Implementation fee (+15%)</span>
+              <span class="font-semibold">${{ (fixFee - reportFee).toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Total (25% max)</span>
+              <span class="font-semibold">${{ fixFee.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Down payment</span>
+              <span class="font-semibold">-${{ scanDeposit }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Due after 90-day proof</span>
+              <span class="font-semibold">${{ (fixFee - scanDeposit).toLocaleString() }}</span>
+            </div>
+            <hr class="border-gray-700">
+            <div class="flex justify-between text-base">
+              <span class="font-bold text-brand-400">🎉 You keep (yr 1)</span>
+              <span class="font-bold text-brand-400">${{ fixNet.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between text-base">
+              <span class="font-bold text-green-400">🚀 Every year after</span>
+              <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
+            </div>
           </div>
         </div>
       </div>
+      <p class="text-gray-500 text-sm text-center mt-4">Both plans: you keep 100% of savings every year after year one. 💰</p>
     </section>
 
     <!-- Common Waste -->
@@ -247,8 +297,8 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
             <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen and I owe you a genuine apology. You're out $99. In 50+ audits this has happened exactly zero times, but I suppose there's a first for everything.</p>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-2">🤨 Is the $99 an extra fee on top of the 10%?</h3>
-            <p class="text-gray-400">Nope! The $99 is a down payment on the 10% audit fee. It comes right off your invoice. If I find $84K/yr in savings, your 10% audit fee is $8,400 &mdash; minus the $99 you already paid = $8,301 remaining. The $99 just gets us started so I'm not doing free work for tire-kickers. 😅</p>
+            <h3 class="text-lg font-bold mb-2">🤨 Is the $99 an extra fee on top of everything?</h3>
+            <p class="text-gray-400">Nope! The $99 is a down payment that comes off your final invoice. If I find $84K/yr in savings and you pick The Report (10%), your fee is $8,400 minus the $99 = $8,301 remaining. Pick The Fix? It's 25% total = $21,000 minus $99 = $20,901. Either way, 25% is the absolute max you'll ever pay. The $99 just makes sure I'm not doing free work for tire-kickers. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
