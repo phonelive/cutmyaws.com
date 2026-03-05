@@ -1,6 +1,12 @@
 <script setup>
 const calendlyUrl = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
 
+// Promo: free security scan — update this date to extend/end the promo
+const promoEnd = new Date('2026-04-04T23:59:59')
+const now = new Date()
+const promoActive = now < promoEnd
+const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
+
 const stats = [
   { value: '30-40%', label: '📊 Average waste hiding in AWS accounts' },
   { value: '$99', label: '🔍 Down payment on your 10% audit fee' },
@@ -29,6 +35,13 @@ const fixNet = exampleAnnual - fixFee
 
 <template>
   <div class="min-h-screen bg-gray-950 text-gray-100">
+    <!-- Promo Banner -->
+    <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
+      <a :href="calendlyUrl" target="_blank" class="hover:underline">
+        🔒 FREE security scan with every audit — misconfigs, public buckets, IAM risks — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
+      </a>
+    </div>
+
     <!-- Nav -->
     <nav class="border-b border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -139,6 +152,10 @@ const fixNet = exampleAnnual - fixFee
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
                 <span>You keep the report forever. Even if you ghost me. 👻</span>
+              </li>
+              <li v-if="promoActive" class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">🎁</span>
+                <span><strong class="text-brand-400">BONUS:</strong> Free AWS security scan included &mdash; misconfigs, public S3 buckets, overprivileged IAM roles ({{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!)</span>
               </li>
             </ul>
             <p class="text-gray-500 text-sm mt-4">Remainder of the 10% fee is due at this call. Your $99 down payment comes right off.</p>
