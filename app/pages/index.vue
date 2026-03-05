@@ -15,15 +15,13 @@ const stats = [
 
 const clients = [
   { name: 'Caterpillar', url: 'https://www.caterpillar.com', logo: '/logos/cat.svg' },
-  { name: 'DC Government', url: 'https://dc.gov', logo: '/logos/dc-gov.svg' },
+  { name: 'DC Government', url: 'https://dc.gov', logo: '/logos/dc-gov.png' },
   { name: 'Best Buy', url: 'https://www.bestbuy.com', logo: '/logos/best-buy.svg' },
   { name: 'PBS', url: 'https://www.pbs.org', logo: '/logos/pbs.svg' },
-  { name: 'Commonwealth of Massachusetts', url: 'https://www.mass.gov', logo: '/logos/ma-state.svg' },
-  { name: 'Putnam Investments', url: 'https://www.putnam.com', logo: '/logos/putnam.svg' },
-  { name: 'City of Oregon City', url: 'https://www.orcity.org', logo: '/logos/oregon-city.svg' },
-  { name: 'Argonne National Laboratory', url: 'https://www.anl.gov', logo: '/logos/argonne.svg' },
-  { name: 'PhoneLive', url: 'https://phonelive.com', logo: '/logos/phonelive.svg' },
-  { name: 'EZRA Cloud', url: 'https://ezracloud.com', logo: '/logos/ezra.svg' },
+  { name: 'Commonwealth of Massachusetts', url: 'https://www.mass.gov', logo: '/logos/ma-state.png' },
+  { name: 'Argonne National Laboratory', url: 'https://www.anl.gov', logo: '/logos/argonne.png' },
+  { name: 'PhoneLive', url: 'https://phonelive.com', logo: '/logos/phonelive.png' },
+  { name: 'EZRA Cloud', url: 'https://ezracloud.com', logo: '/logos/ezra.png' },
 ]
 
 const testimonials = [
