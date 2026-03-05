@@ -706,7 +706,7 @@ const fixNet = exampleAnnual - fixFee
         >
           📧 Email David about referrals
         </a>
-        <p class="text-gray-600 text-sm mt-4">or just email <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a> — I respond fast ⚡</p>
+        <p class="text-gray-600 text-sm mt-4">david@cutmyaws.com — I respond fast ⚡</p>
       </div>
     </section>
 
