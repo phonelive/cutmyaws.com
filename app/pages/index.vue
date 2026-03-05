@@ -63,13 +63,13 @@ const testimonials = [
 ]
 
 const wasteSources = [
-  { emoji: '🖥️', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm like the rest of us', savings: '40-70%' },
-  { emoji: '🏗️', name: 'An RDS instance the size of a school bus for an app with 50 users', savings: '30-60%' },
-  { emoji: '🧘', name: 'EC2 instances in a meditative state (they\'re not meditating, they\'re idle)', savings: '20-40%' },
-  { emoji: '💳', name: 'Savings Plans that AWS literally wants you to buy but nobody told you about', savings: '30-50%' },
-  { emoji: '🦕', name: 'EBS snapshots so old they remember when us-east-1 was the only region', savings: '$100-1,000/mo' },
-  { emoji: '🍽️', name: 'A NAT Gateway that costs more than your team\'s lunch budget', savings: '$200-2,000/mo' },
-  { emoji: '🐿️', name: 'Architecture built for the business plan you pitched to investors, not the one you\'re actually running', savings: '20-50%' }
+  { emoji: '🖥️', service: 'EC2', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm', savings: '40-70%' },
+  { emoji: '🏗️', service: 'RDS', name: 'A database the size of a school bus for an app with 50 users', savings: '30-60%' },
+  { emoji: '🧘', service: 'EC2', name: 'Instances in a meditative state (they\'re not meditating, they\'re idle)', savings: '20-40%' },
+  { emoji: '💳', service: 'Savings Plans', name: 'AWS literally wants you to buy these but nobody told you', savings: '30-50%' },
+  { emoji: '🦕', service: 'EBS', name: 'Snapshots so old they remember when us-east-1 was the only region', savings: '$100-1K/mo' },
+  { emoji: '🍽️', service: 'NAT GW', name: 'Quietly eating your budget for lunch every single day', savings: '$200-2K/mo' },
+  { emoji: '🐿️', service: 'Architecture', name: 'Built for the pitch deck, not the business you\'re actually running', savings: '20-50%' }
 ]
 
 // ── Pricing (change here, updates everywhere) ──
@@ -119,7 +119,12 @@ const fixNet = exampleAnnual - fixFee
     </nav>
 
     <!-- Hero -->
-    <section class="max-w-5xl mx-auto px-6 pt-16 pb-16">
+    <section class="relative overflow-hidden">
+      <!-- Background gradient -->
+      <div class="absolute inset-0 bg-gradient-to-br from-brand-500/5 via-transparent to-brand-500/3"></div>
+      <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+      <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-500/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+    <div class="relative max-w-5xl mx-auto px-6 pt-16 pb-16">
       <div class="flex flex-col lg:flex-row gap-12 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
@@ -179,6 +184,7 @@ const fixNet = exampleAnnual - fixFee
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
 
@@ -521,14 +527,16 @@ const fixNet = exampleAnnual - fixFee
       <div class="max-w-5xl mx-auto px-6 py-20">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
         <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
-        <div class="max-w-2xl mx-auto space-y-3">
+        <div class="max-w-3xl mx-auto space-y-3">
           <div
             v-for="item in wasteSources"
             :key="item.name"
-            class="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl px-6 py-4"
+            class="flex items-center gap-4 bg-gray-900 border border-gray-800 rounded-xl px-5 py-4"
           >
-            <span class="text-gray-300"><span class="mr-2">{{ item.emoji }}</span>{{ item.name }}</span>
-            <span class="text-brand-400 font-semibold text-sm whitespace-nowrap ml-4">{{ item.savings }}</span>
+            <span class="text-2xl shrink-0">{{ item.emoji }}</span>
+            <span class="bg-brand-500/15 text-brand-400 text-xs font-bold px-2.5 py-1 rounded-md shrink-0 w-24 text-center">{{ item.service }}</span>
+            <span class="text-gray-300 flex-1">{{ item.name }}</span>
+            <span class="text-red-400 font-bold text-sm whitespace-nowrap ml-2">{{ item.savings }}</span>
           </div>
         </div>
       </div>
