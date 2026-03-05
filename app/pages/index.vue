@@ -26,6 +26,12 @@ const clients = [
   { name: 'EZRA Cloud', url: 'https://ezracloud.com', logo: '/logos/ezra.svg' },
 ]
 
+const testimonials = [
+  { quote: 'David is a dev genius.', emoji: '🧠' },
+  { quote: 'David responds quickly and makes sure to explain things as best as possible.', emoji: '💬' },
+  { quote: 'David\'s a commando. He is fast and efficient at getting results.', emoji: '🎯' },
+]
+
 const wasteSources = [
   { emoji: '🖥️', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm like the rest of us', savings: '40-70%' },
   { emoji: '🏗️', name: 'An RDS instance the size of a school bus for an app with 50 users', savings: '30-60%' },
@@ -143,7 +149,24 @@ const fixNet = exampleAnnual - fixFee
       </div>
     </section>
 
-    <!-- Social Proof / One-liner -->
+    <!-- Testimonials -->
+    <section class="border-y border-gray-800 bg-gray-900/50">
+      <div class="max-w-5xl mx-auto px-6 py-16">
+        <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-10">What people say after working with David</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            v-for="t in testimonials"
+            :key="t.quote"
+            class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center"
+          >
+            <p class="text-4xl mb-4">{{ t.emoji }}</p>
+            <p class="text-gray-300 text-lg italic">"{{ t.quote }}"</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Philosophy -->
     <section class="max-w-5xl mx-auto px-6 py-16 text-center">
       <p class="text-2xl text-gray-300 font-medium italic max-w-3xl mx-auto">
         "Nobody sets out to waste money on AWS. It just happens. You launch fast, you scale fast, and three years later
