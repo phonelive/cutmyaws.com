@@ -145,7 +145,7 @@ const fixNet = exampleAnnual - fixFee
           </div>
 
           <!-- Arrow -->
-          <div class="text-center text-gray-600 text-2xl">🤔 Your call. No pressure.</div>
+          <div class="text-center text-gray-600 text-2xl">🤔 Want me to fix it too?</div>
 
           <!-- Step 3: Implementation (Optional) -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 relative">
@@ -154,10 +154,10 @@ const fixNet = exampleAnnual - fixFee
               <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
               <div>
                 <h3 class="text-xl font-bold">🔧 The Fix &mdash; Implementation</h3>
-                <p class="text-gray-500 text-sm">+15% of annual savings = 25% total max</p>
+                <p class="text-gray-500 text-sm">Decided at the exploration call &middot; scoped together</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-4">Want me to actually make the changes? We agree on a timeline, deliverables, and scope at the exploration call. Then I get to work. 💪</p>
+            <p class="text-gray-400 mb-4">At the exploration call, you decide if you want me to implement the fixes. We agree on a timeline, deliverables, and scope before any work starts. 🤝</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
@@ -165,18 +165,33 @@ const fixNet = exampleAnnual - fixFee
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>90-day monitoring to make sure the savings stick</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-brand-400 mt-0.5">✅</span>
                 <span>Custom timeline and deliverables we agree on together</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>25% total is the max you'll ever pay. Period. 🤷</span>
+                <span>90 days after deliverables are complete, we verify the savings are real 📊</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span><strong>+15% of verified savings due at the 90-day mark.</strong> If the savings didn't stick, you don't pay. 🤷</span>
               </li>
             </ul>
-            <p class="text-gray-500 text-sm mt-4">No surprises. We define the scope before any work begins.</p>
+            <p class="text-gray-500 text-sm mt-4">25% total is the absolute max (10% report + 15% implementation). No surprises. No hidden fees.</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="text-center text-gray-600 text-2xl">⏳ 90 days later...</div>
+
+          <!-- Step 4: Verification -->
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
+              <div>
+                <h3 class="text-xl font-bold">📊 The Proof</h3>
+                <p class="text-gray-500 text-sm">+15% of verified annual savings</p>
+              </div>
+            </div>
+            <p class="text-gray-400">We compare your AWS bill before vs. after. The 15% implementation fee is based on <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections, not estimates. Real numbers on a real bill. If the savings didn't materialize, you owe nothing for implementation. 💰</p>
           </div>
 
         </div>
@@ -200,71 +215,49 @@ const fixNet = exampleAnnual - fixFee
         </div>
       </div>
 
-      <!-- Side by side plans -->
-      <div class="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-          <h3 class="font-bold mb-4">📋 The Report (10%)</h3>
-          <div class="space-y-3 text-sm">
-            <div class="flex justify-between">
-              <span class="text-gray-400">Your fee</span>
-              <span class="font-semibold">${{ reportFee.toLocaleString() }}</span>
+      <!-- Payment timeline -->
+      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+        <h3 class="font-bold text-center mb-6">💳 When you pay (with The Fix)</h3>
+        <div class="space-y-4 text-sm">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-gray-300 font-medium">🗓️ Intro Call</span>
+              <span class="text-gray-500 ml-2">Day 1</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Down payment</span>
-              <span class="font-semibold">-${{ scanDeposit }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Due at delivery</span>
-              <span class="font-semibold">${{ (reportFee - scanDeposit).toLocaleString() }}</span>
-            </div>
-            <hr class="border-gray-700">
-            <div class="flex justify-between text-base">
-              <span class="font-bold text-brand-400">🎉 You keep (yr 1)</span>
-              <span class="font-bold text-brand-400">${{ reportNet.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between text-base">
-              <span class="font-bold text-green-400">🚀 Every year after</span>
-              <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
-            </div>
+            <span class="font-semibold">${{ scanDeposit }}</span>
           </div>
-        </div>
-
-        <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-6">
-          <h3 class="font-bold mb-4">🔧 The Fix (10% + 15%)</h3>
-          <div class="space-y-3 text-sm">
-            <div class="flex justify-between">
-              <span class="text-gray-400">Report fee (10%)</span>
-              <span class="font-semibold">${{ reportFee.toLocaleString() }}</span>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-gray-300 font-medium">📋 Exploration Call</span>
+              <span class="text-gray-500 ml-2">~2 weeks</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Implementation fee (+15%)</span>
-              <span class="font-semibold">${{ (fixFee - reportFee).toLocaleString() }}</span>
+            <span class="font-semibold">${{ (reportFee - scanDeposit).toLocaleString() }}</span>
+          </div>
+          <div class="text-gray-500 text-xs pl-4">10% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} minus ${{ scanDeposit }} down payment</div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
+              <span class="text-gray-500 ml-2">~4-5 months</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Total (25% max)</span>
-              <span class="font-semibold">${{ fixFee.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Down payment</span>
-              <span class="font-semibold">-${{ scanDeposit }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Due after 90-day proof</span>
-              <span class="font-semibold">${{ (fixFee - scanDeposit).toLocaleString() }}</span>
-            </div>
-            <hr class="border-gray-700">
-            <div class="flex justify-between text-base">
-              <span class="font-bold text-brand-400">🎉 You keep (yr 1)</span>
-              <span class="font-bold text-brand-400">${{ fixNet.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between text-base">
-              <span class="font-bold text-green-400">🚀 Every year after</span>
-              <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
-            </div>
+            <span class="font-semibold">${{ (fixFee - reportFee).toLocaleString() }}</span>
+          </div>
+          <div class="text-gray-500 text-xs pl-4">15% of <strong>verified</strong> savings only. No savings = $0 owed.</div>
+          <hr class="border-gray-700">
+          <div class="flex justify-between text-base">
+            <span class="font-bold text-gray-300">Total max (25%)</span>
+            <span class="font-bold">${{ fixFee.toLocaleString() }}</span>
+          </div>
+          <div class="flex justify-between text-base">
+            <span class="font-bold text-brand-400">🎉 You keep (year 1)</span>
+            <span class="font-bold text-brand-400">${{ fixNet.toLocaleString() }}</span>
+          </div>
+          <div class="flex justify-between text-base">
+            <span class="font-bold text-green-400">🚀 Every year after</span>
+            <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
           </div>
         </div>
       </div>
-      <p class="text-gray-500 text-sm text-center mt-4">Both plans: you keep 100% of savings every year after year one. 💰</p>
+      <p class="text-gray-500 text-sm text-center mt-4">Report only? Just 10%. Skip the implementation and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. 💰</p>
     </section>
 
     <!-- Common Waste -->
@@ -314,8 +307,8 @@ const fixNet = exampleAnnual - fixFee
             <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen and I owe you a genuine apology. You're out $99. In 50+ audits this has happened exactly zero times, but I suppose there's a first for everything.</p>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-2">🤨 Is the $99 an extra fee on top of everything?</h3>
-            <p class="text-gray-400">Nope! The $99 is a down payment that comes off your final invoice. If I find $84K/yr in savings and you pick The Report (10%), your fee is $8,400 minus the $99 = $8,301 remaining. Pick The Fix? It's 25% total = $21,000 minus $99 = $20,901. Either way, 25% is the absolute max you'll ever pay. The $99 just makes sure I'm not doing free work for tire-kickers. 😅</p>
+            <h3 class="text-lg font-bold mb-2">🤨 When do I actually pay?</h3>
+            <p class="text-gray-400">$99 at booking (down payment). Remainder of 10% at the exploration call when you get the report. If you opt for implementation, the extra 15% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You never pay for results that didn't happen. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
