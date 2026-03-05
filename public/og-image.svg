@@ -1,0 +1,22 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#030712"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#f97316"/>
+
+  <!-- Brand -->
+  <text x="80" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#f97316" font-weight="700">✂️ Cut My AWS</text>
+
+  <!-- Headline -->
+  <text x="80" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="56" fill="#f3f4f6" font-weight="700">Your tech was built for a</text>
+  <text x="80" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="56" fill="#f97316" font-weight="700">business that doesn't exist</text>
+  <text x="80" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="56" fill="#f97316" font-weight="700">anymore.</text>
+
+  <!-- Subhead -->
+  <text x="80" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#9ca3af">Business-aligned AWS cost therapy. $99 starts the conversation.</text>
+  <text x="80" y="460" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#9ca3af">For businesses spending $10-150K/mo. Not a dashboard. Just David.</text>
+
+  <!-- URL -->
+  <text x="80" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#f97316" font-weight="600">cutmyaws.com</text>
+
+  <!-- David's name -->
+  <text x="1120" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#6b7280" text-anchor="end">David Plappert · 20+ years AWS</text>
+</svg>
