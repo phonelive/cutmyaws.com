@@ -11,20 +11,20 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'en' },
-      title: 'Cut My AWS — 300+ Services. Years of Buildup. Pennies Add Up. ($10-150K/mo)',
+      title: 'Cut My AWS — Been Using AWS for Years? When\'s the Last Time You Cleaned House?',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
 
         // SEO meta
-        { name: 'description', content: '300+ AWS services. Years of buildup. Pennies add up. A real human with 20+ years digs through the garbage you\'re paying for and makes your AWS not just cheaper — but better. $99 starts the conversation. You only pay a % of what I save you. For businesses spending $10-150K/mo.' },
+        { name: 'description', content: 'Been using AWS for years? 300+ services. Years of buildup. Cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human with 20+ years makes your AWS not just cheaper, but better. $99 starts the conversation.' },
         { name: 'keywords', content: 'AWS cost optimization, AWS cost audit, AWS cost reduction, AWS consulting, serverless migration, cloud cost management, FinOps, AWS savings, cut AWS bill, AWS waste, business-aligned technology audit' },
         { name: 'author', content: 'David Plappert' },
         { name: 'robots', content: 'index, follow' },
 
         // Open Graph
-        { property: 'og:title', content: 'Cut My AWS — 300+ Services. Years of Buildup. Pennies Add Up.' },
-        { property: 'og:description', content: 'You\'ve been busy building. AWS has been busy collecting rent. A real human with 20+ years digs through the garbage and makes your cloud not just cheaper — but better.' },
+        { property: 'og:title', content: 'Cut My AWS — Been Using AWS for Years? When\'s the Last Time You Cleaned House?' },
+        { property: 'og:description', content: 'We only charge a % of the savings we find. No savings, no fee. A real human with 20+ years makes your AWS not just cheaper — but better.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://cutmyaws.com' },
         { property: 'og:site_name', content: 'Cut My AWS' },
@@ -33,8 +33,8 @@ export default defineNuxtConfig({
 
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Cut My AWS — 300+ Services. Years of Buildup. Pennies Add Up.' },
-        { name: 'twitter:description', content: 'You\'ve been busy building. AWS has been busy collecting rent. $99 starts the conversation. Not a dashboard. Just David.' },
+        { name: 'twitter:title', content: 'Cut My AWS — When\'s the Last Time You Cleaned House?' },
+        { name: 'twitter:description', content: 'We only charge a % of the savings we find. No savings, no fee. $99 starts the conversation. Not a dashboard. Just David.' },
         { name: 'twitter:image', content: 'https://cutmyaws.com/og-image.png' },
 
         // GEO/AEO: help AI systems understand the page

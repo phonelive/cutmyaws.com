@@ -74,17 +74,16 @@ const fixNet = exampleAnnual - fixFee
       <div class="max-w-3xl">
         <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for businesses spending $10-150K/mo</p>
         <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-          300+ services. Years of buildup.<br>
-          <span class="text-brand-400">Pennies add up. 💸</span>
+          Been using AWS for years? 🕸️<br>
+          <span class="text-brand-400">When's the last time you cleaned house?</span>
         </h1>
         <p class="text-xl text-gray-400 mb-4 max-w-2xl">
-          You've been busy building your business. AWS has been busy collecting rent. 🤷
-          Every forgotten snapshot, every oversized database, every server running 24/7 for a workload that left at 5pm &mdash; it all adds up.
-          With 300+ services and a billing page that requires a decoder ring, nobody blames you for not catching it all.
+          300+ services. Years of buildup. Forgotten snapshots, oversized databases, servers running 24/7 for workloads that left at 5pm. 🤷
+          You've been busy building your business &mdash; nobody blames you for not catching it all. That's literally my job.
         </p>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
-          I dig through the years of buildup, find the garbage you're paying for, and <strong class="text-gray-200">make your AWS not just cheaper &mdash; but better.</strong>
-          And yes, I'm a real person who does the actual work. Not a bot. Not a dashboard. Just a guy who's been staring at AWS bills for 20+ years and has opinions about all of them. 😏
+          I dig through the cobwebs, find the garbage you're paying for, and <strong class="text-gray-200">make your AWS not just cheaper &mdash; but better.</strong>
+          We only charge a % of the savings we find. No savings? No fee. And yes, I'm a real person &mdash; not a bot, not a dashboard. Just a guy with 20+ years of AWS and opinions about all of it. 😏
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a
