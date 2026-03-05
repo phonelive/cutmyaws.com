@@ -619,6 +619,27 @@ const fixNet = exampleAnnual - fixFee
       <p class="text-gray-600 text-sm mt-4">Down payment on your audit. No extra fees. No hard sell. No PowerPoints. Just math. 🧮</p>
     </section>
 
+    <!-- Referral -->
+    <section class="border-t border-gray-800 bg-gray-900/50">
+      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
+        <p class="text-4xl mb-4">🤝</p>
+        <h2 class="text-2xl font-bold mb-3">Got clients bleeding AWS money? <span class="text-brand-400">Get paid to tell them.</span></h2>
+        <p class="text-gray-400 text-lg mb-3">
+          If you run an IT consulting firm, MSP, or business advisory &mdash; and your clients are on AWS &mdash;
+          I'll pay you a referral fee for every engagement that closes. You look like a hero. They save money. I do the work. Everybody wins. 🎉
+        </p>
+        <p class="text-gray-500 mb-6">
+          Seriously, you just send an intro email and collect a check. That's the whole program. It's not complicated because I didn't let a marketing team design it. 😅
+        </p>
+        <a
+          href="mailto:david@cutmyaws.com?subject=Referral%20Partnership%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AI%20run%20%5Bcompany%5D%20and%20have%20clients%20on%20AWS.%20Let's%20talk%20referrals."
+          class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors border border-gray-700"
+        >
+          📧 Email David about referrals
+        </a>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="border-t border-gray-800 bg-gray-900/50">
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
