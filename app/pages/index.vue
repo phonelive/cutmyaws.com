@@ -1,5 +1,5 @@
 <script setup>
-const calendlyUrl = 'https://calendly.com/davidplappert/aws-scan'
+const calendlyUrl = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
 
 const stats = [
   { value: '30-40%', label: 'Average waste in AWS accounts' },
