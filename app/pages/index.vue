@@ -1,5 +1,37 @@
 <script setup>
+import { ref, onMounted, computed } from 'vue'
+
 const calendlyUrl = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
+
+// ── Hero ticker animation ──
+const tickerValue = ref(0)
+const tickerTarget = 108000 // $108K on a $25K/mo account at 36% savings
+const tickerDisplay = computed(() => tickerValue.value.toLocaleString())
+
+onMounted(() => {
+  const duration = 2000
+  const steps = 60
+  const increment = tickerTarget / steps
+  let current = 0
+  const interval = setInterval(() => {
+    current += increment
+    if (current >= tickerTarget) {
+      tickerValue.value = tickerTarget
+      clearInterval(interval)
+    } else {
+      tickerValue.value = Math.round(current)
+    }
+  }, duration / steps)
+})
+
+// ── ROI Calculator ──
+const calcAwsSpend = ref(25000)
+const calcWastePct = ref(30)
+const calcAnnualSavings = computed(() => Math.round(calcAwsSpend.value * (calcWastePct.value / 100) * 12))
+const calcReportFee = computed(() => Math.round(calcAnnualSavings.value * 0.15))
+const calcFixFee = computed(() => Math.round(calcAnnualSavings.value * 0.40))
+const calcKeepReport = computed(() => calcAnnualSavings.value - calcReportFee.value)
+const calcKeepFix = computed(() => calcAnnualSavings.value - calcFixFee.value)
 
 // Promo: free security scan — update this date to extend/end the promo
 const promoEnd = new Date('2026-04-04T23:59:59')
@@ -87,30 +119,65 @@ const fixNet = exampleAnnual - fixFee
     </nav>
 
     <!-- Hero -->
-    <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
-      <div class="max-w-3xl">
-        <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for businesses spending $10-150K/mo</p>
-        <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-          Been using AWS for years? 🕸️<br>
-          <span class="text-brand-400">When's the last time you cleaned house?</span>
-        </h1>
-        <p class="text-xl text-gray-400 mb-4 max-w-2xl">
-          300+ services. Years of buildup. Forgotten snapshots, oversized databases, servers running 24/7 for workloads that left at 5pm. 🤷
-          You've been busy building your business &mdash; nobody blames you for not catching it all. That's literally my job.
-        </p>
-        <p class="text-xl text-gray-400 mb-8 max-w-2xl">
-          I dig through the cobwebs, find the garbage you're paying for, and <strong class="text-gray-200">make your AWS not just cheaper &mdash; but better.</strong>
-          We only charge a % of the savings we find. No savings? No fee. And yes, I'm a real person &mdash; not a bot, not a dashboard. Just a guy with 19 years of AWS and opinions about all of it. 😏
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a
-            :href="calendlyUrl"
-            target="_blank"
-            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
-          >
-            🗓️ Book Your $99 AWS Intervention
-          </a>
-          <p class="text-gray-500 text-sm self-center">15 min call. $99 down payment. <br class="sm:hidden">No pitch deck. No discovery phase. Just math.</p>
+    <section class="max-w-5xl mx-auto px-6 pt-16 pb-16">
+      <div class="flex flex-col lg:flex-row gap-12 items-center">
+        <!-- Left: Text -->
+        <div class="flex-1">
+          <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for businesses spending $10-150K/mo</p>
+          <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
+            Been using AWS for years? 🕸️<br>
+            <span class="text-brand-400">When's the last time you cleaned house?</span>
+          </h1>
+          <p class="text-xl text-gray-400 mb-4">
+            300+ services. Years of buildup. Forgotten snapshots, oversized databases, servers running 24/7 for workloads that left at 5pm. 🤷
+            You've been busy building your business &mdash; nobody blames you for not catching it all. That's literally my job.
+          </p>
+          <p class="text-xl text-gray-400 mb-8">
+            I dig through the cobwebs, find the garbage you're paying for, and <strong class="text-gray-200">make your AWS not just cheaper &mdash; but better.</strong>
+            We only charge a % of the savings we find. No savings? No fee. 😏
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              :href="calendlyUrl"
+              target="_blank"
+              class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
+            >
+              🗓️ Book Your $99 AWS Intervention
+            </a>
+            <p class="text-gray-500 text-sm self-center">15 min call. $99 down payment. <br class="sm:hidden">No pitch deck. Just math.</p>
+          </div>
+        </div>
+
+        <!-- Right: Visual card -->
+        <div class="w-full lg:w-[380px] shrink-0">
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+            <!-- Headshot -->
+            <img src="/david.png" alt="David Plappert" class="w-28 h-28 rounded-full mx-auto mb-5 object-cover object-top border-2 border-gray-700">
+            <p class="font-bold text-lg mb-1">David Plappert</p>
+            <p class="text-gray-500 text-sm mb-6">19 years on AWS &middot; Since day one ☕</p>
+
+            <!-- Animated savings ticker -->
+            <div class="bg-gray-950 rounded-xl p-5 border border-gray-800 mb-5">
+              <p class="text-gray-500 text-xs uppercase tracking-wider mb-2">Typical savings found</p>
+              <p class="text-4xl font-bold text-green-400 tabular-nums">
+                $<span ref="tickerRef">{{ tickerDisplay }}</span><span class="text-gray-500 text-lg">/yr</span>
+              </p>
+              <p class="text-gray-600 text-xs mt-1">on a $25K/mo account 👀</p>
+            </div>
+
+            <!-- Quick value props -->
+            <div class="space-y-2 text-left text-sm">
+              <div class="flex items-center gap-2 text-gray-400">
+                <span class="text-brand-400">✅</span> You only pay a % of savings found
+              </div>
+              <div class="flex items-center gap-2 text-gray-400">
+                <span class="text-brand-400">✅</span> No savings? No fee. Period.
+              </div>
+              <div class="flex items-center gap-2 text-gray-400">
+                <span class="text-brand-400">✅</span> Not a dashboard. A real person.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -287,8 +354,107 @@ const fixNet = exampleAnnual - fixFee
       </div>
     </section>
 
-    <!-- Example -->
+    <!-- ROI Calculator -->
     <section class="max-w-5xl mx-auto px-6 py-20">
+      <h2 class="text-3xl font-bold mb-2 text-center">🧮 What Could You Save?</h2>
+      <p class="text-gray-400 text-center mb-2">Slide the numbers. See the math. No monthly fees. No recurring charges. Ever. 💰</p>
+      <p class="text-gray-500 text-center mb-10 text-sm">You pay once. You keep the savings forever.</p>
+
+      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+        <!-- Sliders -->
+        <div class="space-y-6 mb-8">
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-gray-300 font-medium">💸 Monthly AWS Spend</label>
+              <span class="text-brand-400 font-bold text-lg">${{ calcAwsSpend.toLocaleString() }}/mo</span>
+            </div>
+            <input
+              v-model.number="calcAwsSpend"
+              type="range"
+              min="5000"
+              max="150000"
+              step="5000"
+              class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-500"
+            >
+            <div class="flex justify-between text-xs text-gray-600 mt-1">
+              <span>$5K</span>
+              <span>$150K</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-gray-300 font-medium">🔍 Estimated Waste</label>
+              <span class="text-red-400 font-bold text-lg">{{ calcWastePct }}%</span>
+            </div>
+            <input
+              v-model.number="calcWastePct"
+              type="range"
+              min="10"
+              max="50"
+              step="5"
+              class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-red-500"
+            >
+            <div class="flex justify-between text-xs text-gray-600 mt-1">
+              <span>10% (lean)</span>
+              <span>30% (typical)</span>
+              <span>50% (yikes)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="bg-gray-950 rounded-xl p-6 border border-gray-800 space-y-4">
+          <div class="flex justify-between">
+            <span class="text-gray-400">🔥 Annual savings found</span>
+            <span class="font-bold text-red-400 text-lg">${{ calcAnnualSavings.toLocaleString() }}</span>
+          </div>
+          <hr class="border-gray-800">
+
+          <p class="text-gray-500 text-xs uppercase tracking-wider">📋 The Report ({{ pricing.reportPct }}%)</p>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Your fee</span>
+            <span class="font-semibold">${{ calcReportFee.toLocaleString() }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-bold text-green-400">🎉 You keep (year 1)</span>
+            <span class="font-bold text-green-400">${{ calcKeepReport.toLocaleString() }}</span>
+          </div>
+          <hr class="border-gray-800">
+
+          <p class="text-gray-500 text-xs uppercase tracking-wider">🔧 The Fix ({{ pricing.fixPct }}% total)</p>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Your fee (report + implementation)</span>
+            <span class="font-semibold">${{ calcFixFee.toLocaleString() }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-bold text-green-400">🎉 You keep (year 1)</span>
+            <span class="font-bold text-green-400">${{ calcKeepFix.toLocaleString() }}</span>
+          </div>
+          <hr class="border-gray-800">
+
+          <div class="flex justify-between text-lg">
+            <span class="font-bold text-green-400">🚀 You keep every year after</span>
+            <span class="font-bold text-green-400">${{ calcAnnualSavings.toLocaleString() }}</span>
+          </div>
+          <p class="text-gray-600 text-xs text-center">No monthly fees. No recurring charges. No subscriptions. You pay once and keep 100% forever. ✂️</p>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-6">
+          <a
+            :href="calendlyUrl"
+            target="_blank"
+            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+          >
+            🗓️ Let's find your actual number →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Example -->
+    <section class="bg-gray-900/50 border-y border-gray-800">
+      <div class="max-w-5xl mx-auto px-6 py-20">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Real Math, Fake Company</h2>
       <p class="text-gray-400 text-center mb-8">A ${{ (exampleBefore).toLocaleString() }}/mo SaaS company that swore their AWS was "pretty optimized" 👀</p>
 
@@ -347,6 +513,7 @@ const fixNet = exampleAnnual - fixFee
         </div>
       </div>
       <p class="text-gray-500 text-sm text-center mt-4">Just want the report? {{ pricing.reportPct }}% and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
+      </div>
     </section>
 
     <!-- Common Waste -->
