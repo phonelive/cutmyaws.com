@@ -3,7 +3,7 @@ const calendlyUrl = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
 
 const stats = [
   { value: '30-40%', label: '📊 Average waste hiding in AWS accounts' },
-  { value: '$99', label: '🔍 To find out exactly where yours is' },
+  { value: '$99', label: '🔍 Down payment on your 10% audit fee' },
   { value: '1-2 weeks', label: '⚡ From "ouch" to "oh nice"' }
 ]
 
@@ -58,8 +58,8 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
           AWS collected another month of rent on resources you forgot existed. 💸
         </p>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
-          For $99, I'll show you exactly where the money's going on a live call.
-          If you hire me to fix it, the $99 comes off your bill.
+          $99 gets you a live scan of your AWS spend. That $99 is your down payment
+          on the 10% audit fee &mdash; not an extra charge.
           <strong class="text-gray-200">If I find nothing &mdash; and I always find something &mdash; you're out 99 bucks. 🤷</strong>
         </p>
         <a
@@ -101,8 +101,8 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
         <div class="max-w-2xl mx-auto mb-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
           <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 1</div>
           <h3 class="text-2xl font-bold mb-1">🔍 The Scan</h3>
-          <p class="text-4xl font-bold text-brand-400 mb-4">$99 <span class="text-lg text-gray-400 font-normal">credited if you continue</span></p>
-          <p class="text-gray-400">You grant read-only access. I dig through your account like a detective with a spreadsheet. 🕵️ We hop on a 15-minute call where I show you exactly what I found and what it's costing you.</p>
+          <p class="text-4xl font-bold text-brand-400 mb-4">$99 <span class="text-lg text-gray-400 font-normal">down payment on your 10% audit fee</span></p>
+          <p class="text-gray-400">You grant read-only access. I dig through your account like a detective with a spreadsheet. 🕵️ We hop on a 15-minute call where I show you exactly what I found and what it's costing you. The $99 comes off your audit invoice &mdash; it's not an extra charge.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -176,11 +176,11 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
           </div>
           <hr class="border-gray-700">
           <div class="flex justify-between">
-            <span class="text-gray-400">🔍 Scan deposit</span>
+            <span class="text-gray-400">🔍 Down payment (part of audit fee)</span>
             <span class="font-semibold">${{ scanDeposit }}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-gray-400">📋 Audit fee (10% minus your $99)</span>
+            <span class="text-gray-400">📋 Remaining audit fee (10% minus $99)</span>
             <span class="font-semibold">${{ auditFee.toLocaleString() }}</span>
           </div>
           <div class="flex justify-between">
@@ -247,8 +247,8 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
             <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen and I owe you a genuine apology. You're out $99. In 50+ audits this has happened exactly zero times, but I suppose there's a first for everything.</p>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-2">🤨 Is $99 a sales call in disguise?</h3>
-            <p class="text-gray-400">No. You get a real analysis with real numbers on a real call. If I tried to sell you something without showing value first, that would make me a bad consultant and an even worse person.</p>
+            <h3 class="text-lg font-bold mb-2">🤨 Is the $99 an extra fee on top of the 10%?</h3>
+            <p class="text-gray-400">Nope! The $99 is a down payment on the 10% audit fee. It comes right off your invoice. If I find $84K/yr in savings, your 10% audit fee is $8,400 &mdash; minus the $99 you already paid = $8,301 remaining. The $99 just gets us started so I'm not doing free work for tire-kickers. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
@@ -277,7 +277,7 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
       >
         🗓️ Book Your $99 AWS Intervention
       </a>
-      <p class="text-gray-600 text-sm mt-4">Credited toward your audit. No commitment. No hard sell. Just math. 🧮</p>
+      <p class="text-gray-600 text-sm mt-4">$99 down payment on your 10% audit fee. No extra charges. No hard sell. Just math. 🧮</p>
     </section>
 
     <!-- Footer -->
