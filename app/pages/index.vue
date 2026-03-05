@@ -10,7 +10,7 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
 const stats = [
   { value: '$10-150K/mo', label: '🎯 The sweet spot. If this is your AWS bill, we should talk.' },
   { value: '$99', label: '💸 Down payment on your audit. Not an extra fee. We promise.' },
-  { value: '20+ years', label: '👨‍💻 Of AWS experience. Not an AI. Not a dashboard. Just David.' }
+  { value: '19 years', label: '👨‍💻 Of AWS experience. Not an AI. Not a dashboard. Just David.' }
 ]
 
 const wasteSources = [
@@ -83,7 +83,7 @@ const fixNet = exampleAnnual - fixFee
         </p>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
           I dig through the cobwebs, find the garbage you're paying for, and <strong class="text-gray-200">make your AWS not just cheaper &mdash; but better.</strong>
-          We only charge a % of the savings we find. No savings? No fee. And yes, I'm a real person &mdash; not a bot, not a dashboard. Just a guy with 20+ years of AWS and opinions about all of it. 😏
+          We only charge a % of the savings we find. No savings? No fee. And yes, I'm a real person &mdash; not a bot, not a dashboard. Just a guy with 19 years of AWS and opinions about all of it. 😏
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a
@@ -317,7 +317,7 @@ const fixNet = exampleAnnual - fixFee
         <img src="/david.png" alt="David Plappert" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover object-top border-2 border-gray-700">
         <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I'm <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="text-brand-400 hover:underline">David Plappert</a> &mdash; an actual human being with 20+ years of AWS experience who will personally
+          I'm <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="text-brand-400 hover:underline">David Plappert</a> &mdash; an actual human being with 19 years of AWS experience who will personally
           dig through your account, read your architecture, and understand your business. 🍱 Not an AI-generated summary.
           Not a dashboard with traffic lights. Not a junior analyst following a checklist. Me. On a call. With opinions. And a mildly aggressive sense of humor.
         </p>
@@ -375,7 +375,7 @@ const fixNet = exampleAnnual - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">😰 How do I know you won't break something?</h3>
-            <p class="text-gray-400">The scan uses read-only access. I literally cannot change anything even if I wanted to. For implementation, every change is documented, reviewed with your team, and rolled out carefully. I've been doing this for 20+ years. I break things on my own AWS account, not yours. (My personal bill is a whole separate therapy session.) 😅</p>
+            <p class="text-gray-400">The scan uses read-only access. I literally cannot change anything even if I wanted to. For implementation, every change is documented, reviewed with your team, and rolled out carefully. I've been doing this for 19 years. I break things on my own AWS account, not yours. (My personal bill is a whole separate therapy session.) 😅</p>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@
 
 ## What is CutMyAWS?
 
-CutMyAWS is an AWS cost optimization consulting service run by David Plappert, a Senior AWS Serverless Architect with 20+ years of experience. Unlike dashboards and SaaS tools, CutMyAWS is a real person who reads your architecture, understands your business, and aligns your tech to how your business actually works. The cost savings are a side effect of getting that alignment right.
+CutMyAWS is an AWS cost optimization consulting service run by David Plappert, a Senior AWS Serverless Architect with 19 years of experience. Unlike dashboards and SaaS tools, CutMyAWS is a real person who reads your architecture, understands your business, and aligns your tech to how your business actually works. The cost savings are a side effect of getting that alignment right.
 
 ## Who is it for?
 
@@ -27,7 +27,7 @@ Small and medium businesses spending $10,000 to $150,000 per month on AWS. Below
 ## What makes CutMyAWS different?
 
 - Real human, not a dashboard or AI tool
-- 20+ years of AWS experience
+- 19 years of AWS experience
 - Business-aligned: finds the mismatch between tech and business, not just billing waste
 - Serverless architecture expertise (Lambda, API Gateway, S3, SES)
 - Transparent pricing published on website

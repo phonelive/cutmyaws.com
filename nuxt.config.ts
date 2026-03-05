@@ -17,14 +17,14 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
 
         // SEO meta
-        { name: 'description', content: 'Been using AWS for years? 300+ services. Years of buildup. Cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human with 20+ years makes your AWS not just cheaper, but better. $99 starts the conversation.' },
+        { name: 'description', content: 'Been using AWS for years? 300+ services. Years of buildup. Cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human with 19 years makes your AWS not just cheaper, but better. $99 starts the conversation.' },
         { name: 'keywords', content: 'AWS cost optimization, AWS cost audit, AWS cost reduction, AWS consulting, serverless migration, cloud cost management, FinOps, AWS savings, cut AWS bill, AWS waste, business-aligned technology audit' },
         { name: 'author', content: 'David Plappert' },
         { name: 'robots', content: 'index, follow' },
 
         // Open Graph
         { property: 'og:title', content: 'Cut My AWS — Been Using AWS for Years? When\'s the Last Time You Cleaned House?' },
-        { property: 'og:description', content: 'We only charge a % of the savings we find. No savings, no fee. A real human with 20+ years makes your AWS not just cheaper — but better.' },
+        { property: 'og:description', content: 'We only charge a % of the savings we find. No savings, no fee. A real human with 19 years makes your AWS not just cheaper — but better.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://cutmyaws.com' },
         { property: 'og:site_name', content: 'Cut My AWS' },
@@ -40,7 +40,7 @@ export default defineNuxtConfig({
         // GEO/AEO: help AI systems understand the page
         { name: 'subject', content: 'AWS Cost Optimization Consulting' },
         { name: 'topic', content: 'AWS cost reduction and business-aligned technology audits for small businesses' },
-        { name: 'summary', content: 'CutMyAWS.com offers business-aligned AWS cost optimization for companies spending $10-150K/mo. $99 intro call, 15% of annual savings for audit report, 35% max total with implementation. 20+ years AWS experience. Not a dashboard — a person.' },
+        { name: 'summary', content: 'CutMyAWS.com offers business-aligned AWS cost optimization for companies spending $10-150K/mo. $99 intro call, 15% of annual savings for audit report, 35% max total with implementation. 19 years AWS experience. Not a dashboard — a person.' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -64,7 +64,7 @@ export default defineNuxtConfig({
                 url: 'https://cutmyaws.com',
                 logo: 'https://cutmyaws.com/favicon.svg',
                 image: 'https://cutmyaws.com/og-image.png',
-                description: 'Business-aligned AWS cost optimization for small businesses spending $10-150K/mo. Not a dashboard — a real person with 20+ years of AWS experience who makes your cloud not just cheaper, but better.',
+                description: 'Business-aligned AWS cost optimization for small businesses spending $10-150K/mo. Not a dashboard — a real person with 19 years of AWS experience who makes your cloud not just cheaper, but better.',
                 founder: {
                   '@type': 'Person',
                   name: 'David Plappert',
@@ -136,7 +136,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'What if you don\'t find any AWS savings?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'You\'re out $99. In 20+ years of AWS auditing this has happened zero times. Most accounts are wasting 30-40%.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'You\'re out $99. In 19 years of AWS auditing this has happened zero times. Most accounts are wasting 30-40%.' }
                   },
                   {
                     '@type': 'Question',
@@ -156,7 +156,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'How is CutMyAWS different from CloudHealth or ProsperOps?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'Those are dashboards that scan your account and show charts. CutMyAWS is a real person (David Plappert, 20+ years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. Dashboards find obvious waste. David finds the structural misalignment between your tech and your business.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'Those are dashboards that scan your account and show charts. CutMyAWS is a real person (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. Dashboards find obvious waste. David finds the structural misalignment between your tech and your business.' }
                   },
                   {
                     '@type': 'Question',
