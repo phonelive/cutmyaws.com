@@ -12,15 +12,15 @@ Small and medium businesses spending $10,000 to $150,000 per month on AWS. Below
 
 ## How does it work?
 
-1. **Intro Call** ($99 down payment, 15 min): Book a call, grant read-only AWS access, meet David.
-2. **Exploration Call** (5-10 business days later): David presents full findings — every waste item, dollar amounts, architecture recommendations, business alignment analysis. Fee: 15% of identified annual savings (minus the $99).
-3. **Implementation** (optional): David implements all optimizations. Custom timeline and deliverables agreed together. Fee: +20% of verified savings, due 90 days after deliverables. 35% total maximum.
+1. **Intro Call** (free, 15 min): Book a call, grant read-only AWS access, meet David.
+2. **Exploration Call** (5-10 business days later): David presents full findings — every waste item, dollar amounts, architecture recommendations, business alignment analysis. Fee: 15% of identified annual savings.
+3. **Implementation** (optional): David implements all optimizations. Custom timeline and deliverables agreed together. Fee: +35% of verified savings, due 90 days after deliverables. 50% total maximum.
 
 ## Pricing
 
-- $99 down payment (credited toward audit fee)
+- Free intro call
 - The Report: 15% of annual savings found
-- The Fix: 35% total max (15% report + 20% implementation)
+- The Fix: 50% total max (15% report + 35% implementation)
 - Implementation fee based on verified savings only — 90 days after deliverables
 - No savings = no fee for implementation
 

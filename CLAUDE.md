@@ -39,10 +39,9 @@ All pricing is centralized in `app/pages/index.vue` in the `pricing` object:
 
 ```js
 const pricing = {
-  deposit: 99,        // Down payment — credited toward report fee
   reportPct: 15,      // The Report: 15% of annual savings found
-  fixPct: 40,         // The Fix: 40% total (15% report + 25% implementation)
-  implPct: 25,        // Implementation portion (fixPct - reportPct)
+  fixPct: 50,         // The Fix: 50% total (15% report + 35% implementation)
+  implPct: 35,        // Implementation portion (fixPct - reportPct)
   minAws: 10000,      // We work best with $10K/mo+ AWS spend
 }
 ```
@@ -52,11 +51,11 @@ const pricing = {
 ### Pricing Flow
 
 ```
-🗓️ INTRO CALL           $99 down payment (15 min)
+🗓️ INTRO CALL           Free (15 min)
         ↓
    5-10 business days    (David audits the account)
         ↓
-📋 EXPLORATION CALL      15% of annual savings found (minus $99)
+📋 EXPLORATION CALL      15% of annual savings found
    │                     Client receives full report PDF
    │
    └─ Want implementation?
@@ -69,21 +68,21 @@ const pricing = {
                ↓
          ⏳ 90 DAYS LATER
                ↓
-         📊 THE PROOF       +20% of VERIFIED savings due
+         📊 THE PROOF       +35% of VERIFIED savings due
                             (no savings = $0 owed)
 
-Max total: 40% (15% report + 25% implementation)
+Max total: 50% (15% report + 35% implementation)
 ```
 
 ### Example ($25K/mo AWS spend, 30% waste found)
 
 | Phase | Amount |
 |-------|-------:|
-| Intro Call | $99 |
-| Exploration Call (15% of $108K - $99) | $16,101 |
-| 90 Days After Implementation (+20%) | $21,600 |
-| **Total max (35%)** | **$37,800** |
-| **Client keeps year 1** | **$70,200** |
+| Intro Call | Free |
+| Exploration Call (15% of $108K) | $16,200 |
+| 90 Days After Implementation (+35%) | $37,800 |
+| **Total max (50%)** | **$54,000** |
+| **Client keeps year 1** | **$54,000** |
 | **Client keeps every year after** | **$108,000** |
 
 ## Brand Voice
@@ -193,7 +192,7 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | Email | Google Workspace (cutmyaws.com as secondary domain) |
 | Analytics | Google Analytics (`G-ZGPX081LFE`) via client plugin |
 | Heatmaps | Microsoft Clarity (`vr2el2utus`) via client plugin |
-| Booking | Calendly ($99 Stripe payment) |
+| Booking | Calendly (free intro call) |
 | Deployment | GitHub Actions → GitHub Pages (auto on push to main) |
 
 ### Key Files
@@ -338,7 +337,7 @@ Domain fully configured for maximum deliverability:
 | SaaS dashboards | ProsperOps, CloudHealth, Vantage, nOps | They show charts. We read architecture + business. |
 | Boutique consultants | Miro, Rambunct, SUDO, StableLogic | None publish pricing. We're fully transparent. |
 
-**Nobody else offers:** transparent % pricing, $99 entry point, human consulting for $10-150K/mo, witty brand, verified-savings implementation fee.
+**Nobody else offers:** transparent % pricing, free intro call, human consulting for $10-150K/mo, witty brand, verified-savings implementation fee.
 
 ## OG Image Generation
 
