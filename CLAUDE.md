@@ -41,8 +41,8 @@ All pricing is centralized in `app/pages/index.vue` in the `pricing` object:
 const pricing = {
   deposit: 99,        // Down payment — credited toward report fee
   reportPct: 15,      // The Report: 15% of annual savings found
-  fixPct: 35,         // The Fix: 35% total (15% report + 20% implementation)
-  implPct: 20,        // Implementation portion (fixPct - reportPct)
+  fixPct: 40,         // The Fix: 40% total (15% report + 25% implementation)
+  implPct: 25,        // Implementation portion (fixPct - reportPct)
   minAws: 10000,      // We work best with $10K/mo+ AWS spend
 }
 ```
@@ -72,7 +72,7 @@ const pricing = {
          📊 THE PROOF       +20% of VERIFIED savings due
                             (no savings = $0 owed)
 
-Max total: 35% (15% report + 20% implementation)
+Max total: 40% (15% report + 25% implementation)
 ```
 
 ### Example ($25K/mo AWS spend, 30% waste found)

@@ -44,8 +44,8 @@ const wasteSources = [
 const pricing = {
   deposit: 99,
   reportPct: 15,       // The Report: 15% of annual savings
-  fixPct: 35,          // The Fix: 35% total (15% report + 20% implementation)
-  implPct: 20,         // Implementation portion (fixPct - reportPct)
+  fixPct: 40,          // The Fix: 40% total (15% report + 25% implementation)
+  implPct: 25,         // Implementation portion (fixPct - reportPct)
   minAws: 10000,       // We work best with $10-150K/mo AWS spend
 }
 
