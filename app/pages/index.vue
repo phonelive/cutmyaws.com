@@ -9,8 +9,8 @@ const tickerTarget = 108000 // $108K on a $25K/mo account at 36% savings
 const tickerDisplay = computed(() => tickerValue.value.toLocaleString())
 
 onMounted(() => {
-  const duration = 2000
-  const steps = 60
+  const duration = 4000
+  const steps = 120
   const increment = tickerTarget / steps
   let current = 0
   const interval = setInterval(() => {
@@ -27,11 +27,28 @@ onMounted(() => {
 // ── ROI Calculator ──
 const calcAwsSpend = ref(25000)
 const calcWastePct = ref(30)
-const calcAnnualSavings = computed(() => Math.round(calcAwsSpend.value * (calcWastePct.value / 100) * 12))
+const calcMonthlySavings = computed(() => Math.round(calcAwsSpend.value * (calcWastePct.value / 100)))
+const calcAnnualSavings = computed(() => calcMonthlySavings.value * 12)
 const calcReportFee = computed(() => Math.round(calcAnnualSavings.value * 0.15))
 const calcFixFee = computed(() => Math.round(calcAnnualSavings.value * 0.40))
 const calcKeepReport = computed(() => calcAnnualSavings.value - calcReportFee.value)
 const calcKeepFix = computed(() => calcAnnualSavings.value - calcFixFee.value)
+const calcRoiReport = computed(() => {
+  if (calcReportFee.value === 0) return 0
+  return Math.round((calcKeepReport.value / calcReportFee.value) * 100) / 100
+})
+const calcRoiFix = computed(() => {
+  if (calcFixFee.value === 0) return 0
+  return Math.round((calcKeepFix.value / calcFixFee.value) * 100) / 100
+})
+// Months to break even on The Fix (when cumulative monthly savings > total fix fee)
+const calcMonthsToRoi = computed(() => {
+  if (calcMonthlySavings.value === 0) return 0
+  return Math.ceil(calcFixFee.value / calcMonthlySavings.value)
+})
+// 5-year total savings
+const calcFiveYearSavings = computed(() => calcAnnualSavings.value * 5)
+const calcFiveYearNet = computed(() => calcFiveYearSavings.value - calcFixFee.value)
 
 // Promo: free security scan — update this date to extend/end the promo
 const promoEnd = new Date('2026-04-04T23:59:59')
@@ -128,18 +145,14 @@ const fixNet = exampleAnnual - fixFee
       <div class="flex flex-col lg:flex-row gap-12 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for businesses spending $10-150K/mo</p>
+          <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy &middot; $10-150K/mo</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             Been using AWS for years? 🕸️<br>
             <span class="text-brand-400">When's the last time you cleaned house?</span>
           </h1>
-          <p class="text-xl text-gray-400 mb-4">
-            300+ services. Years of buildup. Forgotten snapshots, oversized databases, servers running 24/7 for workloads that left at 5pm. 🤷
-            You've been busy building your business &mdash; nobody blames you for not catching it all. That's literally my job.
-          </p>
-          <p class="text-xl text-gray-400 mb-8">
-            I dig through the cobwebs, find the garbage you're paying for, and <strong class="text-gray-200">make your AWS not just cheaper &mdash; but better.</strong>
-            We only charge a % of the savings we find. No savings? No fee. 😏
+          <p class="text-xl text-gray-400 mb-6">
+            300+ services. Years of buildup. Pennies become thousands. 💸<br>
+            I find the waste, fix the architecture, and <strong class="text-gray-200">you only pay a % of what I save you.</strong>
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a
@@ -147,9 +160,9 @@ const fixNet = exampleAnnual - fixFee
               target="_blank"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
-              🗓️ Book Your $99 AWS Intervention
+              🗓️ Book Your $99 AWS Scan
             </a>
-            <p class="text-gray-500 text-sm self-center">15 min call. $99 down payment. <br class="sm:hidden">No pitch deck. Just math.</p>
+            <p class="text-gray-500 text-sm self-center">15 min &middot; $99 down payment &middot; no pitch deck 😏</p>
           </div>
         </div>
 
@@ -190,10 +203,10 @@ const fixNet = exampleAnnual - fixFee
 
     <!-- Stats -->
     <section class="border-y border-gray-800 bg-gray-900/50">
-      <div class="max-w-5xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
-        <div v-for="stat in stats" :key="stat.label" class="text-center">
-          <div class="text-3xl font-bold text-brand-400 mb-1">{{ stat.value }}</div>
-          <div class="text-sm text-gray-400">{{ stat.label }}</div>
+      <div class="max-w-4xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-3 gap-12">
+        <div v-for="stat in stats" :key="stat.label" class="text-center px-4">
+          <div class="text-3xl font-bold text-brand-400 mb-2">{{ stat.value }}</div>
+          <div class="text-sm text-gray-400 leading-relaxed">{{ stat.label }}</div>
         </div>
       </div>
     </section>
@@ -208,13 +221,13 @@ const fixNet = exampleAnnual - fixFee
           :href="client.url"
           target="_blank"
           rel="noopener"
-          class="group flex items-center justify-center h-20 w-full px-6 rounded-xl bg-gray-900/40 border border-gray-800/50 hover:border-gray-700 hover:bg-gray-900/80 transition-all"
+          class="group flex items-center justify-center h-24 w-full px-4 rounded-xl hover:bg-gray-900/40 transition-all"
           :title="client.name"
         >
           <img
             :src="client.logo"
             :alt="client.name"
-            class="h-10 max-w-[160px] object-contain opacity-60 group-hover:opacity-100 transition-opacity brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
+            class="h-14 max-w-[180px] object-contain opacity-80 group-hover:opacity-100 transition-opacity"
           >
         </a>
       </div>
@@ -362,17 +375,26 @@ const fixNet = exampleAnnual - fixFee
 
     <!-- ROI Calculator -->
     <section class="max-w-5xl mx-auto px-6 py-20">
-      <h2 class="text-3xl font-bold mb-2 text-center">🧮 What Could You Save?</h2>
-      <p class="text-gray-400 text-center mb-2">Slide the numbers. See the math. No monthly fees. No recurring charges. Ever. 💰</p>
-      <p class="text-gray-500 text-center mb-10 text-sm">You pay once. You keep the savings forever.</p>
+      <h2 class="text-3xl font-bold mb-2 text-center">🧮 Calculate Your Savings</h2>
+      <p class="text-gray-400 text-center mb-2">No monthly fees. No recurring charges. You pay once. Keep the savings forever. 💰</p>
+      <p class="text-gray-500 text-center mb-10 text-sm">Drag the sliders or type your actual AWS spend below.</p>
 
-      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
-        <!-- Sliders -->
-        <div class="space-y-6 mb-8">
+      <div class="max-w-3xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+        <!-- Inputs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <!-- Monthly spend -->
           <div>
-            <div class="flex justify-between mb-2">
-              <label class="text-gray-300 font-medium">💸 Monthly AWS Spend</label>
-              <span class="text-brand-400 font-bold text-lg">${{ calcAwsSpend.toLocaleString() }}/mo</span>
+            <label class="text-gray-300 font-medium block mb-3">💸 Monthly AWS Spend</label>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-gray-500 text-xl">$</span>
+              <input
+                v-model.number="calcAwsSpend"
+                type="number"
+                min="5000"
+                max="500000"
+                step="1000"
+                class="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-2xl font-bold text-brand-400 focus:border-brand-500 focus:outline-none"
+              >
             </div>
             <input
               v-model.number="calcAwsSpend"
@@ -384,13 +406,23 @@ const fixNet = exampleAnnual - fixFee
             >
             <div class="flex justify-between text-xs text-gray-600 mt-1">
               <span>$5K</span>
+              <span>$75K</span>
               <span>$150K</span>
             </div>
           </div>
+          <!-- Waste % -->
           <div>
-            <div class="flex justify-between mb-2">
-              <label class="text-gray-300 font-medium">🔍 Estimated Waste</label>
-              <span class="text-red-400 font-bold text-lg">{{ calcWastePct }}%</span>
+            <label class="text-gray-300 font-medium block mb-3">🔍 Estimated Waste</label>
+            <div class="flex items-center gap-2 mb-3">
+              <input
+                v-model.number="calcWastePct"
+                type="number"
+                min="5"
+                max="60"
+                step="1"
+                class="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-2xl font-bold text-red-400 focus:border-red-500 focus:outline-none"
+              >
+              <span class="text-gray-500 text-xl">%</span>
             </div>
             <input
               v-model.number="calcWastePct"
@@ -401,56 +433,85 @@ const fixNet = exampleAnnual - fixFee
               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-red-500"
             >
             <div class="flex justify-between text-xs text-gray-600 mt-1">
-              <span>10% (lean)</span>
-              <span>30% (typical)</span>
-              <span>50% (yikes)</span>
+              <span>10% lean</span>
+              <span>30% typical</span>
+              <span>50% yikes</span>
             </div>
           </div>
         </div>
 
-        <!-- Results -->
-        <div class="bg-gray-950 rounded-xl p-6 border border-gray-800 space-y-4">
-          <div class="flex justify-between">
-            <span class="text-gray-400">🔥 Annual savings found</span>
-            <span class="font-bold text-red-400 text-lg">${{ calcAnnualSavings.toLocaleString() }}</span>
-          </div>
-          <hr class="border-gray-800">
-
-          <p class="text-gray-500 text-xs uppercase tracking-wider">📋 The Report ({{ pricing.reportPct }}%)</p>
-          <div class="flex justify-between">
-            <span class="text-gray-400">Your fee</span>
-            <span class="font-semibold">${{ calcReportFee.toLocaleString() }}</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-bold text-green-400">🎉 You keep (year 1)</span>
-            <span class="font-bold text-green-400">${{ calcKeepReport.toLocaleString() }}</span>
-          </div>
-          <hr class="border-gray-800">
-
-          <p class="text-gray-500 text-xs uppercase tracking-wider">🔧 The Fix ({{ pricing.fixPct }}% total)</p>
-          <div class="flex justify-between">
-            <span class="text-gray-400">Your fee (report + implementation)</span>
-            <span class="font-semibold">${{ calcFixFee.toLocaleString() }}</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-bold text-green-400">🎉 You keep (year 1)</span>
-            <span class="font-bold text-green-400">${{ calcKeepFix.toLocaleString() }}</span>
-          </div>
-          <hr class="border-gray-800">
-
-          <div class="flex justify-between text-lg">
-            <span class="font-bold text-green-400">🚀 You keep every year after</span>
-            <span class="font-bold text-green-400">${{ calcAnnualSavings.toLocaleString() }}</span>
-          </div>
-          <p class="text-gray-600 text-xs text-center">No monthly fees. No recurring charges. No subscriptions. You pay once and keep 100% forever. ✂️</p>
+        <!-- Savings found -->
+        <div class="bg-gray-950 rounded-xl p-5 border border-gray-800 mb-6 text-center">
+          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">🔥 You're wasting roughly</p>
+          <p class="text-3xl font-bold text-red-400">${{ calcMonthlySavings.toLocaleString() }}<span class="text-gray-500 text-lg">/mo</span> &nbsp; = &nbsp; ${{ calcAnnualSavings.toLocaleString() }}<span class="text-gray-500 text-lg">/yr</span></p>
         </div>
 
+        <!-- Two plan comparison -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <!-- The Report -->
+          <div class="bg-gray-950 rounded-xl p-5 border border-gray-800">
+            <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">📋 The Report ({{ pricing.reportPct }}%)</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-gray-500">You pay</span>
+                <span class="font-semibold">${{ calcReportFee.toLocaleString() }}</span>
+              </div>
+              <div class="flex justify-between text-lg">
+                <span class="font-bold text-green-400">You keep yr 1</span>
+                <span class="font-bold text-green-400">${{ calcKeepReport.toLocaleString() }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">First-year ROI</span>
+                <span class="font-bold text-brand-400">{{ calcRoiReport }}x</span>
+              </div>
+            </div>
+          </div>
+          <!-- The Fix -->
+          <div class="bg-gray-950 rounded-xl p-5 border-2 border-brand-500">
+            <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">🔧 The Fix ({{ pricing.fixPct }}% total)</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-gray-500">You pay</span>
+                <span class="font-semibold">${{ calcFixFee.toLocaleString() }}</span>
+              </div>
+              <div class="flex justify-between text-lg">
+                <span class="font-bold text-green-400">You keep yr 1</span>
+                <span class="font-bold text-green-400">${{ calcKeepFix.toLocaleString() }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">First-year ROI</span>
+                <span class="font-bold text-brand-400">{{ calcRoiFix }}x</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI highlight bar -->
+        <div class="bg-green-400/10 border border-green-400/30 rounded-xl p-5 mb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div>
+              <p class="text-green-400 text-2xl font-bold">{{ calcMonthsToRoi }} mo</p>
+              <p class="text-gray-400 text-xs">⏱️ Time to break even (The Fix)</p>
+            </div>
+            <div>
+              <p class="text-green-400 text-2xl font-bold">${{ calcAnnualSavings.toLocaleString() }}</p>
+              <p class="text-gray-400 text-xs">🚀 You keep every year after year 1</p>
+            </div>
+            <div>
+              <p class="text-green-400 text-2xl font-bold">${{ calcFiveYearNet.toLocaleString() }}</p>
+              <p class="text-gray-400 text-xs">💰 5-year net savings (after The Fix fee)</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-gray-600 text-xs text-center mb-6">No monthly fees. No subscriptions. No recurring charges. You pay once and keep 100% of the savings every year after. ✂️</p>
+
         <!-- CTA -->
-        <div class="text-center mt-6">
+        <div class="text-center">
           <a
             :href="calendlyUrl"
             target="_blank"
-            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
           >
             🗓️ Let's find your actual number →
           </a>
