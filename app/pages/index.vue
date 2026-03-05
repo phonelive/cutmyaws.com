@@ -13,6 +13,19 @@ const stats = [
   { value: '19 years', label: '👨‍💻 Of AWS experience. Not an AI. Not a dashboard. Just David.' }
 ]
 
+const clients = [
+  { name: 'Caterpillar', url: 'https://www.caterpillar.com', logo: '/logos/cat.svg' },
+  { name: 'DC Government', url: 'https://dc.gov', logo: '/logos/dc-gov.svg' },
+  { name: 'Best Buy', url: 'https://www.bestbuy.com', logo: '/logos/best-buy.svg' },
+  { name: 'PBS', url: 'https://www.pbs.org', logo: '/logos/pbs.svg' },
+  { name: 'Commonwealth of Massachusetts', url: 'https://www.mass.gov', logo: '/logos/ma-state.svg' },
+  { name: 'Putnam Investments', url: 'https://www.putnam.com', logo: '/logos/putnam.svg' },
+  { name: 'City of Oregon City', url: 'https://www.orcity.org', logo: '/logos/oregon-city.svg' },
+  { name: 'Argonne National Laboratory', url: 'https://www.anl.gov', logo: '/logos/argonne.svg' },
+  { name: 'PhoneLive', url: 'https://phonelive.com', logo: '/logos/phonelive.svg' },
+  { name: 'EZRA Cloud', url: 'https://ezracloud.com', logo: '/logos/ezra.svg' },
+]
+
 const wasteSources = [
   { emoji: '🖥️', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm like the rest of us', savings: '40-70%' },
   { emoji: '🏗️', name: 'An RDS instance the size of a school bus for an app with 50 users', savings: '30-60%' },
@@ -105,6 +118,28 @@ const fixNet = exampleAnnual - fixFee
           <div class="text-3xl font-bold text-brand-400 mb-1">{{ stat.value }}</div>
           <div class="text-sm text-gray-400">{{ stat.label }}</div>
         </div>
+      </div>
+    </section>
+
+    <!-- Clients -->
+    <section class="max-w-5xl mx-auto px-6 py-16">
+      <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-10">Trusted by teams at</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center justify-items-center">
+        <a
+          v-for="client in clients"
+          :key="client.name"
+          :href="client.url"
+          target="_blank"
+          rel="noopener"
+          class="group flex items-center justify-center h-16 px-4 rounded-lg hover:bg-gray-900/50 transition-colors"
+          :title="client.name"
+        >
+          <img
+            :src="client.logo"
+            :alt="client.name"
+            class="h-8 max-w-[140px] object-contain opacity-50 group-hover:opacity-90 transition-opacity grayscale group-hover:grayscale-0"
+          >
+        </a>
       </div>
     </section>
 
