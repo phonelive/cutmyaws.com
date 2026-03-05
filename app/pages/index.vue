@@ -29,8 +29,8 @@ const calcAwsSpend = ref(25000)
 const calcWastePct = ref(30)
 const calcMonthlySavings = computed(() => Math.round(calcAwsSpend.value * (calcWastePct.value / 100)))
 const calcAnnualSavings = computed(() => calcMonthlySavings.value * 12)
-const calcReportFee = computed(() => Math.round(calcAnnualSavings.value * 0.15))
-const calcFixFee = computed(() => Math.round(calcAnnualSavings.value * 0.40))
+const calcReportFee = computed(() => Math.round(calcAnnualSavings.value * pricing.reportPct / 100))
+const calcFixFee = computed(() => Math.round(calcAnnualSavings.value * pricing.fixPct / 100))
 const calcKeepReport = computed(() => calcAnnualSavings.value - calcReportFee.value)
 const calcKeepFix = computed(() => calcAnnualSavings.value - calcFixFee.value)
 const calcRoiReport = computed(() => {
@@ -57,9 +57,9 @@ const promoActive = now < promoEnd
 const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
 
 const stats = [
-  { value: '$10-150K/mo', label: '🎯 The sweet spot. If this is your AWS bill, we should talk.' },
-  { value: '$99', label: '💸 Down payment on your audit. Not an extra fee. We promise.' },
-  { value: '19 years', label: '👨‍💻 Of AWS experience. Not an AI. Not a dashboard. Just David.' }
+  { value: '19 Years', label: '☁️ Of AWS expertise. In production since 2007.' },
+  { value: '$10M+', label: '💰 Saved & improved across client accounts.' },
+  { value: '50+', label: '🔍 AWS accounts audited. Zero unsurprised CFOs.' }
 ]
 
 const clients = [
@@ -93,8 +93,8 @@ const wasteSources = [
 const pricing = {
   deposit: 99,
   reportPct: 15,       // The Report: 15% of annual savings
-  fixPct: 40,          // The Fix: 40% total (15% report + 25% implementation)
-  implPct: 25,         // Implementation portion (fixPct - reportPct)
+  fixPct: 50,          // The Fix: 50% total (15% report + 35% implementation)
+  implPct: 35,         // Implementation portion (fixPct - reportPct)
   minAws: 10000,       // We work best with $10-150K/mo AWS spend
 }
 
@@ -107,6 +107,8 @@ const reportFee = Math.round(exampleAnnual * pricing.reportPct / 100)
 const fixFee = Math.round(exampleAnnual * pricing.fixPct / 100)
 const reportNet = exampleAnnual - reportFee
 const fixNet = exampleAnnual - fixFee
+const exampleMonthsToRoi = Math.ceil(fixFee / exampleSavings)
+const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
 </script>
 
 <template>
@@ -119,7 +121,7 @@ const fixNet = exampleAnnual - fixFee
     </div>
 
     <!-- Nav -->
-    <nav class="border-b border-gray-800">
+    <nav class="border-b border-gray-800/50">
       <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="text-2xl">✂️</span>
@@ -151,8 +153,7 @@ const fixNet = exampleAnnual - fixFee
             <span class="text-brand-400">When's the last time you cleaned house?</span>
           </h1>
           <p class="text-xl text-gray-400 mb-6">
-            300+ services. Years of buildup. Pennies become thousands. 💸<br>
-            I find the waste, fix the architecture, and <strong class="text-gray-200">you only pay a % of what I save you.</strong>
+            With 300+ AWS services and years of buildup, I find the waste, fix the aging architecture &mdash; and <strong class="text-gray-200">you only pay a one-time % of what I save you.</strong> 💸
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a
@@ -160,7 +161,7 @@ const fixNet = exampleAnnual - fixFee
               target="_blank"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
-              🗓️ Book Your $99 AWS Scan
+              🗓️ Book Your Intro Call For $99 Down
             </a>
             <p class="text-gray-500 text-sm self-center">15 min &middot; $99 down payment &middot; no pitch deck 😏</p>
           </div>
@@ -202,8 +203,8 @@ const fixNet = exampleAnnual - fixFee
     </section>
 
     <!-- Stats -->
-    <section class="border-y border-gray-800 bg-gray-900/50">
-      <div class="max-w-4xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-3 gap-12">
+    <section class="bg-gray-900">
+      <div class="max-w-4xl mx-auto px-6 py-24 grid grid-cols-1 sm:grid-cols-3 gap-12">
         <div v-for="stat in stats" :key="stat.label" class="text-center px-4">
           <div class="text-3xl font-bold text-brand-400 mb-2">{{ stat.value }}</div>
           <div class="text-sm text-gray-400 leading-relaxed">{{ stat.label }}</div>
@@ -212,8 +213,8 @@ const fixNet = exampleAnnual - fixFee
     </section>
 
     <!-- Clients -->
-    <section class="max-w-5xl mx-auto px-6 py-16">
-      <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-10">Trusted by teams at</p>
+    <section class="py-24 px-6">
+      <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-12">Trusted by teams at</p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto">
         <a
           v-for="client in clients"
@@ -221,27 +222,27 @@ const fixNet = exampleAnnual - fixFee
           :href="client.url"
           target="_blank"
           rel="noopener"
-          class="group flex items-center justify-center h-24 w-full px-4 rounded-xl hover:bg-gray-900/40 transition-all"
+          class="group flex items-center justify-center h-24 w-full px-4 rounded-lg bg-white/90 hover:bg-white transition-all"
           :title="client.name"
         >
           <img
             :src="client.logo"
             :alt="client.name"
-            class="h-14 max-w-[180px] object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+            class="h-14 max-w-[180px] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
           >
         </a>
       </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="border-y border-gray-800 bg-gray-900/50">
-      <div class="max-w-5xl mx-auto px-6 py-16">
+    <section class="bg-gray-900">
+      <div class="max-w-5xl mx-auto px-6 py-24">
         <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-10">What people say after working with David</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div
             v-for="t in testimonials"
             :key="t.quote"
-            class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center"
+            class="bg-gray-950 border border-gray-800 rounded-2xl p-8 text-center"
           >
             <p class="text-4xl mb-4">{{ t.emoji }}</p>
             <p class="text-gray-300 text-lg italic">"{{ t.quote }}"</p>
@@ -250,26 +251,45 @@ const fixNet = exampleAnnual - fixFee
       </div>
     </section>
 
-    <!-- Philosophy -->
-    <section class="max-w-5xl mx-auto px-6 py-16 text-center">
-      <p class="text-2xl text-gray-300 font-medium italic max-w-3xl mx-auto">
-        "Nobody sets out to waste money on AWS. It just happens. You launch fast, you scale fast, and three years later
-        you're paying for infrastructure you forgot existed. That's not negligence &mdash; that's just building a business." 🧾
-      </p>
-      <p class="text-gray-500 mt-4">&mdash; David, who has found forgotten resources in literally every account he's ever audited</p>
+    <!-- Why CutMyAWS -->
+    <section class="max-w-5xl mx-auto px-6 py-24">
+      <h2 class="text-3xl font-bold mb-4 text-center">Why CutMyAWS? 🤔</h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Growing AWS spend doesn't mean efficient AWS spend. Your revenue grew 40% &mdash; did your AWS bill grow 40% too? Or 80%? 📈</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <p class="text-2xl mb-3">🧑‍💻</p>
+          <h3 class="text-lg font-bold mb-2">Keep your tech team building value</h3>
+          <p class="text-gray-400">Your engineers should be shipping product, not hunting for savings. I dig into your architecture, find the misalignment, and do the one-time cleanup so they don't have to. No recurring retainer. No ongoing distraction. Just results. 🚀</p>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <p class="text-2xl mb-3">🙅</p>
+          <h3 class="text-lg font-bold mb-2">Not a dashboard. Not an AI. A human.</h3>
+          <p class="text-gray-400">Dashboards show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. And I only make money when you do. 🤝</p>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <p class="text-2xl mb-3">💰</p>
+          <h3 class="text-lg font-bold mb-2">You don't pay until you see results</h3>
+          <p class="text-gray-400">This is a one-time commitment, not an ongoing contract. The implementation fee isn't due until you've experienced the savings for 90 days. No savings? No fee. I carry the risk, not you. 🎯</p>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <p class="text-2xl mb-3">📉</p>
+          <h3 class="text-lg font-bold mb-2">Growing ≠ efficient</h3>
+          <p class="text-gray-400">Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you're paying for infrastructure you forgot existed. That's not negligence &mdash; that's just building a business. Let me clean it up. 🧾</p>
+        </div>
+      </div>
     </section>
 
     <!-- How It Works -->
-    <section class="bg-gray-900/50 border-y border-gray-800">
-      <div class="max-w-5xl mx-auto px-6 py-20">
+    <section class="bg-gray-900">
+      <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
         <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Two calls. One report. Zero PowerPoints. You decide how far to go after you see the numbers. 🤝</p>
 
         <!-- Timeline -->
-        <div class="max-w-2xl mx-auto space-y-6">
+        <div class="max-w-2xl mx-auto space-y-8">
 
           <!-- Step 1: Intro Call -->
-          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-8">
             <div class="flex items-center gap-3 mb-4">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
               <div>
@@ -285,7 +305,7 @@ const fixNet = exampleAnnual - fixFee
           <div class="text-center text-gray-600 text-2xl">⏳ 5-10 business days (I'm in your account, learning your business, judging your tag hygiene)</div>
 
           <!-- Step 2: Exploration Call -->
-          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8">
+          <div class="bg-gray-950 border-2 border-brand-500 rounded-2xl p-8">
             <div class="flex items-center gap-3 mb-4">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <div>
@@ -323,7 +343,7 @@ const fixNet = exampleAnnual - fixFee
           <div class="text-center text-gray-600 text-2xl">🤔 Want me to actually fix it? (Most people do. Turns out reading a 30-page report isn't fun.)</div>
 
           <!-- Step 3: Implementation (Optional) -->
-          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 relative">
+          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-8 relative">
             <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">🔥 OPTIONAL (but c'mon)</div>
             <div class="flex items-center gap-3 mb-4">
               <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
@@ -348,7 +368,7 @@ const fixNet = exampleAnnual - fixFee
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span><strong>+{{ pricing.implPct }}% of verified savings due at the 90-day mark.</strong> If the savings didn't stick? You owe me nothing. I'll go cry into my own AWS bill. 🤷</span>
+                <span><strong>+{{ pricing.implPct }}% of verified savings due at the 90-day mark.</strong> The best part? It's a one-time payment from money you were already giving AWS. No new budget. No approvals. Just redirect what you're already spending. If the savings didn't stick? You owe me nothing. I'll go cry into my own AWS bill. 🤷</span>
               </li>
             </ul>
             <p class="text-gray-500 text-sm mt-4">{{ pricing.fixPct }}% total max ({{ pricing.reportPct }}% report + {{ pricing.implPct }}% implementation). That's the ceiling. There is no "and also this other fee." 🚫</p>
@@ -358,7 +378,7 @@ const fixNet = exampleAnnual - fixFee
           <div class="text-center text-gray-600 text-2xl">⏳ 90 days later... (the moment of truth 🥁)</div>
 
           <!-- Step 4: Verification -->
-          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-8">
             <div class="flex items-center gap-3 mb-4">
               <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
               <div>
@@ -374,7 +394,7 @@ const fixNet = exampleAnnual - fixFee
     </section>
 
     <!-- ROI Calculator -->
-    <section class="max-w-5xl mx-auto px-6 py-20">
+    <section class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Calculate Your Savings</h2>
       <p class="text-gray-400 text-center mb-2">No monthly fees. No recurring charges. You pay once. Keep the savings forever. 💰</p>
       <p class="text-gray-500 text-center mb-10 text-sm">Drag the sliders or type your actual AWS spend below.</p>
@@ -520,13 +540,14 @@ const fixNet = exampleAnnual - fixFee
     </section>
 
     <!-- Example -->
-    <section class="bg-gray-900/50 border-y border-gray-800">
-      <div class="max-w-5xl mx-auto px-6 py-20">
+    <section class="bg-gray-900">
+      <div class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Real Math, Fake Company</h2>
-      <p class="text-gray-400 text-center mb-8">A ${{ (exampleBefore).toLocaleString() }}/mo SaaS company that swore their AWS was "pretty optimized" 👀</p>
+      <p class="text-gray-400 text-center mb-2">A ${{ (exampleBefore).toLocaleString() }}/mo SaaS company that swore their AWS was "pretty optimized" 👀</p>
+      <p class="text-brand-400 font-semibold text-center mb-8">One-time fee. Paid from your recurring savings. ~{{ exampleMonthsToRoi }}-month ROI. 🎯</p>
 
       <!-- Shared finding -->
-      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-6">
+      <div class="max-w-2xl mx-auto bg-gray-950 border border-gray-800 rounded-2xl p-6 mb-8">
         <div class="flex justify-between mb-2">
           <span class="text-gray-400">🔥 Monthly waste found (whoops)</span>
           <span class="font-semibold text-red-400">${{ exampleSavings.toLocaleString() }}/mo</span>
@@ -538,7 +559,7 @@ const fixNet = exampleAnnual - fixFee
       </div>
 
       <!-- Payment timeline -->
-      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+      <div class="max-w-2xl mx-auto bg-gray-950 border border-gray-800 rounded-2xl p-8">
         <h3 class="font-bold text-center mb-6">💳 When You Pay (with The Fix)</h3>
         <div class="space-y-4 text-sm">
           <div class="flex justify-between items-center">
@@ -579,16 +600,36 @@ const fixNet = exampleAnnual - fixFee
           </div>
         </div>
       </div>
-      <p class="text-gray-500 text-sm text-center mt-4">Just want the report? {{ pricing.reportPct }}% and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
+      <!-- ROI -->
+      <div class="max-w-2xl mx-auto bg-green-400/10 border border-green-400/30 rounded-2xl p-8 mt-8">
+        <h3 class="font-bold text-center mb-6">📊 Return on Investment</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+          <div>
+            <p class="text-green-400 text-3xl font-bold">{{ exampleMonthsToRoi }} mo</p>
+            <p class="text-gray-400 text-sm mt-1">⏱️ Time to ROI</p>
+          </div>
+          <div>
+            <p class="text-green-400 text-3xl font-bold">${{ fixNet.toLocaleString() }}</p>
+            <p class="text-gray-400 text-sm mt-1">🎉 Year 1 net savings</p>
+          </div>
+          <div>
+            <p class="text-green-400 text-3xl font-bold">${{ exampleThreeYearNet.toLocaleString() }}</p>
+            <p class="text-gray-400 text-sm mt-1">🚀 3-year net savings</p>
+          </div>
+        </div>
+        <p class="text-gray-500 text-xs text-center mt-4">One-time fee. Every dollar saved after that is yours. Forever. ✂️</p>
+      </div>
+
+      <p class="text-gray-500 text-sm text-center mt-6">Just want the report? {{ pricing.reportPct }}% and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
       </div>
     </section>
 
     <!-- Common Waste -->
-    <section class="bg-gray-900/50 border-y border-gray-800">
-      <div class="max-w-5xl mx-auto px-6 py-20">
+    <section>
+      <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
         <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
-        <div class="max-w-3xl mx-auto space-y-3">
+        <div class="max-w-3xl mx-auto space-y-4">
           <div
             v-for="item in wasteSources"
             :key="item.name"
@@ -604,8 +645,8 @@ const fixNet = exampleAnnual - fixFee
     </section>
 
     <!-- About -->
-    <section class="max-w-5xl mx-auto px-6 py-20">
-      <div class="max-w-2xl mx-auto text-center">
+    <section class="bg-gray-900">
+      <div class="max-w-2xl mx-auto px-6 py-24 text-center">
         <img src="/david.png" alt="David Plappert" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover object-top border-2 border-gray-700">
         <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
@@ -632,13 +673,64 @@ const fixNet = exampleAnnual - fixFee
       </div>
     </section>
 
+    <!-- Security & Compliance -->
+    <section>
+      <div class="max-w-5xl mx-auto px-6 py-24">
+        <h2 class="text-3xl font-bold mb-4 text-center">🔒 Your Data. My Paranoia.</h2>
+        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">I've worked with organizations that handle the most sensitive data in the country. Your AWS account is in good hands. Careful, experienced, slightly paranoid hands. 🫡</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+            <p class="text-3xl mb-3">🏥</p>
+            <h3 class="font-bold mb-1">HIPAA</h3>
+            <p class="text-gray-500 text-sm">Protected health information? Been there, secured that.</p>
+          </div>
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+            <p class="text-3xl mb-3">🏛️</p>
+            <h3 class="font-bold mb-1">DC Health Link</h3>
+            <p class="text-gray-500 text-sm">Health exchange data for the nation's capital.</p>
+          </div>
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+            <p class="text-3xl mb-3">💳</p>
+            <h3 class="font-bold mb-1">PII &amp; eCommerce</h3>
+            <p class="text-gray-500 text-sm">Customer data, payment data, the stuff that keeps you up at night.</p>
+          </div>
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+            <p class="text-3xl mb-3">📋</p>
+            <h3 class="font-bold mb-1">IRS Pub 1075</h3>
+            <p class="text-gray-500 text-sm">Federal tax information. The government trusted me. You can too.</p>
+          </div>
+        </div>
+        <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <h3 class="font-bold mb-4 text-center">🛡️ How access works</h3>
+          <ul class="space-y-3 text-gray-400">
+            <li class="flex items-start gap-3">
+              <span class="text-brand-400 mt-0.5">✅</span>
+              <span><strong class="text-gray-200">Read-only IAM role</strong> &mdash; scoped policy, your team provisions it. I can look but I literally cannot touch. 👀</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand-400 mt-0.5">✅</span>
+              <span><strong class="text-gray-200">No data extraction</strong> &mdash; I audit infrastructure and architecture, not your application data.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand-400 mt-0.5">✅</span>
+              <span><strong class="text-gray-200">SOC 2, HIPAA, FedRAMP environments</strong> &mdash; I've worked inside all of them. I know the rules. 🏗️</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand-400 mt-0.5">✅</span>
+              <span><strong class="text-gray-200">Access revoked when we're done</strong> &mdash; you control it the entire time. Delete the role and I'm gone.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ -->
-    <section class="bg-gray-900/50 border-y border-gray-800">
-      <div class="max-w-5xl mx-auto px-6 py-20">
+    <section class="bg-gray-900">
+      <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-12 text-center">❓ Questions you're definitely asking right now</h2>
-        <div class="max-w-2xl mx-auto space-y-8">
+        <div class="max-w-2xl mx-auto space-y-10">
           <div>
-            <h3 class="text-lg font-bold mb-2">🤔 What if you don't find any savings?</h3>
+            <h3 class="text-lg font-bold mb-3">🤔 What if you don't find any savings?</h3>
             <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen, and honestly? I'll be impressed. You're out $99. In my career this has happened exactly zero times, but I hear there's a first time for everything. I'll send you a congratulatory email.</p>
           </div>
           <div>
@@ -654,8 +746,8 @@ const fixNet = exampleAnnual - fixFee
             <p class="text-gray-400">We work best with AWS accounts spending $10K/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $150K you probably need a full-time FinOps team (I can help you hire one, actually). But that $10-150K range? That's where businesses are big enough to have real infrastructure but too busy building product to optimize it. That's my people. 🫡</p>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't I just use AWS Cost Explorer myself?</h3>
-            <p class="text-gray-400">You can! And you should! But Cost Explorer shows you <em>what</em> you're spending. I show you <em>why</em> it's too much and exactly how to fix it. It's the difference between a thermometer and a doctor. One tells you the temperature. The other tells you why you feel terrible and gives you a prescription. 🌡️</p>
+            <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't my team just optimize this ourselves?</h3>
+            <p class="text-gray-400">They can try! But I'm not scanning dashboards for random cost savings. I'm reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no tool surfaces. It's the difference between a thermometer and a doctor. One tells you the temperature. The other tells you why you feel terrible and gives you a prescription. 🌡️</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🛠️ What if my team can implement the fixes themselves?</h3>
@@ -674,10 +766,11 @@ const fixNet = exampleAnnual - fixFee
     </section>
 
     <!-- CTA -->
-    <section class="max-w-5xl mx-auto px-6 py-20 text-center">
+    <section>
+      <div class="max-w-5xl mx-auto px-6 py-24 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
-      <p class="text-xl text-gray-400 mb-2">$99. 15 minutes. One call that pays for itself about a thousand times over.</p>
-      <p class="text-gray-500 mb-8">Built for small businesses spending $10-150K/mo on AWS who'd rather spend that money on literally anything else. 💰</p>
+      <p class="text-xl text-gray-400 mb-2">$99 down. One call. You don't pay the fee until you see the report.</p>
+      <p class="text-gray-500 mb-8">Serious about your AWS spend? This is the fastest way to find out what you're wasting &mdash; with zero risk. 💰</p>
       <a
         :href="calendlyUrl"
         target="_blank"
@@ -686,11 +779,12 @@ const fixNet = exampleAnnual - fixFee
         🗓️ Book Your $99 AWS Intervention
       </a>
       <p class="text-gray-600 text-sm mt-4">Down payment on your audit. No extra fees. No hard sell. No PowerPoints. Just math. 🧮</p>
+      </div>
     </section>
 
     <!-- Referral -->
-    <section class="border-t border-gray-800 bg-gray-900/50">
-      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
+    <section class="bg-gray-900">
+      <div class="max-w-3xl mx-auto px-6 py-24 text-center">
         <p class="text-4xl mb-4">🤝</p>
         <h2 class="text-2xl font-bold mb-3">Got clients bleeding AWS money? <span class="text-brand-400">Get paid to tell them.</span></h2>
         <p class="text-gray-400 text-lg mb-3">
@@ -711,9 +805,9 @@ const fixNet = exampleAnnual - fixFee
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-800 bg-gray-900/50">
+    <footer class="border-t border-gray-800 bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-        <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC &middot; Ocala, FL &middot; A real company with a real silly name</span>
+        <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC d/b/a Cut My AWS &middot; Peoria, IL &middot; A real company with a real silly name</span>
         <div class="flex items-center gap-4">
           <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="hover:text-gray-300 transition-colors">💼 LinkedIn</a>
           <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
