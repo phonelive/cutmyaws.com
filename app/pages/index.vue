@@ -96,57 +96,69 @@ const fixNet = exampleAnnual - fixFee
     <section class="bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-20">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">$99 down payment starts everything. Two plans. No lock-in. You can fire me at any point and keep everything I found. 🤝</p>
+        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Two calls. One report. Zero pressure. You decide how far to go after you see the numbers. 🤝</p>
 
-        <!-- Step 1: Scan -->
-        <div class="max-w-2xl mx-auto mb-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
-          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Every engagement starts here</div>
-          <h3 class="text-2xl font-bold mb-1">🔍 The $99 Scan</h3>
-          <p class="text-gray-400 mt-4">You grant read-only access. I dig through your account like a detective with a spreadsheet. 🕵️ We hop on a 15-minute call where I show you exactly what I found and what it's costing you.</p>
-          <p class="text-gray-500 text-sm mt-3">The $99 is a down payment &mdash; it comes off whichever plan you choose. Not an extra fee.</p>
-        </div>
+        <!-- Timeline -->
+        <div class="max-w-2xl mx-auto space-y-6">
 
-        <!-- Two Plans -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Plan A: Report -->
+          <!-- Step 1: Intro Call -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Plan A</div>
-            <h3 class="text-2xl font-bold mb-1">📋 The Report</h3>
-            <p class="text-4xl font-bold text-brand-400 mb-1">10%</p>
-            <p class="text-gray-400 text-sm mb-4">of annual savings found (includes your $99)</p>
-            <ul class="space-y-3 text-gray-300">
-              <li class="flex items-start gap-3">
-                <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Every waste item with exact dollar amounts (the uncomfortable truth 😬)</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Line-by-line breakdown your CFO will actually understand</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Step-by-step implementation guide for your team</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Delivered in 1-2 weeks. You keep it forever. Even if you ghost me. 👻</span>
-              </li>
-            </ul>
-            <p class="text-gray-500 text-sm mt-6">Best if your team can handle the implementation themselves.</p>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
+              <div>
+                <h3 class="text-xl font-bold">🗓️ Intro Call</h3>
+                <p class="text-gray-500 text-sm">15 min &middot; $99 down payment</p>
+              </div>
+            </div>
+            <p class="text-gray-400">You book a call, pay $99, and grant read-only AWS access. We meet, I walk you through what I see, and we make sure I have everything I need to go deep. 🔍</p>
+            <p class="text-gray-500 text-sm mt-3">The $99 is a down payment on your 10% audit fee &mdash; not an extra charge.</p>
           </div>
 
-          <!-- Plan B: The Fix -->
-          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8 relative">
-            <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">🔥 MOST PICK THIS</div>
-            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Plan B</div>
-            <h3 class="text-2xl font-bold mb-1">🔧 The Fix</h3>
-            <p class="text-4xl font-bold text-brand-400 mb-1">10% + 15%</p>
-            <p class="text-gray-400 text-sm mb-4">report + implementation = 25% total max (includes your $99)</p>
+          <!-- Arrow -->
+          <div class="text-center text-gray-600 text-2xl">⏳ 5-10 business days (I'm digging through your account)</div>
+
+          <!-- Step 2: Exploration Call -->
+          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
+              <div>
+                <h3 class="text-xl font-bold">📋 Exploration Call &mdash; The Report</h3>
+                <p class="text-gray-500 text-sm">10% of annual savings found (minus your $99)</p>
+              </div>
+            </div>
+            <p class="text-gray-400 mb-4">I present the full findings: every waste item, exact dollar amounts, and a step-by-step plan to fix it. You get the report as a PDF. 📄</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Everything in The Report</span>
+                <span>Line-by-line savings breakdown your CFO will actually understand</span>
               </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Implementation guide for your team (if you want to DIY) 🛠️</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>You keep the report forever. Even if you ghost me. 👻</span>
+              </li>
+            </ul>
+            <p class="text-gray-500 text-sm mt-4">Remainder of the 10% fee is due at this call. Your $99 down payment comes right off.</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="text-center text-gray-600 text-2xl">🤔 Your call. No pressure.</div>
+
+          <!-- Step 3: Implementation (Optional) -->
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 relative">
+            <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">🔥 OPTIONAL</div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
+              <div>
+                <h3 class="text-xl font-bold">🔧 The Fix &mdash; Implementation</h3>
+                <p class="text-gray-500 text-sm">+15% of annual savings = 25% total max</p>
+              </div>
+            </div>
+            <p class="text-gray-400 mb-4">Want me to actually make the changes? We agree on a timeline, deliverables, and scope at the exploration call. Then I get to work. 💪</p>
+            <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
                 <span>I implement every optimization (you watch or nap, your call 😴)</span>
@@ -157,11 +169,16 @@ const fixNet = exampleAnnual - fixFee
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>You only pay on <strong>verified, proven</strong> results. If the savings don't show up, I don't get paid. 🤷</span>
+                <span>Custom timeline and deliverables we agree on together</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>25% total is the max you'll ever pay. Period. 🤷</span>
               </li>
             </ul>
-            <p class="text-gray-500 text-sm mt-6">Best if you'd rather someone else deal with it. (I get it.)</p>
+            <p class="text-gray-500 text-sm mt-4">No surprises. We define the scope before any work begins.</p>
           </div>
+
         </div>
       </div>
     </section>
