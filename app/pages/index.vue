@@ -3,7 +3,7 @@ const calendlyUrl = 'https://calendly.com/davidplappert/aws-scan'
 
 const stats = [
   { value: '30-40%', label: 'Average waste in AWS accounts' },
-  { value: '$0', label: 'Cost if no savings found' },
+  { value: '$100', label: 'Scan deposit (credited to your bill)' },
   { value: '1-2 weeks', label: 'Typical audit turnaround' }
 ]
 
@@ -20,9 +20,10 @@ const wasteSources = [
 const exampleBefore = 20000
 const exampleSavings = 7000
 const exampleAnnual = exampleSavings * 12
-const auditFee = Math.round(exampleAnnual * 0.10)
+const scanDeposit = 100
+const auditFee = Math.round(exampleAnnual * 0.10) - scanDeposit
 const implFee = Math.round(exampleAnnual * 0.25)
-const clientNet = exampleAnnual - auditFee - implFee
+const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
 </script>
 
 <template>
@@ -39,7 +40,7 @@ const clientNet = exampleAnnual - auditFee - implFee
           target="_blank"
           class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
         >
-          Free Scan
+          $100 Scan
         </a>
       </div>
     </nav>
@@ -52,15 +53,16 @@ const clientNet = exampleAnnual - auditFee - implFee
           <span class="text-brand-400">I'll prove it.</span>
         </h1>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
-          Free 15-minute scan of your AWS spend. If I find waste, you get a full audit
-          with line-by-line savings. <strong class="text-gray-200">No savings, no fee. Ever.</strong>
+          $100 gets you a full scan of your AWS spend with a savings estimate on a live call.
+          If you move forward, it comes off your bill.
+          <strong class="text-gray-200">If I find nothing, you're only out $100.</strong>
         </p>
         <a
           :href="calendlyUrl"
           target="_blank"
           class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
         >
-          Book Your Free AWS Scan
+          Book a $100 AWS Scan
         </a>
       </div>
     </section>
@@ -78,11 +80,20 @@ const clientNet = exampleAnnual - auditFee - implFee
     <!-- How It Works -->
     <section class="max-w-5xl mx-auto px-6 py-20">
       <h2 class="text-3xl font-bold mb-12 text-center">How It Works</h2>
+
+      <!-- Step 0: Scan -->
+      <div class="max-w-2xl mx-auto mb-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+        <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 1</div>
+        <h3 class="text-2xl font-bold mb-1">AWS Scan</h3>
+        <p class="text-4xl font-bold text-brand-400 mb-4">$100 <span class="text-lg text-gray-400 font-normal">credited toward your audit</span></p>
+        <p class="text-gray-400">You share read-only access. I analyze your spend and present findings on a live call. If you proceed, the $100 comes off your bill.</p>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Option A -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Option A</div>
-          <h3 class="text-2xl font-bold mb-1">Audit</h3>
+          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 2a</div>
+          <h3 class="text-2xl font-bold mb-1">Audit Report</h3>
           <p class="text-4xl font-bold text-brand-400 mb-4">10% <span class="text-lg text-gray-400 font-normal">of identified annual savings</span></p>
           <ul class="space-y-3 text-gray-300">
             <li class="flex items-start gap-3">
@@ -107,7 +118,7 @@ const clientNet = exampleAnnual - auditFee - implFee
         <!-- Option B -->
         <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8 relative">
           <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</div>
-          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Option B</div>
+          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 2b</div>
           <h3 class="text-2xl font-bold mb-1">Audit + Implement</h3>
           <p class="text-4xl font-bold text-brand-400 mb-4">10% + 25% <span class="text-lg text-gray-400 font-normal">of realized savings</span></p>
           <ul class="space-y-3 text-gray-300">
@@ -148,7 +159,11 @@ const clientNet = exampleAnnual - auditFee - implFee
             </div>
             <hr class="border-gray-700">
             <div class="flex justify-between">
-              <span class="text-gray-400">Audit fee (10%)</span>
+              <span class="text-gray-400">Scan deposit</span>
+              <span class="font-semibold">${{ scanDeposit }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Audit fee (10% minus deposit)</span>
               <span class="font-semibold">${{ auditFee.toLocaleString() }}</span>
             </div>
             <div class="flex justify-between">
@@ -205,13 +220,13 @@ const clientNet = exampleAnnual - auditFee - implFee
     <!-- CTA -->
     <section class="max-w-5xl mx-auto px-6 py-20 text-center">
       <h2 class="text-3xl font-bold mb-4">Ready to cut your AWS bill?</h2>
-      <p class="text-xl text-gray-400 mb-8">Free 15-minute scan. No commitment. No credit card.</p>
+      <p class="text-xl text-gray-400 mb-8">$100 scan. Credited if you proceed. Results in days, not weeks.</p>
       <a
         :href="calendlyUrl"
         target="_blank"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
       >
-        Book Your Free AWS Scan
+        Book a $100 AWS Scan
       </a>
     </section>
 

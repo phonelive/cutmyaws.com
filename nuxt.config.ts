@@ -11,9 +11,9 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Your AWS bill is too high. I\'ll prove it. Free scan, pay only for savings found. 10% audit fee, 25% implementation fee.' },
+        { name: 'description', content: 'Your AWS bill is too high. $100 scan finds the waste. 10% audit fee, 25% to implement. No savings, no fee.' },
         { property: 'og:title', content: 'Cut My AWS - AWS Cost Optimization' },
-        { property: 'og:description', content: 'Your AWS bill is too high. I\'ll prove it. No savings, no fee.' },
+        { property: 'og:description', content: 'Your AWS bill is too high. $100 scan finds the waste. Pay only for savings found.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://cutmyaws.com' }
       ],
