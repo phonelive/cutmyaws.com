@@ -23,12 +23,23 @@ const wasteSources = [
   { emoji: '🐿️', name: 'Architecture built for the business plan you pitched to investors, not the one you\'re actually running', savings: '20-50%' }
 ]
 
+// ── Pricing (change here, updates everywhere) ──
+const pricing = {
+  deposit: 99,
+  reportPct: 15,       // The Report: 15% of annual savings
+  fixPct: 35,          // The Fix: 35% total (15% report + 20% implementation)
+  implPct: 20,         // Implementation portion (fixPct - reportPct)
+  minAwsReport: 5000,  // Min monthly AWS spend for The Report
+  minAwsFix: 15000,    // Min monthly AWS spend for The Fix
+}
+
+// ── Example numbers ──
 const exampleBefore = 25000
 const exampleSavings = 9000
 const exampleAnnual = exampleSavings * 12
-const scanDeposit = 99
-const reportFee = Math.round(exampleAnnual * 0.10)
-const fixFee = Math.round(exampleAnnual * 0.25) // 10% report + 15% implementation = 25% total
+const scanDeposit = pricing.deposit
+const reportFee = Math.round(exampleAnnual * pricing.reportPct / 100)
+const fixFee = Math.round(exampleAnnual * pricing.fixPct / 100)
 const reportNet = exampleAnnual - reportFee
 const fixNet = exampleAnnual - fixFee
 </script>
@@ -126,7 +137,7 @@ const fixNet = exampleAnnual - fixFee
               </div>
             </div>
             <p class="text-gray-400">You book a call, pay $99, and grant read-only AWS access. We meet, I poke around your account live, ask annoying questions about your business, and make sure I have everything I need to go deep. 🔍</p>
-            <p class="text-gray-500 text-sm mt-3">The $99 is a down payment on your 10% audit fee. It's not extra. It just proves you're serious and I'm not auditing someone's personal hobby project. (No offense to hobby projects.)</p>
+            <p class="text-gray-500 text-sm mt-3">The ${{ pricing.deposit }} is a down payment on your {{ pricing.reportPct }}% audit fee. It's not extra. It just proves you're serious and I'm not auditing someone's personal hobby project. (No offense to hobby projects.)</p>
           </div>
 
           <!-- Arrow -->
@@ -138,7 +149,7 @@ const fixNet = exampleAnnual - fixFee
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <div>
                 <h3 class="text-xl font-bold">📋 Exploration Call &mdash; The Report</h3>
-                <p class="text-gray-500 text-sm">10% of annual savings found (minus your $99, because fair is fair)</p>
+                <p class="text-gray-500 text-sm">{{ pricing.reportPct }}% of annual savings found (minus your ${{ pricing.deposit }}, because fair is fair)</p>
               </div>
             </div>
             <p class="text-gray-400 mb-4">I present everything: every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business. It's like a doctor's visit for your infrastructure, except I have better bedside manner. 📄</p>
@@ -164,7 +175,7 @@ const fixNet = exampleAnnual - fixFee
                 <span><strong class="text-brand-400">BONUS:</strong> Free AWS security scan &mdash; misconfigs, public S3 buckets, IAM roles that shouldn't exist ({{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!)</span>
               </li>
             </ul>
-            <p class="text-gray-500 text-sm mt-4">Remainder of the 10% fee is due at this call. Your $99 comes right off. Math. 🧮</p>
+            <p class="text-gray-500 text-sm mt-4">Remainder of the {{ pricing.reportPct }}% fee is due at this call. Your ${{ pricing.deposit }} comes right off. Math. 🧮</p>
           </div>
 
           <!-- Arrow -->
@@ -196,10 +207,10 @@ const fixNet = exampleAnnual - fixFee
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span><strong>+15% of verified savings due at the 90-day mark.</strong> If the savings didn't stick? You owe me nothing. I'll go cry into my own AWS bill. 🤷</span>
+                <span><strong>+{{ pricing.implPct }}% of verified savings due at the 90-day mark.</strong> If the savings didn't stick? You owe me nothing. I'll go cry into my own AWS bill. 🤷</span>
               </li>
             </ul>
-            <p class="text-gray-500 text-sm mt-4">25% total max (10% report + 15% implementation). That's the ceiling. There is no "and also this other fee." 🚫</p>
+            <p class="text-gray-500 text-sm mt-4">{{ pricing.fixPct }}% total max ({{ pricing.reportPct }}% report + {{ pricing.implPct }}% implementation). That's the ceiling. There is no "and also this other fee." 🚫</p>
           </div>
 
           <!-- Arrow -->
@@ -211,10 +222,10 @@ const fixNet = exampleAnnual - fixFee
               <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
               <div>
                 <h3 class="text-xl font-bold">📊 The Proof</h3>
-                <p class="text-gray-500 text-sm">+15% of verified annual savings &middot; a.k.a. "show me the receipts"</p>
+                <p class="text-gray-500 text-sm">+{{ pricing.implPct }}% of verified annual savings &middot; a.k.a. "show me the receipts"</p>
               </div>
             </div>
-            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. The 15% is based on <strong class="text-gray-200">actual, verified, no-BS savings</strong> &mdash; not my projections, not a spreadsheet estimate, not vibes. Real numbers on a real bill. If the savings didn't show up, I don't get paid. That's how confident I am. 💰</p>
+            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. The {{ pricing.implPct }}% is based on <strong class="text-gray-200">actual, verified, no-BS savings</strong> &mdash; not my projections, not a spreadsheet estimate, not vibes. Real numbers on a real bill. If the savings didn't show up, I don't get paid. That's how confident I am. 💰</p>
           </div>
 
         </div>
@@ -256,7 +267,7 @@ const fixNet = exampleAnnual - fixFee
             </div>
             <span class="font-semibold">${{ (reportFee - scanDeposit).toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">10% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} &mdash; minus the ${{ scanDeposit }} you already paid</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.reportPct }}% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} &mdash; minus the ${{ scanDeposit }} you already paid</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
@@ -264,10 +275,10 @@ const fixNet = exampleAnnual - fixFee
             </div>
             <span class="font-semibold">${{ (fixFee - reportFee).toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">15% of <strong>verified</strong> savings only. No savings? No charge. Pinky swear. 🤙</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.implPct }}% of <strong>verified</strong> savings only. No savings? No charge. Pinky swear. 🤙</div>
           <hr class="border-gray-700">
           <div class="flex justify-between text-base">
-            <span class="font-bold text-gray-300">Total max (25%)</span>
+            <span class="font-bold text-gray-300">Total max ({{ pricing.fixPct }}%)</span>
             <span class="font-bold">${{ fixFee.toLocaleString() }}</span>
           </div>
           <div class="flex justify-between text-base">
@@ -280,7 +291,7 @@ const fixNet = exampleAnnual - fixFee
           </div>
         </div>
       </div>
-      <p class="text-gray-500 text-sm text-center mt-4">Just want the report? 10% and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
+      <p class="text-gray-500 text-sm text-center mt-4">Just want the report? {{ pricing.reportPct }}% and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
     </section>
 
     <!-- Common Waste -->
@@ -341,7 +352,7 @@ const fixNet = exampleAnnual - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤨 When do I actually pay?</h3>
-            <p class="text-gray-400">$99 when you book (down payment). Remainder of 10% at the exploration call when you get the report. If you opt for implementation, the extra 15% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
+            <p class="text-gray-400">$99 when you book (down payment). Remainder of {{ pricing.reportPct }}% at the exploration call when you get the report. If you opt for implementation, the extra {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>
@@ -357,7 +368,7 @@ const fixNet = exampleAnnual - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🛠️ What if my team can implement the fixes themselves?</h3>
-            <p class="text-gray-400">Awesome &mdash; that's literally what the report is for. You pay 10%, get the full playbook, and your team runs with it. I'll even answer questions if they get stuck. I don't get offended when people don't need me. I get paid and you get savings. Capitalism at its finest. 🎉</p>
+            <p class="text-gray-400">Awesome &mdash; that's literally what the report is for. You pay {{ pricing.reportPct }}%, get the full playbook, and your team runs with it. I'll even answer questions if they get stuck. I don't get offended when people don't need me. I get paid and you get savings. Capitalism at its finest. 🎉</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤖 How is this different from CloudHealth / ProsperOps / [insert SaaS tool]?</h3>
