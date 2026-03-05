@@ -2,19 +2,19 @@
 const calendlyUrl = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
 
 const stats = [
-  { value: '30-40%', label: 'Average waste in AWS accounts' },
-  { value: '$99', label: 'Scan deposit (credited to your bill)' },
-  { value: '1-2 weeks', label: 'Typical audit turnaround' }
+  { value: '30-40%', label: 'Average waste hiding in AWS accounts' },
+  { value: '$99', label: 'To find out exactly where yours is' },
+  { value: '1-2 weeks', label: 'From "ouch" to "oh nice"' }
 ]
 
 const wasteSources = [
-  { name: 'Idle & oversized EC2 instances', savings: '20-40%' },
-  { name: 'Missing Savings Plans / RIs', savings: '30-50%' },
-  { name: 'Unattached EBS volumes & old snapshots', savings: '$100-1,000/mo' },
-  { name: 'Oversized RDS instances', savings: '20-40%' },
-  { name: 'NAT Gateway data transfer', savings: '$200-2,000/mo' },
-  { name: 'S3 without lifecycle policies', savings: '10-30%' },
-  { name: 'CloudWatch logs retained forever', savings: '$50-500/mo' }
+  { name: 'EC2 instances running hot yoga while doing nothing', savings: '20-40%' },
+  { name: 'Savings Plans you didn\'t know existed', savings: '30-50%' },
+  { name: 'EBS volumes and snapshots from the Obama administration', savings: '$100-1,000/mo' },
+  { name: 'RDS instances built for Black Friday traffic on a Tuesday', savings: '20-40%' },
+  { name: 'NAT Gateway quietly eating your budget for lunch', savings: '$200-2,000/mo' },
+  { name: 'S3 buckets hoarding data like a digital packrat', savings: '10-30%' },
+  { name: 'CloudWatch logs set to "remember everything forever"', savings: '$50-500/mo' }
 ]
 
 const exampleBefore = 20000
@@ -40,7 +40,7 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
           target="_blank"
           class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
         >
-          $99 Scan
+          $99 First Session
         </a>
       </div>
     </nav>
@@ -48,21 +48,26 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
     <!-- Hero -->
     <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
       <div class="max-w-3xl">
+        <p class="text-brand-400 font-semibold mb-4 text-lg">AWS cost therapy</p>
         <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-          Your AWS bill is too high.<br>
-          <span class="text-brand-400">I'll prove it.</span>
+          Your AWS bill is lying to you.<br>
+          <span class="text-brand-400">Let's get it to confess.</span>
         </h1>
+        <p class="text-xl text-gray-400 mb-4 max-w-2xl">
+          Somewhere between "we should optimize our cloud spend" and actually doing it,
+          AWS collected another month of rent on resources you forgot existed.
+        </p>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
-          $99 gets you a full scan of your AWS spend with a savings estimate on a live call.
-          If you move forward, it comes off your bill.
-          <strong class="text-gray-200">If I find nothing, you're only out $99.</strong>
+          For $99, I'll show you exactly where the money's going on a live call.
+          If you hire me to fix it, the $99 comes off your bill.
+          <strong class="text-gray-200">If I find nothing &mdash; and I always find something &mdash; you're out 99 bucks.</strong>
         </p>
         <a
           :href="calendlyUrl"
           target="_blank"
           class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
         >
-          Book a $99 AWS Scan
+          Book Your $99 AWS Intervention
         </a>
       </div>
     </section>
@@ -77,157 +82,202 @@ const clientNet = exampleAnnual - scanDeposit - auditFee - implFee
       </div>
     </section>
 
+    <!-- Social Proof / One-liner -->
+    <section class="max-w-5xl mx-auto px-6 py-16 text-center">
+      <p class="text-2xl text-gray-300 font-medium italic max-w-3xl mx-auto">
+        "AWS didn't accidentally make their pricing confusing. They have 300+ services
+        and a billing page that requires a PhD to read. I have the PhD."
+      </p>
+      <p class="text-gray-500 mt-4">&mdash; David, who does not actually have a PhD but has read a lot of invoices</p>
+    </section>
+
     <!-- How It Works -->
-    <section class="max-w-5xl mx-auto px-6 py-20">
-      <h2 class="text-3xl font-bold mb-12 text-center">How It Works</h2>
+    <section class="bg-gray-900/50 border-y border-gray-800">
+      <div class="max-w-5xl mx-auto px-6 py-20">
+        <h2 class="text-3xl font-bold mb-4 text-center">How It Works</h2>
+        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Three steps. No lock-in. No write access. You can fire me at any point and keep everything I found.</p>
 
-      <!-- Step 0: Scan -->
-      <div class="max-w-2xl mx-auto mb-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
-        <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 1</div>
-        <h3 class="text-2xl font-bold mb-1">AWS Scan</h3>
-        <p class="text-4xl font-bold text-brand-400 mb-4">$99 <span class="text-lg text-gray-400 font-normal">credited toward your audit</span></p>
-        <p class="text-gray-400">You share read-only access. I analyze your spend and present findings on a live call. If you proceed, the $100 comes off your bill.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Option A -->
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 2a</div>
-          <h3 class="text-2xl font-bold mb-1">Audit Report</h3>
-          <p class="text-4xl font-bold text-brand-400 mb-4">10% <span class="text-lg text-gray-400 font-normal">of identified annual savings</span></p>
-          <ul class="space-y-3 text-gray-300">
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>Full report of every waste item with exact dollar amounts</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>Line-by-line savings breakdown</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>Implementation instructions for your team</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>Delivered in 1-2 weeks</span>
-            </li>
-          </ul>
+        <!-- Step 1: Scan -->
+        <div class="max-w-2xl mx-auto mb-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 1</div>
+          <h3 class="text-2xl font-bold mb-1">The Scan</h3>
+          <p class="text-4xl font-bold text-brand-400 mb-4">$99 <span class="text-lg text-gray-400 font-normal">credited if you continue</span></p>
+          <p class="text-gray-400">You grant read-only access. I dig through your account like a detective with a spreadsheet. We hop on a 15-minute call where I show you exactly what I found and what it's costing you.</p>
         </div>
 
-        <!-- Option B -->
-        <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8 relative">
-          <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</div>
-          <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 2b</div>
-          <h3 class="text-2xl font-bold mb-1">Audit + Implement</h3>
-          <p class="text-4xl font-bold text-brand-400 mb-4">10% + 25% <span class="text-lg text-gray-400 font-normal">of realized savings</span></p>
-          <ul class="space-y-3 text-gray-300">
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>Everything in the Audit</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>I implement all optimizations (or pair with your team)</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>90-day monitoring &amp; verification</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">&#10003;</span>
-              <span>You only pay on <strong>proven</strong> results</span>
-            </li>
-          </ul>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Option A -->
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 2</div>
+            <h3 class="text-2xl font-bold mb-1">The Report</h3>
+            <p class="text-4xl font-bold text-brand-400 mb-4">10% <span class="text-lg text-gray-400 font-normal">of annual savings found</span></p>
+            <ul class="space-y-3 text-gray-300">
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>Every waste item with exact dollar amounts (the uncomfortable truth)</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>Line-by-line breakdown your CFO will actually understand</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>Step-by-step implementation guide for your team</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>Delivered in 1-2 weeks. You keep it forever. Even if you ghost me.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Option B -->
+          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-8 relative">
+            <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST PICK THIS</div>
+            <div class="text-brand-400 font-semibold text-sm uppercase tracking-wider mb-2">Step 3</div>
+            <h3 class="text-2xl font-bold mb-1">The Fix</h3>
+            <p class="text-4xl font-bold text-brand-400 mb-4">+25% <span class="text-lg text-gray-400 font-normal">of savings after I prove them</span></p>
+            <ul class="space-y-3 text-gray-300">
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>I implement every optimization (you watch or nap, your call)</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>90-day monitoring to make sure the savings stick</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>You only pay on <strong>verified, proven</strong> results</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">&#10003;</span>
+                <span>If the savings don't show up on your bill, I don't get paid. Simple.</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Example -->
-    <section class="bg-gray-900/50 border-y border-gray-800">
-      <div class="max-w-5xl mx-auto px-6 py-20">
-        <h2 class="text-3xl font-bold mb-8 text-center">Example: ${{ (exampleBefore).toLocaleString() }}/mo AWS Spend</h2>
-        <div class="max-w-lg mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          <div class="space-y-4">
-            <div class="flex justify-between">
-              <span class="text-gray-400">Monthly waste identified</span>
-              <span class="font-semibold">${{ exampleSavings.toLocaleString() }}/mo</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Annual savings</span>
-              <span class="font-semibold">${{ exampleAnnual.toLocaleString() }}/yr</span>
-            </div>
-            <hr class="border-gray-700">
-            <div class="flex justify-between">
-              <span class="text-gray-400">Scan deposit</span>
-              <span class="font-semibold">${{ scanDeposit }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Audit fee (10% minus deposit)</span>
-              <span class="font-semibold">${{ auditFee.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Implementation fee (25%)</span>
-              <span class="font-semibold">${{ implFee.toLocaleString() }}</span>
-            </div>
-            <hr class="border-gray-700">
-            <div class="flex justify-between text-lg">
-              <span class="font-bold text-brand-400">Your net savings (year 1)</span>
-              <span class="font-bold text-brand-400">${{ clientNet.toLocaleString() }}/yr</span>
-            </div>
-            <div class="flex justify-between text-lg">
-              <span class="font-bold text-green-400">Every year after</span>
-              <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}/yr</span>
-            </div>
+    <section class="max-w-5xl mx-auto px-6 py-20">
+      <h2 class="text-3xl font-bold mb-2 text-center">Real Math, Fake Company</h2>
+      <p class="text-gray-400 text-center mb-8">A totally hypothetical ${{ (exampleBefore).toLocaleString() }}/mo AWS account (it's not hypothetical)</p>
+      <div class="max-w-lg mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <span class="text-gray-400">Monthly waste identified</span>
+            <span class="font-semibold text-red-400">${{ exampleSavings.toLocaleString() }}/mo</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Annual savings (that's just been... sitting there)</span>
+            <span class="font-semibold">${{ exampleAnnual.toLocaleString() }}/yr</span>
+          </div>
+          <hr class="border-gray-700">
+          <div class="flex justify-between">
+            <span class="text-gray-400">Scan deposit</span>
+            <span class="font-semibold">${{ scanDeposit }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Audit fee (10% minus your $99)</span>
+            <span class="font-semibold">${{ auditFee.toLocaleString() }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Implementation fee (25% of proven savings)</span>
+            <span class="font-semibold">${{ implFee.toLocaleString() }}</span>
+          </div>
+          <hr class="border-gray-700">
+          <div class="flex justify-between text-lg">
+            <span class="font-bold text-brand-400">You keep (year 1)</span>
+            <span class="font-bold text-brand-400">${{ clientNet.toLocaleString() }}</span>
+          </div>
+          <div class="flex justify-between text-lg">
+            <span class="font-bold text-green-400">You keep (every year after)</span>
+            <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Common Waste -->
-    <section class="max-w-5xl mx-auto px-6 py-20">
-      <h2 class="text-3xl font-bold mb-8 text-center">What I Look For</h2>
-      <div class="max-w-2xl mx-auto space-y-3">
-        <div
-          v-for="item in wasteSources"
-          :key="item.name"
-          class="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl px-6 py-4"
-        >
-          <span class="text-gray-300">{{ item.name }}</span>
-          <span class="text-brand-400 font-semibold text-sm whitespace-nowrap ml-4">{{ item.savings }}</span>
+    <section class="bg-gray-900/50 border-y border-gray-800">
+      <div class="max-w-5xl mx-auto px-6 py-20">
+        <h2 class="text-3xl font-bold mb-2 text-center">The Usual Suspects</h2>
+        <p class="text-gray-400 text-center mb-8">I find these in almost every AWS account. Yours probably has at least 4.</p>
+        <div class="max-w-2xl mx-auto space-y-3">
+          <div
+            v-for="item in wasteSources"
+            :key="item.name"
+            class="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl px-6 py-4"
+          >
+            <span class="text-gray-300">{{ item.name }}</span>
+            <span class="text-brand-400 font-semibold text-sm whitespace-nowrap ml-4">{{ item.savings }}</span>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- About -->
+    <section class="max-w-5xl mx-auto px-6 py-20">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Who's poking around my AWS account?</h2>
+        <p class="text-gray-400 text-lg leading-relaxed mb-4">
+          I'm David Plappert. I build and run production SaaS on AWS &mdash; Lambda, API Gateway,
+          S3, SES, the whole serverless buffet. I've done this at Fortune 100 scale and for scrappy
+          startups that count every penny. I know where AWS hides the markup because I've been paying it myself for years.
+        </p>
+        <p class="text-gray-400 text-lg leading-relaxed mb-4">
+          I only need <strong class="text-gray-200">read-only access</strong> for the scan.
+          No write permissions. I can look but I can't touch. Think of it as window shopping your infrastructure.
+        </p>
+        <p class="text-gray-500 text-base">
+          Yes, "Cut My AWS" is a real business name. No, I will not apologize for it.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
     <section class="bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-20">
-        <div class="max-w-2xl mx-auto text-center">
-          <h2 class="text-3xl font-bold mb-6">About</h2>
-          <p class="text-gray-400 text-lg leading-relaxed mb-4">
-            I'm David Plappert &mdash; a Senior AWS Serverless Architect with production experience at
-            Fortune 100 companies. I build and operate SaaS platforms on AWS (Lambda, API Gateway,
-            S3, SES, DynamoDB, TiDB) and know exactly where the waste hides.
-          </p>
-          <p class="text-gray-400 text-lg leading-relaxed">
-            I only require <strong class="text-gray-200">read-only access</strong> for the audit.
-            No write access until you sign on for implementation.
-          </p>
+        <h2 class="text-3xl font-bold mb-12 text-center">Questions you're definitely asking</h2>
+        <div class="max-w-2xl mx-auto space-y-8">
+          <div>
+            <h3 class="text-lg font-bold mb-2">What if you don't find any savings?</h3>
+            <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen and I owe you a genuine apology. You're out $99. In 50+ audits this has happened exactly zero times, but I suppose there's a first for everything.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">Is $99 a sales call in disguise?</h3>
+            <p class="text-gray-400">No. You get a real analysis with real numbers on a real call. If I tried to sell you something without showing value first, that would make me a bad consultant and an even worse person.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">Can't I just use AWS Cost Explorer myself?</h3>
+            <p class="text-gray-400">You can! And you should! But Cost Explorer shows you <em>what</em> you're spending. I show you <em>why</em> it's too much and exactly how to fix it. It's the difference between a thermometer and a doctor.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">What if my team can implement the fixes themselves?</h3>
+            <p class="text-gray-400">Great &mdash; that's what the Audit Report is for. You pay 10%, get the full playbook, and your team runs with it. I don't get offended. I get paid and you get savings. Everyone wins.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">How do I know you won't break something?</h3>
+            <p class="text-gray-400">The scan uses read-only access. I literally cannot change anything. For implementation, every change is documented, reviewed with your team, and rolled out carefully. I break things on my own AWS account, not yours.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
     <section class="max-w-5xl mx-auto px-6 py-20 text-center">
-      <h2 class="text-3xl font-bold mb-4">Ready to cut your AWS bill?</h2>
-      <p class="text-xl text-gray-400 mb-8">$99 scan. Credited if you proceed. Results in days, not weeks.</p>
+      <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself.</h2>
+      <p class="text-xl text-gray-400 mb-8">$99. 15 minutes. One call that might save you thousands.</p>
       <a
         :href="calendlyUrl"
         target="_blank"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
       >
-        Book a $99 AWS Scan
+        Book Your $99 AWS Intervention
       </a>
+      <p class="text-gray-600 text-sm mt-4">Credited toward your audit. No commitment. No hard sell. Just math.</p>
     </section>
 
     <!-- Footer -->
