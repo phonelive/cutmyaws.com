@@ -11,20 +11,20 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'en' },
-      title: 'Cut My AWS — Business-Aligned AWS Cost Optimization for Small Businesses ($10-150K/mo)',
+      title: 'Cut My AWS — 300+ Services. Years of Buildup. Pennies Add Up. ($10-150K/mo)',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
 
         // SEO meta
-        { name: 'description', content: 'AWS cost therapy from a real human with 20+ years experience. Not a dashboard. Not an AI. Business-aligned technology audit that makes your AWS not just cheaper, but better. $99 starts the conversation. 15% audit fee, 35% max. For businesses spending $10-150K/mo on AWS.' },
+        { name: 'description', content: '300+ AWS services. Years of buildup. Pennies add up. A real human with 20+ years digs through the garbage you\'re paying for and makes your AWS not just cheaper — but better. $99 starts the conversation. You only pay a % of what I save you. For businesses spending $10-150K/mo.' },
         { name: 'keywords', content: 'AWS cost optimization, AWS cost audit, AWS cost reduction, AWS consulting, serverless migration, cloud cost management, FinOps, AWS savings, cut AWS bill, AWS waste, business-aligned technology audit' },
         { name: 'author', content: 'David Plappert' },
         { name: 'robots', content: 'index, follow' },
 
         // Open Graph
-        { property: 'og:title', content: 'Cut My AWS — AWS Cost Therapy for Small Businesses ($10-150K/mo)' },
-        { property: 'og:description', content: 'Your tech was built for a business that doesn\'t exist anymore. A real human with 20+ years of AWS makes your cloud not just cheaper, but better. $99 starts the conversation.' },
+        { property: 'og:title', content: 'Cut My AWS — 300+ Services. Years of Buildup. Pennies Add Up.' },
+        { property: 'og:description', content: 'You\'ve been busy building. AWS has been busy collecting rent. A real human with 20+ years digs through the garbage and makes your cloud not just cheaper — but better.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://cutmyaws.com' },
         { property: 'og:site_name', content: 'Cut My AWS' },
@@ -33,8 +33,8 @@ export default defineNuxtConfig({
 
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Cut My AWS — AWS Cost Therapy ($10-150K/mo)' },
-        { name: 'twitter:description', content: 'Your tech was built for a business that doesn\'t exist anymore. $99 starts the conversation. Not a dashboard. Just David.' },
+        { name: 'twitter:title', content: 'Cut My AWS — 300+ Services. Years of Buildup. Pennies Add Up.' },
+        { name: 'twitter:description', content: 'You\'ve been busy building. AWS has been busy collecting rent. $99 starts the conversation. Not a dashboard. Just David.' },
         { name: 'twitter:image', content: 'https://cutmyaws.com/og-image.png' },
 
         // GEO/AEO: help AI systems understand the page

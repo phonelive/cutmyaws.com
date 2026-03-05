@@ -72,18 +72,19 @@ const fixNet = exampleAnnual - fixFee
     <!-- Hero -->
     <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
       <div class="max-w-3xl">
-        <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for small businesses spending $10-150K/mo</p>
+        <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy for businesses spending $10-150K/mo</p>
         <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-          Your tech was built for a business<br>
-          <span class="text-brand-400">that doesn't exist anymore. ✂️</span>
+          300+ services. Years of buildup.<br>
+          <span class="text-brand-400">Pennies add up. 💸</span>
         </h1>
         <p class="text-xl text-gray-400 mb-4 max-w-2xl">
-          You started on AWS. You grew. You pivoted. You scaled. And somewhere along the way, your infrastructure stopped matching your actual business. 🤷
-          Now you've got servers babysitting workloads that should be serverless, databases sized for traffic that never came, and a bill that goes up every month for reasons nobody can fully explain.
+          You've been busy building your business. AWS has been busy collecting rent. 🤷
+          Every forgotten snapshot, every oversized database, every server running 24/7 for a workload that left at 5pm &mdash; it all adds up.
+          With 300+ services and a billing page that requires a decoder ring, nobody blames you for not catching it all.
         </p>
         <p class="text-xl text-gray-400 mb-8 max-w-2xl">
-          I don't just find waste &mdash; I find the <strong class="text-gray-200">mismatch between your tech and your business.</strong>
-          The savings are a side effect of getting that right. And yes, I'm a real person who does the actual work. Not a bot. Not a dashboard. Just a guy who's been staring at AWS bills for 20+ years and has opinions about all of them. 😏
+          I dig through the years of buildup, find the garbage you're paying for, and <strong class="text-gray-200">make your AWS not just cheaper &mdash; but better.</strong>
+          And yes, I'm a real person who does the actual work. Not a bot. Not a dashboard. Just a guy who's been staring at AWS bills for 20+ years and has opinions about all of them. 😏
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a
@@ -111,10 +112,10 @@ const fixNet = exampleAnnual - fixFee
     <!-- Social Proof / One-liner -->
     <section class="max-w-5xl mx-auto px-6 py-16 text-center">
       <p class="text-2xl text-gray-300 font-medium italic max-w-3xl mx-auto">
-        "You don't have a cost problem. You have a 'we built this in 2021 and the business is completely different now' problem.
-        The bill is just the receipt." 🧾
+        "Nobody sets out to waste money on AWS. It just happens. You launch fast, you scale fast, and three years later
+        you're paying for infrastructure you forgot existed. That's not negligence &mdash; that's just building a business." 🧾
       </p>
-      <p class="text-gray-500 mt-4">&mdash; David, who has seen this exact situation approximately one million times</p>
+      <p class="text-gray-500 mt-4">&mdash; David, who has found forgotten resources in literally every account he's ever audited</p>
     </section>
 
     <!-- How It Works -->
