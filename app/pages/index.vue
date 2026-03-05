@@ -754,6 +754,10 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
             <p class="text-gray-400">Awesome &mdash; that's literally what the report is for. You pay {{ pricing.reportPct }}%, get the full playbook, and your team runs with it. I'll even answer questions if they get stuck. I don't get offended when people don't need me. I get paid and you get savings. Capitalism at its finest. 🎉</p>
           </div>
           <div>
+            <h3 class="text-lg font-bold mb-2">🏢 Do you only work with tech companies?</h3>
+            <p class="text-gray-400">Nope. I've worked with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you're running on AWS and spending $10K+/mo, I don't care if you're selling software, saving souls, or serving citizens &mdash; your bill probably has waste and I can find it. 🏛️⛪💼</p>
+          </div>
+          <div>
             <h3 class="text-lg font-bold mb-2">🤖 How is this different from CloudHealth / ProsperOps / [insert SaaS tool]?</h3>
             <p class="text-gray-400">Those are dashboards. They scan your account and show you charts. I'm a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. Dashboards find obvious waste. I find the structural misalignment between your tech and your business that no tool can see. Also, I can explain things using sports metaphors if that helps. Dashboards cannot. 😏</p>
           </div>

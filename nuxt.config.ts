@@ -153,6 +153,11 @@ export default defineNuxtConfig({
                   },
                   {
                     '@type': 'Question',
+                    name: 'Does CutMyAWS only work with tech companies?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'No. CutMyAWS works with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you run on AWS and spend $10K+ per month, CutMyAWS can help regardless of industry or sector.' }
+                  },
+                  {
+                    '@type': 'Question',
                     name: 'How is CutMyAWS different from CloudHealth or ProsperOps?',
                     acceptedAnswer: { '@type': 'Answer', text: 'Those are dashboards that scan your account and show charts. CutMyAWS is a real person (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. Dashboards find obvious waste. David finds the structural misalignment between your tech and your business.' }
                   },
