@@ -666,7 +666,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
           When I'm not auditing your infrastructure, I'm in the suburbs of Peoria, IL with my wife and two young kids. 🏡
-          The honest truth? I started CutMyAWS because I want to pay off our house and get my family to completely debt-free.
+          The honest truth? I started CutMyAWS because I want to pay off our house and get my family completely debt-free.
           That's it. No VC funding. No exit strategy. Just a dad who's <strong class="text-gray-200">really good at AWS</strong> and
           <strong class="text-gray-200">really motivated</strong> to find your savings &mdash; because every dollar I earn pays off my house faster. 😅
         </p>
