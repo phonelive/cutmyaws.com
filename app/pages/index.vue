@@ -664,6 +664,12 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           I only need <strong class="text-gray-200">read-only access</strong> for the scan. 🔒
           No write permissions. I can look but I can't touch. Think of it as window shopping your infrastructure. Very judgmentally.
         </p>
+        <p class="text-gray-400 text-lg leading-relaxed mb-4">
+          When I'm not auditing your infrastructure, I'm in the suburbs of Peoria, IL with my wife and two young kids. 🏡
+          The honest truth? I started CutMyAWS because I want to pay off our house and get my family to completely debt-free.
+          That's it. No VC funding. No exit strategy. Just a dad who's <strong class="text-gray-200">really good at AWS</strong> and
+          <strong class="text-gray-200">really motivated</strong> to find your savings &mdash; because my mortgage depends on it. 😅
+        </p>
         <p class="text-gray-500 text-base">
           Yes, "Cut My AWS" is a real business name registered with the state of Florida. No, I will not apologize for it. ✂️
         </p>
