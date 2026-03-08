@@ -14,6 +14,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'en' },
+      bodyAttrs: { style: 'background-color:#030712' },
       title: 'Cut My AWS — Been Using AWS for Years? When\'s the Last Time You Cleaned House?',
       meta: [
         { charset: 'utf-8' },
