@@ -153,7 +153,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
       <div class="flex flex-col lg:flex-row gap-12 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy &middot; $10-150K/mo</p>
+          <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             Been using AWS for years? 🕸️<br>
             <span class="text-brand-400">When's the last time you cleaned house?</span>
