@@ -837,7 +837,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
       >
         🗓️ Book Your Free AWS Intervention
       </a>
-      <p class="text-gray-600 text-sm mt-4">No upfront cost. No hard sell. No PowerPoints. Just math. 🧮</p>
+      <p class="text-gray-600 text-sm mt-4">No hard sell. No PowerPoints. Just math. 🧮</p>
       </div>
     </section>
 
