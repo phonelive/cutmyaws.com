@@ -863,6 +863,51 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
       </div>
     </section>
 
+    <!-- Investors -->
+    <section>
+      <div class="max-w-3xl mx-auto px-6 py-24 text-center">
+        <p class="text-4xl mb-4">📈</p>
+        <h2 class="text-2xl font-bold mb-3">Your portfolio companies are <span class="text-brand-400">overpaying AWS.</span></h2>
+        <p class="text-gray-400 text-lg mb-3">
+          You did the due diligence on the team, the TAM, and the cap table &mdash;
+          but nobody looked at the AWS bill. Spoiler: it's not great. 😬
+        </p>
+        <p class="text-gray-400 text-lg mb-3">
+          I audit your portfolio companies' AWS infrastructure, find the waste, and fix it &mdash;
+          without slowing down product development. Your engineering team stays focused on shipping.
+          I handle the infrastructure bloat they've been ignoring since Series A. 🚀
+        </p>
+        <div class="grid sm:grid-cols-3 gap-6 my-10 text-left">
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <p class="text-2xl mb-2">💸</p>
+            <h3 class="font-bold mb-1">Pay on results</h3>
+            <p class="text-gray-500 text-sm">No retainer. No hourly. You pay a percentage of verified savings &mdash; if I don't find waste, you owe nothing. Wild concept for consulting, I know. 🤷</p>
+          </div>
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <p class="text-2xl mb-2">⏱️</p>
+            <h3 class="font-bold mb-1">6-month ROI</h3>
+            <p class="text-gray-500 text-sm">Most engagements pay for themselves within 6 months. After that, every dollar saved goes straight to runway. CFOs love this. Investors love it more. 😏</p>
+          </div>
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <p class="text-2xl mb-2">🔁</p>
+            <h3 class="font-bold mb-1">No recurring fees</h3>
+            <p class="text-gray-500 text-sm">I'm not another SaaS on your portfolio's credit card. One engagement, permanent savings. The only thing that recurs is the money your companies keep. Every. Single. Month.</p>
+          </div>
+        </div>
+        <p class="text-gray-500 mb-6">
+          Think of it as an instant operational upgrade across your portfolio &mdash; funded entirely by the waste it eliminates.
+          Your board deck just got a new slide. You're welcome. 📊
+        </p>
+        <a
+          href="mailto:david@cutmyaws.com?subject=Portfolio%20AWS%20Optimization%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AI%20invest%20in%20%5B%23%5D%20companies%20running%20on%20AWS.%20Let's%20talk."
+          class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors border border-gray-700"
+        >
+          📧 Email David about your portfolio
+        </a>
+        <p class="text-gray-600 text-sm mt-4">Bulk portfolio pricing available &mdash; because math rewards volume 🧮</p>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="border-t border-gray-800 bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
