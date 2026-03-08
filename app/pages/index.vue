@@ -579,7 +579,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           <a
             :href="calendly('calculator')"
             target="_blank"
-            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
+            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
           >
             🗓️ Let's find your actual number →
           </a>
@@ -833,7 +833,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
       <a
         :href="calendly('bottom-cta')"
         target="_blank"
-        class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
+        class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
       >
         🗓️ Book Your Free AWS Intervention
       </a>
