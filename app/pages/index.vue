@@ -72,7 +72,7 @@ const clients = [
   { name: 'PBS', url: 'https://www.pbs.org', logo: '/logos/pbs.svg' },
   { name: 'Commonwealth of Massachusetts', url: 'https://www.mass.gov', logo: '/logos/ma-state.png' },
   { name: 'Argonne National Laboratory', url: 'https://www.anl.gov', logo: '/logos/argonne.png' },
-  { name: 'PhoneLive', url: 'https://phonelive.com', logo: '/logos/phonelive.png' },
+  { name: 'PhoneLive', url: 'https://phonelive.io', logo: '/logos/phonelive.png' },
   { name: 'EZRA Cloud', url: 'https://ezracloud.com', logo: '/logos/ezra.png' },
 ]
 
