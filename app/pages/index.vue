@@ -289,7 +289,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
     <section class="bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Two calls. One report. Zero PowerPoints. You decide how far to go after you see the numbers. 🤝</p>
+        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">One 45-minute call. One PDF. Zero PowerPoints. You decide how far to go after you see the numbers. 🤝</p>
 
         <!-- Timeline -->
         <div class="max-w-2xl mx-auto space-y-8">
@@ -315,19 +315,19 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
             <div class="flex items-center gap-3 mb-4">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <div>
-                <h3 class="text-xl font-bold">📋 Exploration Call &mdash; The Report</h3>
+                <h3 class="text-xl font-bold">📋 The Report</h3>
                 <p class="text-gray-500 text-sm">{{ pricing.reportPct }}% of annualized savings found (minus your {{ pricing.depositPct }}% deposit)</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-4">I walk you (and your team, if you want them there) through everything: every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business. Then you get the full report as a PDF to keep forever. 📄</p>
+            <p class="text-gray-400 mb-4">The Report is two things: a <strong class="text-gray-200">45-minute call</strong> where I walk you and your team through every finding, and a <strong class="text-gray-200">full PDF</strong> you keep forever. The call is where we dig in together &mdash; every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business. The PDF is so nobody has to remember what I said. 📄</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Live call walkthrough with your team (if desired) &mdash; ask questions, push back, bring your skeptic 🤨</span>
+                <span><strong class="text-gray-200">45-minute live call</strong> with you and your team &mdash; ask questions, push back, bring your skeptic 🤨</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Full PDF report: line-by-line savings breakdown your CFO will actually understand (and maybe frame)</span>
+                <span><strong class="text-gray-200">Full PDF report</strong> &mdash; line-by-line savings breakdown your CFO will actually understand (and maybe frame)</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
@@ -620,7 +620,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ exampleAwsAnnual.toLocaleString() }} annual AWS spend = ${{ depositFee.toLocaleString() }} (deducted from The Report fee)</div>
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-gray-300 font-medium">📋 Exploration Call</span>
+              <span class="text-gray-300 font-medium">📋 The Report (45-min call + PDF)</span>
               <span class="text-gray-500 ml-2">~2 weeks</span>
             </div>
             <span class="font-semibold">${{ reportRemainder.toLocaleString() }}</span>
@@ -669,7 +669,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
         <p class="text-gray-500 text-xs text-center mt-4">One-time fee. Every dollar saved after that is yours. Forever. ✂️</p>
       </div>
 
-      <p class="text-gray-500 text-sm text-center mt-6">Just want the report? {{ pricing.reportPct }}% and your team handles it. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
+      <p class="text-gray-500 text-sm text-center mt-6">Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. You keep ${{ reportNet.toLocaleString() }} year one. No hard feelings. 💰</p>
       </div>
     </section>
 
@@ -790,7 +790,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤨 When do I actually pay?</h3>
-            <p class="text-gray-400">{{ pricing.depositPct }}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. {{ pricing.reportPct }}% of annualized savings (minus the deposit) is due when you see the report. If you opt for implementation, the extra {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
+            <p class="text-gray-400">{{ pricing.depositPct }}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. {{ pricing.reportPct }}% of annualized savings (minus the deposit) is due when The Report is delivered &mdash; that's a 45-minute call with you and your team plus a full PDF. If you opt for implementation, the extra {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>
@@ -806,7 +806,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🛠️ What if my team can implement the fixes themselves?</h3>
-            <p class="text-gray-400">Awesome &mdash; that's literally what the report is for. You pay {{ pricing.reportPct }}%, get the full playbook, and your team runs with it. I'll even answer questions if they get stuck. I don't get offended when people don't need me. I get paid and you get savings. Capitalism at its finest. 🎉</p>
+            <p class="text-gray-400">Awesome &mdash; that's literally what The Report is for. You pay {{ pricing.reportPct }}%, get the 45-minute walkthrough call plus the full PDF playbook, and your team runs with it. I'll even answer questions if they get stuck. I don't get offended when people don't need me. I get paid and you get savings. Capitalism at its finest. 🎉</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🏢 Do you only work with tech companies?</h3>
