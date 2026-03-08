@@ -98,6 +98,7 @@ const pricing = {
   reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
   fixPct: 50,          // The Fix: 50% total (15% report + 35% implementation)
   implPct: 35,         // Implementation portion (fixPct - reportPct)
+  securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
   minAws: 10000,       // We work best with $10-150K/mo AWS spend
 }
 
@@ -121,7 +122,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
     <!-- Promo Banner -->
     <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
       <a :href="calendly('promo-banner')" target="_blank" class="hover:underline">
-        🔒 FREE security scan with every audit — misconfigs, public buckets, IAM risks, oh my — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
+        🛡️ FREE Security Audit (normally {{ pricing.securityPct }}% of AWS annual spend) with every engagement — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
       </a>
     </div>
 
@@ -342,10 +343,48 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
               </li>
               <li v-if="promoActive" class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">🎁</span>
-                <span><strong class="text-brand-400">BONUS:</strong> Free AWS security scan &mdash; misconfigs, public S3 buckets, IAM roles that shouldn't exist ({{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!)</span>
+                <span><strong class="text-brand-400">BONUS:</strong> Free Security Audit (normally {{ pricing.securityPct }}% of AWS annual spend) &mdash; full PDF report covering misconfigs, public S3 buckets, IAM risks, and more ({{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!)</span>
               </li>
             </ul>
             <p class="text-gray-500 text-sm mt-4">The remaining {{ pricing.reportPct }}% fee (minus your {{ pricing.depositPct }}% deposit) is due at this call. You saw the numbers, you liked them, now we settle up. Math. 🧮</p>
+          </div>
+
+          <!-- Security Audit Add-on -->
+          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-8 relative">
+            <div v-if="promoActive" class="absolute -top-3 right-6 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">🎁 FREE for {{ promoDaysLeft }} more day{{ promoDaysLeft === 1 ? '' : 's' }}!</div>
+            <div v-else class="absolute -top-3 right-6 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-full">ADD-ON</div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">🔒</span>
+              <div>
+                <h3 class="text-xl font-bold">🛡️ Security Audit</h3>
+                <p class="text-gray-500 text-sm">{{ pricing.securityPct }}% of AWS annual spend<span v-if="promoActive"> &middot; <strong class="text-green-400">FREE during promo</strong></span></p>
+              </div>
+            </div>
+            <p class="text-gray-400 mb-4">Not a dashboard. Not an AI summary. A one-time PDF report written by a senior AWS architect who's actually reading your account. I go through your security posture line by line and tell you exactly what's exposed, what's misconfigured, and what's one bad day away from a breach. 🔍</p>
+            <ul class="space-y-3 text-gray-300">
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Public S3 buckets &mdash; the #1 cause of "we made the news and not in the good way" 🪣</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Overprivileged IAM roles &mdash; does your intern's role really need <code class="text-brand-300 text-sm">AdministratorAccess</code>? (It does not.) 🔑</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Security group misconfigs &mdash; ports open to the internet that shouldn't be, rules that made sense three years ago 🚪</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Unencrypted resources, missing logging, disabled CloudTrail &mdash; the stuff that makes compliance auditors cry 😰</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Delivered as a prioritized PDF: critical → high → medium. Fix the scary stuff first. 📋</span>
+              </li>
+            </ul>
+            <p v-if="promoActive" class="text-green-400 text-sm font-semibold mt-4">🎁 Book before the promo ends and this is included free with The Report. After that, it's {{ pricing.securityPct }}% of AWS annual spend.</p>
+            <p v-else class="text-gray-500 text-sm mt-4">{{ pricing.securityPct }}% of your AWS annual spend. Worth every penny when the alternative is explaining a breach to your board. 🫠</p>
           </div>
 
           <!-- Arrow -->
