@@ -167,7 +167,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
               target="_blank"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
-              🗓️ Book Your Intro Call
+              🗓️ Book Your<br class="sm:hidden"> Intro Call
             </a>
             <p class="text-gray-500 text-sm self-center">15 min &middot; {{ pricing.depositPct }}% down to start &middot; no pitch deck 😏</p>
           </div>
