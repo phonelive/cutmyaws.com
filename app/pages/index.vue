@@ -30,7 +30,9 @@ const calcAwsSpend = ref(25000)
 const calcWastePct = ref(30)
 const calcMonthlySavings = computed(() => Math.round(calcAwsSpend.value * (calcWastePct.value / 100)))
 const calcAnnualSavings = computed(() => calcMonthlySavings.value * 12)
+const calcDepositFee = computed(() => Math.round(calcAwsSpend.value * 12 * pricing.depositPct / 100))
 const calcReportFee = computed(() => Math.round(calcAnnualSavings.value * pricing.reportPct / 100))
+const calcReportRemainder = computed(() => calcReportFee.value - calcDepositFee.value)
 const calcFixFee = computed(() => Math.round(calcAnnualSavings.value * pricing.fixPct / 100))
 const calcKeepReport = computed(() => calcAnnualSavings.value - calcReportFee.value)
 const calcKeepFix = computed(() => calcAnnualSavings.value - calcFixFee.value)
@@ -92,7 +94,8 @@ const wasteSources = [
 
 // ── Pricing (change here, updates everywhere) ──
 const pricing = {
-  reportPct: 15,       // The Report: 15% of annual savings
+  depositPct: 1,       // Down payment: 1% of AWS annual spend to start
+  reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
   fixPct: 50,          // The Fix: 50% total (15% report + 35% implementation)
   implPct: 35,         // Implementation portion (fixPct - reportPct)
   minAws: 10000,       // We work best with $10-150K/mo AWS spend
@@ -102,7 +105,10 @@ const pricing = {
 const exampleBefore = 25000
 const exampleSavings = 9000
 const exampleAnnual = exampleSavings * 12
+const exampleAwsAnnual = exampleBefore * 12
+const depositFee = Math.round(exampleAwsAnnual * pricing.depositPct / 100)
 const reportFee = Math.round(exampleAnnual * pricing.reportPct / 100)
+const reportRemainder = reportFee - depositFee
 const fixFee = Math.round(exampleAnnual * pricing.fixPct / 100)
 const reportNet = exampleAnnual - reportFee
 const fixNet = exampleAnnual - fixFee
@@ -160,9 +166,9 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
               target="_blank"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
-              🗓️ Book Your Free Intro Call
+              🗓️ Book Your Intro Call
             </a>
-            <p class="text-gray-500 text-sm self-center">15 min &middot; free &middot; no pitch deck 😏</p>
+            <p class="text-gray-500 text-sm self-center">15 min &middot; {{ pricing.depositPct }}% down to start &middot; no pitch deck 😏</p>
           </div>
         </div>
 
@@ -293,10 +299,11 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
               <div>
                 <h3 class="text-xl font-bold">🗓️ Intro Call</h3>
-                <p class="text-gray-500 text-sm">15 min &middot; free &middot; coffee optional but encouraged ☕</p>
+                <p class="text-gray-500 text-sm">15 min &middot; {{ pricing.depositPct }}% of AWS annual spend to start ☕</p>
               </div>
             </div>
-            <p class="text-gray-400">You book a call and grant read-only AWS access. We meet, I poke around your account live, ask annoying questions about your business, and make sure I have everything I need to go deep. No charge for this one &mdash; I'm investing in you too. 🔍</p>
+            <p class="text-gray-400 mb-4">We meet, I ask annoying questions about your business, and you grant read-only AWS access so I can go deep. Then the {{ pricing.depositPct }}% down payment kicks things off. 🔍</p>
+            <p class="text-gray-500 text-sm">💡 The {{ pricing.depositPct }}% is a down payment &mdash; it gets <strong class="text-gray-300">deducted from The Report fee</strong>. Think of it as a deposit, not an extra charge. You're not paying more, you're paying sooner.</p>
           </div>
 
           <!-- Arrow -->
@@ -308,14 +315,18 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <div>
                 <h3 class="text-xl font-bold">📋 Exploration Call &mdash; The Report</h3>
-                <p class="text-gray-500 text-sm">{{ pricing.reportPct }}% of annual savings found</p>
+                <p class="text-gray-500 text-sm">{{ pricing.reportPct }}% of annualized savings found (minus your {{ pricing.depositPct }}% deposit)</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-4">I present everything: every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business. It's like a doctor's visit for your infrastructure, except I have better bedside manner. 📄</p>
+            <p class="text-gray-400 mb-4">I walk you (and your team, if you want them there) through everything: every waste item, exact dollar amounts, architecture recommendations, and where your tech doesn't match your business. Then you get the full report as a PDF to keep forever. 📄</p>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>Line-by-line savings breakdown your CFO will actually understand (and maybe frame)</span>
+                <span>Live call walkthrough with your team (if desired) &mdash; ask questions, push back, bring your skeptic 🤨</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>Full PDF report: line-by-line savings breakdown your CFO will actually understand (and maybe frame)</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
@@ -334,7 +345,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
                 <span><strong class="text-brand-400">BONUS:</strong> Free AWS security scan &mdash; misconfigs, public S3 buckets, IAM roles that shouldn't exist ({{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!)</span>
               </li>
             </ul>
-            <p class="text-gray-500 text-sm mt-4">The {{ pricing.reportPct }}% fee is due at this call. You saw the numbers, you liked them, now we settle up. Math. 🧮</p>
+            <p class="text-gray-500 text-sm mt-4">The remaining {{ pricing.reportPct }}% fee (minus your {{ pricing.depositPct }}% deposit) is due at this call. You saw the numbers, you liked them, now we settle up. Math. 🧮</p>
           </div>
 
           <!-- Arrow -->
@@ -565,16 +576,17 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
               <span class="text-gray-300 font-medium">🗓️ Intro Call</span>
               <span class="text-gray-500 ml-2">Day 1</span>
             </div>
-            <span class="font-semibold text-green-400">Free</span>
+            <span class="font-semibold">${{ depositFee.toLocaleString() }}</span>
           </div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ exampleAwsAnnual.toLocaleString() }} annual AWS spend = ${{ depositFee.toLocaleString() }} (deducted from The Report fee)</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">📋 Exploration Call</span>
               <span class="text-gray-500 ml-2">~2 weeks</span>
             </div>
-            <span class="font-semibold">${{ reportFee.toLocaleString() }}</span>
+            <span class="font-semibold">${{ reportRemainder.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.reportPct }}% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }}</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.reportPct }}% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} minus ${{ depositFee.toLocaleString() }} deposit = ${{ reportRemainder.toLocaleString() }}</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
@@ -735,11 +747,11 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
         <div class="max-w-2xl mx-auto space-y-10">
           <div>
             <h3 class="text-lg font-bold mb-3">🤔 What if you don't find any savings?</h3>
-            <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen, and honestly? I'll be impressed. The intro call was free, so you lost nothing but 15 minutes. In my career this has happened exactly zero times, but I hear there's a first time for everything. I'll send you a congratulatory email.</p>
+            <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen, and honestly? I'll be impressed. In my career this has happened exactly zero times, but I hear there's a first time for everything. I'll send you a congratulatory email.</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤨 When do I actually pay?</h3>
-            <p class="text-gray-400">The intro call is free. {{ pricing.reportPct }}% is due at the exploration call when you see the report. If you opt for implementation, the extra {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
+            <p class="text-gray-400">{{ pricing.depositPct }}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. {{ pricing.reportPct }}% of annualized savings (minus the deposit) is due when you see the report. If you opt for implementation, the extra {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>
@@ -777,7 +789,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
     <section>
       <div class="max-w-5xl mx-auto px-6 py-24 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
-      <p class="text-xl text-gray-400 mb-2">Free intro call. You don't pay a dime until you see the report.</p>
+      <p class="text-xl text-gray-400 mb-2">{{ pricing.depositPct }}% down to start. The rest isn't due until you see the report.</p>
       <p class="text-gray-500 mb-8">Serious about your AWS spend? This is the fastest way to find out what you're wasting &mdash; with zero risk. 💰</p>
       <a
         :href="calendly('bottom-cta')"
