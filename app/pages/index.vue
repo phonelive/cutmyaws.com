@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 
-const calendlyUrl = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
+const calendlyBase = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
+const calendly = (campaign) => `${calendlyBase}?utm_source=cutmyaws&utm_medium=website&utm_campaign=${campaign}`
 
 // ── Hero ticker animation ──
 const tickerValue = ref(0)
@@ -113,7 +114,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
   <div class="min-h-screen bg-gray-950 text-gray-100">
     <!-- Promo Banner -->
     <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
-      <a :href="calendlyUrl" target="_blank" class="hover:underline">
+      <a :href="calendly('promo-banner')" target="_blank" class="hover:underline">
         🔒 FREE security scan with every audit — misconfigs, public buckets, IAM risks, oh my — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
       </a>
     </div>
@@ -126,7 +127,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           <span class="font-bold text-lg">Cut My AWS</span>
         </div>
         <a
-          :href="calendlyUrl"
+          :href="calendly('nav')"
           target="_blank"
           class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
         >
@@ -155,7 +156,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a
-              :href="calendlyUrl"
+              :href="calendly('hero')"
               target="_blank"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
@@ -526,7 +527,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
         <!-- CTA -->
         <div class="text-center">
           <a
-            :href="calendlyUrl"
+            :href="calendly('calculator')"
             target="_blank"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
           >
@@ -779,7 +780,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
       <p class="text-xl text-gray-400 mb-2">Free intro call. You don't pay a dime until you see the report.</p>
       <p class="text-gray-500 mb-8">Serious about your AWS spend? This is the fastest way to find out what you're wasting &mdash; with zero risk. 💰</p>
       <a
-        :href="calendlyUrl"
+        :href="calendly('bottom-cta')"
         target="_blank"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
       >
