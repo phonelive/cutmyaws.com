@@ -115,6 +115,7 @@ const reportNet = exampleAnnual - reportFee
 const fixNet = exampleAnnual - fixFee
 const exampleMonthsToRoi = Math.ceil(fixFee / exampleSavings)
 const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
+const minAwsK = `$${pricing.minAws / 1000}K`
 </script>
 
 <template>
@@ -458,7 +459,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
               <input
                 v-model.number="calcAwsSpend"
                 type="number"
-                min="5000"
+                :min="pricing.minAws"
                 max="500000"
                 step="1000"
                 class="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-2xl font-bold text-brand-400 focus:border-brand-500 focus:outline-none"
@@ -467,13 +468,13 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
             <input
               v-model.number="calcAwsSpend"
               type="range"
-              min="5000"
+              :min="pricing.minAws"
               max="150000"
               step="5000"
               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-500"
             >
             <div class="flex justify-between text-xs text-gray-600 mt-1">
-              <span>$5K</span>
+              <span>{{ minAwsK }}</span>
               <span>$75K</span>
               <span>$150K</span>
             </div>
@@ -798,7 +799,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">📏 Is $10-150K/mo really the sweet spot?</h3>
-            <p class="text-gray-400">We work best with AWS accounts spending $5K/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $150K you probably need a full-time FinOps team (I can help you hire one, actually). But that $5-150K range? That's where businesses are big enough to have real infrastructure but too busy building product to optimize it. That's my people. 🫡</p>
+            <p class="text-gray-400">We work best with AWS accounts spending {{ minAwsK }}/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $150K you probably need a full-time FinOps team (I can help you hire one, actually). But that {{ minAwsK }}-150K range? That's where businesses are big enough to have real infrastructure but too busy building product to optimize it. That's my people. 🫡</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't my team just optimize this ourselves?</h3>
@@ -810,7 +811,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🏢 Do you only work with tech companies?</h3>
-            <p class="text-gray-400">Nope. I've worked with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you're running on AWS and spending $5K+/mo, I don't care if you're selling software, saving souls, or serving citizens &mdash; your bill probably has waste and I can find it. 🏛️⛪💼</p>
+            <p class="text-gray-400">Nope. I've worked with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you're running on AWS and spending {{ minAwsK }}+/mo, I don't care if you're selling software, saving souls, or serving citizens &mdash; your bill probably has waste and I can find it. 🏛️⛪💼</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤖 How is this different from CloudHealth / ProsperOps / [insert SaaS tool]?</h3>
