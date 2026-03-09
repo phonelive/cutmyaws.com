@@ -153,12 +153,12 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'What size AWS accounts does CutMyAWS work with?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'Businesses spending $10,000 to $150,000 per month on AWS. Below $10K there isn\'t enough waste to justify an engagement. Above $150K you likely need a full-time FinOps team.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'Businesses spending $5,000 to $150,000 per month on AWS. Below $5K there isn\'t enough waste to justify an engagement. Above $150K you likely need a full-time FinOps team.' }
                   },
                   {
                     '@type': 'Question',
                     name: 'Does CutMyAWS only work with tech companies?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'No. CutMyAWS works with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you run on AWS and spend $10K+ per month, CutMyAWS can help regardless of industry or sector.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'No. CutMyAWS works with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you run on AWS and spend $5K+ per month, CutMyAWS can help regardless of industry or sector.' }
                   },
                   {
                     '@type': 'Question',

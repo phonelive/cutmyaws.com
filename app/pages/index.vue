@@ -99,7 +99,7 @@ const pricing = {
   fixPct: 50,          // The Fix: 50% total (15% report + 35% implementation)
   implPct: 35,         // Implementation portion (fixPct - reportPct)
   securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
-  minAws: 10000,       // We work best with $10-150K/mo AWS spend
+  minAws: 5000,        // We work best with $5-150K/mo AWS spend
 }
 
 // ── Example numbers ──
@@ -798,7 +798,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">📏 Is $10-150K/mo really the sweet spot?</h3>
-            <p class="text-gray-400">We work best with AWS accounts spending $10K/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $150K you probably need a full-time FinOps team (I can help you hire one, actually). But that $10-150K range? That's where businesses are big enough to have real infrastructure but too busy building product to optimize it. That's my people. 🫡</p>
+            <p class="text-gray-400">We work best with AWS accounts spending $5K/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $150K you probably need a full-time FinOps team (I can help you hire one, actually). But that $5-150K range? That's where businesses are big enough to have real infrastructure but too busy building product to optimize it. That's my people. 🫡</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't my team just optimize this ourselves?</h3>
@@ -810,7 +810,7 @@ const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🏢 Do you only work with tech companies?</h3>
-            <p class="text-gray-400">Nope. I've worked with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you're running on AWS and spending $10K+/mo, I don't care if you're selling software, saving souls, or serving citizens &mdash; your bill probably has waste and I can find it. 🏛️⛪💼</p>
+            <p class="text-gray-400">Nope. I've worked with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you're running on AWS and spending $5K+/mo, I don't care if you're selling software, saving souls, or serving citizens &mdash; your bill probably has waste and I can find it. 🏛️⛪💼</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤖 How is this different from CloudHealth / ProsperOps / [insert SaaS tool]?</h3>
