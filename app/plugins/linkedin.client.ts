@@ -18,7 +18,7 @@ export default defineNuxtPlugin(() => {
   document.addEventListener('click', (e) => {
     const link = (e.target as HTMLElement).closest('a[href*="calendly.com"]')
     if (link) {
-      w.lintrk('track', { conversion_id: 26412850 })
+      w.lintrk('track', { conversion_id: 26412858 })
     }
   })
 })
