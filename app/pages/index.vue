@@ -139,7 +139,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           target="_blank"
           class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
         >
-          💸 Let's Go
+          🗓️ Book Free Intro Call
         </a>
       </div>
     </nav>
@@ -168,9 +168,9 @@ const minAwsK = `$${pricing.minAws / 1000}K`
               target="_blank"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
-              🗓️ Book Your<br class="sm:hidden"> Intro Call
+              🗓️ Book Your Free<br class="sm:hidden"> Intro Call
             </a>
-            <p class="text-gray-500 text-sm self-center">15 min &middot; {{ pricing.depositPct }}% down to start &middot; no pitch deck 😏</p>
+            <p class="text-gray-500 text-sm self-center">15 min &middot; free &middot; no pitch deck 😏</p>
           </div>
         </div>
 
@@ -283,6 +283,17 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           <h3 class="text-lg font-bold mb-2">Growing ≠ efficient</h3>
           <p class="text-gray-400">Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you're paying for infrastructure you forgot existed. That's not negligence &mdash; that's just building a business. Let me clean it up. 🧾</p>
         </div>
+      </div>
+      <!-- Mid-page CTA -->
+      <div class="text-center pt-8 pb-0">
+        <a
+          :href="calendly('mid-page')"
+          target="_blank"
+          class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
+        >
+          🗓️ Book Your Free Intro Call
+        </a>
+        <p class="text-gray-600 text-sm mt-3">15 minutes. Free. Just math and honest answers. 🧮</p>
       </div>
     </section>
 
@@ -582,7 +593,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
             target="_blank"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
           >
-            🗓️ Let's find your actual number →
+            🗓️ Book Your Free Intro Call →
           </a>
         </div>
       </div>
@@ -829,14 +840,14 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     <section>
       <div class="max-w-5xl mx-auto px-6 py-24 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
-      <p class="text-xl text-gray-400 mb-2">{{ pricing.depositPct }}% down to start. The rest isn't due until you see the report.</p>
-      <p class="text-gray-500 mb-8">Serious about cloud cost optimization? This is the fastest way to find out what you're wasting &mdash; with zero risk. 💰</p>
+      <p class="text-xl text-gray-400 mb-2">15 minutes. Free. No pitch deck.</p>
+      <p class="text-gray-500 mb-8">Find out what you're wasting &mdash; with zero risk and zero commitment. 💰</p>
       <a
         :href="calendly('bottom-cta')"
         target="_blank"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
       >
-        🗓️ Book Your Free AWS Intervention
+        🗓️ Book Your Free Intro Call
       </a>
       <p class="text-gray-600 text-sm mt-4">No hard sell. No PowerPoints. Just math. 🧮</p>
       </div>
@@ -914,6 +925,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
         <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC d/b/a Cut My AWS &middot; Peoria, IL &middot; A real company with a real silly name</span>
         <div class="flex items-center gap-4">
+          <a :href="calendly('footer')" target="_blank" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</a>
           <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="hover:text-gray-300 transition-colors">💼 LinkedIn</a>
           <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
         </div>
