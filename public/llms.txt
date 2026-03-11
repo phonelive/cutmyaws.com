@@ -1,14 +1,14 @@
 # CutMyAWS.com
 
-> Business-aligned AWS cost optimization for small businesses spending $5-150K/mo on AWS.
+> Cloud cost optimization for businesses spending $5-150K/mo on AWS. Business-aligned cloud cost optimization solutions — not a dashboard, a real consultant.
 
 ## What is CutMyAWS?
 
-CutMyAWS is an AWS cost optimization consulting service run by David Plappert, a Senior AWS Serverless Architect with 19 years of experience. Unlike dashboards and SaaS tools, CutMyAWS is a real person who reads your architecture, understands your business, and aligns your tech to how your business actually works. The cost savings are a side effect of getting that alignment right.
+CutMyAWS is a cloud cost optimization service run by David Plappert, a Senior AWS Serverless Architect with 19 years of experience. Unlike FinOps dashboards and cloud cost optimization tools, CutMyAWS delivers cloud cost optimization strategies through a real consultant who reads your architecture, understands your business, and aligns your tech to how your business actually works. The cloud cost savings are a side effect of getting that alignment right.
 
 ## Who is it for?
 
-Small and medium businesses spending $5,000 to $150,000 per month on AWS. Below $5K there isn't enough waste to justify an engagement. Above $150K you likely need a full-time FinOps team.
+Small and medium businesses spending $5,000 to $150,000 per month on AWS who need cloud cost optimization solutions. Below $5K there isn't enough waste to justify an engagement. Above $150K you likely need a full-time FinOps team.
 
 ## How does it work?
 
@@ -24,15 +24,16 @@ Small and medium businesses spending $5,000 to $150,000 per month on AWS. Below 
 - Implementation fee based on verified savings only — 90 days after deliverables
 - No savings = no fee for implementation
 
-## What makes CutMyAWS different?
+## What makes CutMyAWS different from cloud cost optimization tools?
 
-- Real human, not a dashboard or AI tool
-- 19 years of AWS experience
+- Real human consultant, not a cloud cost optimization tool or AI
+- 19 years of AWS experience — cloud cost optimization strategies based on architecture, not dashboards
 - Business-aligned: finds the mismatch between tech and business, not just billing waste
 - Serverless architecture expertise (Lambda, API Gateway, S3, SES)
-- Transparent pricing published on website
-- Performance-based implementation fee (pay only on verified results)
+- Transparent pricing published on website — unlike most cloud cost optimization services
+- Performance-based implementation fee (pay only on verified cloud cost savings)
 - Read-only access only for audit phase
+- Cloud cost optimization done right: architecture-driven, not chart-driven
 
 ## Contact
 
