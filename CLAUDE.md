@@ -13,7 +13,12 @@
 | Calendly | https://calendly.com/phonelivestreaming/cutmyaws-com-intro |
 | GitHub | https://github.com/phonelive/cutmyaws.com (private) |
 | Google Analytics | G-ZGPX081LFE |
+| Google Tag | GT-K8KHLNZJ |
 | MS Clarity | vr2el2utus |
+| Reddit | u/cutmyaws |
+| Google Ads | david@phonelive.io account |
+| Microsoft Ads | G145R2VD |
+| UET Tag | 343238663 |
 
 ## Founder
 
@@ -202,6 +207,7 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | `app/pages/index.vue` | The entire landing page (single page site) |
 | `app/plugins/gtag.client.ts` | Google Analytics plugin |
 | `app/plugins/clarity.client.ts` | Microsoft Clarity plugin |
+| `app/plugins/uet.client.ts` | Microsoft Ads UET conversion tracking |
 | `nuxt.config.ts` | Meta tags, SEO, structured data, OG tags |
 | `public/logos/` | Client logos (8 logos, PNG/SVG) |
 | `public/david.png` | David's headshot |
@@ -210,8 +216,17 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | `public/sitemap.xml` | Search engine sitemap |
 | `public/llms.txt` | AI/LLM-readable service description |
 | `public/CNAME` | GitHub Pages custom domain |
+| `public/logo-dollar.png` | Google Ads logo variant |
+| `public/logo-scissors.png` | Google Ads logo variant |
+| `public/reddit-ad.png` | Reddit ad image (1080x1080) |
+| `public/reddit-ad-thumb.png` | Reddit ad thumbnail (400x300) |
+| `public/reddit-banner.png` | Reddit profile banner (1920x576) |
+| `public/david-reddit.jpg` | Reddit profile pic (832x832 square crop) |
 | `.github/workflows/deploy.yml` | Auto-deploy on push |
-| `/tmp/og-template.html` | HTML template used to generate og-image.png via Playwright |
+| `/tmp/og-template.html` | HTML template for og-image.png |
+| `/tmp/reddit-ad-image.html` | HTML template for reddit-ad.png |
+| `/tmp/reddit-ad-thumb.html` | HTML template for reddit-ad-thumb.png |
+| `/tmp/reddit-banner.html` | HTML template for reddit-banner.png |
 
 ### Deployment
 
@@ -313,7 +328,10 @@ To extend: change the date. To end early: set to a past date.
 
 | Platform | Status | Notes |
 |----------|--------|-------|
-| LinkedIn (personal) | **Active** | Primary channel |
+| LinkedIn (personal) | **Active** | Primary channel (used for PhoneLive — not available for CutMyAWS) |
+| Reddit (u/cutmyaws) | **Active** | Organic answers + paid ads ($15/day) |
+| Google Ads | **Active** | Search ads ($30/day) |
+| Bing/Microsoft Ads | **Planned** | Import Google campaign ($10/day) |
 | YouTube | Future (month 2-3) | Record exploration calls as case studies |
 | Dev.to / Hashnode | Future | Technical deep-dives for SEO |
 | Twitter/X | Maybe later | DevOps community exists but slower |
@@ -339,6 +357,116 @@ Domain fully configured for maximum deliverability:
 
 **Nobody else offers:** transparent % pricing, free intro call, human consulting for $5K-$150K/mo, witty brand, verified-savings implementation fee.
 
+## Paid Advertising
+
+### Ad Accounts & IDs
+
+| Platform | Account | Daily Budget | Status |
+|----------|---------|-------------|--------|
+| Google Ads | david@phonelive.io | $30/day | Active (campaign: CutMyAWS-V2) |
+| Reddit Ads | u/cutmyaws | $15/day | Active (pending approval) |
+| Bing/Microsoft Ads | david@phonelive.io (G145R2VD) | $10/day | Active (campaign: CutMyAWS-V2) |
+
+**Total ad spend:** ~$55/day / ~$1,650/month
+
+### Google Ads
+
+- **Campaign:** CutMyAWS-V2 (Search campaign)
+- **Google Tag:** GT-K8KHLNZJ (configured in `app/plugins/gtag.client.ts`)
+- **Conversion tracking:** GA4-imported event `manual_event_SUBMIT_LEAD_FORM` — fires when any `a[href*="calendly.com"]` link is clicked (including hello bar)
+- **Budget:** $30/day
+- **Promo:** $500 spend-match credit (spend $500, get $500)
+
+#### Keywords Strategy
+
+**High-intent keywords to target:** aws cost optimization consultant, aws cost reduction services, aws bill optimization, reduce aws costs, aws cloud cost management, aws cost saving consultant, aws infrastructure optimization, aws spending optimization, aws cost analysis, aws waste reduction, aws cost audit, cloud cost optimization consultant, cloud cost reduction services, cloud infrastructure optimization, cloud spending optimization, aws finops consultant, aws cost consultant, aws optimization services
+
+**Negative keywords:** aws savings plans, aws free tier, aws certification, aws training, aws cost optimisation (British spelling)
+
+**Skip these** (wrong intent — people looking for software tools, not consulting): aws cost optimization tools, cloud cost optimization tools, aws cost management tools, cloud cost management tools, aws cost optimizer
+
+#### Ad Assets
+
+| File | Size | Purpose |
+|------|------|---------|
+| `public/logo-dollar.png` | — | Google Ads logo (dollar sign) |
+| `public/logo-scissors.png` | — | Google Ads logo (scissors) |
+
+### Reddit Ads
+
+- **Account:** u/cutmyaws
+- **Campaign:** Traffic objective, $15/day
+- **Targeting:** Subreddit communities (r/aws, r/devops, r/sysadmin, r/cloudcomputing, r/serverless, r/startups, r/smallbusiness) + keywords
+- **Ad copy:** "Your AWS bill is a symptom." → "NO SAVINGS = NO FEE" CTA
+- **Promo:** $500 spend-match credit (spend $500, get $500)
+- **Landing page:** cutmyaws.com with UTM params
+
+#### Reddit Ad Assets
+
+| File | Size | Purpose |
+|------|------|---------|
+| `public/reddit-ad.png` | 1080x1080 | Main ad image |
+| `public/reddit-ad-thumb.png` | 400x300 | Ad thumbnail |
+| `public/reddit-banner.png` | 1920x576 | Profile banner |
+| `public/david-reddit.jpg` | 832x832 | Profile picture (square crop of david.png) |
+
+#### Reddit Ad Image Generation
+
+Ad images are generated from HTML templates via Playwright, same as OG images:
+
+```bash
+# Main ad image (1080x1080)
+npx playwright screenshot --viewport-size="1080,1080" --full-page /tmp/reddit-ad-image.html public/reddit-ad.png
+
+# Thumbnail (400x300)
+npx playwright screenshot --viewport-size="400,300" --full-page /tmp/reddit-ad-thumb.html public/reddit-ad-thumb.png
+
+# Profile banner (1920x576)
+npx playwright screenshot --viewport-size="1920,576" --full-page /tmp/reddit-banner.html public/reddit-banner.png
+```
+
+Templates: `/tmp/reddit-ad-image.html`, `/tmp/reddit-ad-thumb.html`, `/tmp/reddit-banner.html`
+
+#### Reddit Organic Strategy
+
+Answer questions in these subreddits to build authority (don't self-promote directly):
+- r/aws — cost optimization questions
+- r/devops — infrastructure and cloud spend discussions
+- r/sysadmin — AWS billing complaints
+- r/cloudcomputing — general cloud cost topics
+- r/startups, r/smallbusiness — "our AWS bill is too high" posts
+
+### Bing/Microsoft Ads
+
+- **Account:** G145R2VD (david@phonelive.io)
+- **Campaign:** CutMyAWS-V2 (imported from Google Ads)
+- **UET Tag:** 343238663 (installed via `app/plugins/uet.client.ts`)
+- **Conversion event:** `calendly_click` (custom event, fired on Calendly link clicks)
+- **Budget:** $10/day
+- **Promo:** Spend $250, get $500 free (valid through June 30, 2026)
+
+### Conversion Tracking
+
+All platforms track the same conversion event: **Calendly link clicks**.
+
+```
+User clicks any Calendly link on cutmyaws.com
+  → gtag fires `manual_event_SUBMIT_LEAD_FORM`
+  → GA4 records the event
+  → Google Ads imports from GA4 as conversion
+  → Reddit/Bing track via UTM parameters + landing page
+```
+
+The click handler in `app/plugins/gtag.client.ts` uses event delegation with `a[href*="calendly.com"]` — only Calendly links trigger conversion events. Other links (LinkedIn, email, etc.) do not fire.
+
+### Ad Platform Promos
+
+| Platform | Offer | Status |
+|----------|-------|--------|
+| Google Ads | Spend $500, get $500 | Applied |
+| Reddit Ads | Spend $500, get $500 | Applied |
+| Microsoft/Bing | Spend $250, get $500 | Available (auto-applied at signup) |
+
 ## OG Image Generation
 
 The social sharing image (`public/og-image.png`) is generated using Playwright screenshotting an HTML template:
@@ -352,4 +480,4 @@ To regenerate: edit `/tmp/og-template.html` and re-run the command. Requires Pla
 
 ## Compact Instructions
 
-When compacting, preserve pricing structure, brand voice rules, and key file paths.
+When compacting, preserve pricing structure, brand voice rules, key file paths, and ad platform details (account IDs, budgets, conversion tracking flow).
