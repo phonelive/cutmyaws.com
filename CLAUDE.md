@@ -21,14 +21,14 @@
 
 ## What CutMyAWS Does
 
-Business-aligned AWS technology audit and cost optimization for small and medium businesses spending **$10-150K/month** on AWS. Not just cost cutting — finding the mismatch between tech and business needs. The savings are a side effect of getting that alignment right.
+Business-aligned AWS technology audit and cost optimization for small and medium businesses spending **$5-150K/month** on AWS. Not just cost cutting — finding the mismatch between tech and business needs. The savings are a side effect of getting that alignment right.
 
 **Key differentiator:** David is a real person who reads your architecture, understands your business, and tells you exactly what to change and why. Not a dashboard. Not an AI. Not a junior analyst with a checklist.
 
 ## Target Audience
 
-- Small and medium businesses spending **$10,000 to $150,000/month** on AWS
-- Below $10K: not enough waste to justify an engagement
+- Small and medium businesses spending **$5,000 to $150,000/month** on AWS
+- Below $5K: not enough waste to justify an engagement
 - Above $150K: likely needs a full-time FinOps team
 - Sweet spot: companies big enough to have real infrastructure but too busy building product to optimize it
 - Addressable US market: ~75,000-113,000 accounts
@@ -42,7 +42,7 @@ const pricing = {
   reportPct: 15,      // The Report: 15% of annual savings found
   fixPct: 50,         // The Fix: 50% total (15% report + 35% implementation)
   implPct: 35,        // Implementation portion (fixPct - reportPct)
-  minAws: 10000,      // We work best with $10K/mo+ AWS spend
+  minAws: 5000,       // We work best with $5K/mo+ AWS spend
 }
 ```
 
