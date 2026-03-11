@@ -154,7 +154,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <div class="flex flex-col lg:flex-row gap-12 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ AWS cost therapy</p>
+          <p class="text-brand-400 font-semibold mb-4 text-lg">🛋️ Cloud cost optimization — without the dashboard</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             Been using AWS for years? 🕸️<br>
             <span class="text-brand-400">When's the last time you cleaned house?</span>
@@ -261,7 +261,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     <!-- Why CutMyAWS -->
     <section class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-4 text-center">Why CutMyAWS? 🤔</h2>
-      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Growing AWS spend doesn't mean efficient AWS spend. Your revenue grew 40% &mdash; did your AWS bill grow 40% too? Or 80%? 📈</p>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Growing cloud spend doesn't mean efficient cloud spend. Cloud cost optimization tools show you charts &mdash; I show you why your tech doesn't match your business. Your revenue grew 40% &mdash; did your AWS bill grow 40% too? Or 80%? 📈</p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
           <p class="text-2xl mb-3">🧑‍💻</p>
@@ -271,7 +271,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
           <p class="text-2xl mb-3">🙅</p>
           <h3 class="text-lg font-bold mb-2">Not a dashboard. Not an AI. A human.</h3>
-          <p class="text-gray-400">Dashboards show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. And I only make money when you do. 🤝</p>
+          <p class="text-gray-400">Cloud cost optimization tools show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. Real cloud cost optimization is a person, not a platform. And I only make money when you do. 🤝</p>
         </div>
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
           <p class="text-2xl mb-3">💰</p>
@@ -445,7 +445,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     <!-- ROI Calculator -->
     <section class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Calculate Your Savings</h2>
-      <p class="text-gray-400 text-center mb-2">No monthly fees. No recurring charges. You pay once. Keep the savings forever. 💰</p>
+      <p class="text-gray-400 text-center mb-2">Cloud cost optimization with no monthly fees. You pay once. Keep the savings forever. 💰</p>
       <p class="text-gray-500 text-center mb-10 text-sm">Drag the sliders or type your actual AWS spend below.</p>
 
       <div class="max-w-3xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
@@ -707,7 +707,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
           I build and run production serverless SaaS at Fortune 100 scale &mdash; Lambda, API Gateway, S3, SES, the whole buffet.
           I know where AWS hides the markup because <strong class="text-gray-200">I've been paying it myself for years.</strong>
-          Most cost tools tell you what you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and I make it <strong class="text-gray-200">not just cheaper, but better.</strong> 🎯
+          Most cloud cost optimization tools tell you what you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and I make it <strong class="text-gray-200">not just cheaper, but better.</strong> 🎯
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
           Should that EC2 fleet be Lambda functions? (Probably.) Does that RDS instance need to be that big? (It does not.)
@@ -795,7 +795,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>
-            <p class="text-gray-400">Way more. Cost tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real savings live. Running servers 24/7 for a workload that spikes twice a day? That's not a billing problem, that's an architecture problem. I'm a serverless architect who happens to also save you money. The savings are a side effect of good architecture. 🏗️</p>
+            <p class="text-gray-400">Way more. Cloud cost optimization tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real cloud cost savings live. Running servers 24/7 for a workload that spikes twice a day? That's not a billing problem, that's an architecture problem. I'm a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">📏 Is $10-150K/mo really the sweet spot?</h3>
@@ -803,7 +803,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't my team just optimize this ourselves?</h3>
-            <p class="text-gray-400">They can try! But I'm not scanning dashboards for random cost savings. I'm reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no tool surfaces. It's the difference between a thermometer and a doctor. One tells you the temperature. The other tells you why you feel terrible and gives you a prescription. 🌡️</p>
+            <p class="text-gray-400">They can try! But cloud cost optimization isn't scanning dashboards for random savings. I'm reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It's the difference between a thermometer and a doctor. One tells you the temperature. The other tells you why you feel terrible and gives you a prescription. 🌡️</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🛠️ What if my team can implement the fixes themselves?</h3>
@@ -814,8 +814,8 @@ const minAwsK = `$${pricing.minAws / 1000}K`
             <p class="text-gray-400">Nope. I've worked with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you're running on AWS and spending {{ minAwsK }}+/mo, I don't care if you're selling software, saving souls, or serving citizens &mdash; your bill probably has waste and I can find it. 🏛️⛪💼</p>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-2">🤖 How is this different from CloudHealth / ProsperOps / [insert SaaS tool]?</h3>
-            <p class="text-gray-400">Those are dashboards. They scan your account and show you charts. I'm a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. Dashboards find obvious waste. I find the structural misalignment between your tech and your business that no tool can see. Also, I can explain things using sports metaphors if that helps. Dashboards cannot. 😏</p>
+            <h3 class="text-lg font-bold mb-2">🤖 How is this different from cloud cost optimization tools like CloudHealth or ProsperOps?</h3>
+            <p class="text-gray-400">Those are cloud cost optimization tools &mdash; dashboards that scan your account and show you charts. I'm a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. Cloud cost optimization platforms find obvious waste. I find the structural misalignment between your tech and your business that no tool can see. Also, I can explain things using sports metaphors if that helps. Dashboards cannot. 😏</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">😰 How do I know you won't break something?</h3>
@@ -830,7 +830,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <div class="max-w-5xl mx-auto px-6 py-24 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
       <p class="text-xl text-gray-400 mb-2">{{ pricing.depositPct }}% down to start. The rest isn't due until you see the report.</p>
-      <p class="text-gray-500 mb-8">Serious about your AWS spend? This is the fastest way to find out what you're wasting &mdash; with zero risk. 💰</p>
+      <p class="text-gray-500 mb-8">Serious about cloud cost optimization? This is the fastest way to find out what you're wasting &mdash; with zero risk. 💰</p>
       <a
         :href="calendly('bottom-cta')"
         target="_blank"

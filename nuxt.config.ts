@@ -148,7 +148,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'Is this just a cost audit or something more?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'It\'s a business-aligned technology audit. Cost tools tell you what you\'re spending. CutMyAWS tells you why your tech doesn\'t match your business — and that\'s where the real savings live. Serverless migrations, right-sizing, architecture alignment.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'It\'s a business-aligned technology audit. Cloud cost optimization tools tell you what you\'re spending. CutMyAWS tells you why your tech doesn\'t match your business — and that\'s where the real cloud cost savings live. Serverless migrations, right-sizing, architecture alignment.' }
                   },
                   {
                     '@type': 'Question',
@@ -162,8 +162,8 @@ export default defineNuxtConfig({
                   },
                   {
                     '@type': 'Question',
-                    name: 'How is CutMyAWS different from FinOps dashboards like CloudHealth or ProsperOps?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'FinOps dashboards scan your account and show charts. CutMyAWS is a real FinOps consultant (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. FinOps tools find obvious waste. David finds the structural misalignment between your tech and your business — the kind of FinOps insight no dashboard can deliver.' }
+                    name: 'How is CutMyAWS different from cloud cost optimization tools like CloudHealth or ProsperOps?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'Cloud cost optimization tools scan your account and show charts. CutMyAWS is a real consultant (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. Cloud cost optimization platforms find obvious waste. David finds the structural misalignment between your tech and your business — the kind of cloud cost optimization insight no dashboard can deliver.' }
                   },
                   {
                     '@type': 'Question',
