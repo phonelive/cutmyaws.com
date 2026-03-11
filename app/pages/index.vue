@@ -95,8 +95,8 @@ const wasteSources = [
 const pricing = {
   depositPct: 1,       // Down payment: 1% of AWS annual spend to start
   reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
-  fixPct: 50,          // The Fix: 50% total (15% report + 35% implementation)
-  implPct: 35,         // Implementation portion (fixPct - reportPct)
+  implPct: 60,         // Implementation portion
+  fixPct: 75,          // The Fix: 75% total (15% report + 60% implementation)
   securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
   minAws: 5000,        // We work best with $5K+/mo AWS spend
 }

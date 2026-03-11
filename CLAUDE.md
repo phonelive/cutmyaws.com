@@ -44,10 +44,12 @@ All pricing is centralized in `app/pages/index.vue` in the `pricing` object:
 
 ```js
 const pricing = {
-  reportPct: 15,      // The Report: 15% of annual savings found
-  fixPct: 50,         // The Fix: 50% total (15% report + 35% implementation)
-  implPct: 35,        // Implementation portion (fixPct - reportPct)
-  minAws: 5000,       // We work best with $5K+/mo AWS spend
+  depositPct: 1,       // Down payment: 1% of AWS annual spend to start
+  reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
+  implPct: 60,         // Implementation portion
+  fixPct: 75,          // The Fix: 75% total (15% report + 60% implementation)
+  securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
+  minAws: 5000,        // We work best with $5K+/mo AWS spend
 }
 ```
 
@@ -73,10 +75,10 @@ const pricing = {
                ↓
          ⏳ 90 DAYS LATER
                ↓
-         📊 THE PROOF       +35% of VERIFIED savings due
+         📊 THE PROOF       +60% of VERIFIED savings due
                             (no savings = $0 owed)
 
-Max total: 50% (15% report + 35% implementation)
+Max total: 75% (15% report + 60% implementation)
 ```
 
 ### Example ($25K/mo AWS spend, 30% waste found)
@@ -85,9 +87,9 @@ Max total: 50% (15% report + 35% implementation)
 |-------|-------:|
 | Intro Call | Free |
 | Exploration Call (15% of $108K) | $16,200 |
-| 90 Days After Implementation (+35%) | $37,800 |
-| **Total max (50%)** | **$54,000** |
-| **Client keeps year 1** | **$54,000** |
+| 90 Days After Implementation (+60%) | $64,800 |
+| **Total max (75%)** | **$81,000** |
+| **Client keeps year 1** | **$27,000** |
 | **Client keeps every year after** | **$108,000** |
 
 ## Brand Voice
@@ -253,7 +255,7 @@ Push to `main` → GitHub Actions builds Nuxt static → deploys to GitHub Pages
 Located in `nuxt.config.ts` as a script tag. Includes:
 - `ProfessionalService` — the business entity
 - `Service` (The Report) — 15% audit service
-- `Service` (The Fix) — 35% implementation service
+- `Service` (The Fix) — 60% implementation service
 - `FAQPage` — 6 Q&A pairs for rich results
 - `WebPage` — ties it all together
 

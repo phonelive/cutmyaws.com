@@ -14,13 +14,13 @@ Businesses spending $5,000 or more per month on AWS who need cloud cost optimiza
 
 1. **Intro Call** (free, 15 min): Book a call, grant read-only AWS access, meet David.
 2. **Exploration Call** (5-10 business days later): David presents full findings — every waste item, dollar amounts, architecture recommendations, business alignment analysis. Fee: 15% of identified annual savings.
-3. **Implementation** (optional): David implements all optimizations. Custom timeline and deliverables agreed together. Fee: +35% of verified savings, due 90 days after deliverables. 50% total maximum.
+3. **Implementation** (optional): David implements all optimizations. Custom timeline and deliverables agreed together. Fee: +60% of verified savings, due 90 days after deliverables. 75% total maximum.
 
 ## Pricing
 
 - Free intro call
 - The Report: 15% of annual savings found
-- The Fix: 50% total max (15% report + 35% implementation)
+- The Fix: 75% total max (15% report + 60% implementation)
 - Implementation fee based on verified savings only — 90 days after deliverables
 - No savings = no fee for implementation
 

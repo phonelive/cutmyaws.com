@@ -49,7 +49,7 @@ export default defineNuxtConfig({
         // GEO/AEO: help AI systems understand the page
         { name: 'subject', content: 'Cloud Cost Optimization & AWS FinOps Consulting' },
         { name: 'topic', content: 'Cloud cost optimization, AWS cost savings, and business-aligned technology audits for small businesses' },
-        { name: 'summary', content: 'CutMyAWS.com offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K+/mo. Cloud cost optimization solutions include architecture audit, serverless migration, and implementation — priced at 15% of annual savings found, 50% max total. 19 years AWS experience. Not a dashboard — a real consultant.' },
+        { name: 'summary', content: 'CutMyAWS.com offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K+/mo. Cloud cost optimization solutions include architecture audit, serverless migration, and implementation — priced at 15% of annual savings found, 75% max total. 19 years AWS experience. Not a dashboard — a real consultant.' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -94,7 +94,7 @@ export default defineNuxtConfig({
                 },
                 areaServed: 'US',
                 serviceType: ['Cloud Cost Optimization', 'AWS Cost Optimization', 'Cloud Cost Optimization Solutions', 'Cloud Cost Optimization Services', 'FinOps Consulting', 'Cloud Cost Audit', 'Serverless Migration', 'Business-Aligned Technology Audit'],
-                priceRange: '15-50% of verified savings',
+                priceRange: '15-75% of verified savings',
                 knowsAbout: ['Cloud Cost Optimization', 'Cloud Cost Optimization Solutions', 'Cloud Cost Optimization Strategies', 'Cloud Cost Savings', 'Amazon Web Services', 'AWS Lambda', 'Serverless Architecture', 'FinOps', 'FinOps Consulting', 'AWS FinOps', 'AWS EC2', 'AWS RDS', 'AWS S3', 'DevOps'],
                 email: 'david@cutmyaws.com',
                 sameAs: ['https://www.linkedin.com/in/davidplappert/']
@@ -131,9 +131,9 @@ export default defineNuxtConfig({
                 serviceType: 'AWS Cost Optimization Implementation',
                 offers: {
                   '@type': 'Offer',
-                  price: '35% of verified annual savings (max)',
+                  price: '75% of verified annual savings (max)',
                   priceCurrency: 'USD',
-                  description: '15% audit + 20% implementation = 35% total max. Implementation fee due 90 days after deliverables, based on verified savings only.'
+                  description: '15% audit + 60% implementation = 75% total max. Implementation fee due 90 days after deliverables, based on verified savings only.'
                 }
               },
               {
@@ -148,7 +148,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'When do I pay for the AWS cost audit?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'The intro call is free. 15% is due at the exploration call when you receive the report. If you opt for implementation, the extra 35% is due 90 days after deliverables — and only on verified savings.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'The intro call is free. 15% is due at the exploration call when you receive the report. If you opt for implementation, the extra 60% is due 90 days after deliverables — and only on verified savings.' }
                   },
                   {
                     '@type': 'Question',
@@ -173,7 +173,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'What is the maximum fee for CutMyAWS services?',
-                    acceptedAnswer: { '@type': 'Answer', text: '35% of verified annual savings is the absolute maximum (15% for the audit report + 20% for implementation). The implementation fee is only charged 90 days after deliverables, based on actual verified bill reduction.' }
+                    acceptedAnswer: { '@type': 'Answer', text: '75% of verified annual savings is the absolute maximum (15% for the audit report + 60% for implementation). The implementation fee is only charged 90 days after deliverables, based on actual verified bill reduction.' }
                   }
                 ]
               }
