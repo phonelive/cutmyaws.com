@@ -333,11 +333,11 @@ Domain fully configured for maximum deliverability:
 
 | Competitor Type | Examples | CutMyAWS Edge |
 |----------------|----------|---------------|
-| Big consulting | Duckbill Group, Accenture, KPMG | They target $1M+ spends. We target $10-150K. |
+| Big consulting | Duckbill Group, Accenture, KPMG | They target $1M+ spends. We target $5K-$150K. |
 | SaaS dashboards | ProsperOps, CloudHealth, Vantage, nOps | They show charts. We read architecture + business. |
 | Boutique consultants | Miro, Rambunct, SUDO, StableLogic | None publish pricing. We're fully transparent. |
 
-**Nobody else offers:** transparent % pricing, free intro call, human consulting for $10-150K/mo, witty brand, verified-savings implementation fee.
+**Nobody else offers:** transparent % pricing, free intro call, human consulting for $5K-$150K/mo, witty brand, verified-savings implementation fee.
 
 ## OG Image Generation
 

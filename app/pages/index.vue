@@ -798,7 +798,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
             <p class="text-gray-400">Way more. Cloud cost optimization tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real cloud cost savings live. Running servers 24/7 for a workload that spikes twice a day? That's not a billing problem, that's an architecture problem. I'm a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️</p>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-2">📏 Is $10-150K/mo really the sweet spot?</h3>
+            <h3 class="text-lg font-bold mb-2">📏 Is $5K-$150K/mo really the sweet spot?</h3>
             <p class="text-gray-400">We work best with AWS accounts spending {{ minAwsK }}/mo or more. Below that, there usually isn't enough waste to justify an engagement. Above $150K you probably need a full-time FinOps team (I can help you hire one, actually). But that {{ minAwsK }}-150K range? That's where businesses are big enough to have real infrastructure but too busy building product to optimize it. That's my people. 🫡</p>
           </div>
           <div>
