@@ -21,8 +21,8 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
 
         // SEO meta
-        { name: 'description', content: 'Been using AWS for years? 300+ services. Years of buildup. Cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human with 19 years makes your AWS not just cheaper, but better. Free intro call.' },
-        { name: 'keywords', content: 'AWS cost optimization, AWS cost audit, AWS cost reduction, AWS consulting, serverless migration, cloud cost management, FinOps, AWS savings, cut AWS bill, AWS waste, business-aligned technology audit' },
+        { name: 'description', content: 'Cloud cost optimization for AWS — 300+ services, years of buildup, cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human consultant with 19 years of AWS experience delivers cloud cost optimization strategies that make your infrastructure not just cheaper, but better. Free intro call.' },
+        { name: 'keywords', content: 'cloud cost optimization, cloud cost optimization solutions, cloud cost optimization strategies, cloud cost optimization services, cloud cost savings, reduce cloud cost, AWS cost optimization, AWS cloud cost optimization, reduce AWS cost, AWS cost savings, cloud cost management, FinOps, FinOps consulting, FinOps consultant, AWS consulting, serverless migration, cut AWS bill, AWS waste, business-aligned technology audit' },
         { name: 'author', content: 'David Plappert' },
         { name: 'robots', content: 'index, follow' },
 
@@ -42,9 +42,9 @@ export default defineNuxtConfig({
         { name: 'twitter:image', content: 'https://cutmyaws.com/og-image.png' },
 
         // GEO/AEO: help AI systems understand the page
-        { name: 'subject', content: 'AWS Cost Optimization Consulting' },
-        { name: 'topic', content: 'AWS cost reduction and business-aligned technology audits for small businesses' },
-        { name: 'summary', content: 'CutMyAWS.com offers business-aligned AWS cost optimization for companies spending $10-150K/mo. Free intro call, 15% of annual savings for audit report, 50% max total with implementation. 19 years AWS experience. Not a dashboard — a person.' },
+        { name: 'subject', content: 'Cloud Cost Optimization & AWS FinOps Consulting' },
+        { name: 'topic', content: 'Cloud cost optimization, AWS cost savings, and business-aligned technology audits for small businesses' },
+        { name: 'summary', content: 'CutMyAWS.com offers cloud cost optimization and business-aligned AWS consulting for companies spending $10-150K/mo. Cloud cost optimization solutions include architecture audit, serverless migration, and implementation — priced at 15% of annual savings found, 50% max total. 19 years AWS experience. Not a dashboard — a real consultant.' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -66,7 +66,7 @@ export default defineNuxtConfig({
                 url: 'https://cutmyaws.com',
                 logo: 'https://cutmyaws.com/favicon.svg',
                 image: 'https://cutmyaws.com/og-image.png',
-                description: 'Business-aligned AWS cost optimization for small businesses spending $10-150K/mo. Not a dashboard — a real person with 19 years of AWS experience who makes your cloud not just cheaper, but better.',
+                description: 'Cloud cost optimization solutions for small businesses spending $10-150K/mo on AWS. Business-aligned cloud cost optimization strategies from a real consultant with 19 years of AWS experience — not a dashboard, not an AI.',
                 founder: {
                   '@type': 'Person',
                   name: 'David Plappert',
@@ -88,9 +88,9 @@ export default defineNuxtConfig({
                   }
                 },
                 areaServed: 'US',
-                serviceType: ['AWS Cost Optimization', 'Cloud Cost Audit', 'Serverless Migration', 'Business-Aligned Technology Audit'],
+                serviceType: ['Cloud Cost Optimization', 'AWS Cost Optimization', 'Cloud Cost Optimization Solutions', 'Cloud Cost Optimization Services', 'FinOps Consulting', 'Cloud Cost Audit', 'Serverless Migration', 'Business-Aligned Technology Audit'],
                 priceRange: '15-50% of verified savings',
-                knowsAbout: ['Amazon Web Services', 'AWS Lambda', 'Serverless Architecture', 'Cloud Cost Optimization', 'FinOps', 'AWS EC2', 'AWS RDS', 'AWS S3', 'DevOps'],
+                knowsAbout: ['Cloud Cost Optimization', 'Cloud Cost Optimization Solutions', 'Cloud Cost Optimization Strategies', 'Cloud Cost Savings', 'Amazon Web Services', 'AWS Lambda', 'Serverless Architecture', 'FinOps', 'FinOps Consulting', 'AWS FinOps', 'AWS EC2', 'AWS RDS', 'AWS S3', 'DevOps'],
                 email: 'david@cutmyaws.com',
                 sameAs: ['https://www.linkedin.com/in/davidplappert/']
               },
@@ -98,8 +98,8 @@ export default defineNuxtConfig({
                 '@type': 'WebPage',
                 '@id': 'https://cutmyaws.com/#webpage',
                 url: 'https://cutmyaws.com',
-                name: 'Cut My AWS — Business-Aligned AWS Cost Optimization',
-                description: 'AWS cost therapy for small businesses spending $10-150K/mo. Free intro call.',
+                name: 'Cut My AWS — Cloud Cost Optimization & AWS FinOps Consulting',
+                description: 'Cloud cost optimization solutions and AWS cost savings for small businesses spending $10-150K/mo. Free intro call.',
                 isPartOf: { '@id': 'https://cutmyaws.com/#organization' },
                 about: { '@id': 'https://cutmyaws.com/#organization' }
               },
@@ -162,8 +162,8 @@ export default defineNuxtConfig({
                   },
                   {
                     '@type': 'Question',
-                    name: 'How is CutMyAWS different from CloudHealth or ProsperOps?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'Those are dashboards that scan your account and show charts. CutMyAWS is a real person (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. Dashboards find obvious waste. David finds the structural misalignment between your tech and your business.' }
+                    name: 'How is CutMyAWS different from FinOps dashboards like CloudHealth or ProsperOps?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'FinOps dashboards scan your account and show charts. CutMyAWS is a real FinOps consultant (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. FinOps tools find obvious waste. David finds the structural misalignment between your tech and your business — the kind of FinOps insight no dashboard can deliver.' }
                   },
                   {
                     '@type': 'Question',
