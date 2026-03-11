@@ -19,6 +19,8 @@
 | Google Ads | david@phonelive.io account |
 | Microsoft Ads | G145R2VD |
 | UET Tag | 343238663 |
+| LinkedIn Company Page | Cut My AWS (525710547) |
+| LinkedIn Insight Tag | 8785714 |
 
 ## Founder
 
@@ -206,6 +208,7 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | `app/plugins/gtag.client.ts` | Google Analytics plugin |
 | `app/plugins/clarity.client.ts` | Microsoft Clarity plugin |
 | `app/plugins/uet.client.ts` | Microsoft Ads UET conversion tracking |
+| `app/plugins/linkedin.client.ts` | LinkedIn Insight Tag + conversion tracking |
 | `nuxt.config.ts` | Meta tags, SEO, structured data, OG tags |
 | `public/logos/` | Client logos (8 logos, PNG/SVG) |
 | `public/david.png` | David's headshot |
@@ -220,6 +223,7 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | `public/reddit-ad-thumb.png` | Reddit ad thumbnail (400x300) |
 | `public/reddit-banner.png` | Reddit profile banner (1920x576) |
 | `public/david-reddit.jpg` | Reddit profile pic (832x832 square crop) |
+| `public/linkedin-ad.png` | LinkedIn ad image (1200x627) |
 | `.github/workflows/deploy.yml` | Auto-deploy on push |
 | `/tmp/og-template.html` | HTML template for og-image.png |
 | `/tmp/reddit-ad-image.html` | HTML template for reddit-ad.png |
@@ -326,7 +330,8 @@ To extend: change the date. To end early: set to a past date.
 
 | Platform | Status | Notes |
 |----------|--------|-------|
-| LinkedIn (personal) | **Active** | Primary channel (used for PhoneLive — not available for CutMyAWS) |
+| LinkedIn (company page + ads) | **Active** | Company page + paid ads ($15/day) |
+| LinkedIn (personal) | **Active** | Primary organic channel |
 | Reddit (u/cutmyaws) | **Active** | Organic answers + paid ads ($15/day) |
 | Google Ads | **Active** | Search ads ($30/day) |
 | Bing/Microsoft Ads | **Planned** | Import Google campaign ($10/day) |
@@ -364,8 +369,9 @@ Domain fully configured for maximum deliverability:
 | Google Ads | david@phonelive.io | $30/day | Active (campaign: CutMyAWS-V2) |
 | Reddit Ads | u/cutmyaws | $15/day | Active (pending approval) |
 | Bing/Microsoft Ads | david@phonelive.io (G145R2VD) | $10/day | Active (campaign: CutMyAWS-V2) |
+| LinkedIn Ads | Cut My AWS (525710547) | $15/day | Active (campaign group: New Campaign Group) |
 
-**Total ad spend:** ~$55/day / ~$1,650/month
+**Total ad spend:** ~$70/day / ~$2,100/month
 
 ### Google Ads
 
@@ -434,6 +440,26 @@ Answer questions in these subreddits to build authority (don't self-promote dire
 - r/cloudcomputing — general cloud cost topics
 - r/startups, r/smallbusiness — "our AWS bill is too high" posts
 
+### LinkedIn Ads
+
+- **Account:** Cut My AWS (525710547)
+- **Campaign:** Website visits objective, $15/day
+- **Insight Tag:** 8785714 (installed via `app/plugins/linkedin.client.ts`)
+- **Conversion:** Calendly Clicks (Lead category, Direct API source)
+- **Targeting:** Job titles (CTO, VP Engineering, Director of Engineering, Head of Infrastructure, Cloud Architect, DevOps Manager, VP of Operations, Engineering Manager) + Company size (11-50, 51-200, 201-500) + Skills (AWS, Cloud Computing, DevOps)
+- **Ad format:** Single image ad (1200x627)
+- **Ad copy headline:** "Your AWS Bill Is a Symptom. Let's Fix the Disease."
+- **CTA:** Learn More
+- **Landing page:** cutmyaws.com?utm_source=linkedin&utm_medium=paid&utm_campaign=cutmyaws-v1
+- **Forecast:** CPC $3.24-$3.81, 22-82 clicks/30 days
+
+#### LinkedIn Ad Assets
+
+| File | Size | Purpose |
+|------|------|---------|
+| `public/linkedin-ad.png` | 1200x627 | Single image ad |
+| `/tmp/linkedin-ad-image.html` | — | HTML template for ad image |
+
 ### Bing/Microsoft Ads
 
 - **Account:** G145R2VD (david@phonelive.io)
@@ -449,13 +475,13 @@ All platforms track the same conversion event: **Calendly link clicks**.
 
 ```
 User clicks any Calendly link on cutmyaws.com
-  → gtag fires `manual_event_SUBMIT_LEAD_FORM`
-  → GA4 records the event
-  → Google Ads imports from GA4 as conversion
-  → Reddit/Bing track via UTM parameters + landing page
+  → gtag fires `manual_event_SUBMIT_LEAD_FORM` → GA4 → Google Ads
+  → uet fires `calendly_click` → Microsoft Ads
+  → lintrk fires conversion → LinkedIn Ads
+  → Reddit tracks via UTM parameters + landing page
 ```
 
-The click handler in `app/plugins/gtag.client.ts` uses event delegation with `a[href*="calendly.com"]` — only Calendly links trigger conversion events. Other links (LinkedIn, email, etc.) do not fire.
+Each plugin (`gtag.client.ts`, `uet.client.ts`, `linkedin.client.ts`) uses event delegation with `a[href*="calendly.com"]` — only Calendly links trigger conversion events.
 
 ### Ad Platform Promos
 
