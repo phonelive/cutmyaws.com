@@ -891,8 +891,8 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           </div>
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
             <p class="text-2xl mb-2">⏱️</p>
-            <h3 class="font-bold mb-1">6-month ROI</h3>
-            <p class="text-gray-500 text-sm">Most engagements pay for themselves within 6 months. After that, every dollar saved goes straight to runway. CFOs love this. Investors love it more. 😏</p>
+            <h3 class="font-bold mb-1">{{ exampleMonthsToRoi }}-month ROI</h3>
+            <p class="text-gray-500 text-sm">Most engagements pay for themselves within {{ exampleMonthsToRoi }} months. After that, every dollar saved goes straight to runway. CFOs love this. Investors love it more. 😏</p>
           </div>
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
             <p class="text-2xl mb-2">🔁</p>
