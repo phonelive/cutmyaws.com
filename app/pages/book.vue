@@ -68,16 +68,18 @@ onMounted(() => {
       <!-- Value prop for ad traffic -->
       <p class="text-gray-500 text-sm mb-2">19 years of AWS experience. We find 30–40% waste on average.</p>
 
-      <!-- Social proof — compact logo row -->
-      <div class="flex items-center justify-center gap-4 mb-1">
-        <span class="text-gray-600 text-xs">Trusted by teams at</span>
-        <div class="flex items-center gap-4">
+      <!-- Social proof — mini logo cards matching homepage style -->
+      <p class="text-gray-600 text-xs mb-2">Trusted by teams at</p>
+      <div class="flex items-center justify-center gap-3">
+        <div
+          v-for="client in clients"
+          :key="client.name"
+          class="flex items-center justify-center h-10 px-3 rounded-md bg-white/90"
+        >
           <img
-            v-for="client in clients"
-            :key="client.name"
             :src="client.logo"
             :alt="client.name"
-            class="h-5 w-auto object-contain opacity-40 grayscale"
+            class="h-6 max-w-[100px] object-contain opacity-90"
           />
         </div>
       </div>

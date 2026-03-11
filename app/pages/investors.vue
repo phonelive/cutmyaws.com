@@ -129,14 +129,18 @@ const clients = [
     <section class="bg-gray-900">
       <div class="max-w-3xl mx-auto px-6 py-12 text-center">
         <p class="text-gray-500 text-sm mb-6">Trusted by teams at</p>
-        <div class="flex flex-wrap items-center justify-center gap-8">
-          <img
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <div
             v-for="client in clients"
             :key="client.name"
-            :src="client.logo"
-            :alt="client.name"
-            class="h-8 opacity-50 hover:opacity-90 transition-opacity grayscale hover:grayscale-0"
-          />
+            class="flex items-center justify-center h-16 w-36 px-4 rounded-lg bg-white/90"
+          >
+            <img
+              :src="client.logo"
+              :alt="client.name"
+              class="h-10 max-w-[120px] object-contain opacity-90"
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -207,6 +207,8 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | File | Purpose |
 |------|---------|
 | `app/pages/index.vue` | The entire landing page (single page site) |
+| `app/pages/book.vue` | Calendly embed page — all CTAs route here via `/book?c=campaign` |
+| `app/pages/investors.vue` | Dedicated investor landing page for ad campaigns (noindex) |
 | `app/plugins/gtag.client.ts` | Google Analytics plugin |
 | `app/plugins/clarity.client.ts` | Microsoft Clarity plugin |
 | `app/plugins/uet.client.ts` | Microsoft Ads UET conversion tracking |
@@ -341,6 +343,24 @@ To extend: change the date. To end early: set to a past date.
 | Dev.to / Hashnode | Future | Technical deep-dives for SEO |
 | Twitter/X | Maybe later | DevOps community exists but slower |
 | Facebook/Instagram/TikTok | Skip | Wrong audience |
+
+### Investor Ad Campaign
+
+**Landing page:** `cutmyaws.com/investors` (dedicated, noindex)
+
+**Angle:** Angel investors / VCs audit portfolio companies' AWS spend to extend runway without cutting headcount.
+
+**Key messages:**
+- "Your portfolio companies are overpaying AWS"
+- "Nobody audited the AWS bill"
+- "30-40% waste on average"
+- "9-month ROI, pay on results only"
+- "One engagement, permanent savings"
+
+**Platforms:**
+- **Google Ads** — Search keywords: `reduce aws costs portfolio`, `aws cost optimization startup`, `reduce burn rate startup`, `cloud cost optimization small business`
+- **LinkedIn Ads** — Sponsored Content + InMail. Target: Angel Investor, Venture Partner, Managing Partner, General Partner titles. VC/PE industries. Director+ seniority.
+- **Reddit Ads** — Promoted posts in r/startups, r/venturecapital, r/SaaS, r/aws, r/devops, r/Entrepreneur
 
 ## Email Deliverability
 
