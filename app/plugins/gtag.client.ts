@@ -9,4 +9,16 @@ export default defineNuxtPlugin(() => {
   function gtag(...args: any[]) { w.dataLayer.push(arguments) }
   gtag('js', new Date())
   gtag('config', 'G-ZGPX081LFE')
+  gtag('config', 'GT-K8KHLNZJ')
+
+  // Track Calendly link clicks as conversions
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest('a[href*="calendly.com"]')
+    if (link) {
+      gtag('event', 'manual_event_SUBMIT_LEAD_FORM', {
+        event_category: 'conversion',
+        event_label: link.getAttribute('href')
+      })
+    }
+  })
 })
