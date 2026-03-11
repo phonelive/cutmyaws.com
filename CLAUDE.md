@@ -21,7 +21,7 @@
 
 ## What CutMyAWS Does
 
-Business-aligned AWS technology audit and cost optimization for small and medium businesses spending **$5-150K/month** on AWS. Not just cost cutting — finding the mismatch between tech and business needs. The savings are a side effect of getting that alignment right.
+Business-aligned AWS technology audit and cost optimization for small and medium businesses spending **$5K-$150K/month** on AWS. Not just cost cutting — finding the mismatch between tech and business needs. The savings are a side effect of getting that alignment right.
 
 **Key differentiator:** David is a real person who reads your architecture, understands your business, and tells you exactly what to change and why. Not a dashboard. Not an AI. Not a junior analyst with a checklist.
 

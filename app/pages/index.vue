@@ -99,7 +99,7 @@ const pricing = {
   fixPct: 50,          // The Fix: 50% total (15% report + 35% implementation)
   implPct: 35,         // Implementation portion (fixPct - reportPct)
   securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
-  minAws: 5000,        // We work best with $5-150K/mo AWS spend
+  minAws: 5000,        // We work best with $5K-$150K/mo AWS spend
 }
 
 // ── Example numbers ──

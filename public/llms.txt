@@ -1,6 +1,6 @@
 # CutMyAWS.com
 
-> Cloud cost optimization for businesses spending $5-150K/mo on AWS. Business-aligned cloud cost optimization solutions — not a dashboard, a real consultant.
+> Cloud cost optimization for businesses spending $5K-$150K/mo on AWS. Business-aligned cloud cost optimization solutions — not a dashboard, a real consultant.
 
 ## What is CutMyAWS?
 
