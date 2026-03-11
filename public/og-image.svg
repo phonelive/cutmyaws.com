@@ -11,8 +11,8 @@
   <text x="80" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="56" fill="#f97316" font-weight="700">anymore.</text>
 
   <!-- Subhead -->
-  <text x="80" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#9ca3af">Business-aligned AWS cost therapy. $99 starts the conversation.</text>
-  <text x="80" y="460" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#9ca3af">For businesses spending $10-150K/mo. Not a dashboard. Just David.</text>
+  <text x="80" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#9ca3af">Business-aligned AWS cost therapy. Free intro call to start.</text>
+  <text x="80" y="460" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#9ca3af">For businesses spending $5-150K/mo. Not a dashboard. Just David.</text>
 
   <!-- URL -->
   <text x="80" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#f97316" font-weight="600">cutmyaws.com</text>
