@@ -69,10 +69,16 @@ onMounted(() => {
       <p class="text-gray-500 text-sm mb-2">19 years of AWS experience. We find 30–40% waste on average.</p>
 
       <!-- Social proof — compact logo row -->
-      <div class="flex items-center justify-center gap-1 mb-1">
-        <span class="text-gray-600 text-xs mr-1">Trusted by teams at</span>
-        <div v-for="client in clients" :key="client.name" class="h-5 opacity-40">
-          <img :src="client.logo" :alt="client.name" class="h-5 w-auto object-contain" />
+      <div class="flex items-center justify-center gap-4 mb-1">
+        <span class="text-gray-600 text-xs">Trusted by teams at</span>
+        <div class="flex items-center gap-4">
+          <img
+            v-for="client in clients"
+            :key="client.name"
+            :src="client.logo"
+            :alt="client.name"
+            class="h-5 w-auto object-contain opacity-40 grayscale"
+          />
         </div>
       </div>
     </div>
