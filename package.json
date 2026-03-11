@@ -9,10 +9,8 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@bugsnag/browser-performance": "^3.4.1",
-    "@bugsnag/js": "^8.8.1",
-    "@bugsnag/plugin-vue": "^8.8.0",
-    "nuxt": "^3.16.1"
+    "nuxt": "^3.16.1",
+    "nuxt-bugsnag": "^9.0.0-beta.2"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.13.2"

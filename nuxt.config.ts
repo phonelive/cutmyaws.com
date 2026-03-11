@@ -1,7 +1,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   future: { compatibilityVersion: 4 },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-bugsnag'],
+  bugsnag: {
+    config: {
+      apiKey: '60c69015742479a1ff227007d0811389',
+    },
+  },
   experimental: {
     inlineStyles: false
   },
