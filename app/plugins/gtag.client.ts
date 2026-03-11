@@ -13,7 +13,7 @@ export default defineNuxtPlugin(() => {
 
   // Track Calendly link clicks as conversions
   document.addEventListener('click', (e) => {
-    const link = (e.target as HTMLElement).closest('a[href*="calendly.com"]')
+    const link = (e.target as HTMLElement).closest('a[href*="/book"], a[href*="calendly.com"]')
     if (link) {
       gtag('event', 'manual_event_SUBMIT_LEAD_FORM', {
         event_category: 'conversion',

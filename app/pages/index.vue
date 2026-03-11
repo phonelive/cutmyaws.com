@@ -1,8 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 
-const calendlyBase = 'https://calendly.com/phonelivestreaming/cutmyaws-com-intro'
-const calendly = (campaign) => `${calendlyBase}?utm_source=cutmyaws&utm_medium=website&utm_campaign=${campaign}`
+const calendly = (campaign) => `/book?c=${campaign}`
 
 // ── Hero ticker animation ──
 const tickerValue = ref(0)
@@ -122,7 +121,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
   <div class="min-h-screen bg-gray-950 text-gray-100">
     <!-- Promo Banner -->
     <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
-      <a :href="calendly('promo-banner')" target="_blank" class="hover:underline">
+      <a :href="calendly('promo-banner')" class="hover:underline">
         🛡️ FREE Security Audit (normally {{ pricing.securityPct }}% of AWS annual spend) with every engagement — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
       </a>
     </div>
@@ -136,7 +135,6 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         </div>
         <a
           :href="calendly('nav')"
-          target="_blank"
           class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
         >
           🗓️ Book Free Intro Call
@@ -165,7 +163,6 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           <div class="flex flex-col sm:flex-row gap-4">
             <a
               :href="calendly('hero')"
-              target="_blank"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
               🗓️ Book Your Free<br class="sm:hidden"> Intro Call
@@ -288,7 +285,6 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <div class="text-center pt-8 pb-0">
         <a
           :href="calendly('mid-page')"
-          target="_blank"
           class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
         >
           🗓️ Book Your Free Intro Call
@@ -590,7 +586,6 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         <div class="text-center">
           <a
             :href="calendly('calculator')"
-            target="_blank"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
           >
             🗓️ Book Your Free Intro Call →
@@ -844,7 +839,6 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <p class="text-gray-500 mb-8">Find out what you're wasting &mdash; with zero risk and zero commitment. 💰</p>
       <a
         :href="calendly('bottom-cta')"
-        target="_blank"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
       >
         🗓️ Book Your Free Intro Call
@@ -925,7 +919,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
         <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC d/b/a Cut My AWS &middot; Peoria, IL &middot; A real company with a real silly name</span>
         <div class="flex items-center gap-4">
-          <a :href="calendly('footer')" target="_blank" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</a>
+          <a :href="calendly('footer')" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</a>
           <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="hover:text-gray-300 transition-colors">💼 LinkedIn</a>
           <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
         </div>
