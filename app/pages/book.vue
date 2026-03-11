@@ -54,22 +54,22 @@ onMounted(() => {
     </nav>
 
     <!-- Header + trust signals -->
-    <div class="max-w-4xl mx-auto px-4 pt-6 pb-2 text-center">
-      <h1 class="text-2xl sm:text-3xl font-bold mb-2">🗓️ Book Your Free Intro Call</h1>
-      <p class="text-gray-400 mb-4">Pick a time. 15 minutes. Just a real conversation about your AWS bill.</p>
+    <div class="max-w-4xl mx-auto px-4 pt-10 pb-6 text-center">
+      <h1 class="text-2xl sm:text-3xl font-bold mb-3">🗓️ Book Your Free Intro Call</h1>
+      <p class="text-gray-400 mb-6">Pick a time. 15 minutes. Just a real conversation about your AWS bill.</p>
 
       <!-- Trust badges — above the widget where they matter -->
-      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm text-gray-400 mb-4">
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm text-gray-400 mb-6">
         <span>✅ No pitch deck</span>
         <span>✅ No commitment</span>
         <span>✅ No savings = no fee</span>
       </div>
 
       <!-- Value prop for ad traffic -->
-      <p class="text-gray-500 text-sm mb-2">19 years of AWS experience. We find 30–40% waste on average.</p>
+      <p class="text-gray-500 text-sm mb-6">19 years of AWS experience. We find 30–40% waste on average.</p>
 
       <!-- Social proof — logo cards matching homepage style -->
-      <p class="text-gray-500 text-xs uppercase tracking-wider mb-3">Trusted by teams at</p>
+      <p class="text-gray-500 text-xs uppercase tracking-wider mb-4">Trusted by teams at</p>
       <div class="grid grid-cols-4 gap-3 max-w-lg mx-auto">
         <div
           v-for="client in clients"
