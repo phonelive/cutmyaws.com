@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         // GEO/AEO: help AI systems understand the page
         { name: 'subject', content: 'Cloud Cost Optimization & AWS FinOps Consulting' },
         { name: 'topic', content: 'Cloud cost optimization, AWS cost savings, and business-aligned technology audits for small businesses' },
-        { name: 'summary', content: 'CutMyAWS.com offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K-$150K/mo. Cloud cost optimization solutions include architecture audit, serverless migration, and implementation — priced at 15% of annual savings found, 50% max total. 19 years AWS experience. Not a dashboard — a real consultant.' },
+        { name: 'summary', content: 'CutMyAWS.com offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K+/mo. Cloud cost optimization solutions include architecture audit, serverless migration, and implementation — priced at 15% of annual savings found, 50% max total. 19 years AWS experience. Not a dashboard — a real consultant.' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -66,7 +66,7 @@ export default defineNuxtConfig({
                 url: 'https://cutmyaws.com',
                 logo: 'https://cutmyaws.com/favicon.svg',
                 image: 'https://cutmyaws.com/og-image.png',
-                description: 'Cloud cost optimization solutions for small businesses spending $5K-$150K/mo on AWS. Business-aligned cloud cost optimization strategies from a real consultant with 19 years of AWS experience — not a dashboard, not an AI.',
+                description: 'Cloud cost optimization solutions for small businesses spending $5K+/mo on AWS. Business-aligned cloud cost optimization strategies from a real consultant with 19 years of AWS experience — not a dashboard, not an AI.',
                 founder: {
                   '@type': 'Person',
                   name: 'David Plappert',
@@ -99,7 +99,7 @@ export default defineNuxtConfig({
                 '@id': 'https://cutmyaws.com/#webpage',
                 url: 'https://cutmyaws.com',
                 name: 'Cut My AWS — Cloud Cost Optimization & AWS FinOps Consulting',
-                description: 'Cloud cost optimization solutions and AWS cost savings for small businesses spending $5K-$150K/mo. Free intro call.',
+                description: 'Cloud cost optimization solutions and AWS cost savings for small businesses spending $5K+/mo. Free intro call.',
                 isPartOf: { '@id': 'https://cutmyaws.com/#organization' },
                 about: { '@id': 'https://cutmyaws.com/#organization' }
               },
@@ -153,7 +153,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'What size AWS accounts does CutMyAWS work with?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'Businesses spending $5,000 to $150,000 per month on AWS. Below $5K there isn\'t enough waste to justify an engagement. Above $150K you likely need a full-time FinOps team.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'Businesses spending $5,000 or more per month on AWS. Below $5K there isn\'t enough waste to justify an engagement. Above that? Even better — more infrastructure means more savings to find.' }
                   },
                   {
                     '@type': 'Question',
