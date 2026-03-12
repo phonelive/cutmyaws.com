@@ -21,6 +21,9 @@ const firstName = computed(() => {
   return first || ''
 })
 
+const shareText = encodeURIComponent('Just booked a free AWS cost audit with @CutMyAWS — they only charge a % of the savings they find. No savings = no fee. Pretty wild.\n\nhttps://cutmyaws.com')
+const shareUrl = encodeURIComponent('https://cutmyaws.com')
+
 onMounted(() => {
   const { trackEvent } = useTracking()
   trackEvent('booking_confirmed', { event_category: 'conversion', linkedin_conversion_id: 26412858, reddit_event: 'Lead' })
@@ -41,10 +44,39 @@ onMounted(() => {
         <h2 class="text-lg font-bold mb-4">📋 What happens next</h2>
         <ul class="space-y-3 text-gray-400">
           <li class="flex gap-3"><span class="text-brand-400 font-bold">1.</span> You'll get a calendar invite with a Zoom link</li>
-          <li class="flex gap-3"><span class="text-brand-400 font-bold">2.</span> David will review your AWS setup before the call</li>
-          <li class="flex gap-3"><span class="text-brand-400 font-bold">3.</span> On the call: real talk about your bill, zero sales pitch</li>
-          <li class="flex gap-3"><span class="text-brand-400 font-bold">4.</span> You'll walk away knowing exactly where to cut</li>
+          <li class="flex gap-3"><span class="text-brand-400 font-bold">2.</span> On the call: we talk about your business and your AWS setup</li>
+          <li class="flex gap-3"><span class="text-brand-400 font-bold">3.</span> David asks annoying questions. You share what you're comfortable with.</li>
+          <li class="flex gap-3"><span class="text-brand-400 font-bold">4.</span> You'll walk away knowing if there's waste to find — zero obligation</li>
         </ul>
+      </div>
+
+      <!-- Social share -->
+      <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 mb-8 max-w-lg mx-auto">
+        <p class="text-gray-400 text-sm mb-3">🤝 Know someone overpaying AWS? Share the love:</p>
+        <div class="flex items-center justify-center gap-3">
+          <a
+            :href="`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`"
+            target="_blank"
+            rel="noopener"
+            class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors border border-gray-700"
+          >
+            LinkedIn
+          </a>
+          <a
+            :href="`https://twitter.com/intent/tweet?text=${shareText}`"
+            target="_blank"
+            rel="noopener"
+            class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors border border-gray-700"
+          >
+            X / Twitter
+          </a>
+          <a
+            href="mailto:?subject=Check%20out%20Cut%20My%20AWS&body=I%20just%20booked%20a%20free%20AWS%20cost%20audit%20with%20Cut%20My%20AWS.%20They%20only%20charge%20a%20%25%20of%20the%20savings%20they%20find.%20No%20savings%20%3D%20no%20fee.%0A%0Ahttps%3A%2F%2Fcutmyaws.com"
+            class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors border border-gray-700"
+          >
+            📧 Email
+          </a>
+        </div>
       </div>
 
       <p v-if="firstName" class="text-gray-500 text-sm mb-8">Looking forward to meeting you, {{ firstName }}. Just you, David, and your AWS bill. ✂️</p>

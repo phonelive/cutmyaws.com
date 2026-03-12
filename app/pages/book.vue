@@ -46,7 +46,7 @@ onBeforeUnmount(() => {
 
       <!-- Trust badges -->
       <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-400">
-        <span>✅ No pitch deck</span>
+        <span>✅ 15 minutes</span>
         <span>✅ No commitment</span>
         <span>✅ No savings = no fee</span>
       </div>
@@ -59,24 +59,27 @@ onBeforeUnmount(() => {
       style="min-width: 320px; width: 100%; height: 700px;"
     ></div>
 
-    <!-- Best fit / Not a fit -->
+    <!-- Best fit -->
     <div class="max-w-3xl mx-auto px-6 py-10 sm:py-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-left">
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
-          <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Best fit 💰</h3>
+          <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">You're a great fit if 💰</h3>
           <ul class="space-y-2 text-sm text-gray-400">
             <li>💰 Spending $5K+/mo on AWS</li>
             <li>🕸️ Nobody's looked under the hood in a while</li>
             <li>😅 Bill keeps going up but you're not sure why</li>
-            <li>💰 Want a one-time fix for recurring savings</li>
+            <li>📈 Growing business with growing infrastructure</li>
+            <li>🏗️ Architecture decisions from 2+ years ago</li>
           </ul>
         </div>
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
-          <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Not a fit ❌</h3>
+          <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">What to expect on the call 📞</h3>
           <ul class="space-y-2 text-sm text-gray-400">
-            <li>❌ Under $5K/mo (not enough waste)</li>
-            <li>❌ Want a dashboard (I'm a person, not a SaaS)</li>
-            <li>❌ Not ROI-focused (I optimize for your bottom line)</li>
+            <li>🤝 Meet David (real person, not a sales team)</li>
+            <li>💬 Quick chat about your business and AWS setup</li>
+            <li>🔍 David shares initial observations if you've granted access</li>
+            <li>📋 You'll know in 15 min if there's waste to find</li>
+            <li>🚫 Zero pressure — genuinely zero</li>
           </ul>
         </div>
       </div>

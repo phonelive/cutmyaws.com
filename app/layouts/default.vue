@@ -48,11 +48,52 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
 
     <!-- Footer -->
     <footer class="border-t border-gray-800 bg-gray-900">
-      <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-        <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC d/b/a Cut My AWS &middot; Peoria, IL</span>
-        <div class="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
-          <NuxtLink v-if="!hideBookBtn" to="/book?c=footer" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</NuxtLink>
-          <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
+      <div class="max-w-5xl mx-auto px-6 py-10">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-sm">
+          <!-- Brand -->
+          <div class="col-span-2 sm:col-span-1">
+            <NuxtLink to="/" class="flex items-center gap-2 mb-3 hover:opacity-80 transition-opacity">
+              <span class="text-xl">✂️</span>
+              <span class="font-bold text-base text-gray-100">Cut My AWS</span>
+            </NuxtLink>
+            <p class="text-gray-500 text-xs leading-relaxed">AWS cost optimization for businesses spending $5K+/mo. Not a dashboard. Just David.</p>
+          </div>
+
+          <!-- Services -->
+          <div>
+            <p class="text-gray-400 font-semibold mb-3">Services</p>
+            <ul class="space-y-2 text-gray-500">
+              <li><NuxtLink to="/#how-it-works" class="hover:text-gray-300 transition-colors">How It Works</NuxtLink></li>
+              <li><NuxtLink to="/investors" class="hover:text-gray-300 transition-colors">For Investors</NuxtLink></li>
+              <li><NuxtLink to="/hire" class="hover:text-gray-300 transition-colors">Hire David</NuxtLink></li>
+              <li><NuxtLink to="/referrals" class="hover:text-gray-300 transition-colors">Referral Partners</NuxtLink></li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div>
+            <p class="text-gray-400 font-semibold mb-3">Resources</p>
+            <ul class="space-y-2 text-gray-500">
+              <li><NuxtLink to="/#faq" class="hover:text-gray-300 transition-colors">FAQ</NuxtLink></li>
+              <li><NuxtLink to="/#calculator" class="hover:text-gray-300 transition-colors">Savings Calculator</NuxtLink></li>
+              <li><NuxtLink to="/agreements" class="hover:text-gray-300 transition-colors">Agreements</NuxtLink></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <p class="text-gray-400 font-semibold mb-3">Contact</p>
+            <ul class="space-y-2 text-gray-500">
+              <li v-if="!hideBookBtn"><NuxtLink to="/book?c=footer" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</NuxtLink></li>
+              <li><a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a></li>
+              <li><a href="https://www.linkedin.com/in/davidplappert/" target="_blank" rel="noopener" class="hover:text-gray-300 transition-colors">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="mt-8 pt-6 border-t border-gray-800 text-xs text-gray-600 text-center sm:text-left">
+          &copy; {{ new Date().getFullYear() }} Smart Talk LLC d/b/a Cut My AWS &middot; Ocala, FL
         </div>
       </div>
     </footer>
