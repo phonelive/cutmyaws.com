@@ -119,7 +119,7 @@ aws ce get-cost-and-usage \\
           <span class="text-2xl">✂️</span>
           <span class="font-bold text-lg">Cut My AWS</span>
         </NuxtLink>
-        <NuxtLink to="/give-david-access" class="text-gray-500 text-sm hover:text-gray-300 transition-colors hidden sm:block">
+        <NuxtLink to="/onboarding/give-david-access" class="text-gray-500 text-sm hover:text-gray-300 transition-colors hidden sm:block">
           🔧 Grant Access →
         </NuxtLink>
       </div>
@@ -376,7 +376,7 @@ aws ce get-cost-and-usage \
     <!-- Footer -->
     <div class="max-w-2xl mx-auto px-6 py-12 text-center">
       <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 mb-4">
-        <NuxtLink to="/give-david-access" class="text-brand-400 hover:underline">🔧 Grant Access</NuxtLink>
+        <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">🔧 Grant Access</NuxtLink>
         <span>·</span>
         <NuxtLink to="/" class="hover:text-gray-400 transition-colors">← cutmyaws.com</NuxtLink>
       </div>
