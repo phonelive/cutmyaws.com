@@ -75,43 +75,18 @@ onBeforeUnmount(() => {
           <span class="text-2xl">✂️</span>
           <span class="font-bold text-lg">Cut My AWS</span>
         </NuxtLink>
-        <p class="text-gray-500 text-sm hidden sm:block">15 min &middot; free &middot; no pitch deck 😏</p>
       </div>
     </nav>
 
-    <!-- Header + trust signals -->
-    <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-8 sm:pb-10 text-center">
-      <h1 class="text-2xl sm:text-3xl font-bold mb-3">🗓️ Book Your Free Intro Call</h1>
-      <p class="text-gray-400 mb-6">15 minutes. No pitch deck. No PowerPoints. Just a real conversation about your AWS bill. 💬</p>
+    <!-- Header -->
+    <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-6 text-center">
+      <h1 class="text-2xl sm:text-3xl font-bold mb-4">🗓️ Book Your Free Intro Call</h1>
 
       <!-- Trust badges -->
-      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-400 mb-6">
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-400">
         <span>✅ No pitch deck</span>
         <span>✅ No commitment</span>
         <span>✅ No savings = no fee</span>
-      </div>
-
-      <!-- How it works -->
-      <div class="max-w-3xl mx-auto mb-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-left">
-          <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
-            <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Best fit 💰</h3>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li>💰 Spending $5K+/mo on AWS</li>
-              <li>🕸️ Nobody's looked under the hood in a while</li>
-              <li>😅 Bill keeps going up but you're not sure why</li>
-              <li>💰 Want a one-time fix for recurring savings</li>
-            </ul>
-          </div>
-          <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
-            <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Not a fit ❌</h3>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li>❌ Under $5K/mo (not enough waste)</li>
-              <li>❌ Want a dashboard (I'm a person, not a SaaS)</li>
-              <li>❌ Not ROI-focused (I optimize for your bottom line)</li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -121,6 +96,29 @@ onBeforeUnmount(() => {
       :data-url="calendlyUrl"
       style="min-width: 320px; width: 100%; height: 700px;"
     ></div>
+
+    <!-- Best fit / Not a fit -->
+    <div class="max-w-3xl mx-auto px-6 py-10 sm:py-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-left">
+        <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
+          <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Best fit 💰</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li>💰 Spending $5K+/mo on AWS</li>
+            <li>🕸️ Nobody's looked under the hood in a while</li>
+            <li>😅 Bill keeps going up but you're not sure why</li>
+            <li>💰 Want a one-time fix for recurring savings</li>
+          </ul>
+        </div>
+        <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
+          <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Not a fit ❌</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li>❌ Under $5K/mo (not enough waste)</li>
+            <li>❌ Want a dashboard (I'm a person, not a SaaS)</li>
+            <li>❌ Not ROI-focused (I optimize for your bottom line)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
     <!-- Social proof — all 8 logos, responsive -->
     <div class="max-w-4xl mx-auto px-6 py-10 sm:py-12 text-center">
