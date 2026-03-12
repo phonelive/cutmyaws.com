@@ -143,7 +143,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </nav>
 
     <!-- Hero -->
-    <section class="relative overflow-hidden">
+    <section id="hero" class="relative overflow-hidden">
       <!-- Background gradient -->
       <div class="absolute inset-0 bg-gradient-to-br from-brand-500/5 via-transparent to-brand-500/3"></div>
       <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
@@ -207,7 +207,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Stats -->
-    <section class="bg-gray-900">
+    <section id="stats" class="bg-gray-900">
       <div class="max-w-4xl mx-auto px-6 py-24 grid grid-cols-1 sm:grid-cols-3 gap-12">
         <div v-for="stat in stats" :key="stat.label" class="text-center px-4">
           <div class="text-3xl font-bold text-brand-400 mb-2">{{ stat.value }}</div>
@@ -217,7 +217,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Clients -->
-    <section class="py-24 px-6">
+    <section id="clients" class="py-24 px-6">
       <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-12">Trusted by teams at</p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto">
         <a
@@ -239,7 +239,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Testimonials -->
-    <section class="bg-gray-900">
+    <section id="testimonials" class="bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-10">What people say after working with David</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -256,7 +256,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Why CutMyAWS -->
-    <section class="max-w-5xl mx-auto px-6 py-24">
+    <section id="why" class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-4 text-center">Why CutMyAWS? 🤔</h2>
       <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Growing cloud spend doesn't mean efficient cloud spend. Cloud cost optimization tools show you charts &mdash; I show you why your tech doesn't match your business. Your revenue grew 40% &mdash; did your AWS bill grow 40% too? Or 80%? 📈</p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -294,7 +294,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- How It Works -->
-    <section class="bg-gray-900">
+    <section id="how-it-works" class="bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
         <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">One 45-minute call. One PDF. Zero PowerPoints. You decide how far to go after you see the numbers. 🤝</p>
@@ -450,7 +450,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- ROI Calculator -->
-    <section class="max-w-5xl mx-auto px-6 py-24">
+    <section id="calculator" class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Calculate Your Savings</h2>
       <p class="text-gray-400 text-center mb-2">Cloud cost optimization with no monthly fees. You pay once. Keep the savings forever. 💰</p>
       <p class="text-gray-500 text-center mb-10 text-sm">Drag the sliders or type your actual AWS spend below.</p>
@@ -595,7 +595,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Example -->
-    <section class="bg-gray-900">
+    <section id="example" class="bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Real Math, Fake Company</h2>
       <p class="text-gray-400 text-center mb-2">A ${{ (exampleBefore).toLocaleString() }}/mo SaaS company that swore their AWS was "pretty optimized" 👀</p>
@@ -681,7 +681,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Common Waste -->
-    <section>
+    <section id="waste">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
         <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
@@ -701,7 +701,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- About -->
-    <section class="bg-gray-900">
+    <section id="about" class="bg-gray-900">
       <div class="max-w-2xl mx-auto px-6 py-24 text-center">
         <img src="/david.png" alt="David Plappert" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover object-top border-2 border-gray-700">
         <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
@@ -736,7 +736,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Security & Compliance -->
-    <section>
+    <section id="security">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-4 text-center">🔒 Your Data. My Paranoia.</h2>
         <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">I've worked with organizations that handle the most sensitive data in the country. Your AWS account is in good hands. Careful, experienced, slightly paranoid hands. 🫡</p>
@@ -787,7 +787,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- FAQ -->
-    <section class="bg-gray-900">
+    <section id="faq" class="bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-12 text-center">❓ Questions you're definitely asking right now</h2>
         <div class="max-w-2xl mx-auto space-y-10">
@@ -832,7 +832,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- CTA -->
-    <section>
+    <section id="cta">
       <div class="max-w-5xl mx-auto px-6 py-24 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
       <p class="text-xl text-gray-400 mb-2">15 minutes. Free. No pitch deck.</p>
@@ -848,7 +848,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Referral -->
-    <section class="bg-gray-900">
+    <section id="referral" class="bg-gray-900">
       <div class="max-w-3xl mx-auto px-6 py-24 text-center">
         <p class="text-4xl mb-4">🤝</p>
         <h2 class="text-2xl font-bold mb-3">Got clients bleeding AWS money? <span class="text-brand-400">Get paid to tell them.</span></h2>
@@ -870,7 +870,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Investors -->
-    <section>
+    <section id="investors">
       <div class="max-w-3xl mx-auto px-6 py-24 text-center">
         <p class="text-4xl mb-4">📈</p>
         <h2 class="text-2xl font-bold mb-3">Your portfolio companies are <span class="text-brand-400">overpaying AWS.</span></h2>
