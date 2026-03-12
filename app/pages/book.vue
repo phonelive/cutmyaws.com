@@ -28,7 +28,7 @@ const clients = [
   { name: 'DC Government', logo: '/logos/dc-gov.png' },
 ]
 
-function onCalendlyMessage(e: MessageEvent) {
+function onCalendlyMessage(e) {
   if (e.data?.event === 'calendly.event_scheduled') {
     router.push('/confirmed')
   }
