@@ -128,7 +128,7 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
             <p class="text-brand-400 text-3xl font-bold">${{ (exampleFixFee / 1000).toFixed(0) }}K</p>
-            <p class="text-gray-500 text-sm mt-2">One-time fee ({{ pricing.fixPct }}% of savings)</p>
+            <p class="text-gray-500 text-sm mt-2">Max total fee ({{ pricing.reportPct }}% + {{ pricing.implPct }}%)</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
             <p class="text-green-400 text-3xl font-bold">${{ (exampleAnnualSavings / 1000).toFixed(0) }}K</p>
