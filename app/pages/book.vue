@@ -21,22 +21,6 @@ const now = new Date()
 const promoActive = now < promoEnd
 const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
 
-const clients = [
-  { name: 'Caterpillar', logo: '/logos/cat.svg' },
-  { name: 'DC Government', logo: '/logos/dc-gov.png' },
-  { name: 'Best Buy', logo: '/logos/best-buy.svg' },
-  { name: 'PBS', logo: '/logos/pbs.svg' },
-  { name: 'Commonwealth of Massachusetts', logo: '/logos/ma-state.png' },
-  { name: 'Argonne National Laboratory', logo: '/logos/argonne.png' },
-  { name: 'PhoneLive', logo: '/logos/phonelive.png' },
-  { name: 'EZRA Cloud', logo: '/logos/ezra.png' },
-]
-
-const testimonials = [
-  { quote: 'David is a dev genius.', emoji: '🧠' },
-  { quote: 'David responds quickly and makes sure to explain things as best as possible.', emoji: '💬' },
-  { quote: "David's a commando. He is fast and efficient at getting results.", emoji: '🎯' },
-]
 
 function onCalendlyMessage(e) {
   if (e.data?.event === 'calendly.event_scheduled') {
@@ -120,37 +104,14 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <!-- Social proof — all 8 logos, responsive -->
-    <div class="max-w-4xl mx-auto px-6 py-10 sm:py-12 text-center">
-      <p class="text-gray-500 text-xs uppercase tracking-wider mb-4">Trusted by teams at</p>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-xl mx-auto">
-        <div
-          v-for="client in clients"
-          :key="client.name"
-          class="flex items-center justify-center h-14 sm:h-16 px-4 sm:px-5 rounded-lg bg-white/90"
-        >
-          <img
-            :src="client.logo"
-            :alt="client.name"
-            class="h-7 sm:h-8 max-w-[100px] sm:max-w-[120px] object-contain opacity-90"
-          />
-        </div>
-      </div>
+    <!-- Social proof -->
+    <div class="max-w-4xl mx-auto px-6 py-10 sm:py-12">
+      <ClientLogos />
     </div>
 
     <!-- Testimonials -->
     <div class="max-w-4xl mx-auto px-6 py-12 sm:py-16">
-      <p class="text-gray-500 text-xs uppercase tracking-wider mb-6 text-center">What people say</p>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div
-          v-for="t in testimonials"
-          :key="t.quote"
-          class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center"
-        >
-          <p class="text-3xl mb-3">{{ t.emoji }}</p>
-          <p class="text-gray-300 italic">"{{ t.quote }}"</p>
-        </div>
-      </div>
+      <Testimonials />
     </div>
 
     <!-- Footer -->

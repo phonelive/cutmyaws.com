@@ -25,14 +25,6 @@ const fixFee = Math.round(exampleAnnual * pricing.fixPct / 100)
 const monthsToRoi = Math.ceil(fixFee / exampleSavings)
 const minAwsK = `$${pricing.minAws / 1000}K`
 
-const clients = [
-  { name: 'Caterpillar', logo: '/logos/cat.svg' },
-  { name: 'Best Buy', logo: '/logos/best-buy.svg' },
-  { name: 'PBS', logo: '/logos/pbs.svg' },
-  { name: 'DC Government', logo: '/logos/dc-gov.png' },
-  { name: 'Commonwealth of Massachusetts', logo: '/logos/ma-state.png' },
-  { name: 'Argonne National Laboratory', logo: '/logos/argonne.png' },
-]
 </script>
 
 <template>
@@ -127,21 +119,8 @@ const clients = [
 
     <!-- Social proof -->
     <section class="bg-gray-900">
-      <div class="max-w-3xl mx-auto px-6 py-12 text-center">
-        <p class="text-gray-500 text-sm mb-6">Trusted by teams at</p>
-        <div class="flex flex-wrap items-center justify-center gap-4">
-          <div
-            v-for="client in clients"
-            :key="client.name"
-            class="flex items-center justify-center h-16 w-36 px-4 rounded-lg bg-white/90"
-          >
-            <img
-              :src="client.logo"
-              :alt="client.name"
-              class="h-10 max-w-[120px] object-contain opacity-90"
-            />
-          </div>
-        </div>
+      <div class="max-w-3xl mx-auto px-6 py-12">
+        <ClientLogos />
       </div>
     </section>
 

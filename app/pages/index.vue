@@ -76,22 +76,6 @@ const stats = [
   { value: '150+', label: '🔍 AWS accounts audited. Zero unsurprised CFOs.' }
 ]
 
-const clients = [
-  { name: 'Caterpillar', url: 'https://www.caterpillar.com', logo: '/logos/cat.svg' },
-  { name: 'DC Government', url: 'https://dc.gov', logo: '/logos/dc-gov.png' },
-  { name: 'Best Buy', url: 'https://www.bestbuy.com', logo: '/logos/best-buy.svg' },
-  { name: 'PBS', url: 'https://www.pbs.org', logo: '/logos/pbs.svg' },
-  { name: 'Commonwealth of Massachusetts', url: 'https://www.mass.gov', logo: '/logos/ma-state.png' },
-  { name: 'Argonne National Laboratory', url: 'https://www.anl.gov', logo: '/logos/argonne.png' },
-  { name: 'PhoneLive', url: 'https://phonelive.io', logo: '/logos/phonelive.png' },
-  { name: 'EZRA Cloud', url: 'https://ezracloud.com', logo: '/logos/ezra.png' },
-]
-
-const testimonials = [
-  { quote: 'David is a dev genius.', emoji: '🧠' },
-  { quote: 'David responds quickly and makes sure to explain things as best as possible.', emoji: '💬' },
-  { quote: 'David\'s a commando. He is fast and efficient at getting results.', emoji: '🎯' },
-]
 
 const wasteSources = [
   { emoji: '🖥️', service: 'EC2', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm', savings: '40-70%' },
@@ -230,40 +214,13 @@ const minAwsK = `$${pricing.minAws / 1000}K`
 
     <!-- Clients -->
     <section id="clients" class="py-24 px-6">
-      <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-12">Trusted by teams at</p>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto">
-        <a
-          v-for="client in clients"
-          :key="client.name"
-          :href="client.url"
-          target="_blank"
-          rel="noopener"
-          class="group flex items-center justify-center h-24 w-full px-4 rounded-lg bg-white/90 hover:bg-white transition-all"
-          :title="client.name"
-        >
-          <img
-            :src="client.logo"
-            :alt="client.name"
-            class="h-14 max-w-[180px] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
-          >
-        </a>
-      </div>
+      <ClientLogos />
     </section>
 
     <!-- Testimonials -->
     <section id="testimonials" class="bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-24">
-        <p class="text-center text-gray-500 text-sm uppercase tracking-wider mb-10">What people say after working with David</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div
-            v-for="t in testimonials"
-            :key="t.quote"
-            class="bg-gray-950 border border-gray-800 rounded-2xl p-8 text-center"
-          >
-            <p class="text-4xl mb-4">{{ t.emoji }}</p>
-            <p class="text-gray-300 text-lg italic">"{{ t.quote }}"</p>
-          </div>
-        </div>
+        <Testimonials />
       </div>
     </section>
 
