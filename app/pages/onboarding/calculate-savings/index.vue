@@ -177,8 +177,8 @@ done
 
 # --- Annualized: top 3 avg × 12 ---
 TOP3=$(echo "$COSTS" | awk -F'\\t' '{print $2+0}' | sort -rn | head -3)
-AVG=$(echo "$TOP3" | awk '{s+=$1;n++} END{printf "%.0f",s/n}')
-ANNUAL=$(echo "$TOP3" | awk '{s+=$1;n++} END{printf "%.0f",s/n*12}')
+AVG=$(echo "$TOP3" | awk '{s+=$1;n++} END{avg=int(s/n+0.5); printf "%d",avg}')
+ANNUAL=$((AVG * 12))
 
 echo ""
 echo "=== Annualized Spend ==="
