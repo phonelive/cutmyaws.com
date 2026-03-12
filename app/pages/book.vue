@@ -92,18 +92,18 @@ onBeforeUnmount(() => {
       </div>
 
       <!-- How it works -->
-      <div class="max-w-xl mx-auto mb-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
+      <div class="max-w-3xl mx-auto mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-left">
+          <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
             <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Best fit 💰</h3>
             <ul class="space-y-2 text-sm text-gray-400">
-              <li>💰 Spending $5K–$150K/mo on AWS</li>
+              <li>💰 Spending $5K+/mo on AWS</li>
               <li>🕸️ Nobody's looked under the hood in a while</li>
               <li>😅 Bill keeps going up but you're not sure why</li>
               <li>💰 Want a one-time fix for recurring savings</li>
             </ul>
           </div>
-          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
+          <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
             <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">Not a fit ❌</h3>
             <ul class="space-y-2 text-sm text-gray-400">
               <li>❌ Under $5K/mo (not enough waste)</li>
@@ -113,8 +113,17 @@ onBeforeUnmount(() => {
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Social proof — all 8 logos, responsive -->
+    <!-- Calendly embed -->
+    <div
+      class="calendly-inline-widget mx-auto"
+      :data-url="calendlyUrl"
+      style="min-width: 320px; width: 100%; height: 700px;"
+    ></div>
+
+    <!-- Social proof — all 8 logos, responsive -->
+    <div class="max-w-4xl mx-auto px-6 py-10 sm:py-12 text-center">
       <p class="text-gray-500 text-xs uppercase tracking-wider mb-4">Trusted by teams at</p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-xl mx-auto">
         <div
@@ -130,13 +139,6 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-
-    <!-- Calendly embed -->
-    <div
-      class="calendly-inline-widget mx-auto"
-      :data-url="calendlyUrl"
-      style="min-width: 320px; width: 100%; height: 700px;"
-    ></div>
 
     <!-- Testimonials -->
     <div class="max-w-4xl mx-auto px-6 py-12 sm:py-16">

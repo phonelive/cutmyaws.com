@@ -488,14 +488,14 @@ const minAwsK = `$${pricing.minAws / 1000}K`
               v-model.number="calcAwsSpend"
               type="range"
               :min="pricing.minAws"
-              max="150000"
+              max="500000"
               step="5000"
               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-500"
             >
             <div class="flex justify-between text-xs text-gray-600 mt-1">
               <span>{{ minAwsK }}</span>
-              <span>$75K</span>
-              <span>$150K</span>
+              <span>$250K</span>
+              <span>$500K</span>
             </div>
           </div>
           <!-- Waste % -->
