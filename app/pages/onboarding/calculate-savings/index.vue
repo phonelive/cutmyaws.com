@@ -57,13 +57,19 @@ const average = computed(() => {
 
 const annualizedSpend = computed(() => average.value * 12)
 
-// Savings estimates
-const conservativePct = 20
-const averagePct = 35
-const aggressivePct = 50
-const conservativeSavings = computed(() => Math.round(annualizedSpend.value * conservativePct / 100))
-const averageSavings = computed(() => Math.round(annualizedSpend.value * averagePct / 100))
-const aggressiveSavings = computed(() => Math.round(annualizedSpend.value * aggressivePct / 100))
+// Savings tiers
+const tiers = [
+  { key: 'conservative', label: 'Conservative', pct: 20 },
+  { key: 'average', label: 'Average', pct: 35 },
+  { key: 'aggressive', label: 'Aggressive', pct: 50 },
+]
+const selectedTier = ref('average')
+const tierSavings = (pct) => Math.round(annualizedSpend.value * pct / 100)
+const selectedSavings = computed(() => {
+  const tier = tiers.find(t => t.key === selectedTier.value)
+  return tierSavings(tier.pct)
+})
+const selectedPct = computed(() => tiers.find(t => t.key === selectedTier.value).pct)
 
 // Pricing breakdown (mirrors index.vue pricing object)
 const reportPct = 15
@@ -71,11 +77,11 @@ const fixPct = 75
 const depositPct = 1
 
 const depositFee = computed(() => Math.round(annualizedSpend.value * depositPct / 100))
-const reportFee = computed(() => Math.round(averageSavings.value * reportPct / 100))
-const fixFee = computed(() => Math.round(averageSavings.value * fixPct / 100))
-const yearOneNet = computed(() => averageSavings.value - fixFee.value)
-const yearTwoPlus = computed(() => averageSavings.value)
-const fiveYearNet = computed(() => (averageSavings.value * 5) - fixFee.value)
+const reportFee = computed(() => Math.round(selectedSavings.value * reportPct / 100))
+const fixFee = computed(() => Math.round(selectedSavings.value * fixPct / 100))
+const yearOneNet = computed(() => selectedSavings.value - fixFee.value)
+const yearTwoPlus = computed(() => selectedSavings.value)
+const fiveYearNet = computed(() => (selectedSavings.value * 5) - fixFee.value)
 
 function fmt(n) {
   return '$' + n.toLocaleString()
@@ -378,28 +384,26 @@ async function copyCliCommand() {
           </div>
         </div>
 
-        <!-- Savings estimates -->
-        <h2 class="text-lg font-bold mb-4">📉 Estimated Savings Range</h2>
+        <!-- Savings estimates (clickable) -->
+        <h2 class="text-lg font-bold mb-4">📉 Estimated Savings Range <span class="text-gray-500 text-sm font-normal">— click to update pricing below</span></h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
-            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Conservative ({{ conservativePct }}%)</p>
-            <p class="text-xl font-bold text-green-400">{{ fmt(conservativeSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
-            <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(conservativeSavings / 12)) }}/mo</p>
-          </div>
-          <div class="bg-gray-900 rounded-xl border-2 border-green-500/50 p-5">
-            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Average ({{ averagePct }}%)</p>
-            <p class="text-xl font-bold text-green-400">{{ fmt(averageSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
-            <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(averageSavings / 12)) }}/mo</p>
-          </div>
-          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
-            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Aggressive ({{ aggressivePct }}%)</p>
-            <p class="text-xl font-bold text-green-400">{{ fmt(aggressiveSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
-            <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(aggressiveSavings / 12)) }}/mo</p>
-          </div>
+          <button
+            v-for="tier in tiers"
+            :key="tier.key"
+            @click="selectedTier = tier.key"
+            class="rounded-xl p-5 text-left transition-all cursor-pointer"
+            :class="selectedTier === tier.key
+              ? 'bg-gray-900 border-2 border-green-500/50 ring-1 ring-green-500/20'
+              : 'bg-gray-900 border border-gray-800 hover:border-gray-700'"
+          >
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ tier.label }} ({{ tier.pct }}%)</p>
+            <p class="text-xl font-bold text-green-400">{{ fmt(tierSavings(tier.pct)) }}<span class="text-gray-500 text-sm">/yr</span></p>
+            <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(tierSavings(tier.pct) / 12)) }}/mo</p>
+          </button>
         </div>
 
-        <!-- Pricing breakdown (using average) -->
-        <h2 class="text-lg font-bold mb-4">💰 Pricing Breakdown <span class="text-gray-500 text-sm font-normal">(at {{ averagePct }}% savings)</span></h2>
+        <!-- Pricing breakdown (using selected tier) -->
+        <h2 class="text-lg font-bold mb-4">💰 Pricing Breakdown <span class="text-gray-500 text-sm font-normal">(at {{ selectedPct }}% savings)</span></h2>
         <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden mb-8">
           <div class="divide-y divide-gray-800">
             <div class="flex justify-between items-center p-4">
@@ -419,7 +423,7 @@ async function copyCliCommand() {
             <div class="flex justify-between items-center p-4 bg-gray-950/50">
               <div>
                 <p class="text-green-400 font-medium">✅ You keep — year 1</p>
-                <p class="text-gray-600 text-xs">{{ fmt(averageSavings) }} savings - {{ fmt(fixFee) }} fee</p>
+                <p class="text-gray-600 text-xs">{{ fmt(selectedSavings) }} savings - {{ fmt(fixFee) }} fee</p>
               </div>
               <p class="text-green-400 font-bold">{{ fmt(yearOneNet) }}</p>
             </div>
