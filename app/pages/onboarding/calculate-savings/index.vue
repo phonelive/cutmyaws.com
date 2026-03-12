@@ -137,6 +137,9 @@ START_DATE=$(printf "%04d-%02d-01" "$START_Y" "$START_M")
 echo "📅 $START_DATE → $END_DATE (3 months, end exclusive)"
 echo ""
 
+# --- Format number with commas ---
+commas() { printf "%'d" "$1"; }
+
 # --- Pull monthly costs ---
 COSTS=$(aws ce get-cost-and-usage \\
   --time-period Start="$START_DATE",End="$END_DATE" \\
@@ -151,7 +154,7 @@ echo "=== Last 3 Finalized Monthly Bills ==="
 echo "Month       | Total"
 echo "------------|------------"
 echo "$COSTS" | while IFS=$'\\t' read -r month amount; do
-  printf "%-11s | \\$%.0f\\n" "\${month:0:7}" "$amount"
+  printf "%-11s | \\$%s\\n" "\${month:0:7}" "$(commas "\${amount%%.*}")"
 done
 
 # --- Annualized: 3-month avg × 12 ---
@@ -160,8 +163,8 @@ ANNUAL=$((AVG * 12))
 
 echo ""
 echo "=== Annualized Spend ==="
-echo "3-month avg: \\$$AVG/mo"
-echo "Annualized:  \\$$ANNUAL/yr (avg × 12)"`
+echo "3-month avg: \\$$(commas $AVG)/mo"
+echo "Annualized:  \\$$(commas $ANNUAL)/yr (avg × 12)"`
 
 const copied = ref(false)
 async function copyCliCommand() {
