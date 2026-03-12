@@ -8,6 +8,16 @@ useHead({
   ],
 })
 
+const route = useRoute()
+
+// Try to extract first name from query params (Calendly passes invitee info)
+const rawName = route.query.invitee_full_name || route.query.name || route.query.invitee_name || ''
+const firstName = computed(() => {
+  const name = String(rawName).trim()
+  if (!name) return ''
+  return name.split(' ')[0]
+})
+
 onMounted(() => {
   const { trackEvent } = useTracking()
   trackEvent('booking_confirmed', { event_category: 'conversion', linkedin_conversion_id: 26412858, reddit_event: 'Lead' })
@@ -29,8 +39,10 @@ onMounted(() => {
     <!-- Confirmation content -->
     <div class="max-w-2xl mx-auto px-8 py-32 text-center">
       <p class="text-6xl mb-6">🎉</p>
-      <h1 class="text-3xl sm:text-4xl font-bold mb-4">You're on the calendar!</h1>
-      <p class="text-xl text-gray-400 mb-8">Check your inbox for the confirmation email. If you don't see it, check spam — Gmail sometimes gets overprotective. 😅</p>
+      <h1 v-if="firstName" class="text-3xl sm:text-4xl font-bold mb-4">Thanks, {{ firstName }} — you're on the calendar!</h1>
+      <h1 v-else class="text-3xl sm:text-4xl font-bold mb-4">You're on the calendar!</h1>
+      <p v-if="firstName" class="text-xl text-gray-400 mb-8">{{ firstName }}, check your inbox for the confirmation email. If you don't see it, check spam — Gmail sometimes gets overprotective. 😅</p>
+      <p v-else class="text-xl text-gray-400 mb-8">Check your inbox for the confirmation email. If you don't see it, check spam — Gmail sometimes gets overprotective. 😅</p>
 
       <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 mb-8 text-left max-w-lg mx-auto">
         <h2 class="text-lg font-bold mb-4">📋 What happens next</h2>
@@ -42,7 +54,8 @@ onMounted(() => {
         </ul>
       </div>
 
-      <p class="text-gray-500 text-sm mb-8">15 minutes. No pitch deck. Just David and your AWS bill. ✂️</p>
+      <p v-if="firstName" class="text-gray-500 text-sm mb-8">Looking forward to meeting you, {{ firstName }}. Just you, David, and your AWS bill. ✂️</p>
+      <p v-else class="text-gray-500 text-sm mb-8">15 minutes. No pitch deck. Just David and your AWS bill. ✂️</p>
 
       <NuxtLink to="/" class="inline-block px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-colors">
         ← Back to cutmyaws.com
