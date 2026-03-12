@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
     </nav>
 
     <!-- Header + trust signals -->
-    <div class="max-w-4xl mx-auto px-4 pt-10 pb-6 text-center">
+    <div class="max-w-4xl mx-auto px-6 pt-16 pb-10 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold mb-3">🗓️ Book Your Free Intro Call</h1>
       <p class="text-gray-400 mb-6">Pick a time. 15 minutes. Just a real conversation about your AWS bill.</p>
 
@@ -86,11 +86,11 @@ onBeforeUnmount(() => {
 
       <!-- Social proof — logo cards matching homepage style -->
       <p class="text-gray-500 text-xs uppercase tracking-wider mb-4">Trusted by teams at</p>
-      <div class="grid grid-cols-4 gap-3 max-w-lg mx-auto">
+      <div class="grid grid-cols-4 gap-4 max-w-lg mx-auto">
         <div
           v-for="client in clients"
           :key="client.name"
-          class="flex items-center justify-center h-14 px-3 rounded-lg bg-white/90"
+          class="flex items-center justify-center h-16 px-5 rounded-lg bg-white/90"
         >
           <img
             :src="client.logo"
@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
     ></div>
 
     <!-- Footer -->
-    <div class="max-w-2xl mx-auto px-6 py-8 text-center">
+    <div class="max-w-2xl mx-auto px-6 py-12 text-center">
       <p class="text-gray-600 text-xs">
         Questions? <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a>
       </p>

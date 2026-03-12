@@ -27,7 +27,7 @@ onMounted(() => {
     </nav>
 
     <!-- Confirmation content -->
-    <div class="max-w-2xl mx-auto px-6 py-24 text-center">
+    <div class="max-w-2xl mx-auto px-8 py-32 text-center">
       <p class="text-6xl mb-6">🎉</p>
       <h1 class="text-3xl sm:text-4xl font-bold mb-4">You're on the calendar!</h1>
       <p class="text-xl text-gray-400 mb-8">Check your inbox for the confirmation email. If you don't see it, check spam — Gmail sometimes gets overprotective. 😅</p>
@@ -50,7 +50,7 @@ onMounted(() => {
     </div>
 
     <!-- Footer -->
-    <div class="max-w-2xl mx-auto px-6 py-8 text-center">
+    <div class="max-w-2xl mx-auto px-6 py-12 text-center">
       <p class="text-gray-600 text-xs">
         Questions? <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a>
       </p>
