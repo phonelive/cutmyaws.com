@@ -498,7 +498,9 @@ Answer questions in these subreddits to build authority (don't self-promote dire
 | File | Size | Purpose |
 |------|------|---------|
 | `public/linkedin-ad.png` | 1200x627 | Single image ad (general campaign) |
-| `/tmp/linkedin-ad-image.html` | — | HTML template for ad image |
+| `public/linkedin-ad-investors.png` | 1200x627 | Single image ad (investors campaign) |
+| `/tmp/linkedin-ad-image.html` | — | HTML template for general ad image |
+| `/tmp/linkedin-ad-investors.html` | — | HTML template for investors ad image |
 
 ### Bing/Microsoft Ads
 
