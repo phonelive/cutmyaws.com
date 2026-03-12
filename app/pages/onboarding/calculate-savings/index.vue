@@ -209,20 +209,7 @@ async function copyCliCommand() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-950 text-gray-100">
-    <!-- Nav -->
-    <nav class="border-b border-gray-800/50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <NuxtLink to="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span class="text-2xl">✂️</span>
-          <span class="font-bold text-lg">Cut My AWS</span>
-        </NuxtLink>
-        <NuxtLink to="/onboarding/give-david-access" class="text-gray-500 text-sm hover:text-gray-300 transition-colors hidden sm:block">
-          🔧 Grant Access →
-        </NuxtLink>
-      </div>
-    </nav>
-
+  <div>
     <!-- Header -->
     <div class="max-w-3xl mx-auto px-6 pt-12 sm:pt-16 pb-8 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold mb-3">🧮 Calculate Your Annualized AWS Bill</h1>
@@ -466,16 +453,5 @@ async function copyCliCommand() {
       </div>
     </div>
 
-    <!-- Footer -->
-    <div class="max-w-2xl mx-auto px-6 py-12 text-center">
-      <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600 mb-4">
-        <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">🔧 Grant Access</NuxtLink>
-        <span>·</span>
-        <NuxtLink to="/" class="hover:text-gray-400 transition-colors">← cutmyaws.com</NuxtLink>
-      </div>
-      <p class="text-gray-600 text-xs">
-        Questions? <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a>
-      </p>
-    </div>
   </div>
 </template>

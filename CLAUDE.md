@@ -289,7 +289,8 @@ Organization ID: `o-hub50yd8sx`. All billing rolls up to PhoneLive management ac
    - Attaches: ReadOnlyAccess + custom billing policy
    - Client must enable IAM billing access + Cost Explorer
 4. David runs: ./audit/add-client.sh <name> <account-id> <external-id>
-5. Audit begins via CLI: aws ce get-cost-and-usage --profile cutmyaws-<client>
+5. David runs: ./audit/verify-access.sh <name>  (confirms all 4 onboarding steps)
+6. Audit begins via CLI: aws ce get-cost-and-usage --profile cutmyaws-<client>
 6. After audit: client deletes CloudFormation stack to revoke access
 ```
 
@@ -307,9 +308,10 @@ The role uses an **external ID** per client to prevent confused deputy attacks.
 |------|---------|
 | `audit/client-role.yaml` | CloudFormation template — client deploys to create audit role |
 | `audit/add-client.sh` | Script to add client CLI profile (`./audit/add-client.sh <name> <id> <ext-id>`) |
+| `audit/verify-access.sh` | Verify all onboarding steps completed (`./audit/verify-access.sh <name>`) |
 | `audit/CLIENT-INSTRUCTIONS.md` | Client-facing setup instructions (send to client) |
-| `app/pages/give-david-access/index.vue` | Web version of client setup instructions at `/give-david-access` |
-| `app/pages/calculate-savings/index.vue` | Annualized AWS bill calculator at `/calculate-savings` |
+| `app/pages/onboarding/give-david-access/index.vue` | Web version of client setup instructions at `/onboarding/give-david-access` |
+| `app/pages/onboarding/calculate-savings/index.vue` | Annualized AWS bill calculator at `/onboarding/calculate-savings` |
 
 ### Common Audit CLI Commands
 

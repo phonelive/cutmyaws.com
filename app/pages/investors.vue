@@ -6,12 +6,6 @@ useHead({
   ],
 })
 
-// Promo: free security scan — mirrors index.vue
-const promoEnd = new Date('2026-04-04T23:59:59')
-const now = new Date()
-const promoActive = now < promoEnd
-const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
-
 // Pricing — mirrors index.vue
 const pricing = {
   fixPct: 75,
@@ -28,30 +22,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-950 text-gray-100">
-    <!-- Promo urgency banner -->
-    <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
-      <NuxtLink to="/book?c=investor-promo" class="hover:underline">
-        🛡️ FREE Security Audit with every engagement — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
-      </NuxtLink>
-    </div>
-
-    <!-- Nav -->
-    <nav class="border-b border-gray-800/50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <NuxtLink to="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span class="text-2xl">✂️</span>
-          <span class="font-bold text-lg">Cut My AWS</span>
-        </NuxtLink>
-        <NuxtLink
-          to="/book?c=investor-nav"
-          class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors"
-        >
-          Book Free Intro Call
-        </NuxtLink>
-      </div>
-    </nav>
-
+  <div>
     <!-- Hero -->
     <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
       <div class="flex items-center justify-center gap-4 mb-6">
@@ -173,12 +144,5 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800">
-      <div class="max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">
-        <NuxtLink to="/" class="hover:text-gray-400 transition-colors">← Back to cutmyaws.com</NuxtLink>
-        <p>&copy; {{ new Date().getFullYear() }} Smart Talk LLC</p>
-      </div>
-    </footer>
   </div>
 </template>

@@ -28,17 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-950 text-gray-100">
-    <!-- Nav -->
-    <nav class="border-b border-gray-800/50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <NuxtLink to="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span class="text-2xl">✂️</span>
-          <span class="font-bold text-lg">Cut My AWS</span>
-        </NuxtLink>
-      </div>
-    </nav>
-
+  <div>
     <!-- Confirmation content -->
     <div class="max-w-2xl mx-auto px-8 py-32 text-center">
       <p class="text-6xl mb-6">🎉</p>
@@ -65,11 +55,5 @@ onMounted(() => {
       </NuxtLink>
     </div>
 
-    <!-- Footer -->
-    <div class="max-w-2xl mx-auto px-6 py-12 text-center">
-      <p class="text-gray-600 text-xs">
-        Questions? <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a>
-      </p>
-    </div>
   </div>
 </template>

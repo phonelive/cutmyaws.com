@@ -30,18 +30,7 @@ const permissions = {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-950 text-gray-100">
-    <!-- Nav -->
-    <nav class="border-b border-gray-800/50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <NuxtLink to="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span class="text-2xl">✂️</span>
-          <span class="font-bold text-lg">Cut My AWS</span>
-        </NuxtLink>
-        <p class="text-gray-500 text-sm hidden sm:block">Client Onboarding</p>
-      </div>
-    </nav>
-
+  <div>
     <!-- Header -->
     <div class="max-w-3xl mx-auto px-6 pt-12 sm:pt-16 pb-8 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold mb-3">🔧 Let David Peek Under the Hood</h1>
@@ -415,13 +404,5 @@ aws iam delete-role --role-name {{ roleName }}</pre>
       </div>
     </div>
 
-    <!-- Footer -->
-    <div class="max-w-2xl mx-auto px-6 py-12 text-center">
-      <p class="text-gray-400 text-sm mb-2">Stuck? Confused? AWS being AWS? 🤦</p>
-      <p class="text-gray-600 text-xs mb-1">
-        Hit up <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a> — David's done this a few times.
-      </p>
-      <p class="text-gray-600 text-xs mt-4">The hardest part of saving money on AWS is this 5-minute setup. Everything after this is David's problem. ✂️</p>
-    </div>
   </div>
 </template>

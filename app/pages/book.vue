@@ -15,13 +15,6 @@ const campaign = route.query.c || 'book'
 
 const calendlyUrl = `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${campaign}&hide_gdpr_banner=1&background_color=030712&text_color=f3f4f6&primary_color=f97316`
 
-// Promo: free security scan — mirrors index.vue
-const promoEnd = new Date('2026-04-04T23:59:59')
-const now = new Date()
-const promoActive = now < promoEnd
-const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
-
-
 function onCalendlyMessage(e) {
   if (e.data?.event === 'calendly.event_scheduled') {
     router.push('/confirmed')
@@ -46,22 +39,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-950 text-gray-100">
-    <!-- Promo urgency banner -->
-    <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
-      🛡️ FREE Security Audit with every engagement — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
-    </div>
-
-    <!-- Nav -->
-    <nav class="border-b border-gray-800/50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <NuxtLink to="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span class="text-2xl">✂️</span>
-          <span class="font-bold text-lg">Cut My AWS</span>
-        </NuxtLink>
-      </div>
-    </nav>
-
+  <div>
     <!-- Header -->
     <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-6 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold mb-4">🗓️ Book Your Free Intro Call</h1>
@@ -114,11 +92,5 @@ onBeforeUnmount(() => {
       <Testimonials />
     </div>
 
-    <!-- Footer -->
-    <div class="max-w-2xl mx-auto px-6 py-12 text-center">
-      <p class="text-gray-600 text-xs">
-        Questions? <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a>
-      </p>
-    </div>
   </div>
 </template>
