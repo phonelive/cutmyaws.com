@@ -22,6 +22,18 @@ onMounted(() => {
       tickerValue.value = Math.round(current)
     }
   }, duration / steps)
+
+  // ── Section scroll tracking ──
+  const { trackEvent } = useTracking()
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        trackEvent('section_view', { event_category: 'engagement', event_label: entry.target.id })
+        observer.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.3 })
+  document.querySelectorAll('section[id]').forEach((el) => observer.observe(el))
 })
 
 // ── ROI Calculator ──
