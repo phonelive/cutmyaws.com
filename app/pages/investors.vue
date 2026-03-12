@@ -65,13 +65,13 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         Your portfolio companies are <span class="text-brand-400">overpaying AWS.</span>
       </h1>
       <p class="text-gray-400 text-lg mb-4">
-        You did the due diligence on the team, the TAM, and the cap table —
-        but nobody looked at the AWS bill. Spoiler: it's not great. 😬
+        You checked the team, the TAM, the cap table, the pitch deck, the Figma mockups, the founder's LinkedIn —
+        but nobody opened the AWS bill. It's been growing unsupervised since day one. 😬
       </p>
       <p class="text-gray-400 text-lg mb-8">
-        I audit your portfolio companies' AWS infrastructure, find the waste, and fix it —
-        without slowing down product development. Your engineering team stays focused on shipping.
-        I handle the infrastructure bloat they've been ignoring since the seed round. 🚀
+        I audit your portfolio companies' AWS accounts, find the waste, and fix it —
+        while their engineering team stays focused on shipping features, not deciphering Cost Explorer.
+        That infrastructure bloat they've been ignoring since the seed round? That's my Tuesday. 🚀
       </p>
       <NuxtLink
         to="/book?c=investor-hero"
@@ -88,15 +88,15 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         <div class="grid sm:grid-cols-3 gap-6 text-center">
           <div>
             <p class="text-brand-400 text-3xl font-bold">30–40%</p>
-            <p class="text-gray-500 text-sm mt-1">Average waste found per account</p>
+            <p class="text-gray-500 text-sm mt-1">Average waste per account (yes, really 😳)</p>
           </div>
           <div>
             <p class="text-green-400 text-3xl font-bold">{{ monthsToRoi }} mo</p>
-            <p class="text-gray-500 text-sm mt-1">Typical time to ROI</p>
+            <p class="text-gray-500 text-sm mt-1">Time to ROI — faster than your next board meeting</p>
           </div>
           <div>
             <p class="text-brand-400 text-3xl font-bold">19 yrs</p>
-            <p class="text-gray-500 text-sm mt-1">AWS experience (since 2007)</p>
+            <p class="text-gray-500 text-sm mt-1">AWS experience — since before it was cool (2007)</p>
           </div>
         </div>
       </div>
@@ -132,22 +132,23 @@ const minAwsK = `$${pricing.minAws / 1000}K`
 
     <!-- How it works -->
     <section class="max-w-3xl mx-auto px-6 py-16 text-center">
-      <h2 class="text-2xl font-bold mb-8">How it works for portfolio companies</h2>
+      <h2 class="text-2xl font-bold mb-2">How it works for portfolio companies</h2>
+      <p class="text-gray-500 text-sm mb-8">Three steps. Less effort than reading a pitch deck. 📄</p>
       <div class="grid sm:grid-cols-3 gap-8 text-left">
         <div>
           <p class="text-brand-400 text-sm font-bold mb-2">STEP 1</p>
-          <h3 class="font-bold mb-1">You intro me</h3>
-          <p class="text-gray-500 text-sm">Forward an email. That's it. I take it from there — your team doesn't lift a finger until the call.</p>
+          <h3 class="font-bold mb-1">You forward one email</h3>
+          <p class="text-gray-500 text-sm">That's your entire contribution. David takes it from there. Your team doesn't lift a finger until the call. Possibly the best ROI-per-keystroke in your portfolio. ⌨️</p>
         </div>
         <div>
           <p class="text-brand-400 text-sm font-bold mb-2">STEP 2</p>
-          <h3 class="font-bold mb-1">I audit the account</h3>
-          <p class="text-gray-500 text-sm">Read-only access, 5–10 business days. Full report: every waste item, dollar amounts, architecture fixes.</p>
+          <h3 class="font-bold mb-1">David audits the account</h3>
+          <p class="text-gray-500 text-sm">Read-only access, 5–10 business days. Full report: every waste item, dollar amounts, architecture fixes. The kind of due diligence AWS hopes nobody does. 🔍</p>
         </div>
         <div>
           <p class="text-brand-400 text-sm font-bold mb-2">STEP 3</p>
           <h3 class="font-bold mb-1">Savings hit the P&L</h3>
-          <p class="text-gray-500 text-sm">Your company keeps the savings forever. My fee is a one-time percentage of what I find. No recurring costs.</p>
+          <p class="text-gray-500 text-sm">Your portfolio company keeps the savings forever. My fee is a one-time percentage of what I find. No recurring costs. No SaaS subscription. No "enterprise plan." 🎉</p>
         </div>
       </div>
     </section>
@@ -155,9 +156,9 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     <!-- Bottom CTA -->
     <section class="bg-gray-900">
       <div class="max-w-3xl mx-auto px-6 py-16 text-center">
-        <h2 class="text-2xl font-bold mb-3">Extend your portfolio's runway — without cutting headcount.</h2>
+        <h2 class="text-2xl font-bold mb-3">Extend your portfolio's runway — without the uncomfortable headcount conversation.</h2>
         <p class="text-gray-400 mb-6">
-          One engagement, permanent savings. Your board deck just got a new slide. You're welcome. 📊
+          One engagement. Permanent savings. Your board deck gets a new slide and your portfolio companies stop lighting money on fire. You're welcome. 📊
         </p>
         <NuxtLink
           to="/book?c=investor-bottom"
