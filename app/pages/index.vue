@@ -762,6 +762,17 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         🗓️ Book Your Free Intro Call
       </a>
       <p class="text-gray-600 text-sm mt-4">No hard sell. No PowerPoints. Just math. 🧮</p>
+      <div class="mt-10">
+        <p class="text-gray-600 text-xs uppercase tracking-wider mb-4">Also available through</p>
+        <div class="flex items-center justify-center gap-4">
+          <div class="flex items-center justify-center h-16 w-44 px-4 rounded-lg bg-white/90">
+            <img src="/logos/aws-marketplace.svg" alt="AWS Marketplace" class="h-10 max-w-[150px] object-contain">
+          </div>
+          <div class="flex items-center justify-center h-16 w-44 px-4 rounded-lg bg-white/90">
+            <img src="/logos/carahsoft.svg" alt="Carahsoft" class="h-10 max-w-[150px] object-contain">
+          </div>
+        </div>
+      </div>
       </div>
     </section>
 
