@@ -44,9 +44,9 @@ const permissions = {
 
     <!-- Header -->
     <div class="max-w-3xl mx-auto px-6 pt-12 sm:pt-16 pb-8 text-center">
-      <h1 class="text-2xl sm:text-3xl font-bold mb-3">🔧 Grant David Access</h1>
-      <p class="text-gray-400 mb-2">4 steps to grant Cut My AWS read-only access to your account.</p>
-      <p class="text-gray-500 text-sm">Takes about 5 minutes. We <strong class="text-gray-300">cannot</strong> modify, delete, or create any resources.</p>
+      <h1 class="text-2xl sm:text-3xl font-bold mb-3">🔧 Let David Peek Under the Hood</h1>
+      <p class="text-gray-400 mb-2">4 steps. ~5 minutes. Less time than AWS takes to load the billing dashboard. 😏</p>
+      <p class="text-gray-500 text-sm">This grants <strong class="text-gray-300">read-only</strong> access — we can look, but we <strong class="text-gray-300">cannot</strong> touch, break, or accidentally provision a fleet of p4d.24xlarge instances. Promise. 🤞</p>
     </div>
 
     <!-- Steps -->
@@ -60,7 +60,7 @@ const permissions = {
           </div>
           <div>
             <h2 class="text-lg font-bold">💰 Enable IAM Access to Billing</h2>
-            <p class="text-gray-400 text-sm mt-1">By default, only the root user can see billing. This lets the audit role view your costs.</p>
+            <p class="text-gray-400 text-sm mt-1">AWS hides your bill behind root-only access by default. Convenient for them. Less convenient for finding out where your money went. 🕵️</p>
           </div>
         </div>
 
@@ -110,7 +110,7 @@ aws account put-alternate-contact  # root-only action
           </div>
           <div>
             <h2 class="text-lg font-bold">📊 Enable Cost Explorer</h2>
-            <p class="text-gray-400 text-sm mt-1">Cost Explorer provides the 48-month billing history we need for a thorough audit.</p>
+            <p class="text-gray-400 text-sm mt-1">This unlocks 48 months of billing history. Think of it as giving David a time machine — except instead of going back to prevent mistakes, he just documents how much they cost. 😅</p>
           </div>
         </div>
 
@@ -157,7 +157,7 @@ aws account put-alternate-contact  # root-only action
           </div>
           <div>
             <h2 class="text-lg font-bold">🔧 Create the Audit Role</h2>
-            <p class="text-gray-400 text-sm mt-1">This creates a read-only IAM role that lets us view your resources and billing — nothing more. You'll need the <strong class="text-gray-200">External ID</strong> David sent you.</p>
+            <p class="text-gray-400 text-sm mt-1">The main event. This IAM role lets David see your resources and billing — but touch nothing. Like window shopping, except the window is your AWS account and the shopping is finding waste. 🛒 You'll need the <strong class="text-gray-200">External ID</strong> David sent you.</p>
           </div>
         </div>
 
@@ -307,7 +307,7 @@ rm /tmp/trust-policy.json /tmp/billing-policy.json</pre>
           </div>
           <div>
             <h2 class="text-lg font-bold">📨 Send David Your Account ID</h2>
-            <p class="text-gray-400 text-sm mt-1">That's it! Just send David your 12-digit AWS account ID and he'll confirm access.</p>
+            <p class="text-gray-400 text-sm mt-1">The finish line! Send David your 12-digit account ID and he'll take it from here. You've done the hard part — now go back to building your product. 🚀</p>
           </div>
         </div>
 
@@ -346,7 +346,8 @@ rm /tmp/trust-policy.json /tmp/billing-policy.json</pre>
 
     <!-- Permissions breakdown -->
     <div class="max-w-3xl mx-auto px-6 pb-12">
-      <h2 class="text-lg font-bold mb-6 text-center">🔒 What This Role Can (and Can't) Do</h2>
+      <h2 class="text-lg font-bold mb-2 text-center">🔒 What This Role Can (and Can't) Do</h2>
+      <p class="text-gray-500 text-sm text-center mb-6">Spoiler: it can read. That's it. David's a consultant, not a supervillain. 🦹</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6">
           <h3 class="text-sm font-bold text-green-400 uppercase tracking-wider mb-4">✅ Read Access</h3>
@@ -372,8 +373,8 @@ rm /tmp/trust-policy.json /tmp/billing-policy.json</pre>
     <!-- Removing access -->
     <div class="max-w-3xl mx-auto px-6 pb-12">
       <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 sm:p-8">
-        <h2 class="text-lg font-bold mb-3">🗑️ Removing Access After the Audit</h2>
-        <p class="text-gray-400 text-sm mb-4">When the audit is complete, just delete the role to instantly revoke all access:</p>
+        <h2 class="text-lg font-bold mb-3">🗑️ Kicking David Out</h2>
+        <p class="text-gray-400 text-sm mb-4">Audit done? Delete the role and David's access vanishes instantly. No awkward breakup conversation required. 👋</p>
 
         <div class="flex gap-2 mb-4">
           <button @click="tab[5] = 'console'; tab[5] !== undefined" :class="!tab[5] || tab[5] === 'console' ? 'bg-brand-500 text-white' : 'bg-gray-800 text-gray-400 hover:text-gray-300'" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors" @click.prevent="tab = { ...tab, 5: 'console' }">🖥️ Console</button>
@@ -416,10 +417,11 @@ aws iam delete-role --role-name {{ roleName }}</pre>
 
     <!-- Footer -->
     <div class="max-w-2xl mx-auto px-6 py-12 text-center">
-      <p class="text-gray-400 text-sm mb-2">Questions about the setup?</p>
-      <p class="text-gray-600 text-xs">
-        <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a>
+      <p class="text-gray-400 text-sm mb-2">Stuck? Confused? AWS being AWS? 🤦</p>
+      <p class="text-gray-600 text-xs mb-1">
+        Hit up <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a> — David's done this a few times.
       </p>
+      <p class="text-gray-600 text-xs mt-4">The hardest part of saving money on AWS is this 5-minute setup. Everything after this is David's problem. ✂️</p>
     </div>
   </div>
 </template>
