@@ -213,7 +213,8 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | `app/pages/index.vue` | The entire landing page (single page site) |
 | `app/pages/book.vue` | Calendly embed page — all CTAs route here via `/book?c=campaign` |
 | `app/pages/investors.vue` | Dedicated investor landing page for ad campaigns (noindex) |
-| `app/pages/onboarding/index.vue` | Client audit onboarding instructions page (noindex) |
+| `app/pages/give-david-access/index.vue` | Client audit onboarding — grant read-only AWS access (noindex) |
+| `app/pages/calculate-savings/index.vue` | Annualized AWS bill calculator with savings estimates (noindex) |
 | `app/plugins/gtag.client.ts` | Google Analytics plugin |
 | `app/plugins/clarity.client.ts` | Microsoft Clarity plugin |
 | `app/plugins/uet.client.ts` | Microsoft Ads UET conversion tracking |
@@ -307,7 +308,8 @@ The role uses an **external ID** per client to prevent confused deputy attacks.
 | `audit/client-role.yaml` | CloudFormation template — client deploys to create audit role |
 | `audit/add-client.sh` | Script to add client CLI profile (`./audit/add-client.sh <name> <id> <ext-id>`) |
 | `audit/CLIENT-INSTRUCTIONS.md` | Client-facing setup instructions (send to client) |
-| `app/pages/onboarding/index.vue` | Web version of client setup instructions at `/onboarding` |
+| `app/pages/give-david-access/index.vue` | Web version of client setup instructions at `/give-david-access` |
+| `app/pages/calculate-savings/index.vue` | Annualized AWS bill calculator at `/calculate-savings` |
 
 ### Common Audit CLI Commands
 

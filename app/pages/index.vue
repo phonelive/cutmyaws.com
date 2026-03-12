@@ -323,8 +323,8 @@ const minAwsK = `$${pricing.minAws / 1000}K`
                 <p class="text-gray-500 text-sm">15 min &middot; {{ pricing.depositPct }}% of AWS annual spend to start ☕</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-4">We meet, I ask annoying questions about your business, and you grant read-only AWS access so I can go deep. Then the {{ pricing.depositPct }}% down payment kicks things off. 🔍</p>
-            <p class="text-gray-500 text-sm">💡 The {{ pricing.depositPct }}% is a down payment &mdash; it gets <strong class="text-gray-300">deducted from The Report fee</strong>. Think of it as a deposit, not an extra charge. You're not paying more, you're paying sooner.</p>
+            <p class="text-gray-400 mb-4">We meet, I ask annoying questions about your business, and you <NuxtLink to="/give-david-access" class="text-brand-400 hover:underline">grant read-only AWS access</NuxtLink> so I can go deep. Then the {{ pricing.depositPct }}% down payment kicks things off. 🔍</p>
+            <p class="text-gray-500 text-sm">💡 The {{ pricing.depositPct }}% is based on your <NuxtLink to="/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink> &mdash; it gets <strong class="text-gray-300">deducted from The Report fee</strong>. Think of it as a deposit, not an extra charge. You're not paying more, you're paying sooner.</p>
           </div>
 
           <!-- Arrow -->
@@ -930,8 +930,10 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     <footer class="border-t border-gray-800 bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
         <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC d/b/a Cut My AWS &middot; Peoria, IL &middot; A real company with a real silly name</span>
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
           <a :href="calendly('footer')" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</a>
+          <NuxtLink to="/calculate-savings" class="hover:text-gray-300 transition-colors">🧮 Calculate Savings</NuxtLink>
+          <NuxtLink to="/give-david-access" class="hover:text-gray-300 transition-colors">🔧 Grant Access</NuxtLink>
           <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="hover:text-gray-300 transition-colors">💼 LinkedIn</a>
           <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
         </div>
