@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         // GEO/AEO: help AI systems understand the page
         { name: 'subject', content: 'Cloud Cost Optimization & AWS FinOps Consulting' },
         { name: 'topic', content: 'Cloud cost optimization, AWS cost savings, and business-aligned technology audits for small businesses' },
-        { name: 'summary', content: 'CutMyAWS.com offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K+/mo. Cloud cost optimization solutions include architecture audit, serverless migration, and implementation — priced at 15% of annual savings found, 75% max total. 19 years AWS experience. Not a dashboard — a real consultant.' },
+        { name: 'summary', content: 'Cut My AWS offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K+/mo. Cloud cost optimization solutions include architecture audit, serverless migration, and implementation — priced at 15% of annual savings found, 75% max total. 19 years AWS experience. Not a dashboard — a real consultant.' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -148,26 +148,26 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'Is this just a cost audit or something more?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'It\'s a business-aligned technology audit. Cloud cost optimization tools tell you what you\'re spending. CutMyAWS tells you why your tech doesn\'t match your business — and that\'s where the real cloud cost savings live. Serverless migrations, right-sizing, architecture alignment.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'It\'s a business-aligned technology audit. Cloud cost optimization tools tell you what you\'re spending. Cut My AWS tells you why your tech doesn\'t match your business — and that\'s where the real cloud cost savings live. Serverless migrations, right-sizing, architecture alignment.' }
                   },
                   {
                     '@type': 'Question',
-                    name: 'What size AWS accounts does CutMyAWS work with?',
+                    name: 'What size AWS accounts does Cut My AWS work with?',
                     acceptedAnswer: { '@type': 'Answer', text: 'Businesses spending $5,000 or more per month on AWS. Below $5K there isn\'t enough waste to justify an engagement. Above that? Even better — more infrastructure means more savings to find.' }
                   },
                   {
                     '@type': 'Question',
-                    name: 'Does CutMyAWS only work with tech companies?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'No. CutMyAWS works with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you run on AWS and spend $5K+ per month, CutMyAWS can help regardless of industry or sector.' }
+                    name: 'Does Cut My AWS only work with tech companies?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'No. Cut My AWS works with for-profit companies, non-profits (churches, civic organizations, foundations), and local, state, and federal government agencies. If you run on AWS and spend $5K+ per month, Cut My AWS can help regardless of industry or sector.' }
                   },
                   {
                     '@type': 'Question',
-                    name: 'How is CutMyAWS different from cloud cost optimization tools like CloudHealth or ProsperOps?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'Cloud cost optimization tools scan your account and show charts. CutMyAWS is a real consultant (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. Cloud cost optimization platforms find obvious waste. David finds the structural misalignment between your tech and your business — the kind of cloud cost optimization insight no dashboard can deliver.' }
+                    name: 'How is Cut My AWS different from cloud cost optimization tools like CloudHealth or ProsperOps?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'Cloud cost optimization tools scan your account and show charts. Cut My AWS is a real consultant (David Plappert, 19 years AWS) who reads your architecture, understands your business, and tells you exactly what to change and why. Cloud cost optimization platforms find obvious waste. David finds the structural misalignment between your tech and your business — the kind of cloud cost optimization insight no dashboard can deliver.' }
                   },
                   {
                     '@type': 'Question',
-                    name: 'What is the maximum fee for CutMyAWS services?',
+                    name: 'What is the maximum fee for Cut My AWS services?',
                     acceptedAnswer: { '@type': 'Answer', text: '75% of verified annual savings is the absolute maximum (15% for the audit report + 60% for implementation). The implementation fee is only charged 90 days after deliverables, based on actual verified bill reduction.' }
                   }
                 ]

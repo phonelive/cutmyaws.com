@@ -269,7 +269,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
 
     <!-- Why CutMyAWS -->
     <section id="why" class="max-w-5xl mx-auto px-6 py-24">
-      <h2 class="text-3xl font-bold mb-4 text-center">Why CutMyAWS? 🤔</h2>
+      <h2 class="text-3xl font-bold mb-4 text-center">Why Cut My AWS? 🤔</h2>
       <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Growing cloud spend doesn't mean efficient cloud spend. Cloud cost optimization tools show you charts &mdash; I show you why your tech doesn't match your business. Your revenue grew 40% &mdash; did your AWS bill grow 40% too? Or 80%? 📈</p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
@@ -737,7 +737,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
           When I'm not auditing your infrastructure, I'm in the suburbs of Peoria, IL with my wife and two young kids. 🏡
-          The honest truth? I started CutMyAWS because I want to pay off our house and get my family completely debt-free.
+          The honest truth? I started Cut My AWS because I want to pay off our house and get my family completely debt-free.
           That's it. No VC funding. No exit strategy. Just a dad who's <strong class="text-gray-200">really good at AWS</strong> and
           <strong class="text-gray-200">really motivated</strong> to find your savings &mdash; because every dollar I earn pays off my house faster. 😅
         </p>

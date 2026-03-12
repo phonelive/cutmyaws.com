@@ -1,10 +1,10 @@
-# CutMyAWS.com
+# Cut My AWS.com
 
 > Cloud cost optimization for businesses spending $5K+/mo on AWS. Business-aligned cloud cost optimization solutions — not a dashboard, a real consultant.
 
-## What is CutMyAWS?
+## What is Cut My AWS?
 
-CutMyAWS is a cloud cost optimization service run by David Plappert, a Senior AWS Serverless Architect with 19 years of experience. Unlike FinOps dashboards and cloud cost optimization tools, CutMyAWS delivers cloud cost optimization strategies through a real consultant who reads your architecture, understands your business, and aligns your tech to how your business actually works. The cloud cost savings are a side effect of getting that alignment right.
+Cut My AWS is a cloud cost optimization service run by David Plappert, a Senior AWS Serverless Architect with 19 years of experience. Unlike FinOps dashboards and cloud cost optimization tools, Cut My AWS delivers cloud cost optimization strategies through a real consultant who reads your architecture, understands your business, and aligns your tech to how your business actually works. The cloud cost savings are a side effect of getting that alignment right.
 
 ## Who is it for?
 
@@ -24,7 +24,7 @@ Businesses spending $5,000 or more per month on AWS who need cloud cost optimiza
 - Implementation fee based on verified savings only — 90 days after deliverables
 - No savings = no fee for implementation
 
-## What makes CutMyAWS different from cloud cost optimization tools?
+## What makes Cut My AWS different from cloud cost optimization tools?
 
 - Real human consultant, not a cloud cost optimization tool or AI
 - 19 years of AWS experience — cloud cost optimization strategies based on architecture, not dashboards
