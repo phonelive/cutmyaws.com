@@ -9,19 +9,19 @@ useHead({
 })
 
 // === Date range calculation ===
-// We use the last 18 COMPLETE months of billing data.
+// We only use finalized monthly AWS bills — no partial or estimated data.
 // - The current month is always excluded (it's incomplete).
 // - If we're less than 72 hours into the current month, we also exclude the
 //   previous month — AWS can take up to 72 hours to finalize billing data.
 const now = new Date()
 const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
 const hoursIntoMonth = (now.getTime() - firstOfMonth.getTime()) / (1000 * 60 * 60)
-const inGracePeriod = hoursIntoMonth < 72
+const lastMonthFinalized = hoursIntoMonth >= 72
 
-// API end date (exclusive) — 1st of current month, or 1 month earlier during grace
-const apiEnd = inGracePeriod
-  ? new Date(now.getFullYear(), now.getMonth() - 1, 1)
-  : new Date(now.getFullYear(), now.getMonth(), 1)
+// API end date (exclusive) — 1st of current month, or 1 month earlier if last month isn't finalized yet
+const apiEnd = lastMonthFinalized
+  ? new Date(now.getFullYear(), now.getMonth(), 1)
+  : new Date(now.getFullYear(), now.getMonth() - 1, 1)
 // 18 months before the end
 const apiStart = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 18, 1)
 
@@ -29,7 +29,7 @@ const apiStart = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 18, 1)
 const lastIncludedMonth = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 1, 1)
 const fmtMonthYear = (d) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 const dateRangeLabel = `${fmtMonthYear(apiStart)} – ${fmtMonthYear(lastIncludedMonth)}`
-const skippedMonthLabel = inGracePeriod
+const skippedMonthLabel = !lastMonthFinalized
   ? new Date(now.getFullYear(), now.getMonth() - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
   : null
 
@@ -110,10 +110,10 @@ const cliScript = `#!/bin/bash
 # Pulls the last 18 complete months of AWS billing data, finds
 # the 3 highest months, averages them, and multiplies by 12.
 #
-# Date logic:
+# Only uses finalized monthly bills:
 #   - Always excludes the current (incomplete) month
 #   - If < 72 hours into the current month, also excludes the
-#     previous month (AWS needs up to 72h to finalize billing)
+#     previous month (AWS can take up to 72h to finalize billing)
 #
 # Formula: (top 3 months avg) × 12 = annualized spend
 
@@ -213,7 +213,7 @@ async function copyCliCommand() {
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">1</span>
             <div>
               <p class="text-gray-300 font-medium">Pull the last 18 complete months of AWS bills</p>
-              <p class="text-gray-500 text-sm">The current month is always excluded — it's incomplete. If we're within 72 hours of a new month, the previous month is also excluded (AWS can take up to 72h to finalize billing data). This captures seasonal variation, growth trends, and one-off spikes — using only finalized data. 📅</p>
+              <p class="text-gray-500 text-sm">We only use finalized monthly bills. The current month is always excluded (it's incomplete), and if a month just ended, we wait up to 72 hours for AWS to finalize the data before including it. This captures seasonal variation, growth trends, and one-off spikes — no estimates, only real numbers. 📅</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -237,9 +237,9 @@ async function copyCliCommand() {
             <span class="text-brand-400">(top 3 months avg)</span> × 12 = <span class="text-brand-400">annualized spend</span>
           </p>
         </div>
-        <!-- Grace period notice -->
-        <div v-if="inGracePeriod" class="mt-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 text-sm">
-          <p class="text-yellow-400">⏳ {{ skippedMonthLabel }} is excluded — AWS billing data may take up to 72 hours to finalize after a month ends.</p>
+        <!-- Not-yet-finalized notice -->
+        <div v-if="!lastMonthFinalized" class="mt-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 text-sm">
+          <p class="text-yellow-400">⏳ {{ skippedMonthLabel }} is excluded — AWS billing data can take up to 72 hours to finalize. We only use finalized bills.</p>
         </div>
         <!-- Date range -->
         <p class="text-gray-600 text-xs mt-4 text-center">Currently using: <strong class="text-gray-400">{{ dateRangeLabel }}</strong> (18 months)</p>
@@ -265,7 +265,7 @@ async function copyCliCommand() {
         </div>
         <div class="mt-3 space-y-1">
           <p class="text-gray-600 text-xs">💡 Requires the AWS CLI and billing access. Use <code class="text-gray-400">--profile your-profile</code> if you have named profiles. For Organizations, run from the <strong>management account</strong>.</p>
-          <p class="text-gray-600 text-xs">📅 Dates are calculated dynamically — the script always pulls the correct 18-month window, excluding incomplete and unfinalized months.</p>
+          <p class="text-gray-600 text-xs">📅 Dates are calculated dynamically — the script always pulls the correct 18-month window using only finalized monthly bills.</p>
         </div>
       </div>
     </div>
