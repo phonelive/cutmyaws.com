@@ -71,7 +71,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <p class="text-gray-400 text-lg mb-8">
         I audit your portfolio companies' AWS infrastructure, find the waste, and fix it —
         without slowing down product development. Your engineering team stays focused on shipping.
-        I handle the infrastructure bloat they've been ignoring since Series A. 🚀
+        I handle the infrastructure bloat they've been ignoring since the seed round. 🚀
       </p>
       <NuxtLink
         to="/book?c=investor-hero"
