@@ -12,10 +12,13 @@ const route = useRoute()
 
 // Try to extract first name from query params (Calendly passes invitee info)
 const rawName = route.query.invitee_full_name || route.query.name || route.query.invitee_name || ''
+const prefixes = ['mr', 'mrs', 'ms', 'dr', 'prof', 'sir', 'rev']
 const firstName = computed(() => {
-  const name = String(rawName).trim()
-  if (!name) return ''
-  return name.split(' ')[0]
+  const parts = String(rawName).trim().split(/\s+/)
+  if (!parts[0]) return ''
+  // Skip honorific prefixes (Mr., Dr., etc.)
+  const first = prefixes.includes(parts[0].replace(/\./g, '').toLowerCase()) ? parts[1] : parts[0]
+  return first || ''
 })
 
 onMounted(() => {
