@@ -22,6 +22,7 @@
 | UET Tag | 343238663 |
 | LinkedIn Company Page | Cut My AWS (525710547) |
 | LinkedIn Insight Tag | 8785714 |
+| Stripe | acct_1TA6p5E7PhfaMBf2 |
 
 ## Founder
 
