@@ -8,8 +8,10 @@ useHead({
 
 // Pricing — mirrors index.vue
 const pricing = {
+  fixDepositPct: 4,
   fixPct: 75,
   minAws: 5000,
+  overageRate: 500,
 }
 
 // Example: $25K/mo, 36% waste

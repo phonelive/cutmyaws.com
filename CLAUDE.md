@@ -48,12 +48,14 @@ All pricing is centralized in `app/pages/index.vue` in the `pricing` object:
 
 ```js
 const pricing = {
-  depositPct: 1,       // Down payment: 1% of AWS annual spend to start
+  depositPct: 1,       // Down payment: 1% of AWS annual spend to start (The Report)
+  fixDepositPct: 4,    // Down payment: 4% of AWS annual spend to start (The Fix)
   reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
   implPct: 60,         // Implementation portion
   fixPct: 75,          // The Fix: 75% total (15% report + 60% implementation)
   securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
   minAws: 5000,        // We work best with $5K+/mo AWS spend
+  overageRate: 500,    // Hourly rate for out-of-scope work
 }
 ```
 
@@ -64,9 +66,11 @@ const pricing = {
 ```
 🗓️ INTRO CALL           Free (15 min)
         ↓
+   1% deposit            (of AWS annual spend, deducted from report fee)
+        ↓
    5-10 business days    (David audits the account)
         ↓
-📋 EXPLORATION CALL      15% of annual savings found
+📋 EXPLORATION CALL      15% of annual savings found (minus deposit)
    │                     Client receives full report PDF
    │
    └─ Want implementation?
@@ -75,14 +79,18 @@ const pricing = {
       │
       └─ Yes → Scope timeline, deliverables together
                ↓
+         4% deposit      (of AWS annual spend, deducted from impl fee)
+               ↓
          🔧 IMPLEMENTATION
                ↓
          ⏳ 90 DAYS LATER
                ↓
-         📊 THE PROOF       +60% of VERIFIED savings due
-                            (no savings = $0 owed)
+         📊 THE PROOF       +60% of VERIFIED REALIZED savings due
+                            (minus deposit; no savings = $0 owed)
 
 Max total: 75% (15% report + 60% implementation)
+Note: Not all Report items may be implementable due to dependencies,
+compliance, or third-party constraints. Fee is based only on realized savings.
 ```
 
 ### Example ($25K/mo AWS spend, 30% waste found)
@@ -90,8 +98,10 @@ Max total: 75% (15% report + 60% implementation)
 | Phase | Amount |
 |-------|-------:|
 | Intro Call | Free |
-| Exploration Call (15% of $108K) | $16,200 |
-| 90 Days After Implementation (+60%) | $64,800 |
+| Report Deposit (1% of $300K annual) | $3,000 |
+| Exploration Call (15% of $108K − deposit) | $13,200 |
+| Implementation Deposit (4% of $300K annual) | $12,000 |
+| 90 Days After Implementation (+60% − deposit) | $52,800 |
 | **Total max (75%)** | **$81,000** |
 | **Client keeps year 1** | **$27,000** |
 | **Client keeps every year after** | **$108,000** |

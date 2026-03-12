@@ -118,14 +118,14 @@ export default defineNuxtConfig({
                 '@type': 'Service',
                 '@id': 'https://cutmyaws.com/#fix',
                 name: 'The Fix — AWS Cost Implementation',
-                description: 'Full implementation of all cost optimizations including serverless migrations, right-sizing, Savings Plans, and architecture improvements. 90-day verification period. Fee based on verified savings only.',
+                description: 'Implementation of cost optimizations including serverless migrations, right-sizing, Savings Plans, and architecture improvements. 4% deposit at kickoff. 90-day verification period. Fee based on verified realized savings only — not all Report items may be implementable due to dependencies or constraints outside consultant control.',
                 provider: { '@id': 'https://cutmyaws.com/#organization' },
                 serviceType: 'AWS Cost Optimization Implementation',
                 offers: {
                   '@type': 'Offer',
                   price: '75% of verified annual savings (max)',
                   priceCurrency: 'USD',
-                  description: '15% audit + 60% implementation = 75% total max. Implementation fee due 90 days after deliverables, based on verified savings only.'
+                  description: '4% deposit at kickoff (deducted from implementation fee). 15% audit + 60% implementation = 75% total max. Implementation fee due 90 days after deliverables, based on verified realized savings only.'
                 }
               },
               {
@@ -140,7 +140,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'When do I pay for the AWS cost audit?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'The intro call is free. 15% is due at the exploration call when you receive the report. If you opt for implementation, the extra 60% is due 90 days after deliverables — and only on verified savings.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'The intro call is free. 1% deposit at engagement start (deducted from report fee). 15% of savings is due at the exploration call when you receive the report. If you opt for implementation, a 4% deposit is due at kickoff (deducted from implementation fee). The remaining 60% is due 90 days after deliverables — and only on verified realized savings. Not all Report items may be implementable due to dependencies or constraints, but you only pay on savings that actually materialize.' }
                   },
                   {
                     '@type': 'Question',

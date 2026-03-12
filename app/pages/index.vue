@@ -44,6 +44,7 @@ const calcAnnualSavings = computed(() => calcMonthlySavings.value * 12)
 const calcDepositFee = computed(() => Math.round(calcAwsSpend.value * 12 * pricing.depositPct / 100))
 const calcReportFee = computed(() => Math.round(calcAnnualSavings.value * pricing.reportPct / 100))
 const calcReportRemainder = computed(() => calcReportFee.value - calcDepositFee.value)
+const calcFixDepositFee = computed(() => Math.round(calcAwsSpend.value * 12 * pricing.fixDepositPct / 100))
 const calcFixFee = computed(() => Math.round(calcAnnualSavings.value * pricing.fixPct / 100))
 const calcKeepReport = computed(() => calcAnnualSavings.value - calcReportFee.value)
 const calcKeepFix = computed(() => calcAnnualSavings.value - calcFixFee.value)
@@ -89,12 +90,14 @@ const wasteSources = [
 
 // ── Pricing (change here, updates everywhere) ──
 const pricing = {
-  depositPct: 1,       // Down payment: 1% of AWS annual spend to start
+  depositPct: 1,       // Down payment: 1% of AWS annual spend to start (The Report)
+  fixDepositPct: 4,    // Down payment: 4% of AWS annual spend to start (The Fix)
   reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
   implPct: 60,         // Implementation portion
   fixPct: 75,          // The Fix: 75% total (15% report + 60% implementation)
   securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
   minAws: 5000,        // We work best with $5K+/mo AWS spend
+  overageRate: 500,    // Hourly rate for out-of-scope work
 }
 
 // ── Example numbers ──
@@ -105,6 +108,7 @@ const exampleAwsAnnual = exampleBefore * 12
 const depositFee = Math.round(exampleAwsAnnual * pricing.depositPct / 100)
 const reportFee = Math.round(exampleAnnual * pricing.reportPct / 100)
 const reportRemainder = reportFee - depositFee
+const fixDepositFee = Math.round(exampleAwsAnnual * pricing.fixDepositPct / 100)
 const fixFee = Math.round(exampleAnnual * pricing.fixPct / 100)
 const reportNet = exampleAnnual - reportFee
 const fixNet = exampleAnnual - fixFee
@@ -219,7 +223,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
           <p class="text-2xl mb-3">💰</p>
           <h3 class="text-lg font-bold mb-2">You don't pay until you see results</h3>
-          <p class="text-gray-400">This is a one-time commitment, not an ongoing contract. The implementation fee isn't due until you've experienced the savings for 90 days. No savings? No fee. I carry the risk, not you. 🎯</p>
+          <p class="text-gray-400">This is a one-time commitment, not an ongoing contract. The implementation fee isn't due until you've experienced the savings for 90 days. Not every item in The Report may be implementable &mdash; dependencies, compliance, third-party constraints happen. But you only pay on realized savings. No savings? No fee. I carry the risk, not you. 🎯</p>
         </div>
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
           <p class="text-2xl mb-3">📉</p>
@@ -358,7 +362,11 @@ const minAwsK = `$${pricing.minAws / 1000}K`
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
-                <span>I implement every optimization (you watch, ask questions, or take a nap &mdash; dealer's choice 😴)</span>
+                <span><strong>{{ pricing.fixDepositPct }}% of annualized AWS spend due at kickoff</strong> (deducted from the implementation fee). Same idea as The Report deposit &mdash; skin in the game on both sides. 🤝</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">✅</span>
+                <span>I implement the optimizations from The Report (you watch, ask questions, or take a nap &mdash; dealer's choice 😴)</span>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-brand-400 mt-0.5">✅</span>
@@ -374,6 +382,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
               </li>
             </ul>
             <p class="text-gray-500 text-sm mt-4">{{ pricing.fixPct }}% total max ({{ pricing.reportPct }}% report + {{ pricing.implPct }}% implementation). That's the ceiling. There is no "and also this other fee." 🚫</p>
+            <p class="text-gray-500 text-sm mt-2">⚠️ <strong class="text-gray-400">Real talk:</strong> Not every item in The Report may be implementable. Dependencies, org constraints, compliance requirements, third-party limitations &mdash; stuff outside my control happens. But you only pay the {{ pricing.implPct }}% on <strong class="text-gray-400">realized, verified savings</strong>. If I can't fix something, you don't pay for it. Simple as that.</p>
           </div>
 
           <!-- Arrow -->
@@ -581,17 +590,26 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           <div class="text-gray-500 text-xs pl-4">{{ pricing.reportPct }}% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} minus ${{ depositFee.toLocaleString() }} deposit = ${{ reportRemainder.toLocaleString() }}</div>
           <div class="flex justify-between items-center">
             <div>
+              <span class="text-gray-300 font-medium">🔧 The Fix Deposit (Implementation Kickoff)</span>
+              <span class="text-gray-500 ml-2">~3 weeks</span>
+            </div>
+            <span class="font-semibold">${{ fixDepositFee.toLocaleString() }}</span>
+          </div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.fixDepositPct }}% of ${{ exampleAwsAnnual.toLocaleString() }} annual AWS spend = ${{ fixDepositFee.toLocaleString() }} (deducted from implementation fee)</div>
+          <div class="flex justify-between items-center">
+            <div>
               <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
               <span class="text-gray-500 ml-2">~4-5 months</span>
             </div>
-            <span class="font-semibold">${{ (fixFee - reportFee).toLocaleString() }}</span>
+            <span class="font-semibold">${{ (fixFee - reportFee - fixDepositFee).toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.implPct }}% of <strong>verified</strong> savings only. No savings? No charge. Pinky swear. 🤙</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.implPct }}% of <strong>verified</strong> savings only, minus ${{ fixDepositFee.toLocaleString() }} deposit already paid. No savings? No charge. Pinky swear. 🤙</div>
           <hr class="border-gray-700">
           <div class="flex justify-between text-base">
             <span class="font-bold text-gray-300">Total max ({{ pricing.fixPct }}%)</span>
             <span class="font-bold">${{ fixFee.toLocaleString() }}</span>
           </div>
+          <div class="text-gray-500 text-xs pl-4">${{ depositFee.toLocaleString() }} + ${{ reportRemainder.toLocaleString() }} + ${{ fixDepositFee.toLocaleString() }} + ${{ (fixFee - reportFee - fixDepositFee).toLocaleString() }} = ${{ fixFee.toLocaleString() }} (deposits deducted from fees)</div>
           <div class="flex justify-between text-base">
             <span class="font-bold text-brand-400">🎉 You keep (year 1)</span>
             <span class="font-bold text-brand-400">${{ fixNet.toLocaleString() }}</span>
@@ -743,7 +761,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🤨 When do I actually pay?</h3>
-            <p class="text-gray-400">{{ pricing.depositPct }}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. {{ pricing.reportPct }}% of annualized savings (minus the deposit) is due when The Report is delivered &mdash; that's a 45-minute call with you and your team plus a full PDF. If you opt for implementation, the extra {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
+            <p class="text-gray-400">{{ pricing.depositPct }}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. {{ pricing.reportPct }}% of annualized savings (minus the deposit) is due when The Report is delivered &mdash; that's a 45-minute call with you and your team plus a full PDF. If you opt for implementation, there's a {{ pricing.fixDepositPct }}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. You literally never pay for results that didn't happen. This is the opposite of how consulting usually works, and I'm aware of that. 😅</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>

@@ -9,14 +9,14 @@ useHead({
 // Pricing — mirrors index.vue
 const pricing = {
   depositPct: 1,
+  fixDepositPct: 4,
   reportPct: 15,
   implPct: 60,
   fixPct: 75,
   securityPct: 10,
   minAws: 5000,
+  overageRate: 500,
 }
-
-const overageRate = 500
 
 // Example: $25K/mo, 36% waste (matches index.vue)
 const exampleBefore = 25000
@@ -26,8 +26,10 @@ const exampleAwsAnnual = exampleBefore * 12
 const depositFee = Math.round(exampleAwsAnnual * pricing.depositPct / 100)
 const reportFee = Math.round(exampleAnnual * pricing.reportPct / 100)
 const reportRemainder = reportFee - depositFee
+const fixDepositFee = Math.round(exampleAwsAnnual * pricing.fixDepositPct / 100)
 const fixFee = Math.round(exampleAnnual * pricing.fixPct / 100)
 const implFee = fixFee - reportFee
+const implRemainder = implFee - fixDepositFee
 
 function fmt(n) {
   return '$' + n.toLocaleString()
@@ -66,7 +68,7 @@ const meetings = [
           <p class="text-3xl mb-2">🔧</p>
           <h3 class="font-bold mb-1">The Fix</h3>
           <p class="text-brand-400 text-sm font-bold mb-2">{{ pricing.fixPct }}% total max</p>
-          <p class="text-gray-500 text-xs">Custom timeline. David implements all optimizations.</p>
+          <p class="text-gray-500 text-xs">Custom timeline. {{ pricing.fixDepositPct }}% deposit at kickoff. Pay only on realized savings.</p>
         </div>
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
           <p class="text-3xl mb-2">📊</p>
@@ -151,11 +153,12 @@ const meetings = [
           <div>
             <p class="text-gray-200 font-medium">What's included</p>
             <ul class="text-gray-400 text-sm space-y-1 mt-1">
-              <li>✅ David implements all optimizations from The Report</li>
+              <li>✅ David implements optimizations from The Report</li>
               <li>✅ Documentation of every change made</li>
               <li>✅ Before/after comparison at each milestone</li>
               <li>✅ Rollback plan for every change</li>
             </ul>
+            <p class="text-gray-500 text-xs mt-2">⚠️ Not every item in The Report may be implementable. Dependencies, compliance requirements, org constraints, and third-party limitations can prevent certain changes. David works to maximize realized savings, but some items may be deferred or excluded. <strong class="text-gray-400">You only pay on savings that actually materialize.</strong></p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -169,7 +172,7 @@ const meetings = [
           <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">4</span>
           <div>
             <p class="text-gray-200 font-medium">Payment</p>
-            <p class="text-gray-400 text-sm">+{{ pricing.implPct }}% of <strong class="text-gray-200">verified</strong> annual savings, due 90 days after final deliverable. Total max: {{ pricing.fixPct }}% (report + implementation). <strong class="text-gray-200">Verified savings = $0? Implementation fee = $0.</strong></p>
+            <p class="text-gray-400 text-sm"><strong class="text-gray-200">Deposit:</strong> {{ pricing.fixDepositPct }}% of annualized AWS spend due at implementation kickoff. Deducted from the implementation fee. <strong class="text-gray-200">Implementation fee:</strong> +{{ pricing.implPct }}% of <strong class="text-gray-200">verified</strong> annual savings (minus deposit), due 90 days after final deliverable. Total max: {{ pricing.fixPct }}% (report + implementation). <strong class="text-gray-200">Verified savings = $0? Implementation fee = $0.</strong></p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -267,7 +270,7 @@ const meetings = [
       <div class="mt-4 bg-gray-900 rounded-lg border border-gray-800 p-4">
         <p class="text-gray-500 text-xs"><strong class="text-gray-300">Report-only clients:</strong> 2 meetings total (intro + exploration).</p>
         <p class="text-gray-500 text-xs mt-1"><strong class="text-gray-300">Implementation clients:</strong> 5–8 meetings total depending on scope. Plus 1 verification call 90 days later.</p>
-        <p class="text-gray-500 text-xs mt-1"><strong class="text-gray-300">Follow-up calls:</strong> 2 included (30 min each) during the 90-day verification period for questions. Additional calls billed at {{ fmt(overageRate) }}/hr.</p>
+        <p class="text-gray-500 text-xs mt-1"><strong class="text-gray-300">Follow-up calls:</strong> 2 included (30 min each) during the 90-day verification period for questions. Additional calls billed at {{ fmt(pricing.overageRate) }}/hr.</p>
       </div>
     </div>
 
@@ -333,7 +336,7 @@ const meetings = [
         </div>
         <div>
           <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Scope</p>
-          <p class="text-gray-300">Implementation of cost optimizations identified in The Report dated [date]. Specific items listed in Appendix A (attached separately).</p>
+          <p class="text-gray-300">Implementation of cost optimizations identified in The Report dated [date]. Specific items listed in Appendix A (attached separately). Note: not all items from The Report may be implementable due to dependencies, compliance requirements, organizational constraints, or third-party limitations outside Consultant's control. Appendix A will reflect the mutually agreed implementation scope.</p>
         </div>
         <div>
           <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Timeline</p>
@@ -353,11 +356,12 @@ const meetings = [
           <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Compensation</p>
           <ul class="text-gray-300 space-y-2">
             <li><strong class="text-gray-100">Report fee (already paid):</strong> {{ pricing.reportPct }}% of annualized savings <span class="text-gray-500">(example: {{ fmt(reportFee) }})</span></li>
-            <li><strong class="text-gray-100">Implementation fee:</strong> {{ pricing.implPct }}% of verified annual savings, due 90 calendar days after final deliverable <span class="text-gray-500">(example: {{ fmt(implFee) }})</span></li>
+            <li><strong class="text-gray-100">Implementation deposit:</strong> {{ pricing.fixDepositPct }}% of Client's annualized AWS spend, due at implementation kickoff <span class="text-gray-500">(example: {{ fmt(fixDepositFee) }} on {{ fmt(exampleAwsAnnual) }}/yr spend)</span>. Deducted from implementation fee. Non-refundable after kickoff (work already underway).</li>
+            <li><strong class="text-gray-100">Implementation fee:</strong> {{ pricing.implPct }}% of verified annual savings, minus deposit already paid, due 90 calendar days after final deliverable <span class="text-gray-500">(example: {{ fmt(implFee) }} − {{ fmt(fixDepositFee) }} = {{ fmt(implRemainder) }} due)</span></li>
             <li><strong class="text-gray-100">Total maximum:</strong> {{ pricing.fixPct }}% of verified annual savings <span class="text-gray-500">(example: {{ fmt(fixFee) }})</span></li>
             <li><strong class="text-gray-100">Verification method:</strong> Side-by-side Cost Explorer comparison — 3-month average × 12 before vs. after</li>
-            <li><strong class="text-gray-100">Savings less than projected:</strong> Fee based on actual verified amount</li>
-            <li><strong class="text-gray-100">Savings are $0:</strong> Implementation fee is $0</li>
+            <li><strong class="text-gray-100">Savings less than projected:</strong> Fee based on actual verified amount. Not all Report items may be implementable — fee is based only on realized savings.</li>
+            <li><strong class="text-gray-100">Savings are $0:</strong> Implementation fee is $0 (deposit non-refundable)</li>
           </ul>
         </div>
         <div>
@@ -366,7 +370,7 @@ const meetings = [
         </div>
         <div>
           <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Out of Scope</p>
-          <p class="text-gray-300">Anything not listed in Appendix A. Additional work requires written approval and is billed at <strong class="text-gray-100">{{ fmt(overageRate) }}/hr</strong>. See Scope Changes below.</p>
+          <p class="text-gray-300">Anything not listed in Appendix A. Additional work requires written approval and is billed at <strong class="text-gray-100">{{ fmt(pricing.overageRate) }}/hr</strong>. See Scope Changes below.</p>
         </div>
         <div>
           <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Confidentiality</p>
@@ -374,7 +378,7 @@ const meetings = [
         </div>
         <div>
           <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Termination</p>
-          <p class="text-gray-300">Either party may terminate with 5 business days written notice. Client pays {{ pricing.implPct }}% of verified savings achieved up to termination date. No kill fee. No penalties.</p>
+          <p class="text-gray-300">Either party may terminate with 5 business days written notice. Implementation deposit ({{ pricing.fixDepositPct }}%) is non-refundable. Client pays {{ pricing.implPct }}% of verified savings achieved up to termination date, minus deposit already paid. No kill fee. No penalties.</p>
         </div>
       </div>
     </div>
@@ -441,7 +445,7 @@ const meetings = [
         <!-- Rate callout -->
         <div class="text-center mb-6 pb-6 border-b border-gray-800">
           <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Hourly rate for out-of-scope work</p>
-          <p class="text-4xl font-bold text-brand-400">{{ fmt(overageRate) }}<span class="text-gray-500 text-lg">/hr</span></p>
+          <p class="text-4xl font-bold text-brand-400">{{ fmt(pricing.overageRate) }}<span class="text-gray-500 text-lg">/hr</span></p>
           <p class="text-gray-600 text-xs mt-2">Requires written approval (email) before work begins. Billed monthly, net 15.</p>
         </div>
 
@@ -495,7 +499,7 @@ const meetings = [
           </div>
           <div class="flex items-start gap-4">
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">4</span>
-            <p class="text-gray-300 text-sm">If approved: work proceeds at <strong class="text-gray-100">{{ fmt(overageRate) }}/hr</strong> (or folded into an adjusted SOW if the change is significant enough).</p>
+            <p class="text-gray-300 text-sm">If approved: work proceeds at <strong class="text-gray-100">{{ fmt(pricing.overageRate) }}/hr</strong> (or folded into an adjusted SOW if the change is significant enough).</p>
           </div>
           <div class="flex items-start gap-4">
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">5</span>
@@ -531,7 +535,7 @@ const meetings = [
           <h3 class="text-sm font-bold text-gray-200 uppercase tracking-wider mb-4">🚪 Termination</h3>
           <ul class="space-y-3 text-sm text-gray-400">
             <li><strong class="text-gray-200">The Report:</strong> Client may terminate before delivery. Deposit is non-refundable (work underway). After delivery: full report fee applies.</li>
-            <li><strong class="text-gray-200">The Fix:</strong> Either party may terminate with 5 business days written notice. Client pays {{ pricing.implPct }}% of savings achieved to date. No kill fee.</li>
+            <li><strong class="text-gray-200">The Fix:</strong> Either party may terminate with 5 business days written notice. Implementation deposit is non-refundable. Client pays {{ pricing.implPct }}% of savings achieved to date (minus deposit). No kill fee.</li>
             <li><strong class="text-gray-200">Immediate termination:</strong> Delete the IAM role. David ceases all work immediately.</li>
             <li><strong class="text-gray-200">Post-termination:</strong> Client keeps all deliverables forever. David retains no copies of Client data.</li>
           </ul>
@@ -570,6 +574,13 @@ const meetings = [
             </div>
             <div class="flex justify-between items-center p-4">
               <div>
+                <p class="text-gray-200 font-medium text-sm">Week 3 — Implementation Deposit</p>
+                <p class="text-gray-500 text-xs">{{ pricing.fixDepositPct }}% of {{ fmt(exampleAwsAnnual) }}/yr annualized · deducted from implementation fee</p>
+              </div>
+              <span class="text-brand-400 text-sm font-bold">{{ fmt(fixDepositFee) }}</span>
+            </div>
+            <div class="flex justify-between items-center p-4">
+              <div>
                 <p class="text-gray-200 font-medium text-sm">Weeks 3–8 — Implementation</p>
                 <p class="text-gray-500 text-xs">Kickoff + weekly check-ins + final review</p>
               </div>
@@ -585,14 +596,14 @@ const meetings = [
             <div class="flex justify-between items-center p-4">
               <div>
                 <p class="text-gray-200 font-medium text-sm">Week 20 — 90-Day Verification Call</p>
-                <p class="text-gray-500 text-xs">30 min · {{ pricing.implPct }}% of verified annual savings</p>
+                <p class="text-gray-500 text-xs">30 min · {{ pricing.implPct }}% of verified annual savings minus deposit</p>
               </div>
-              <span class="text-brand-400 text-sm font-bold">{{ fmt(implFee) }}</span>
+              <span class="text-brand-400 text-sm font-bold">{{ fmt(implRemainder) }}</span>
             </div>
             <div class="flex justify-between items-center p-4 bg-gray-900/50">
               <div>
                 <p class="text-gray-100 font-bold text-sm">Total paid ({{ pricing.fixPct }}% max)</p>
-                <p class="text-gray-500 text-xs">{{ fmt(depositFee) }} + {{ fmt(reportRemainder) }} + {{ fmt(implFee) }}</p>
+                <p class="text-gray-500 text-xs">{{ fmt(depositFee) }} + {{ fmt(reportRemainder) }} + {{ fmt(fixDepositFee) }} + {{ fmt(implRemainder) }}</p>
               </div>
               <span class="text-brand-400 font-bold">{{ fmt(fixFee) }}</span>
             </div>

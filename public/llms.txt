@@ -19,10 +19,11 @@ Businesses spending $5,000 or more per month on AWS who need cloud cost optimiza
 ## Pricing
 
 - Free intro call
-- The Report: 15% of annual savings found
-- The Fix: 75% total max (15% report + 60% implementation)
-- Implementation fee based on verified savings only — 90 days after deliverables
-- No savings = no fee for implementation
+- The Report: 1% deposit (of AWS annual spend) at engagement start, deducted from report fee. 15% of annual savings found due at report delivery.
+- The Fix: 4% deposit (of AWS annual spend) at implementation kickoff, deducted from implementation fee. 75% total max (15% report + 60% implementation).
+- Implementation fee based on verified realized savings only — 90 days after deliverables
+- Not all Report items may be implementable due to dependencies, compliance, or third-party constraints — fee is based only on realized savings
+- No savings = no fee for implementation (deposits non-refundable)
 
 ## What makes Cut My AWS different from cloud cost optimization tools?
 
