@@ -87,6 +87,8 @@ function clear() {
 
 const hasData = computed(() => filledMonths.value.length >= 1)
 const hasEnoughData = computed(() => filledMonths.value.length >= 3)
+const minMonthly = 5000
+const meetsMinimum = computed(() => average.value >= minMonthly)
 
 // CLI script — single source of truth for display and copy.
 // The script calculates its own dates dynamically, pulls monthly costs,
@@ -339,97 +341,116 @@ async function copyCliCommand() {
         </div>
       </div>
 
-      <!-- Summary cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">3-Month Average</p>
-          <p class="text-2xl font-bold text-gray-100">{{ fmt(average) }}</p>
-          <p class="text-gray-600 text-xs mt-1">per month</p>
+      <!-- Under $5K/mo — probably too lean -->
+      <template v-if="!meetsMinimum">
+        <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 mb-8 text-center">
+          <p class="text-4xl mb-4">👏</p>
+          <h2 class="text-xl font-bold mb-3">Your bill is looking pretty lean</h2>
+          <p class="text-gray-400 mb-4">At <strong class="text-gray-200">{{ fmt(average) }}/mo</strong>, there probably isn't enough waste hiding in this account for an engagement to make sense. That's actually a good thing — it means somebody's been paying attention. 😏</p>
+          <p class="text-gray-500 text-sm mb-6">CutMyAWS works best with $5K+/mo in AWS spend, where the cobwebs really start to pile up. If you have other accounts or your spend is growing, we're always happy to take a look.</p>
+          <NuxtLink
+            to="/"
+            class="inline-block bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold px-6 py-3 rounded-xl transition-colors"
+          >
+            ✂️ Learn more at cutmyaws.com
+          </NuxtLink>
         </div>
-        <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-5 text-center">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Annualized Spend</p>
-          <p class="text-2xl font-bold text-brand-400">{{ fmt(annualizedSpend) }}</p>
-          <p class="text-gray-600 text-xs mt-1">{{ fmt(average) }} × 12</p>
-        </div>
-        <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ depositPct }}% Deposit</p>
-          <p class="text-2xl font-bold text-gray-100">{{ fmt(depositFee) }}</p>
-          <p class="text-gray-600 text-xs mt-1">Deducted from The Report fee</p>
-        </div>
-      </div>
+      </template>
 
-      <!-- Savings estimates -->
-      <h2 class="text-lg font-bold mb-4">📉 Estimated Savings Range</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Conservative ({{ conservativePct }}%)</p>
-          <p class="text-xl font-bold text-green-400">{{ fmt(conservativeSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
-          <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(conservativeSavings / 12)) }}/mo</p>
+      <!-- Over $5K/mo — full breakdown -->
+      <template v-else>
+        <!-- Summary cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">3-Month Average</p>
+            <p class="text-2xl font-bold text-gray-100">{{ fmt(average) }}</p>
+            <p class="text-gray-600 text-xs mt-1">per month</p>
+          </div>
+          <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-5 text-center">
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Annualized Spend</p>
+            <p class="text-2xl font-bold text-brand-400">{{ fmt(annualizedSpend) }}</p>
+            <p class="text-gray-600 text-xs mt-1">{{ fmt(average) }} × 12</p>
+          </div>
+          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">1% to Get Started</p>
+            <p class="text-2xl font-bold text-gray-100">{{ fmt(depositFee) }}</p>
+            <p class="text-gray-600 text-xs mt-1">Deducted from The Report fee</p>
+          </div>
         </div>
-        <div class="bg-gray-900 rounded-xl border-2 border-green-500/50 p-5">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Average ({{ averagePct }}%)</p>
-          <p class="text-xl font-bold text-green-400">{{ fmt(averageSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
-          <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(averageSavings / 12)) }}/mo</p>
-        </div>
-        <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Aggressive ({{ aggressivePct }}%)</p>
-          <p class="text-xl font-bold text-green-400">{{ fmt(aggressiveSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
-          <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(aggressiveSavings / 12)) }}/mo</p>
-        </div>
-      </div>
 
-      <!-- Pricing breakdown (using average) -->
-      <h2 class="text-lg font-bold mb-4">💰 Pricing Breakdown <span class="text-gray-500 text-sm font-normal">(at {{ averagePct }}% savings)</span></h2>
-      <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden mb-8">
-        <div class="divide-y divide-gray-800">
-          <div class="flex justify-between items-center p-4">
-            <div>
-              <p class="text-gray-300 font-medium">📋 The Report ({{ reportPct }}% of savings)</p>
-              <p class="text-gray-600 text-xs">Full audit PDF + 45-min walkthrough call</p>
-            </div>
-            <p class="text-gray-100 font-bold">{{ fmt(reportFee) }}</p>
+        <!-- Savings estimates -->
+        <h2 class="text-lg font-bold mb-4">📉 Estimated Savings Range</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Conservative ({{ conservativePct }}%)</p>
+            <p class="text-xl font-bold text-green-400">{{ fmt(conservativeSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
+            <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(conservativeSavings / 12)) }}/mo</p>
           </div>
-          <div class="flex justify-between items-center p-4">
-            <div>
-              <p class="text-gray-300 font-medium">🔧 The Fix ({{ fixPct }}% total including report)</p>
-              <p class="text-gray-600 text-xs">Implementation + 90-day verification</p>
-            </div>
-            <p class="text-gray-100 font-bold">{{ fmt(fixFee) }}</p>
+          <div class="bg-gray-900 rounded-xl border-2 border-green-500/50 p-5">
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Average ({{ averagePct }}%)</p>
+            <p class="text-xl font-bold text-green-400">{{ fmt(averageSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
+            <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(averageSavings / 12)) }}/mo</p>
           </div>
-          <div class="flex justify-between items-center p-4 bg-gray-950/50">
-            <div>
-              <p class="text-green-400 font-medium">✅ You keep — year 1</p>
-              <p class="text-gray-600 text-xs">{{ fmt(averageSavings) }} savings - {{ fmt(fixFee) }} fee</p>
-            </div>
-            <p class="text-green-400 font-bold">{{ fmt(yearOneNet) }}</p>
-          </div>
-          <div class="flex justify-between items-center p-4 bg-gray-950/50">
-            <div>
-              <p class="text-green-400 font-medium">✅ You keep — every year after</p>
-              <p class="text-gray-600 text-xs">100% of savings, zero ongoing fees</p>
-            </div>
-            <p class="text-green-400 font-bold">{{ fmt(yearTwoPlus) }}<span class="text-gray-500 text-sm">/yr</span></p>
-          </div>
-          <div class="flex justify-between items-center p-4 bg-gray-950/50">
-            <div>
-              <p class="text-green-400 font-medium">🏆 5-year net savings</p>
-              <p class="text-gray-600 text-xs">Total savings minus one-time fee</p>
-            </div>
-            <p class="text-green-400 font-bold text-xl">{{ fmt(fiveYearNet) }}</p>
+          <div class="bg-gray-900 rounded-xl border border-gray-800 p-5">
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Aggressive ({{ aggressivePct }}%)</p>
+            <p class="text-xl font-bold text-green-400">{{ fmt(aggressiveSavings) }}<span class="text-gray-500 text-sm">/yr</span></p>
+            <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(aggressiveSavings / 12)) }}/mo</p>
           </div>
         </div>
-      </div>
 
-      <!-- CTA -->
-      <div class="text-center">
-        <NuxtLink
-          to="/book?c=calculate-savings"
-          class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
-        >
-          🗓️ Book Your Free Intro Call
-        </NuxtLink>
-        <p class="text-gray-500 text-sm mt-3">15 min · free · no pitch deck 😏</p>
-      </div>
+        <!-- Pricing breakdown (using average) -->
+        <h2 class="text-lg font-bold mb-4">💰 Pricing Breakdown <span class="text-gray-500 text-sm font-normal">(at {{ averagePct }}% savings)</span></h2>
+        <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden mb-8">
+          <div class="divide-y divide-gray-800">
+            <div class="flex justify-between items-center p-4">
+              <div>
+                <p class="text-gray-300 font-medium">📋 The Report ({{ reportPct }}% of savings)</p>
+                <p class="text-gray-600 text-xs">Full audit PDF + 45-min walkthrough call</p>
+              </div>
+              <p class="text-gray-100 font-bold">{{ fmt(reportFee) }}</p>
+            </div>
+            <div class="flex justify-between items-center p-4">
+              <div>
+                <p class="text-gray-300 font-medium">🔧 The Fix ({{ fixPct }}% total including report)</p>
+                <p class="text-gray-600 text-xs">Implementation + 90-day verification</p>
+              </div>
+              <p class="text-gray-100 font-bold">{{ fmt(fixFee) }}</p>
+            </div>
+            <div class="flex justify-between items-center p-4 bg-gray-950/50">
+              <div>
+                <p class="text-green-400 font-medium">✅ You keep — year 1</p>
+                <p class="text-gray-600 text-xs">{{ fmt(averageSavings) }} savings - {{ fmt(fixFee) }} fee</p>
+              </div>
+              <p class="text-green-400 font-bold">{{ fmt(yearOneNet) }}</p>
+            </div>
+            <div class="flex justify-between items-center p-4 bg-gray-950/50">
+              <div>
+                <p class="text-green-400 font-medium">✅ You keep — every year after</p>
+                <p class="text-gray-600 text-xs">100% of savings, zero ongoing fees</p>
+              </div>
+              <p class="text-green-400 font-bold">{{ fmt(yearTwoPlus) }}<span class="text-gray-500 text-sm">/yr</span></p>
+            </div>
+            <div class="flex justify-between items-center p-4 bg-gray-950/50">
+              <div>
+                <p class="text-green-400 font-medium">🏆 5-year net savings</p>
+                <p class="text-gray-600 text-xs">Total savings minus one-time fee</p>
+              </div>
+              <p class="text-green-400 font-bold text-xl">{{ fmt(fiveYearNet) }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+          <NuxtLink
+            to="/book?c=calculate-savings"
+            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
+          >
+            🗓️ Book Your Free Intro Call
+          </NuxtLink>
+          <p class="text-gray-500 text-sm mt-3">15 min · free · no pitch deck 😏</p>
+        </div>
+      </template>
     </div>
 
     <!-- Empty state / not enough data -->
