@@ -22,20 +22,20 @@ const lastMonthFinalized = hoursIntoMonth >= 72
 const apiEnd = lastMonthFinalized
   ? new Date(now.getFullYear(), now.getMonth(), 1)
   : new Date(now.getFullYear(), now.getMonth() - 1, 1)
-// 18 months before the end
-const apiStart = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 18, 1)
+// 3 months before the end
+const apiStart = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 3, 1)
 
 // Display labels
-const lastIncludedMonth = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 1, 1)
 const fmtMonthYear = (d) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+const lastIncludedMonth = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 1, 1)
 const dateRangeLabel = `${fmtMonthYear(apiStart)} – ${fmtMonthYear(lastIncludedMonth)}`
 const skippedMonthLabel = !lastMonthFinalized
   ? new Date(now.getFullYear(), now.getMonth() - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
   : null
 
-// Generate 18 month input slots
+// Generate 3 month input slots
 const months = ref(
-  Array.from({ length: 18 }, (_, i) => {
+  Array.from({ length: 3 }, (_, i) => {
     const d = new Date(apiStart.getFullYear(), apiStart.getMonth() + i, 1)
     return {
       label: d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
@@ -50,24 +50,12 @@ const filledMonths = computed(() =>
     .map(m => ({ ...m, amount: Number(m.amount) }))
 )
 
-// Top 3 highest months
-const top3 = computed(() =>
-  [...filledMonths.value]
-    .sort((a, b) => b.amount - a.amount)
-    .slice(0, 3)
-)
-
-const top3Average = computed(() => {
-  if (top3.value.length === 0) return 0
-  return Math.round(top3.value.reduce((sum, m) => sum + m.amount, 0) / top3.value.length)
+const average = computed(() => {
+  if (filledMonths.value.length === 0) return 0
+  return Math.round(filledMonths.value.reduce((sum, m) => sum + m.amount, 0) / filledMonths.value.length)
 })
 
-const annualizedSpend = computed(() => top3Average.value * 12)
-
-// Is a month in the top 3?
-function isTop3(month) {
-  return top3.value.some(t => t.label === month.label)
-}
+const annualizedSpend = computed(() => average.value * 12)
 
 // Savings estimates
 const conservativePct = 20
@@ -102,20 +90,20 @@ const hasEnoughData = computed(() => filledMonths.value.length >= 3)
 
 // CLI script — single source of truth for display and copy.
 // The script calculates its own dates dynamically, pulls monthly costs,
-// and computes the annualized spend (top 3 avg × 12).
+// and computes the annualized spend (3-month avg × 12).
 const cliScript = `#!/bin/bash
 # CutMyAWS — Annualized AWS Spend Calculator
 # Usage: bash get-aws-bills.sh [--profile your-profile]
 #
-# Pulls the last 18 complete months of AWS billing data, finds
-# the 3 highest months, averages them, and multiplies by 12.
+# Pulls the last 3 finalized months of AWS billing data,
+# averages them, and multiplies by 12.
 #
 # Only uses finalized monthly bills:
 #   - Always excludes the current (incomplete) month
 #   - If < 72 hours into the current month, also excludes the
 #     previous month (AWS can take up to 72h to finalize billing)
 #
-# Formula: (top 3 months avg) × 12 = annualized spend
+# Formula: (3-month avg) × 12 = annualized spend
 
 set -euo pipefail
 
@@ -139,14 +127,14 @@ if [ "$HOURS_INTO_MONTH" -lt 72 ]; then
 fi
 END_DATE=$(printf "%04d-%02d-01" "$END_Y" "$END_M")
 
-# Start = 18 months before end
-START_M=$((END_M - 18)); START_Y=$END_Y
+# Start = 3 months before end
+START_M=$((END_M - 3)); START_Y=$END_Y
 while [ "$START_M" -lt 1 ]; do
   START_M=$((START_M + 12)); START_Y=$((START_Y - 1))
 done
 START_DATE=$(printf "%04d-%02d-01" "$START_Y" "$START_M")
 
-echo "📅 $START_DATE → $END_DATE (18 months, end exclusive)"
+echo "📅 $START_DATE → $END_DATE (3 months, end exclusive)"
 echo ""
 
 # --- Pull monthly costs ---
@@ -158,36 +146,22 @@ COSTS=$(aws ce get-cost-and-usage \\
   --output text \\
   $PROFILE_FLAG)
 
-# --- Table 1: Chronological (oldest → newest) ---
-echo "=== Monthly Bills (oldest → newest) ==="
+# --- Monthly breakdown ---
+echo "=== Last 3 Finalized Monthly Bills ==="
 echo "Month       | Total"
 echo "------------|------------"
 echo "$COSTS" | while IFS=$'\\t' read -r month amount; do
   printf "%-11s | \\$%.0f\\n" "\${month:0:7}" "$amount"
 done
 
-# --- Table 2: Ranked (highest → lowest) ---
-echo ""
-echo "=== Monthly Bills (highest → lowest) ==="
-echo "Month       | Total"
-echo "------------|------------"
-echo "$COSTS" | awk -F'\\t' '{printf "%s\\t%s\\n", substr($1,1,7), $2}' | sort -t$'\\t' -k2 -rn | while IFS=$'\\t' read -r month amount; do
-  printf "%-11s | \\$%.0f\\n" "$month" "$amount"
-done
-
-# --- Annualized: top 3 avg × 12 ---
-TOP3=$(echo "$COSTS" | awk -F'\\t' '{print $2+0}' | sort -rn | head -3)
-AVG=$(echo "$TOP3" | awk '{s+=$1;n++} END{avg=int(s/n+0.5); printf "%d",avg}')
+# --- Annualized: 3-month avg × 12 ---
+AVG=$(echo "$COSTS" | awk -F'\\t' '{s+=$2;n++} END{avg=int(s/n+0.5); printf "%d",avg}')
 ANNUAL=$((AVG * 12))
 
 echo ""
 echo "=== Annualized Spend ==="
-echo "Top 3 months:"
-echo "$COSTS" | awk -F'\\t' '{printf "%s\\t%s\\n", substr($1,1,7), $2}' | sort -t$'\\t' -k2 -rn | head -3 | while IFS=$'\\t' read -r month amount; do
-  printf "  %-11s \\$%.0f\\n" "$month" "$amount"
-done
-echo "Top 3 avg:  \\$$AVG/mo"
-echo "Annualized: \\$$ANNUAL/yr (top 3 avg × 12)"`
+echo "3-month avg: \\$$AVG/mo"
+echo "Annualized:  \\$$ANNUAL/yr (avg × 12)"`
 
 const copied = ref(false)
 async function copyCliCommand() {
@@ -227,29 +201,22 @@ async function copyCliCommand() {
           <div class="flex items-start gap-4">
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">1</span>
             <div>
-              <p class="text-gray-300 font-medium">Pull the last 18 complete months of AWS bills</p>
-              <p class="text-gray-500 text-sm">We only use finalized monthly bills. The current month is always excluded (it's incomplete), and if a month just ended, we wait up to 72 hours for AWS to finalize the data before including it. This captures seasonal variation, growth trends, and one-off spikes — no estimates, only real numbers. 📅</p>
+              <p class="text-gray-300 font-medium">Pull the last 3 finalized monthly AWS bills</p>
+              <p class="text-gray-500 text-sm">We only use finalized monthly bills. The current month is always excluded (it's incomplete), and if a month just ended, we wait up to 72 hours for AWS to finalize the data before including it. No estimates, only real numbers. 📅</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">2</span>
             <div>
-              <p class="text-gray-300 font-medium">Take the 3 highest months</p>
-              <p class="text-gray-500 text-sm">Your bill trends up over time. Using the highest 3 reflects where your spend actually is today — not where it was a year ago. 📈</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">3</span>
-            <div>
-              <p class="text-gray-300 font-medium">Average those 3, then multiply by 12</p>
-              <p class="text-gray-500 text-sm">That's your annualized spend. Simple math, honest number. No tricks.</p>
+              <p class="text-gray-300 font-medium">Average them, then multiply by 12</p>
+              <p class="text-gray-500 text-sm">That's your annualized spend. Same formula before and after — so savings are apples to apples. Simple math, honest number. No tricks. 🍎</p>
             </div>
           </div>
         </div>
         <div class="mt-5 bg-gray-950 rounded-lg p-4 text-center">
           <p class="text-gray-500 text-sm mb-1">Formula</p>
           <p class="text-lg font-mono text-gray-200">
-            <span class="text-brand-400">(top 3 months avg)</span> × 12 = <span class="text-brand-400">annualized spend</span>
+            <span class="text-brand-400">(3-month avg)</span> × 12 = <span class="text-brand-400">annualized spend</span>
           </p>
         </div>
         <!-- Not-yet-finalized notice -->
@@ -257,7 +224,7 @@ async function copyCliCommand() {
           <p class="text-yellow-400">⏳ {{ skippedMonthLabel }} is excluded — AWS billing data can take up to 72 hours to finalize. We only use finalized bills.</p>
         </div>
         <!-- Date range -->
-        <p class="text-gray-600 text-xs mt-4 text-center">Currently using: <strong class="text-gray-400">{{ dateRangeLabel }}</strong> (18 months)</p>
+        <p class="text-gray-600 text-xs mt-4 text-center">Currently using: <strong class="text-gray-400">{{ dateRangeLabel }}</strong> (3 months)</p>
       </div>
     </div>
 
@@ -274,37 +241,33 @@ async function copyCliCommand() {
             {{ copied ? '✓ Copied!' : '📋 Copy' }}
           </button>
         </div>
-        <p class="text-gray-500 text-sm mb-4">Save this as <code class="text-brand-300 text-xs">get-aws-bills.sh</code> and run it. It pulls the last 18 months, shows monthly totals, and calculates your annualized spend automatically. Enter the monthly totals below for the interactive breakdown.</p>
+        <p class="text-gray-500 text-sm mb-4">Save this as <code class="text-brand-300 text-xs">get-aws-bills.sh</code> and run it. It pulls the last 3 finalized months and calculates your annualized spend automatically. Enter the monthly totals below for the interactive breakdown.</p>
         <div class="bg-gray-950 rounded-lg p-4 font-mono text-sm text-gray-300 overflow-x-auto">
           <pre v-text="cliScript"></pre>
         </div>
         <div class="mt-3 space-y-1">
           <p class="text-gray-600 text-xs">💡 Requires the AWS CLI and billing access. Use <code class="text-gray-400">--profile your-profile</code> if you have named profiles. For Organizations, run from the <strong>management account</strong>.</p>
-          <p class="text-gray-600 text-xs">📅 Dates are calculated dynamically — the script always pulls the correct 18-month window using only finalized monthly bills.</p>
+          <p class="text-gray-600 text-xs">📅 Dates are calculated dynamically — the script always pulls the correct 3-month window using only finalized monthly bills.</p>
         </div>
       </div>
     </div>
 
-    <!-- Monthly input grid (18 months) -->
+    <!-- Monthly input grid (3 months) -->
     <div class="max-w-3xl mx-auto px-6 pb-8">
       <div class="flex items-center justify-between mb-4">
         <div>
           <h2 class="text-lg font-bold">💰 Enter Monthly Totals</h2>
-          <p class="text-gray-600 text-xs mt-1">{{ dateRangeLabel }} · current month excluded</p>
+          <p class="text-gray-600 text-xs mt-1">{{ dateRangeLabel }} · last 3 finalized months</p>
         </div>
         <button @click="clear" class="text-gray-600 text-sm hover:text-gray-400 transition-colors">Clear all</button>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+      <div class="grid grid-cols-3 gap-3">
         <div
           v-for="(month, i) in months"
           :key="i"
-          class="rounded-lg border p-3 transition-colors"
-          :class="hasEnoughData && isTop3(month) ? 'bg-brand-500/10 border-brand-500/50' : 'bg-gray-900 border-gray-800'"
+          class="rounded-lg border p-3 transition-colors bg-gray-900 border-gray-800"
         >
-          <div class="flex items-center justify-between mb-1">
-            <label class="text-gray-500 text-xs">{{ month.label }}</label>
-            <span v-if="hasEnoughData && isTop3(month)" class="text-brand-400 text-xs font-bold">TOP 3</span>
-          </div>
+          <label class="text-gray-500 text-xs mb-1 block">{{ month.label }}</label>
           <div class="flex items-center gap-1">
             <span class="text-gray-600 text-sm">$</span>
             <input
@@ -319,8 +282,8 @@ async function copyCliCommand() {
         </div>
       </div>
       <p class="text-gray-600 text-xs mt-3">
-        <span v-if="!hasEnoughData && hasData">Enter at least 3 months to calculate. {{ 3 - filledMonths.length }} more needed.</span>
-        <span v-else-if="hasEnoughData">The <span class="text-brand-400 font-medium">3 highest months</span> are highlighted. Their average × 12 = your annualized spend.</span>
+        <span v-if="!hasEnoughData && hasData">Enter all 3 months to calculate. {{ 3 - filledMonths.length }} more needed.</span>
+        <span v-else-if="hasEnoughData">Average of all 3 months × 12 = your annualized spend.</span>
         <span v-else>Enter your monthly AWS totals from the CLI output above.</span>
       </p>
     </div>
@@ -332,21 +295,13 @@ async function copyCliCommand() {
       <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 mb-8">
         <h2 class="text-lg font-bold mb-4">📊 Your Annualized Spend</h2>
         <div class="space-y-3">
-          <div class="flex justify-between items-center text-sm">
-            <span class="text-gray-400">Highest month: <strong class="text-gray-200">{{ top3[0]?.label }}</strong></span>
-            <span class="text-gray-200 font-mono">{{ fmt(top3[0]?.amount || 0) }}</span>
-          </div>
-          <div class="flex justify-between items-center text-sm">
-            <span class="text-gray-400">2nd highest: <strong class="text-gray-200">{{ top3[1]?.label }}</strong></span>
-            <span class="text-gray-200 font-mono">{{ fmt(top3[1]?.amount || 0) }}</span>
-          </div>
-          <div v-if="top3[2]" class="flex justify-between items-center text-sm">
-            <span class="text-gray-400">3rd highest: <strong class="text-gray-200">{{ top3[2]?.label }}</strong></span>
-            <span class="text-gray-200 font-mono">{{ fmt(top3[2]?.amount || 0) }}</span>
+          <div v-for="m in filledMonths" :key="m.label" class="flex justify-between items-center text-sm">
+            <span class="text-gray-400"><strong class="text-gray-200">{{ m.label }}</strong></span>
+            <span class="text-gray-200 font-mono">{{ fmt(m.amount) }}</span>
           </div>
           <div class="border-t border-gray-800 pt-3 flex justify-between items-center text-sm">
-            <span class="text-gray-400">Average of top 3</span>
-            <span class="text-gray-200 font-mono font-bold">{{ fmt(top3Average) }}/mo</span>
+            <span class="text-gray-400">3-month average</span>
+            <span class="text-gray-200 font-mono font-bold">{{ fmt(average) }}/mo</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-gray-400 font-medium">Annualized spend (× 12)</span>
@@ -358,14 +313,14 @@ async function copyCliCommand() {
       <!-- Summary cards -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Top 3 Average</p>
-          <p class="text-2xl font-bold text-gray-100">{{ fmt(top3Average) }}</p>
+          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">3-Month Average</p>
+          <p class="text-2xl font-bold text-gray-100">{{ fmt(average) }}</p>
           <p class="text-gray-600 text-xs mt-1">per month</p>
         </div>
         <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-5 text-center">
           <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Annualized Spend</p>
           <p class="text-2xl font-bold text-brand-400">{{ fmt(annualizedSpend) }}</p>
-          <p class="text-gray-600 text-xs mt-1">{{ fmt(top3Average) }} × 12</p>
+          <p class="text-gray-600 text-xs mt-1">{{ fmt(average) }} × 12</p>
         </div>
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
           <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ depositPct }}% Deposit</p>
