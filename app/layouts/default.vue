@@ -52,10 +52,6 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
         <span>✂️ &copy; {{ new Date().getFullYear() }} Smart Talk LLC d/b/a Cut My AWS &middot; Peoria, IL</span>
         <div class="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
           <NuxtLink v-if="!hideBookBtn" to="/book?c=footer" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</NuxtLink>
-          <NuxtLink to="/onboarding/calculate-savings" class="hover:text-gray-300 transition-colors">🧮 Calculate Savings</NuxtLink>
-          <NuxtLink to="/onboarding/give-david-access" class="hover:text-gray-300 transition-colors">🔧 Grant Access</NuxtLink>
-          <NuxtLink to="/agreements" class="hover:text-gray-300 transition-colors">📋 Agreements</NuxtLink>
-          <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="hover:text-gray-300 transition-colors">💼 LinkedIn</a>
           <a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a>
         </div>
       </div>

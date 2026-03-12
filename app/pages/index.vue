@@ -878,5 +878,26 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       </div>
     </section>
 
+    <!-- Hire me -->
+    <section id="hire" class="bg-gray-900">
+      <div class="max-w-3xl mx-auto px-6 py-24 text-center">
+        <p class="text-4xl mb-4">🧑‍💻</p>
+        <h2 class="text-2xl font-bold mb-3">Want to hire me for <span class="text-brand-400">something else?</span></h2>
+        <p class="text-gray-400 text-lg mb-3">
+          I'm not cheap. But I focus on ROI and I deliver every time. 19 years of AWS, serverless architecture, and building production SaaS at Fortune 100 scale. If your project needs someone who ships &mdash; not someone who bills hours while "exploring options" &mdash; let's talk. 🚀
+        </p>
+        <p class="text-gray-500 mb-6">
+          Serverless migrations, architecture reviews, performance optimization, greenfield builds &mdash; if it runs on AWS and needs to be done right, I'm your guy. ROI-focused, scope-locked, no surprises. 💪
+        </p>
+        <a
+          href="mailto:david@cutmyaws.com?subject=Custom%20Engagement%20%F0%9F%9A%80&body=Hey%20David%2C%0A%0AI%20need%20help%20with%20%5Bdescribe%20your%20project%5D.%20Let's%20talk."
+          class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors border border-gray-700"
+        >
+          📧 Email David to start a conversation
+        </a>
+        <p class="text-gray-600 text-sm mt-4">david@cutmyaws.com &mdash; I respond fast ⚡</p>
+      </div>
+    </section>
+
   </div>
 </template>
