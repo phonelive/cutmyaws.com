@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { onMounted, onBeforeUnmount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 useHead({
   title: 'Book Your Free Intro Call — Cut My AWS',
@@ -10,6 +10,7 @@ useHead({
 })
 
 const route = useRoute()
+const router = useRouter()
 const campaign = route.query.c || 'book'
 
 const calendlyUrl = `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${campaign}&hide_gdpr_banner=1&background_color=030712&text_color=f3f4f6&primary_color=f97316`
@@ -27,11 +28,26 @@ const clients = [
   { name: 'DC Government', logo: '/logos/dc-gov.png' },
 ]
 
+function onCalendlyMessage(e: MessageEvent) {
+  if (e.data?.event === 'calendly.event_scheduled') {
+    router.push('/confirmed')
+  }
+}
+
 onMounted(() => {
   const script = document.createElement('script')
   script.src = 'https://assets.calendly.com/assets/external/widget.js'
   script.async = true
   document.head.appendChild(script)
+
+  const { trackEvent } = useTracking()
+  trackEvent('book_page_view', { event_category: 'engagement' })
+
+  window.addEventListener('message', onCalendlyMessage)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('message', onCalendlyMessage)
 })
 </script>
 
