@@ -43,6 +43,20 @@ Business-aligned AWS technology audit and cost optimization for businesses spend
 - Below $5K: not enough waste to justify an engagement
 - Companies big enough to have real infrastructure but too busy building product to optimize it
 
+## Products
+
+Two separate products, purchased sequentially:
+
+| Product | Fee | Deposit | What it is |
+|---------|-----|---------|------------|
+| **The Report** | 15% of annual savings found | 1% of AWS annual spend (deducted from fee) | Read-only audit, 5-10 business days. Deliverable: detailed report with every waste item, dollar amounts, root causes, and fixes. |
+| **The Fix** | 60% of verified annual savings | 4% of AWS annual spend (deducted from fee) | Hands-on implementation of optimizations from The Report. Savings verified against actual bill after 90 days. No verified savings = no fee. |
+
+- **The Fix requires The Report first** — they are separate engagements, not a bundle
+- **Max total if both purchased:** 75% of annual savings (15% + 60%)
+- **On the website:** `fixPct: 75` represents the combined max total, not The Fix alone
+- **On AWS Marketplace:** listed as 2 separate pricing dimensions (15% and 60%)
+
 ## Pricing
 
 All pricing is centralized in `app/pages/index.vue` in the `pricing` object:
@@ -249,6 +263,7 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | `public/david-reddit.jpg` | Reddit profile pic (832x832 square crop) |
 | `public/linkedin-ad.png` | LinkedIn ad image (1200x627) |
 | `public/youtube-banner.png` | YouTube channel banner (2048x1152) |
+| `public/marketplace-product-logo.png` | AWS Marketplace product logo (400x400 orange $) |
 | `.github/workflows/deploy.yml` | Auto-deploy on push |
 | `/tmp/og-template.html` | HTML template for og-image.png |
 | `/tmp/reddit-ad-image.html` | HTML template for reddit-ad.png |
@@ -544,6 +559,43 @@ Domain fully configured for maximum deliverability:
 - MX records ✅ (Google Workspace)
 
 **Warm-up strategy:** New domain — first 2-4 weeks, only send to people expecting emails (Calendly confirmations, direct replies). Ramp to 15-20/day by week 3-4. Use LinkedIn for cold outreach, email for follow-through.
+
+## AWS Marketplace
+
+**Product:** Cut My AWS (Professional Services)
+**SKU:** CUTMYAWS
+**Request ID:** emaf2gb7q6v8o68eew59bshu2
+**Submitted:** 2026-03-12
+**Status:** Under review (3-5 business day review)
+**Account:** 731039145080 (Cut My AWS)
+
+### Marketplace Pricing Dimensions
+
+| Dimension | Fee | API Identifier |
+|-----------|-----|----------------|
+| The Report - AWS Cost Audit & Optimization Plan | 15% of annual savings | `TheReportAWSCostAuditOptimizationPlan` |
+| The Fix - Hands-On Implementation | 60% of verified annual savings | `TheFixHandsOnImplementation` |
+
+**Categories:** Assessments, Implementation, Cloud Financial Management
+**Product logo:** `public/marketplace-product-logo.png` (400x400, `/tmp/marketplace-product-logo.html`)
+
+### How Marketplace Pricing Works
+
+Actual dollar amounts are set per client via **private offers**. The dimensions are line items on the contract. When David closes a deal:
+1. Calculate the client's savings
+2. Create a private offer with the specific dollar amount for whichever dimension(s) apply
+3. Client accepts through AWS Marketplace
+4. Payment processed through AWS (2.5% Marketplace fee)
+
+### Marketplace vs Website Pricing
+
+| | Website | AWS Marketplace |
+|--|---------|-----------------|
+| The Report | 15% | 15% (separate dimension) |
+| The Fix | 75% total max (report + impl bundled) | 60% (implementation only, separate dimension) |
+| Combined | 75% max | 15% + 60% = 75% max |
+
+Same math, different packaging. Website shows 75% as the all-in max. Marketplace splits them because they're separate purchases.
 
 ## Competitive Landscape
 
