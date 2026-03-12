@@ -158,10 +158,21 @@ COSTS=$(aws ce get-cost-and-usage \\
   --output text \\
   $PROFILE_FLAG)
 
+# --- Table 1: Chronological (oldest → newest) ---
+echo "=== Monthly Bills (oldest → newest) ==="
 echo "Month       | Total"
 echo "------------|------------"
 echo "$COSTS" | while IFS=$'\\t' read -r month amount; do
   printf "%-11s | \\$%.0f\\n" "\${month:0:7}" "$amount"
+done
+
+# --- Table 2: Ranked (highest → lowest) ---
+echo ""
+echo "=== Monthly Bills (highest → lowest) ==="
+echo "Month       | Total"
+echo "------------|------------"
+echo "$COSTS" | awk -F'\\t' '{printf "%s\\t%s\\n", substr($1,1,7), $2}' | sort -t$'\\t' -k2 -rn | while IFS=$'\\t' read -r month amount; do
+  printf "%-11s | \\$%.0f\\n" "$month" "$amount"
 done
 
 # --- Annualized: top 3 avg × 12 ---
@@ -171,6 +182,10 @@ ANNUAL=$(echo "$TOP3" | awk '{s+=$1;n++} END{printf "%.0f",s/n*12}')
 
 echo ""
 echo "=== Annualized Spend ==="
+echo "Top 3 months:"
+echo "$COSTS" | awk -F'\\t' '{printf "%s\\t%s\\n", substr($1,1,7), $2}' | sort -t$'\\t' -k2 -rn | head -3 | while IFS=$'\\t' read -r month amount; do
+  printf "  %-11s \\$%.0f\\n" "$month" "$amount"
+done
 echo "Top 3 avg:  \\$$AVG/mo"
 echo "Annualized: \\$$ANNUAL/yr (top 3 avg × 12)"`
 
