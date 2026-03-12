@@ -28,7 +28,7 @@
 
 ## Founder
 
-**David Plappert** — Senior AWS Serverless Architect with 19 years of AWS experience (since AWS launched in 2006). Builds and runs production serverless SaaS at Fortune 100 scale. Currently consulting at Caterpillar. Also founder of EZRA Cloud (church expense management SaaS) and PhoneLive (live streaming platform).
+**David Plappert** — Senior AWS Serverless Architect with 19 years of AWS experience (since 2007). Builds and runs production serverless SaaS at Fortune 100 scale. Currently consulting at Caterpillar. Also founder of EZRA Cloud (church expense management SaaS) and PhoneLive (live streaming platform).
 
 ## What CutMyAWS Does
 
@@ -122,7 +122,7 @@ CutMyAWS is witty, humorous, and confident — but never condescending. Think: a
 - "No savings? No fee." — risk reversal
 - "Not just cheaper — better." — business alignment angle
 - "Pennies add up" — the accumulation message
-- "19 years of AWS" — since launch in 2006
+- "19 years of AWS" — since 2007
 
 ### Emoji Usage
 

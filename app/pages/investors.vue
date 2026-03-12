@@ -54,7 +54,13 @@ const minAwsK = `$${pricing.minAws / 1000}K`
 
     <!-- Hero -->
     <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
-      <p class="text-5xl mb-6">📈</p>
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <img src="/david.png" alt="David Plappert" class="w-16 h-16 rounded-full border-2 border-gray-800" />
+        <div class="text-left">
+          <p class="font-bold text-lg">David Plappert</p>
+          <p class="text-gray-500 text-sm">Senior AWS Architect · 19 years</p>
+        </div>
+      </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">
         Your portfolio companies are <span class="text-brand-400">overpaying AWS.</span>
       </h1>
@@ -90,7 +96,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
           </div>
           <div>
             <p class="text-brand-400 text-3xl font-bold">19 yrs</p>
-            <p class="text-gray-500 text-sm mt-1">AWS experience (since 2006 launch)</p>
+            <p class="text-gray-500 text-sm mt-1">AWS experience (since 2007)</p>
           </div>
         </div>
       </div>
