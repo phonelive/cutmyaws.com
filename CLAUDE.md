@@ -566,7 +566,8 @@ Domain fully configured for maximum deliverability:
 **SKU:** CUTMYAWS
 **Request ID:** emaf2gb7q6v8o68eew59bshu2
 **Submitted:** 2026-03-12
-**Status:** Under review (3-5 business day review)
+**Status:** Live
+**Listing URL:** https://aws.amazon.com/marketplace/pp/prodview-a33byl4vxcau2
 **Account:** 731039145080 (Cut My AWS)
 
 ### Marketplace Pricing Dimensions
