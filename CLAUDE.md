@@ -340,7 +340,7 @@ To extend: change the date. To end early: set to a past date.
 |----------|--------|-------|
 | LinkedIn (company page + ads) | **Active** | Company page + paid ads ($45/day total: $15 general + $30 investors) |
 | LinkedIn (personal) | **Active** | Primary organic channel |
-| Reddit (u/cutmyaws) | **Active** | Organic answers + paid ads ($15/day), pixel: a2_inkp2wvyvllm |
+| Reddit (u/cutmyaws) | **Active** | Organic answers + paid ads ($30/day: $15 general + $15 investors), pixel: a2_inkp2wvyvllm |
 | Google Ads | **Active** | Search ads ($30/day: CutMyAWS-V2 + CutMyAWS-Investors) |
 | Bing/Microsoft Ads | **Active** | Import Google campaign ($10/day) |
 | YouTube | Future (month 2-3) | Record exploration calls as case studies |
@@ -357,14 +357,15 @@ To extend: change the date. To end early: set to a past date.
 **Key messages:**
 - "Your portfolio companies are overpaying AWS"
 - "Nobody audited the AWS bill"
-- "30-40% waste on average"
-- "9-month ROI, pay on results only"
+- "Every startup I audit wastes 30-40% on AWS"
+- "Extend runway without cutting headcount"
 - "One engagement, permanent savings"
+- "No savings = no fee"
 
-**Platforms:**
+**Active on all 3 paid social platforms:**
+- **LinkedIn Ads** ($30/day) — Targeting: Investor, Private Investor, Venture Partner, Managing Partner, General Partner, Managing Director titles. US only. Campaign ID: 1000806254
+- **Reddit Ads** ($15/day) — Same targeting as general campaign. Investor-specific ad creative with dollar breakdown. Campaign: CutMyAWS-Investors
 - **Google Ads** — Search keywords: `reduce aws costs portfolio`, `aws cost optimization startup`, `reduce burn rate startup`, `cloud cost optimization small business`
-- **LinkedIn Ads** — Sponsored Content + InMail. Target: Angel Investor, Venture Partner, Managing Partner, General Partner titles. VC/PE industries. Director+ seniority.
-- **Reddit Ads** — Promoted posts in r/startups, r/venturecapital, r/SaaS, r/aws, r/devops, r/Entrepreneur
 
 ## Email Deliverability
 
@@ -393,12 +394,13 @@ Domain fully configured for maximum deliverability:
 | Platform | Account | Daily Budget | Status |
 |----------|---------|-------------|--------|
 | Google Ads | david@phonelive.io | $30/day | Active (campaigns: CutMyAWS-V2, CutMyAWS-Investors) |
-| Reddit Ads | u/cutmyaws | $15/day | Active |
+| Reddit Ads (General) | u/cutmyaws | $15/day | Active (campaign: Cut My AWS V1) |
+| Reddit Ads (Investors) | u/cutmyaws | $15/day | Active (campaign: CutMyAWS-Investors) |
 | Bing/Microsoft Ads | david@phonelive.io (G145R2VD) | $10/day | Active (campaign: CutMyAWS-V2) |
-| LinkedIn Ads (General) | Cut My AWS (525710547) | $15/day | Active (campaign: CutMyAWS-V1) |
-| LinkedIn Ads (Investors) | Cut My AWS (525710547) | $30/day | Active (campaign: CutMyAWS - Investors) |
+| LinkedIn Ads (General) | Cut My AWS (525710547) | $15/day | Active (campaign: New Campaign Group, ID: 998926464) |
+| LinkedIn Ads (Investors) | Cut My AWS (525710547) | $30/day | Active (campaign: CutMyAWS - Investors, ID: 1000806254) |
 
-**Total ad spend:** ~$100/day / ~$3,000/month
+**Total ad spend:** ~$115/day / ~$3,450/month
 
 ### Google Ads
 
@@ -428,17 +430,32 @@ Domain fully configured for maximum deliverability:
 - **Account:** u/cutmyaws
 - **Pixel ID:** a2_inkp2wvyvllm (installed via `app/plugins/reddit.client.ts`)
 - **Pixel events:** `PageVisit` (every page load), `Lead` (on /book or calendly.com link clicks + booking confirmation)
-- **Campaign:** Traffic objective, $15/day
-- **Targeting:** Subreddit communities (r/aws, r/devops, r/sysadmin, r/cloudcomputing, r/serverless, r/startups, r/smallbusiness) + keywords
-- **Ad copy:** "Your AWS bill is a symptom." → "NO SAVINGS = NO FEE" CTA
 - **Promo:** $500 spend-match credit (spend $500, get $500)
-- **Landing page:** cutmyaws.com with UTM params
+
+#### Campaign: Cut My AWS V1 (General)
+
+- **Objective:** Traffic, $15/day (shared via Campaign Budget Optimization)
+- **Targeting:** Keywords (aws bill, aws cost, aws infrastructure, aws savings, cloud optimization, cloud spend, cloud waste, finops, reduce aws, serverless migration) + Communities (r/FinOps, r/SaaS, r/aws, r/cloudcomputing, r/devops, r/programming, r/startups, r/sysadmin, r/technology) + Interest groups (Technology & Computing, Business & Finance, Startups & Small Business) + US only
+- **Ad format:** Image post
+- **Ad copy headline:** "Your AWS Bill Is a Symptom."
+- **CTA:** Learn More
+- **Landing page:** `cutmyaws.com?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-v2`
+
+#### Campaign: CutMyAWS-Investors
+
+- **Objective:** Traffic, $15/day (shared via Campaign Budget Optimization)
+- **Targeting:** Same keywords + communities as V1
+- **Ad format:** Image post
+- **Ad copy headline:** "Every startup I audit wastes 30-40% on AWS. The board never sees the bill."
+- **CTA:** Learn More
+- **Landing page:** `cutmyaws.com/investors?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-investors`
 
 #### Reddit Ad Assets
 
 | File | Size | Purpose |
 |------|------|---------|
-| `public/reddit-ad.png` | 1080x1080 | Main ad image |
+| `public/reddit-ad.png` | 1080x1080 | Main ad image (general campaign) |
+| `public/reddit-ad-investors.png` | 1080x1080 | Investor ad image (breakdown table with dollar amounts) |
 | `public/reddit-ad-thumb.png` | 400x300 | Ad thumbnail |
 | `public/reddit-banner.png` | 1920x576 | Profile banner |
 | `public/david-reddit.jpg` | 832x832 | Profile picture (square crop of david.png) |
@@ -451,6 +468,9 @@ Ad images are generated from HTML templates via Playwright, same as OG images:
 # Main ad image (1080x1080)
 npx playwright screenshot --viewport-size="1080,1080" --full-page /tmp/reddit-ad-image.html public/reddit-ad.png
 
+# Investor ad image (1080x1080)
+npx playwright screenshot --viewport-size="1080,1080" --full-page /tmp/reddit-ad-investors.html public/reddit-ad-investors.png
+
 # Thumbnail (400x300)
 npx playwright screenshot --viewport-size="400,300" --full-page /tmp/reddit-ad-thumb.html public/reddit-ad-thumb.png
 
@@ -458,7 +478,7 @@ npx playwright screenshot --viewport-size="400,300" --full-page /tmp/reddit-ad-t
 npx playwright screenshot --viewport-size="1920,576" --full-page /tmp/reddit-banner.html public/reddit-banner.png
 ```
 
-Templates: `/tmp/reddit-ad-image.html`, `/tmp/reddit-ad-thumb.html`, `/tmp/reddit-banner.html`
+Templates: `/tmp/reddit-ad-image.html`, `/tmp/reddit-ad-investors.html`, `/tmp/reddit-ad-thumb.html`, `/tmp/reddit-banner.html`
 
 #### Reddit Organic Strategy
 
@@ -487,9 +507,13 @@ Answer questions in these subreddits to build authority (don't self-promote dire
 #### Campaign: CutMyAWS - Investors (Seed/Series A) — ID: 1000806254
 
 - **Objective:** Website visits, $30/day
-- **Targeting:** Job titles (Investor, Private Investor, Venture Partner, Venture Manager, Director New Venture, Managing Partner, Managing Principal, Managing Director) + US only + English
+- **Targeting:** Job titles (Investor, Private Investor, Venture Partner, Venture Manager, Director New Venture, Managing Partner, Managing Principal, Managing Director, Managing General Partner, General Partner) + US only + English + Audience Expansion enabled
 - **Ad format:** Single image ad (1200x627)
-- **Landing page:** cutmyaws.com/investors
+- **Ad copy intro:** "Your portfolio companies are overpaying AWS by 30-40%. Nobody audited the bill — they were too busy building. One engagement finds permanent savings. No savings = no fee."
+- **Ad copy headline:** "Nobody Audited the AWS Bill"
+- **Ad copy description:** "Extend runway without cutting headcount. 19 years of AWS experience. Pay only on verified savings."
+- **CTA:** Learn More
+- **Landing page:** cutmyaws.com/investors?utm_source=linkedin&utm_medium=paid&utm_campaign=cutmyaws-investors
 - **Conversion tracking:** Calendly Clicks V2
 - **Audience size:** 1,200,000+
 
@@ -510,6 +534,19 @@ Answer questions in these subreddits to build authority (don't self-promote dire
 - **Conversion event:** `calendly_click` (custom event, fired on Calendly link clicks)
 - **Budget:** $10/day
 - **Promo:** Spend $250, get $500 free (valid through June 30, 2026)
+
+### UTM Parameter Standard
+
+All ad platforms use consistent UTM params for GA4 reporting:
+
+| Parameter | Purpose | Values |
+|-----------|---------|--------|
+| `utm_source` | Platform | `google`, `linkedin`, `reddit`, `bing` |
+| `utm_medium` | Channel type | `cpc` (search), `paid` (social/display) |
+| `utm_campaign` | Campaign | `cutmyaws-v2`, `cutmyaws-investors`, `cutmyaws-v1` |
+| `utm_content` | Ad variant (optional) | `ad1`, `ad2` for A/B testing |
+
+**GA4 reporting:** Reports → Acquisition → Traffic acquisition → primary dimension: Session campaign, secondary: Session source/medium.
 
 ### Conversion Tracking
 
