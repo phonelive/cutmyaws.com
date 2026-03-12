@@ -179,7 +179,7 @@ if [ "$AVG" -lt 5000 ]; then
   echo "accounts or your spend is growing, reach out — we're happy"
   echo "to take a look."
   echo ""
-  echo "📬 david@cutmyaws.com"
+  echo "👉 https://cutmyaws.com"
 else
   echo "=== 🎯 Next Steps ==="
   echo "At \\$$(commas $AVG)/mo, there's almost certainly money hiding"
@@ -189,7 +189,7 @@ else
   echo "To kick things off, 1% of your annualized spend is"
   echo "\\$$(commas $ONE_PCT) — that gets the audit started."
   echo ""
-  echo "📅 Book a free 15-min intro call: https://cutmyaws.com/book"
+  echo "👉 https://cutmyaws.com"
 fi`
 
 const copied = ref(false)
