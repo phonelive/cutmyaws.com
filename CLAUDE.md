@@ -475,7 +475,7 @@ Answer questions in these subreddits to build authority (don't self-promote dire
 - **Insight Tag:** 8785714 (installed via `app/plugins/linkedin.client.ts`)
 - **Conversion:** Calendly Clicks V2 (Lead category, Direct API source) + booking_confirmed via useTracking (conversion_id: 26412858)
 
-#### Campaign: CutMyAWS-V1 (General)
+#### Campaign: New Campaign Group (General) — ID: 998926464
 
 - **Objective:** Website visits, $15/day
 - **Targeting:** Job titles (CTO, VP Engineering, Director of Engineering, Head of Infrastructure, Cloud Architect, DevOps Manager, VP of Operations, Engineering Manager) + Company size (11-50, 51-200, 201-500) + Skills (AWS, Cloud Computing, DevOps)
@@ -484,7 +484,7 @@ Answer questions in these subreddits to build authority (don't self-promote dire
 - **CTA:** Learn More
 - **Landing page:** cutmyaws.com?utm_source=linkedin&utm_medium=paid&utm_campaign=cutmyaws-v1
 
-#### Campaign: CutMyAWS - Investors (Seed/Series A)
+#### Campaign: CutMyAWS - Investors (Seed/Series A) — ID: 1000806254
 
 - **Objective:** Website visits, $30/day
 - **Targeting:** Job titles (Investor, Private Investor, Venture Partner, Venture Manager, Director New Venture, Managing Partner, Managing Principal, Managing Director) + US only + English
