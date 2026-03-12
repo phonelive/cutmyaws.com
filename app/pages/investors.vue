@@ -26,33 +26,61 @@ const minAwsK = `$${pricing.minAws / 1000}K`
 <template>
   <div>
     <!-- Hero -->
-    <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
-      <div class="flex items-center justify-end gap-4 mb-6">
-        <div class="text-right">
-          <p class="font-bold text-lg">David Plappert</p>
-          <p class="text-gray-500 text-sm">Senior AWS Architect · 19 years</p>
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-brand-500/5 via-transparent to-brand-500/3"></div>
+      <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+      <div class="relative max-w-5xl mx-auto px-6 pt-16 pb-16">
+        <div class="flex flex-col lg:flex-row gap-12 items-center">
+          <!-- Left: Text -->
+          <div class="flex-1">
+            <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+              Your portfolio companies are <span class="text-brand-400">overpaying AWS.</span>
+            </h1>
+            <p class="text-gray-400 text-lg mb-4">
+              You checked the team, the TAM, the cap table, the pitch deck, the Figma mockups, the founder's LinkedIn —
+              but nobody opened the AWS bill. It's been growing unsupervised since day one. 😬
+            </p>
+            <p class="text-gray-400 text-lg mb-8">
+              I audit your portfolio companies' AWS accounts, find the waste, and fix it —
+              while their engineering team stays focused on shipping features, not deciphering Cost Explorer.
+              That infrastructure bloat they've been ignoring since the seed round? That's my Tuesday. 🚀
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <NuxtLink
+                to="/book?c=investor-hero"
+                class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors text-center"
+              >
+                🗓️ Book Your Free Intro Call
+              </NuxtLink>
+              <p class="text-gray-500 text-sm self-center">15 min · free · no pitch deck 😏</p>
+            </div>
+          </div>
+
+          <!-- Right: David card -->
+          <div class="w-full lg:w-[380px] shrink-0">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+              <img src="/david.png" alt="David Plappert" class="w-28 h-28 rounded-full mx-auto mb-5 object-cover object-top border-2 border-gray-700">
+              <p class="font-bold text-lg mb-1">David Plappert</p>
+              <p class="text-gray-500 text-sm mb-6">Senior AWS Architect · 19 years ☕</p>
+
+              <div class="space-y-2 text-left text-sm">
+                <div class="flex items-center gap-2 text-gray-400">
+                  <span class="text-brand-400">✅</span> Pay only a % of verified savings
+                </div>
+                <div class="flex items-center gap-2 text-gray-400">
+                  <span class="text-brand-400">✅</span> No savings? No fee. Period.
+                </div>
+                <div class="flex items-center gap-2 text-gray-400">
+                  <span class="text-brand-400">✅</span> One engagement, permanent savings
+                </div>
+                <div class="flex items-center gap-2 text-gray-400">
+                  <span class="text-brand-400">✅</span> No recurring fees or SaaS subscriptions
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <img src="/david.png" alt="David Plappert" class="w-16 h-16 rounded-full border-2 border-gray-800" />
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">
-        Your portfolio companies are <span class="text-brand-400">overpaying AWS.</span>
-      </h1>
-      <p class="text-gray-400 text-lg mb-4">
-        You checked the team, the TAM, the cap table, the pitch deck, the Figma mockups, the founder's LinkedIn —
-        but nobody opened the AWS bill. It's been growing unsupervised since day one. 😬
-      </p>
-      <p class="text-gray-400 text-lg mb-8">
-        I audit your portfolio companies' AWS accounts, find the waste, and fix it —
-        while their engineering team stays focused on shipping features, not deciphering Cost Explorer.
-        That infrastructure bloat they've been ignoring since the seed round? That's my Tuesday. 🚀
-      </p>
-      <NuxtLink
-        to="/book?c=investor-hero"
-        class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-      >
-        🗓️ Book Your Free Intro Call
-      </NuxtLink>
-      <p class="text-gray-600 text-sm mt-3">15 min · free · no pitch deck 😏</p>
     </section>
 
     <!-- Stats -->
