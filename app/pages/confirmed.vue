@@ -10,7 +10,7 @@ useHead({
 
 onMounted(() => {
   const { trackEvent } = useTracking()
-  trackEvent('booking_confirmed', { event_category: 'conversion', linkedin_conversion_id: 26412858 })
+  trackEvent('booking_confirmed', { event_category: 'conversion', linkedin_conversion_id: 26412858, reddit_event: 'Lead' })
 })
 </script>
 
