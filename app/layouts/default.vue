@@ -77,7 +77,6 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
               <ul class="space-y-2 text-gray-500">
                 <li v-if="!hideBookBtn"><NuxtLink to="/book?c=footer" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</NuxtLink></li>
                 <li><a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a></li>
-                <li><a href="https://www.linkedin.com/in/davidplappert/" target="_blank" rel="noopener" class="hover:text-gray-300 transition-colors">LinkedIn</a></li>
               </ul>
             </div>
           </div>

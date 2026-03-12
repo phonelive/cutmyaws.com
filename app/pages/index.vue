@@ -636,7 +636,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         <img src="/david.png" alt="David Plappert" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover object-top border-2 border-gray-700">
         <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I'm <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="text-brand-400 hover:underline">David Plappert</a> &mdash; an actual human being with 19 years of AWS experience who will personally
+          I'm David Plappert &mdash; an actual human being with 19 years of AWS experience who will personally
           dig through your account, read your architecture, and understand your business. 🍱 Not an AI-generated summary.
           Not a dashboard with traffic lights. Not a junior analyst following a checklist. Me. On a call. With opinions. And a mildly aggressive sense of humor.
         </p>

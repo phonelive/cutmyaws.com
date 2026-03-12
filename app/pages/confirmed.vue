@@ -55,14 +55,6 @@ onMounted(() => {
         <p class="text-gray-400 text-sm mb-3">🤝 Know someone overpaying AWS? Share the love:</p>
         <div class="flex items-center justify-center gap-3">
           <a
-            :href="`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`"
-            target="_blank"
-            rel="noopener"
-            class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors border border-gray-700"
-          >
-            LinkedIn
-          </a>
-          <a
             :href="`https://twitter.com/intent/tweet?text=${shareText}`"
             target="_blank"
             rel="noopener"
