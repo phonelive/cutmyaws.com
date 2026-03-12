@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  CutMyAWS Read-Only Audit Role — grants Cut My AWS (731039145080)
+  read-only access to all resources and 48 months of billing data.
+  Deploy this stack in your AWS account to begin your audit.
+
+Resources:
+  CutMyAWSAuditRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: CutMyAWS-ReadOnly-Auditor
+      MaxSessionDuration: 43200  # 12 hours
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: 'arn:aws:iam::731039145080:root'
+            Action: 'sts:AssumeRole'
+            Condition:
+              StringEquals:
+                'sts:ExternalId': !Ref ExternalId
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+      Policies:
+        - PolicyName: CutMyAWS-Billing-ReadOnly
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: CostExplorerRead
+                Effect: Allow
+                Action:
+                  - 'ce:Get*'
+                  - 'ce:Describe*'
+                  - 'ce:List*'
+                Resource: '*'
+              - Sid: CostAndUsageReports
+                Effect: Allow
+                Action:
+                  - 'cur:Get*'
+                  - 'cur:Describe*'
+                  - 'cur:List*'
+                Resource: '*'
+              - Sid: BillingRead
+                Effect: Allow
+                Action:
+                  - 'billing:Get*'
+                  - 'billing:List*'
+                  - 'budgets:View*'
+                  - 'budgets:Describe*'
+                Resource: '*'
+              - Sid: SavingsPlansRead
+                Effect: Allow
+                Action:
+                  - 'savingsplans:Describe*'
+                  - 'savingsplans:List*'
+                Resource: '*'
+              - Sid: CostOptimizationHub
+                Effect: Allow
+                Action:
+                  - 'cost-optimization-hub:Get*'
+                  - 'cost-optimization-hub:List*'
+                Resource: '*'
+              - Sid: AccountInfo
+                Effect: Allow
+                Action:
+                  - 'account:GetAccountInformation'
+                  - 'account:GetContactInformation'
+                  - 'account:ListRegions'
+                  - 'pricing:GetProducts'
+                  - 'pricing:DescribeServices'
+                  - 'pricing:GetAttributeValues'
+                Resource: '*'
+              - Sid: OrganizationsRead
+                Effect: Allow
+                Action:
+                  - 'organizations:Describe*'
+                  - 'organizations:List*'
+                Resource: '*'
+
+Parameters:
+  ExternalId:
+    Type: String
+    Description: >
+      Unique external ID provided by Cut My AWS. This prevents unauthorized
+      access even if someone knows the role ARN.
+    MinLength: 8
+    AllowedPattern: '^[a-zA-Z0-9-]+$'
+
+Outputs:
+  RoleArn:
+    Description: Share this ARN with Cut My AWS to begin your audit
+    Value: !GetAtt CutMyAWSAuditRole.Arn
+  ExternalId:
+    Description: The external ID configured for this role
+    Value: !Ref ExternalId
