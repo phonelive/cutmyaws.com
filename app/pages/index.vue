@@ -115,28 +115,31 @@ const minAwsK = `$${pricing.minAws / 1000}K`
 
 <template>
   <div class="min-h-screen bg-gray-950 text-gray-100">
-    <!-- Promo Banner -->
-    <div v-if="promoActive" class="bg-brand-600 text-white text-center py-2.5 px-6 text-sm font-medium">
-      <a :href="calendly('promo-banner')" class="hover:underline">
-        🛡️ FREE Security Audit (normally {{ pricing.securityPct }}% of AWS annual spend) with every engagement — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
-      </a>
-    </div>
-
-    <!-- Nav -->
-    <nav class="border-b border-gray-800/50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="text-2xl">✂️</span>
-          <span class="font-bold text-lg">Cut My AWS</span>
-        </div>
-        <a
-          :href="calendly('nav')"
-          class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
-        >
-          🗓️ Book Free Intro Call
+    <!-- Sticky header -->
+    <div class="sticky top-0 z-50 bg-gray-950/95 backdrop-blur-sm">
+      <!-- Promo Banner -->
+      <div v-if="promoActive" class="bg-brand-600 text-white text-center py-1.5 px-4 text-xs sm:text-sm font-medium">
+        <a :href="calendly('promo-banner')" class="hover:underline">
+          🛡️ FREE Security Audit (normally {{ pricing.securityPct }}% of AWS annual spend) — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
         </a>
       </div>
-    </nav>
+
+      <!-- Nav -->
+      <nav class="border-b border-gray-800/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xl sm:text-2xl">✂️</span>
+            <span class="font-bold text-base sm:text-lg">Cut My AWS</span>
+          </div>
+          <a
+            :href="calendly('nav')"
+            class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 sm:px-5 py-1.5 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm"
+          >
+            🗓️ Book Free Intro Call
+          </a>
+        </div>
+      </nav>
+    </div>
 
     <!-- Hero -->
     <section id="hero" class="relative overflow-hidden">
