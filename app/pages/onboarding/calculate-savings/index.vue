@@ -92,16 +92,16 @@ const hasEnoughData = computed(() => filledMonths.value.length >= 3)
 // The script calculates its own dates dynamically, pulls monthly costs,
 // and computes the annualized spend (3-month avg × 12).
 const cliScript = `#!/bin/bash
-# CutMyAWS — Annualized AWS Spend Calculator
+# ✂️  CutMyAWS — How Much Is AWS Charging You?
 # Usage: bash get-aws-bills.sh [--profile your-profile]
 #
-# Pulls the last 3 finalized months of AWS billing data,
-# averages them, and multiplies by 12.
+# Pulls your last 3 finalized monthly AWS bills, averages
+# them, and tells you what AWS is collecting per year.
 #
-# Only uses finalized monthly bills:
-#   - Always excludes the current (incomplete) month
-#   - If < 72 hours into the current month, also excludes the
-#     previous month (AWS can take up to 72h to finalize billing)
+# Only uses finalized bills — no guesswork:
+#   - Current (incomplete) month? Skipped.
+#   - Month just ended < 72h ago? Also skipped.
+#     AWS needs time to finalize. We wait. ⏳
 #
 # Formula: (3-month avg) × 12 = annualized spend
 
@@ -117,24 +117,23 @@ YEAR=$(date +%Y); MONTH=$((10#$(date +%m)))
 DAY=$((10#$(date +%d))); HOUR=$((10#$(date +%H)))
 HOURS_INTO_MONTH=$(( (DAY - 1) * 24 + HOUR ))
 
-# End = 1st of current month (AWS API end date is exclusive)
 END_Y=$YEAR; END_M=$MONTH
 if [ "$HOURS_INTO_MONTH" -lt 72 ]; then
-  # Previous month may not be finalized yet — skip it
   END_M=$((END_M - 1))
   [ "$END_M" -lt 1 ] && { END_M=12; END_Y=$((END_Y - 1)); }
-  echo "⏳ Within 72h of month boundary — skipping previous month"
+  echo "⏳ Month just flipped — skipping last month (AWS is still counting)"
 fi
 END_DATE=$(printf "%04d-%02d-01" "$END_Y" "$END_M")
 
-# Start = 3 months before end
 START_M=$((END_M - 3)); START_Y=$END_Y
 while [ "$START_M" -lt 1 ]; do
   START_M=$((START_M + 12)); START_Y=$((START_Y - 1))
 done
 START_DATE=$(printf "%04d-%02d-01" "$START_Y" "$START_M")
 
-echo "📅 $START_DATE → $END_DATE (3 months, end exclusive)"
+echo ""
+echo "✂️  CutMyAWS — Annualized AWS Spend Calculator"
+echo "📅 $START_DATE → $END_DATE (last 3 finalized months)"
 echo ""
 
 # --- Format number with commas ---
@@ -149,8 +148,8 @@ COSTS=$(aws ce get-cost-and-usage \\
   --output text \\
   $PROFILE_FLAG)
 
-# --- Monthly breakdown ---
-echo "=== Last 3 Finalized Monthly Bills ==="
+# --- The damage report ---
+echo "=== 💸 Last 3 Monthly AWS Bills ==="
 echo "Month       | Total"
 echo "------------|------------"
 echo "$COSTS" | while IFS=$'\\t' read -r month amount; do
@@ -160,11 +159,38 @@ done
 # --- Annualized: 3-month avg × 12 ---
 AVG=$(echo "$COSTS" | awk -F'\\t' '{s+=$2;n++} END{avg=int(s/n+0.5); printf "%d",avg}')
 ANNUAL=$((AVG * 12))
+ONE_PCT=$(( (ANNUAL + 50) / 100 ))
 
 echo ""
-echo "=== Annualized Spend ==="
+echo "=== 📊 Annualized Spend ==="
 echo "3-month avg: \\$$(commas $AVG)/mo"
-echo "Annualized:  \\$$(commas $ANNUAL)/yr (avg × 12)"`
+echo "Annualized:  \\$$(commas $ANNUAL)/yr (avg × 12)"
+
+echo ""
+if [ "$AVG" -lt 5000 ]; then
+  echo "=== 🤔 The Verdict ==="
+  echo "At \\$$(commas $AVG)/mo, your bill is probably too lean for us"
+  echo "to find meaningful savings. That's actually a good thing —"
+  echo "it means you (or someone on your team) isn't asleep at the"
+  echo "wheel. 👏"
+  echo ""
+  echo "CutMyAWS works best with \\$5K+/mo in AWS spend, where the"
+  echo "cobwebs really start to pile up. If you have other AWS"
+  echo "accounts or your spend is growing, reach out — we're happy"
+  echo "to take a look."
+  echo ""
+  echo "📬 david@cutmyaws.com"
+else
+  echo "=== 🎯 Next Steps ==="
+  echo "At \\$$(commas $AVG)/mo, there's almost certainly money hiding"
+  echo "in this account. Most businesses at this level are overpaying"
+  echo "AWS by 30-40% without realizing it. 😅"
+  echo ""
+  echo "To kick things off, 1% of your annualized spend is"
+  echo "\\$$(commas $ONE_PCT) — that gets the audit started."
+  echo ""
+  echo "📅 Book a free 15-min intro call: https://cutmyaws.com/book"
+fi`
 
 const copied = ref(false)
 async function copyCliCommand() {
