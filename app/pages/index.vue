@@ -72,8 +72,8 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
 
 const stats = [
   { value: '19 Years', label: '☁️ Of AWS expertise. In production since 2007.' },
-  { value: '$100M+', label: '💰 Saved & improved across client accounts.' },
-  { value: '150+', label: '🔍 AWS accounts audited. Zero unsurprised CFOs.' }
+  { value: '$100M', label: '💰 Saved & improved across client accounts.' },
+  { value: '150', label: '🔍 AWS accounts audited. Zero unsurprised CFOs.' }
 ]
 
 
