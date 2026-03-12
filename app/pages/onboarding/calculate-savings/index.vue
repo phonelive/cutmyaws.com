@@ -8,11 +8,35 @@ useHead({
   ],
 })
 
-// Generate last 18 month labels
+// === Date range calculation ===
+// We use the last 18 COMPLETE months of billing data.
+// - The current month is always excluded (it's incomplete).
+// - If we're less than 72 hours into the current month, we also exclude the
+//   previous month — AWS can take up to 72 hours to finalize billing data.
 const now = new Date()
+const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+const hoursIntoMonth = (now.getTime() - firstOfMonth.getTime()) / (1000 * 60 * 60)
+const inGracePeriod = hoursIntoMonth < 72
+
+// API end date (exclusive) — 1st of current month, or 1 month earlier during grace
+const apiEnd = inGracePeriod
+  ? new Date(now.getFullYear(), now.getMonth() - 1, 1)
+  : new Date(now.getFullYear(), now.getMonth(), 1)
+// 18 months before the end
+const apiStart = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 18, 1)
+
+// Display labels
+const lastIncludedMonth = new Date(apiEnd.getFullYear(), apiEnd.getMonth() - 1, 1)
+const fmtMonthYear = (d) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+const dateRangeLabel = `${fmtMonthYear(apiStart)} – ${fmtMonthYear(lastIncludedMonth)}`
+const skippedMonthLabel = inGracePeriod
+  ? new Date(now.getFullYear(), now.getMonth() - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  : null
+
+// Generate 18 month input slots
 const months = ref(
   Array.from({ length: 18 }, (_, i) => {
-    const d = new Date(now.getFullYear(), now.getMonth() - 17 + i, 1)
+    const d = new Date(apiStart.getFullYear(), apiStart.getMonth() + i, 1)
     return {
       label: d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
       amount: null,
@@ -76,35 +100,83 @@ function clear() {
 const hasData = computed(() => filledMonths.value.length >= 1)
 const hasEnoughData = computed(() => filledMonths.value.length >= 3)
 
-// CLI command with dynamic dates
-const cliStartDate = computed(() => {
-  const d = new Date(now.getFullYear(), now.getMonth() - 17, 1)
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`
-})
-const cliEndDate = computed(() => {
-  const d = new Date(now.getFullYear(), now.getMonth() + 1, 1)
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`
-})
+// CLI script — single source of truth for display and copy.
+// The script calculates its own dates dynamically, pulls monthly costs,
+// and computes the annualized spend (top 3 avg × 12).
+const cliScript = `#!/bin/bash
+# CutMyAWS — Annualized AWS Spend Calculator
+# Usage: bash get-aws-bills.sh [--profile your-profile]
+#
+# Pulls the last 18 complete months of AWS billing data, finds
+# the 3 highest months, averages them, and multiplies by 12.
+#
+# Date logic:
+#   - Always excludes the current (incomplete) month
+#   - If < 72 hours into the current month, also excludes the
+#     previous month (AWS needs up to 72h to finalize billing)
+#
+# Formula: (top 3 months avg) × 12 = annualized spend
 
-const copied = ref(false)
-async function copyCliCommand() {
-  const cmd = `#!/bin/bash
-# CutMyAWS — Pull last 18 months of AWS bills
-# Run: bash get-aws-bills.sh [--profile your-profile]
+set -euo pipefail
 
 PROFILE_FLAG=""
-if [[ "\${1}" == "--profile" && -n "\${2}" ]]; then
+if [[ "\${1:-}" == "--profile" && -n "\${2:-}" ]]; then
   PROFILE_FLAG="--profile \${2}"
 fi
 
-aws ce get-cost-and-usage \\
-  --time-period Start=${cliStartDate.value},End=${cliEndDate.value} \\
+# --- Calculate date range ---
+YEAR=$(date +%Y); MONTH=$((10#$(date +%m)))
+DAY=$((10#$(date +%d))); HOUR=$((10#$(date +%H)))
+HOURS_INTO_MONTH=$(( (DAY - 1) * 24 + HOUR ))
+
+# End = 1st of current month (AWS API end date is exclusive)
+END_Y=$YEAR; END_M=$MONTH
+if [ "$HOURS_INTO_MONTH" -lt 72 ]; then
+  # Previous month may not be finalized yet — skip it
+  END_M=$((END_M - 1))
+  [ "$END_M" -lt 1 ] && { END_M=12; END_Y=$((END_Y - 1)); }
+  echo "⏳ Within 72h of month boundary — skipping previous month"
+fi
+END_DATE=$(printf "%04d-%02d-01" "$END_Y" "$END_M")
+
+# Start = 18 months before end
+START_M=$((END_M - 18)); START_Y=$END_Y
+while [ "$START_M" -lt 1 ]; do
+  START_M=$((START_M + 12)); START_Y=$((START_Y - 1))
+done
+START_DATE=$(printf "%04d-%02d-01" "$START_Y" "$START_M")
+
+echo "📅 $START_DATE → $END_DATE (18 months, end exclusive)"
+echo ""
+
+# --- Pull monthly costs ---
+COSTS=$(aws ce get-cost-and-usage \\
+  --time-period Start="$START_DATE",End="$END_DATE" \\
   --granularity MONTHLY \\
   --metrics UnblendedCost \\
-  --query 'ResultsByTime[].{Month:TimePeriod.Start,Total:Total.UnblendedCost.Amount}' \\
-  --output table \\
-  \$PROFILE_FLAG`
-  await navigator.clipboard.writeText(cmd)
+  --query 'ResultsByTime[].[TimePeriod.Start,Total.UnblendedCost.Amount]' \\
+  --output text \\
+  $PROFILE_FLAG)
+
+echo "Month       | Total"
+echo "------------|------------"
+echo "$COSTS" | while IFS=$'\\t' read -r month amount; do
+  printf "%-11s | \\$%.0f\\n" "\${month:0:7}" "$amount"
+done
+
+# --- Annualized: top 3 avg × 12 ---
+TOP3=$(echo "$COSTS" | awk -F'\\t' '{print $2+0}' | sort -rn | head -3)
+AVG=$(echo "$TOP3" | awk '{s+=$1;n++} END{printf "%.0f",s/n}')
+ANNUAL=$(echo "$TOP3" | awk '{s+=$1;n++} END{printf "%.0f",s/n*12}')
+
+echo ""
+echo "=== Annualized Spend ==="
+echo "Top 3 avg:  \\$$AVG/mo"
+echo "Annualized: \\$$ANNUAL/yr (top 3 avg × 12)"`
+
+const copied = ref(false)
+async function copyCliCommand() {
+  await navigator.clipboard.writeText(cliScript)
   copied.value = true
   setTimeout(() => { copied.value = false }, 2000)
 }
@@ -140,8 +212,8 @@ aws ce get-cost-and-usage \\
           <div class="flex items-start gap-4">
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">1</span>
             <div>
-              <p class="text-gray-300 font-medium">Pull the last 18 months of total AWS bills</p>
-              <p class="text-gray-500 text-sm">This captures seasonal variation, growth trends, and any one-off spikes.</p>
+              <p class="text-gray-300 font-medium">Pull the last 18 complete months of AWS bills</p>
+              <p class="text-gray-500 text-sm">The current month is always excluded — it's incomplete. If we're within 72 hours of a new month, the previous month is also excluded (AWS can take up to 72h to finalize billing data). This captures seasonal variation, growth trends, and one-off spikes — using only finalized data. 📅</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -165,6 +237,12 @@ aws ce get-cost-and-usage \\
             <span class="text-brand-400">(top 3 months avg)</span> × 12 = <span class="text-brand-400">annualized spend</span>
           </p>
         </div>
+        <!-- Grace period notice -->
+        <div v-if="inGracePeriod" class="mt-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 text-sm">
+          <p class="text-yellow-400">⏳ {{ skippedMonthLabel }} is excluded — AWS billing data may take up to 72 hours to finalize after a month ends.</p>
+        </div>
+        <!-- Date range -->
+        <p class="text-gray-600 text-xs mt-4 text-center">Currently using: <strong class="text-gray-400">{{ dateRangeLabel }}</strong> (18 months)</p>
       </div>
     </div>
 
@@ -181,33 +259,24 @@ aws ce get-cost-and-usage \\
             {{ copied ? '✓ Copied!' : '📋 Copy' }}
           </button>
         </div>
-        <p class="text-gray-500 text-sm mb-4">Save this as <code class="text-brand-300 text-xs">get-aws-bills.sh</code> and run it to get the last 18 months of bills. Then enter the totals below.</p>
+        <p class="text-gray-500 text-sm mb-4">Save this as <code class="text-brand-300 text-xs">get-aws-bills.sh</code> and run it. It pulls the last 18 months, shows monthly totals, and calculates your annualized spend automatically. Enter the monthly totals below for the interactive breakdown.</p>
         <div class="bg-gray-950 rounded-lg p-4 font-mono text-sm text-gray-300 overflow-x-auto">
-          <pre>#!/bin/bash
-# CutMyAWS — Pull last 18 months of AWS bills
-# Run: bash get-aws-bills.sh [--profile your-profile]
-
-PROFILE_FLAG=""
-if [[ "${1}" == "--profile" && -n "${2}" ]]; then
-  PROFILE_FLAG="--profile ${2}"
-fi
-
-aws ce get-cost-and-usage \
-  --time-period Start={{ cliStartDate }},End={{ cliEndDate }} \
-  --granularity MONTHLY \
-  --metrics UnblendedCost \
-  --query 'ResultsByTime[].{Month:TimePeriod.Start,Total:Total.UnblendedCost.Amount}' \
-  --output table \
-  $PROFILE_FLAG</pre>
+          <pre v-text="cliScript"></pre>
         </div>
-        <p class="text-gray-600 text-xs mt-3">💡 Requires the AWS CLI and billing access. Use <code class="text-gray-400">--profile your-profile</code> if you have named profiles. For Organizations, run from the <strong>management account</strong>.</p>
+        <div class="mt-3 space-y-1">
+          <p class="text-gray-600 text-xs">💡 Requires the AWS CLI and billing access. Use <code class="text-gray-400">--profile your-profile</code> if you have named profiles. For Organizations, run from the <strong>management account</strong>.</p>
+          <p class="text-gray-600 text-xs">📅 Dates are calculated dynamically — the script always pulls the correct 18-month window, excluding incomplete and unfinalized months.</p>
+        </div>
       </div>
     </div>
 
     <!-- Monthly input grid (18 months) -->
     <div class="max-w-3xl mx-auto px-6 pb-8">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-bold">💰 Enter Monthly Totals</h2>
+        <div>
+          <h2 class="text-lg font-bold">💰 Enter Monthly Totals</h2>
+          <p class="text-gray-600 text-xs mt-1">{{ dateRangeLabel }} · current month excluded</p>
+        </div>
         <button @click="clear" class="text-gray-600 text-sm hover:text-gray-400 transition-colors">Clear all</button>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
