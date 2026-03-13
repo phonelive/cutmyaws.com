@@ -82,7 +82,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="bg-gray-900">
+  <section>
     <div class="max-w-3xl mx-auto px-6 py-12">
       <div class="aspect-video rounded-2xl overflow-hidden border border-gray-800">
         <iframe

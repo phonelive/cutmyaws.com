@@ -36,7 +36,7 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
     </div>
 
     <!-- Page content -->
-    <main class="flex-1">
+    <main class="flex-1 section-alternating">
       <slot />
     </main>
 
@@ -84,3 +84,10 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
     </footer>
   </div>
 </template>
+
+<style>
+/* Auto-alternate section backgrounds: even sections get gray-900 */
+.section-alternating > div > section:nth-child(even) {
+  background-color: #111827; /* gray-900 */
+}
+</style>

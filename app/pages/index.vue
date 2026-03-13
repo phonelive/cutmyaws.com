@@ -207,7 +207,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     <YouTubeEmbed video-id="ZVUOW87e-Jc" label="homepage_intro" />
 
     <!-- Stats -->
-    <SectionStats id="stats" :stats="stats" :bg="true" />
+    <SectionStats id="stats" :stats="stats" />
 
     <!-- Clients -->
     <section id="clients" class="py-24 px-6">
@@ -215,7 +215,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Is This For You? -->
-    <section id="fit" class="bg-gray-900">
+    <section id="fit">
       <div class="max-w-4xl mx-auto px-6 py-24">
         <QualifierSection
           headline="Is this for you? 🤔"
@@ -246,7 +246,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Testimonials -->
-    <section id="testimonials" class="bg-gray-900">
+    <section id="testimonials">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <Testimonials />
       </div>
@@ -354,7 +354,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- ROI Calculator -->
-    <section id="calculator" class="bg-gray-900">
+    <section id="calculator">
       <div class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Calculate Your Savings</h2>
       <p class="text-gray-400 text-center mb-2">Cloud cost optimization with no monthly fees. You pay once. Keep the savings forever. 💰</p>
@@ -596,7 +596,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Common Waste -->
-    <section id="waste" class="bg-gray-900">
+    <section id="waste">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
         <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
@@ -610,7 +610,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Security & Compliance -->
-    <section id="security" class="bg-gray-900">
+    <section id="security">
       <SecuritySection />
     </section>
 
@@ -620,7 +620,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Final CTA -->
-    <section id="cta" class="bg-gray-900">
+    <section id="cta">
       <div class="max-w-5xl mx-auto px-6 py-24 text-center">
       <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
       <p class="text-xl text-gray-400 mb-2">15 minutes. Free. No pitch deck.</p>
@@ -632,7 +632,12 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         🗓️ Book Your Free Intro Call
       </a>
       <p class="text-gray-600 text-sm mt-4">No hard sell. No PowerPoints. Just math. 🧮</p>
-      <div class="mt-10">
+      </div>
+    </section>
+
+    <!-- Available Through -->
+    <section id="available-through">
+      <div class="max-w-5xl mx-auto px-6 py-12 text-center">
         <p class="text-gray-600 text-xs uppercase tracking-wider mb-4">Also available through</p>
         <div class="flex items-center justify-center gap-4">
           <div class="flex items-center justify-center h-16 w-44 px-4 rounded-lg bg-white/90">
@@ -642,7 +647,6 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             <img src="/logos/carahsoft.svg" alt="Carahsoft" class="h-10 max-w-[150px] object-contain">
           </div>
         </div>
-      </div>
       </div>
     </section>
 
