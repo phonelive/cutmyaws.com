@@ -3,6 +3,9 @@ import { ref, onMounted, computed } from 'vue'
 
 const calendly = (campaign) => `/book?c=${campaign}`
 
+// ── Mobile sticky CTA visibility ──
+const showMobileCta = ref(false)
+
 // ── Hero ticker animation ──
 const tickerValue = ref(0)
 const tickerTarget = 108000 // $108K on a $25K/mo account at 36% savings
@@ -34,6 +37,15 @@ onMounted(() => {
     })
   }, { threshold: 0.3 })
   document.querySelectorAll('section[id]').forEach((el) => observer.observe(el))
+
+  // ── Show mobile sticky CTA after scrolling past hero ──
+  const hero = document.getElementById('hero')
+  if (hero) {
+    const heroObserver = new IntersectionObserver(([entry]) => {
+      showMobileCta.value = !entry.isIntersecting
+    }, { threshold: 0 })
+    heroObserver.observe(hero)
+  }
 })
 
 // ── ROI Calculator ──
@@ -778,10 +790,10 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     </section>
 
     <!-- Mobile sticky CTA (padding at bottom so content isn't hidden behind it) -->
-    <div class="h-16 sm:hidden"></div>
+    <div v-show="showMobileCta" class="h-16 sm:hidden"></div>
 
     <!-- Mobile sticky CTA bar -->
-    <div class="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-gray-950/95 backdrop-blur-sm border-t border-gray-800 p-3">
+    <div v-show="showMobileCta" class="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-gray-950/95 backdrop-blur-sm border-t border-gray-800 p-3 transition-opacity" :class="showMobileCta ? 'opacity-100' : 'opacity-0'">
       <NuxtLink
         to="/book?c=mobile-sticky"
         class="block w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-xl text-center transition-colors"
