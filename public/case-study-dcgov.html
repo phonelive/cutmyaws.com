@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page {
+    size: letter;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 8.5in;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #f3f4f6;
+    background: #030712;
+    line-height: 1.6;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    padding: 0.75in 0.85in;
+    position: relative;
+    page-break-after: always;
+  }
+  .page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .accent-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #f97316, #f97316 60%, transparent);
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5in;
+    position: relative;
+    z-index: 1;
+  }
+  .brand { font-size: 20px; font-weight: 800; color: #f97316; }
+  .badge {
+    font-size: 11px; font-weight: 700; color: #f97316;
+    border: 2px solid #f97316; padding: 4px 14px;
+    border-radius: 6px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .cover-hero {
+    position: relative; z-index: 1; margin-top: 1in;
+  }
+  .cover-hero .label {
+    font-size: 13px; font-weight: 700; color: #f97316;
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;
+  }
+  .cover-hero h1 {
+    font-size: 42px; font-weight: 900; line-height: 1.1;
+    letter-spacing: -1.5px; margin-bottom: 24px;
+  }
+  .cover-hero h1 .orange { color: #f97316; }
+  .cover-hero .subtitle {
+    font-size: 18px; color: #9ca3af; max-width: 5.5in; line-height: 1.6;
+  }
+  .cover-stats {
+    display: flex; gap: 48px; margin-top: 0.7in;
+    position: relative; z-index: 1;
+  }
+  .cover-stat .value { font-size: 36px; font-weight: 900; color: #4ade80; }
+  .cover-stat .desc { font-size: 13px; color: #6b7280; margin-top: 4px; }
+  .cover-client {
+    position: absolute; bottom: 0.75in; left: 0.85in; right: 0.85in;
+    display: flex; justify-content: space-between; align-items: flex-end; z-index: 1;
+  }
+  .cover-client .name { font-size: 14px; font-weight: 600; }
+  .cover-client .role { font-size: 12px; color: #6b7280; }
+  .cover-url { font-size: 12px; color: #6b7280; }
+  .cover-glow {
+    position: absolute; top: 1.5in; right: -1in;
+    width: 5in; height: 5in;
+    background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  h2 { font-size: 26px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.5px; }
+  h2 .emoji { margin-right: 8px; }
+  h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; margin-top: 24px; color: #f97316; }
+  p { font-size: 14px; color: #9ca3af; margin-bottom: 12px; }
+  .content { position: relative; z-index: 1; }
+  .quote {
+    border-left: 4px solid #f97316; padding: 20px 24px;
+    background: rgba(249,115,22,0.05); border-radius: 0 12px 12px 0; margin: 24px 0;
+  }
+  .quote p { font-size: 15px; color: #f3f4f6; font-style: italic; margin-bottom: 8px; line-height: 1.6; }
+  .quote .attribution { font-size: 13px; color: #6b7280; font-style: normal; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+  .stat-card {
+    background: #111827; border: 1px solid #1f2937;
+    border-radius: 12px; padding: 20px; text-align: center;
+  }
+  .stat-card .value { font-size: 28px; font-weight: 900; color: #4ade80; }
+  .stat-card .label { font-size: 12px; color: #6b7280; margin-top: 4px; }
+  .stat-card.orange .value { color: #f97316; }
+  .finding {
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px solid #1f2937;
+  }
+  .finding:last-child { border-bottom: none; }
+  .finding .icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; padding-top: 2px; }
+  .finding .text { font-size: 14px; color: #d1d5db; line-height: 1.5; }
+  .finding .text strong { color: #f3f4f6; }
+  ul { padding-left: 20px; margin-bottom: 12px; }
+  li { font-size: 14px; color: #9ca3af; margin-bottom: 6px; }
+  li strong { color: #d1d5db; }
+  hr { border: none; border-top: 1px solid #1f2937; margin: 28px 0; }
+  .footer {
+    position: absolute; bottom: 0.6in; left: 0.85in; right: 0.85in;
+    display: flex; justify-content: space-between; font-size: 11px; color: #4b5563; z-index: 1;
+  }
+  .migration-arrow {
+    display: flex; align-items: center; gap: 16px;
+    background: #111827; border: 1px solid #1f2937;
+    border-radius: 12px; padding: 20px 24px; margin: 20px 0;
+  }
+  .migration-arrow .before {
+    font-size: 14px; color: #f87171; font-weight: 600;
+  }
+  .migration-arrow .arrow {
+    font-size: 24px; color: #f97316; flex-shrink: 0;
+  }
+  .migration-arrow .after {
+    font-size: 14px; color: #4ade80; font-weight: 600;
+  }
+  .tech-tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0;
+  }
+  .tech-tag {
+    font-size: 12px; font-weight: 600; color: #f97316;
+    background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3);
+    padding: 4px 12px; border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1: COVER ============ -->
+<div class="page">
+  <div class="accent-top"></div>
+  <div class="cover-glow"></div>
+
+  <div class="header">
+    <div class="brand">✂️ Cut My AWS</div>
+    <div class="badge">Case Study</div>
+  </div>
+
+  <div class="cover-hero">
+    <div class="label">Government Healthcare · ACA Exchanges · 6 AWS Accounts</div>
+    <h1>
+      EC2 → Microservices:<br>
+      <span class="orange">30% Cloud Savings</span><br>
+      Across 3 State Exchanges
+    </h1>
+    <div class="subtitle">
+      How a 10-year DevOps engagement transformed government healthcare marketplaces — including DC Health Link and the Massachusetts Health Connector — from monolithic EC2 to microservices on Lambda, ECS, and EKS. Three exchanges, six AWS accounts, 30% cost reduction, zero downtime.
+    </div>
+  </div>
+
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <div class="value">30%</div>
+      <div class="desc">Cloud cost reduction</div>
+    </div>
+    <div class="cover-stat">
+      <div class="value">10 yrs</div>
+      <div class="desc">Engagement duration</div>
+    </div>
+    <div class="cover-stat">
+      <div class="value">6</div>
+      <div class="desc">AWS accounts optimized</div>
+    </div>
+  </div>
+
+  <div class="cover-client">
+    <div>
+      <div class="name">DC Health Link, MA Health Connector & 1 more — via IdeaCrew</div>
+      <div class="role">3 State Health Benefit Exchanges · 6 AWS Accounts</div>
+    </div>
+    <div class="cover-url">cutmyaws.com</div>
+  </div>
+</div>
+
+<!-- ============ PAGE 2: CHALLENGE ============ -->
+<div class="page">
+  <div class="accent-top"></div>
+  <div class="header">
+    <div class="brand">✂️ Cut My AWS</div>
+    <div class="badge">Case Study</div>
+  </div>
+
+  <div class="content">
+    <h2><span class="emoji">🏥</span> The Client</h2>
+    <p><strong style="color: #f3f4f6;">IdeaCrew</strong> was a government consulting firm that built and operated Affordable Care Act health insurance exchanges for multiple states — including <strong style="color: #f3f4f6;">DC Health Link</strong> (District of Columbia) and the <strong style="color: #f3f4f6;">Massachusetts Health Connector</strong>. Across 6 AWS accounts, these platforms serve hundreds of thousands of residents who depend on them to compare, enroll in, and manage health insurance.</p>
+    <p>David Plappert served as <strong style="color:#f3f4f6">DevOps Team Lead</strong> for the full 10-year engagement — responsible for cloud infrastructure, security posture, and cost optimization across all 6 accounts.</p>
+
+    <hr>
+
+    <h2><span class="emoji">⚡</span> The Challenge</h2>
+    <p>Healthcare exchanges run on a different set of rules than typical SaaS. Failure isn't a bad quarter — it's people losing access to healthcare.</p>
+
+    <div class="finding">
+      <div class="icon">📈</div>
+      <div class="text"><strong>Open enrollment traffic spikes of 10-50x</strong> — Every year, a 6-week window drives massive surges. The original monolithic EC2 architecture required over-provisioning year-round to survive these peaks.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">🔒</div>
+      <div class="text"><strong>HIPAA compliance — no exceptions</strong> — Protected health information (PHI) across every layer. Encryption at rest and in transit, access controls, audit logging, vulnerability scanning, and annual security assessments.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">⏰</div>
+      <div class="text"><strong>24/7/365 uptime mandate</strong> — DC residents depend on this system for healthcare access. Downtime isn't a business inconvenience — it's a public service failure that makes the news.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">💰</div>
+      <div class="text"><strong>Taxpayer-funded infrastructure</strong> — Every dollar of cloud spend is public money. Waste isn't just a budget problem — it's an accountability problem.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">🏗️</div>
+      <div class="text"><strong>Legacy monolithic architecture</strong> — The original platform was built on standard EC2 instances — monolithic, always-on, and expensive to scale. As traffic grew, so did the bill.</div>
+    </div>
+
+    <hr>
+
+    <h2><span class="emoji">🧑‍💻</span> David's Role</h2>
+    <p>As DevOps Team Lead for the full engagement, David owned:</p>
+    <ul>
+      <li><strong>Full AWS & Azure infrastructure management</strong> — the go-to expert for all cloud architecture decisions across both platforms</li>
+      <li><strong>Cloud cost optimization</strong> — continuous cost reduction while scaling to meet growing demand and seasonal surges</li>
+      <li><strong>Security & compliance</strong> — HIPAA-compliant infrastructure, IAM policies, encryption, audit logging, and vulnerability management</li>
+      <li><strong>Architecture modernization</strong> — led the migration from monolithic EC2 to microservices on Lambda, ECS, and EKS</li>
+      <li><strong>Data warehouse & BI</strong> — MongoDB BI Connector + Tableau dashboards for leadership and client reporting</li>
+      <li><strong>Automation</strong> — Ruby, Bash, and Node.js tooling that eliminated manual processes across the team</li>
+    </ul>
+
+    <div class="tech-tags">
+      <span class="tech-tag">AWS Lambda</span>
+      <span class="tech-tag">ECS</span>
+      <span class="tech-tag">EKS</span>
+      <span class="tech-tag">EC2</span>
+      <span class="tech-tag">S3</span>
+      <span class="tech-tag">RDS</span>
+      <span class="tech-tag">Azure</span>
+      <span class="tech-tag">MongoDB</span>
+      <span class="tech-tag">Tableau</span>
+      <span class="tech-tag">Ruby</span>
+      <span class="tech-tag">Node.js</span>
+      <span class="tech-tag">CloudFormation</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>DC Health Link Case Study · Page 2</span>
+    <span>cutmyaws.com</span>
+  </div>
+</div>
+
+<!-- ============ PAGE 3: THE MIGRATION ============ -->
+<div class="page">
+  <div class="accent-top"></div>
+  <div class="header">
+    <div class="brand">✂️ Cut My AWS</div>
+    <div class="badge">Case Study</div>
+  </div>
+
+  <div class="content">
+    <h2><span class="emoji">🔧</span> The Migration: EC2 → Microservices</h2>
+    <p>The original DC Health Link infrastructure was built on standard EC2 instances — a monolithic architecture that worked at launch but became increasingly expensive and inflexible as the platform grew.</p>
+
+    <div class="migration-arrow">
+      <div class="before">
+        Monolithic EC2<br>
+        <span style="font-size: 12px; color: #9ca3af;">Always-on, over-provisioned,<br>scaling by adding bigger boxes</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="after">
+        Lambda + ECS + EKS<br>
+        <span style="font-size: 12px; color: #9ca3af;">Event-driven, right-sized,<br>scaling to zero when idle</span>
+      </div>
+    </div>
+
+    <h3>What changed</h3>
+    <div class="finding">
+      <div class="icon">⚡</div>
+      <div class="text"><strong>Event-driven workloads → Lambda</strong> — Background processing, data pipelines, and API endpoints that didn't need to run 24/7 were migrated to serverless. Pay per invocation, not per hour.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">📦</div>
+      <div class="text"><strong>Application services → ECS & EKS</strong> — Core application components were containerized and deployed on managed container services — right-sized, auto-scaling, and efficient.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">📉</div>
+      <div class="text"><strong>Eliminated always-on waste</strong> — Monolithic EC2 instances ran 24/7 whether traffic was flowing or not. Microservices scale to demand — including scaling to zero during off-hours.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">🎯</div>
+      <div class="text"><strong>Open enrollment handled elastically</strong> — Instead of over-provisioning all year for a 6-week surge, the microservices architecture auto-scaled during enrollment and contracted after — no manual intervention.</div>
+    </div>
+
+    <div class="stats-grid" style="margin-top: 28px;">
+      <div class="stat-card">
+        <div class="value">30%</div>
+        <div class="label">Cloud cost reduction</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="value">3</div>
+        <div class="label">Compute platforms (Lambda, ECS, EKS)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">0</div>
+        <div class="label">Always-on idle instances</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2><span class="emoji">🛡️</span> Security & Compliance</h2>
+    <p>A healthcare exchange handling PHI for 100K+ residents requires security that goes far beyond "enable encryption." David managed the full security posture across both cloud platforms:</p>
+
+    <div class="finding">
+      <div class="icon">🔐</div>
+      <div class="text"><strong>HIPAA-compliant architecture</strong> — Encryption at rest (AES-256) and in transit (TLS 1.2+) across every service. No exceptions, no shortcuts.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">👤</div>
+      <div class="text"><strong>Least-privilege IAM</strong> — Fine-grained access controls ensuring every service, developer, and automation had exactly the permissions needed — and nothing more.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">📋</div>
+      <div class="text"><strong>Audit logging & monitoring</strong> — CloudTrail, CloudWatch, and centralized logging for compliance audits, incident response, and real-time alerting.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">🔍</div>
+      <div class="text"><strong>Vulnerability management</strong> — Regular security assessments, patching cadence, and proactive remediation of misconfigurations before they became incidents.</div>
+    </div>
+    <div class="finding">
+      <div class="icon">🚫</div>
+      <div class="text"><strong>No public-facing misconfigurations</strong> — S3 buckets locked down, security groups audited, no accidental public exposure of any resource containing PHI.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>DC Health Link Case Study · Page 3</span>
+    <span>cutmyaws.com</span>
+  </div>
+</div>
+
+<!-- ============ PAGE 4: RESULTS + TESTIMONIAL ============ -->
+<div class="page">
+  <div class="accent-top"></div>
+  <div class="header">
+    <div class="brand">✂️ Cut My AWS</div>
+    <div class="badge">Case Study</div>
+  </div>
+
+  <div class="content">
+    <h2><span class="emoji">📊</span> Results</h2>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="value">30%</div>
+        <div class="label">Cloud cost reduction</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">10 yrs</div>
+        <div class="label">Continuous optimization</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">100K+</div>
+        <div class="label">Residents served</div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="value">24/7</div>
+        <div class="label">Uptime maintained</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">HIPAA</div>
+        <div class="label">Full compliance</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">2 clouds</div>
+        <div class="label">AWS + Azure managed</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2><span class="emoji">💬</span> What Leadership Said</h2>
+
+    <div class="quote">
+      <p>"David helped manage our entire AWS & Azure infrastructure with remarkable skill. He optimized our cloud costs, designed scalable architectures that supported our growing clients' needs. His deep knowledge of AWS services made him our go-to expert for all cloud-related initiatives."</p>
+      <div class="attribution">— VP of DevOps & Cloud, IdeaCrew</div>
+    </div>
+
+    <div class="quote">
+      <p>"David was instrumental in developing and maintaining our data warehouse solutions. He helped create sophisticated data pipelines and visualization dashboards that provided critical business insights to our leadership team. His work directly contributed to data-driven decision making across the organization."</p>
+      <div class="attribution">— VP of DevOps & Cloud, IdeaCrew</div>
+    </div>
+
+    <div class="quote">
+      <p>"David is a natural problem-solver who approaches challenges with creativity and persistence. He communicates technical concepts clearly to non-technical stakeholders and consistently meets project deadlines. David would be an excellent addition to any technical team."</p>
+      <div class="attribution">— VP of DevOps & Cloud, IdeaCrew</div>
+    </div>
+
+    <hr>
+
+    <h2><span class="emoji">🎯</span> The Takeaway</h2>
+    <p style="font-size: 16px; color: #d1d5db; line-height: 1.7;">David spent 10 years doing for DC Health Link what most organizations need done once: finding the mismatch between their cloud infrastructure and their actual business needs — and fixing it.</p>
+    <p style="font-size: 16px; color: #d1d5db; line-height: 1.7;">The same expertise is now available to your organization. One audit. One report. Permanent savings. No 10-year commitment required.</p>
+  </div>
+
+  <div class="footer">
+    <span>DC Health Link Case Study · Page 4</span>
+    <span>cutmyaws.com</span>
+  </div>
+</div>
+
+<!-- ============ PAGE 5: CTA ============ -->
+<div class="page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+  <div class="accent-top"></div>
+  <div class="cover-glow" style="top: 2in; left: 1in;"></div>
+
+  <div style="position: relative; z-index: 1;">
+    <div class="brand" style="font-size: 32px; margin-bottom: 40px;">✂️ Cut My AWS</div>
+
+    <h1 style="font-size: 38px; font-weight: 900; line-height: 1.15; letter-spacing: -1px; margin-bottom: 24px; color: #f3f4f6;">
+      Your AWS bill isn't<br>going to cut itself.
+    </h1>
+
+    <p style="font-size: 18px; color: #9ca3af; max-width: 5in; margin: 0 auto 16px;">
+      The same person who cut 30% from a government healthcare exchange's cloud spend can audit your AWS account in 5-10 business days.
+    </p>
+
+    <p style="font-size: 16px; color: #d1d5db; max-width: 4.5in; margin: 0 auto 40px;">
+      No savings? No fee. You literally cannot lose.
+    </p>
+
+    <div style="background: #f97316; color: white; font-weight: 800; font-size: 18px; padding: 16px 40px; border-radius: 12px; display: inline-block; margin-bottom: 16px;">
+      🗓️ Book Your Free Intro Call
+    </div>
+    <p style="font-size: 14px; color: #6b7280;">cutmyaws.com/book · 15 min · free · no pitch deck</p>
+
+    <hr style="max-width: 3in; margin: 40px auto; border-color: #1f2937;">
+
+    <div style="display: flex; gap: 40px; justify-content: center; margin-top: 20px;">
+      <div>
+        <div style="font-size: 14px; color: #6b7280;">📧 Email</div>
+        <div style="font-size: 14px; color: #f3f4f6;">david@cutmyaws.com</div>
+      </div>
+      <div>
+        <div style="font-size: 14px; color: #6b7280;">🌐 Web</div>
+        <div style="font-size: 14px; color: #f3f4f6;">cutmyaws.com</div>
+      </div>
+      <div>
+        <div style="font-size: 14px; color: #6b7280;">💼 LinkedIn</div>
+        <div style="font-size: 14px; color: #f3f4f6;">in/davidplappert</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

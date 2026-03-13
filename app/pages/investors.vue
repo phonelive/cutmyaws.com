@@ -199,6 +199,11 @@ const faqQuestions = [
       </div>
     </section>
 
+    <!-- Case Studies -->
+    <section>
+      <CaseStudies />
+    </section>
+
     <!-- Common Waste / Usual Suspects -->
     <section class="bg-gray-900">
       <div class="max-w-5xl mx-auto px-6 py-24">

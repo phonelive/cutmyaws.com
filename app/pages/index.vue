@@ -252,6 +252,11 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       </div>
     </section>
 
+    <!-- Case Studies -->
+    <section id="case-studies">
+      <CaseStudies />
+    </section>
+
     <!-- How It Works -->
     <section id="how-it-works">
       <div class="max-w-5xl mx-auto px-6 py-24">
