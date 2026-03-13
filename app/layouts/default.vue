@@ -60,6 +60,7 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
               <p class="text-gray-400 font-semibold mb-3">Work with David</p>
               <ul class="space-y-2 text-gray-500">
                 <li><NuxtLink to="/investors" class="hover:text-gray-300 transition-colors">For Investors</NuxtLink></li>
+                <li><NuxtLink to="/government" class="hover:text-gray-300 transition-colors">For Government</NuxtLink></li>
                 <li><NuxtLink to="/hire" class="hover:text-gray-300 transition-colors">Hire David</NuxtLink></li>
                 <li><NuxtLink to="/referrals" class="hover:text-gray-300 transition-colors">Referral Partners</NuxtLink></li>
               </ul>
