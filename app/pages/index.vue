@@ -167,7 +167,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
             <!-- Headshot -->
             <img src="/david.png" alt="David Plappert" class="w-28 h-28 rounded-full mx-auto mb-5 object-cover object-top border-2 border-gray-700">
             <p class="font-bold text-lg mb-1">David Plappert</p>
-            <p class="text-gray-500 text-sm mb-6">19 years on AWS &middot; Since day one ☕</p>
+            <p class="text-gray-500 text-sm mb-6">19 years on AWS &middot; Since 2007 ☕</p>
 
             <!-- Animated savings ticker -->
             <div class="bg-gray-950 rounded-xl p-5 border border-gray-800 mb-5">
