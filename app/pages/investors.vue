@@ -6,32 +6,56 @@ useHead({
   ],
 })
 
-// Pricing — synced with index.vue (single source of truth)
-const pricing = {
-  depositPct: 1,
-  fixDepositPct: 4,
-  reportPct: 15,
-  implPct: 60,
-  fixPct: 75,
-  securityPct: 10,
-  minAws: 5000,
-  overageRate: 500,
-}
+const { pricing, promoActive, promoDaysLeft, minAwsK, calendly, calculateExample } = usePricing()
 
 // Example: $25K/mo AWS spend, 36% waste found
 const exampleAwsMonthly = 25000
 const exampleWastePct = 36
-const exampleMonthlySavings = Math.round(exampleAwsMonthly * exampleWastePct / 100)
-const exampleAnnualSavings = exampleMonthlySavings * 12
-const exampleFixFee = Math.round(exampleAnnualSavings * pricing.fixPct / 100)
-const exampleKeepYear1 = exampleAnnualSavings - exampleFixFee
-const monthsToRoi = Math.ceil(exampleFixFee / exampleMonthlySavings)
+const ex = calculateExample(exampleAwsMonthly, exampleWastePct)
+const monthsToRoi = ex.monthsToRoi
 
-// Promo: free security scan — mirrors index.vue
-const promoEnd = new Date('2026-04-04T23:59:59')
-const now = new Date()
-const promoActive = now < promoEnd
-const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
+// ── Stats ──
+const stats = [
+  { value: '30–40%', label: 'Average waste per account (yes, really 😳)' },
+  { value: `${monthsToRoi} mo`, label: 'Time to ROI — faster than your next board meeting', color: 'text-green-400' },
+  { value: '19 yrs', label: 'AWS experience — since before it was cool (2007)' },
+]
+
+// ── Value prop cards ──
+const valueProps = [
+  { emoji: '💸', title: 'Pay on results', description: 'No retainer. No hourly. You pay a percentage of verified savings — if I don\'t find waste, you owe nothing. Wild concept for consulting, I know. 🤷' },
+  { emoji: '⏱️', title: `${monthsToRoi}-month ROI`, description: `Most engagements pay for themselves within ${monthsToRoi} months. After that, every dollar saved goes straight to runway. CFOs love this. Investors love it more. 😏` },
+  { emoji: '🔁', title: 'No recurring fees', description: 'I\'m not another SaaS on your portfolio\'s credit card. One engagement, permanent savings. The only thing that recurs is the money your companies keep. Every. Single. Month.' },
+]
+
+// ── Qualifier items ──
+const qualifierItems = [
+  { text: `Spending <span class="text-gray-200 font-semibold">${minAwsK}+/mo</span> on AWS` },
+  { text: 'Engineering team is <span class="text-gray-200 font-semibold">too busy shipping</span> to optimize infra' },
+  { text: 'AWS bill has been <span class="text-gray-200 font-semibold">growing unsupervised</span> since launch' },
+  { text: 'Nobody on the team has <span class="text-gray-200 font-semibold">done a cost audit</span> in the last 12 months' },
+]
+
+// ── Waste sources ──
+const wasteSources = [
+  { emoji: '🖥️', service: 'EC2', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm', savings: '40-70%' },
+  { emoji: '🏗️', service: 'RDS', name: 'A database the size of a school bus for an app with 50 users', savings: '30-60%' },
+  { emoji: '🧘', service: 'EC2', name: 'Instances in a meditative state (they\'re not meditating, they\'re idle)', savings: '20-40%' },
+  { emoji: '💳', service: 'Savings Plans', name: 'AWS literally wants you to buy these but nobody told you', savings: '30-50%' },
+  { emoji: '🦕', service: 'EBS', name: 'Snapshots so old they remember when us-east-1 was the only region', savings: '$100-1K/mo' },
+  { emoji: '🍽️', service: 'NAT GW', name: 'Quietly eating your budget for lunch every single day', savings: '$200-2K/mo' },
+  { emoji: '🐿️', service: 'Architecture', name: 'Built for the pitch deck, not the business you\'re actually running', savings: '20-50%' },
+]
+
+// ── Investor FAQ questions ──
+const faqQuestions = [
+  { emoji: '🤔', question: 'Can you audit multiple portfolio companies?', answer: 'Absolutely. That\'s the whole idea. I can run audits in parallel across your portfolio. Volume discounts available &mdash; email <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a> for bulk pricing. Each company gets its own report, its own findings, its own savings. 📊' },
+  { emoji: '📋', question: 'What does this look like in a board deck?', answer: 'One slide: "We reduced AWS spend by X% across N portfolio companies, saving $Y annually. One-time cost, permanent savings, zero headcount impact." Your LPs will love it. I can even help you draft the slide. 🎯' },
+  { emoji: '🤝', question: 'How do I introduce you to my CTOs?', answer: 'Forward one email. I\'ll take it from there &mdash; 15-minute intro call, I explain the process, they grant read-only access, and 5-10 business days later they have a full report. Zero disruption to their engineering roadmap. The lowest-effort, highest-ROI introduction you\'ll make this quarter. ⌨️' },
+  { emoji: '💰', question: 'What if you don\'t find any savings?', answer: 'Then your portfolio companies have the most optimized AWS accounts I\'ve ever seen. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. No savings = no fee. You literally cannot lose. 🤷' },
+  { emoji: '🔒', question: 'What access do you need?', answer: 'Read-only IAM role. I can look but I literally cannot touch. Your portfolio company\'s team provisions the role, controls it the entire time, and deletes it when we\'re done. I audit infrastructure and architecture, not application data. 👀' },
+  { emoji: '📏', question: 'What size companies benefit most?', answer: `Companies spending ${minAwsK}+/mo on AWS. Below that, there usually isn't enough waste to justify an engagement. The sweet spot is $10K-$100K/mo &mdash; big enough to have real infrastructure, too busy building product to optimize it. 🫡` },
+]
 </script>
 
 <template>
@@ -46,7 +70,7 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
           <div class="flex-1">
             <p class="text-brand-400 text-sm font-bold uppercase tracking-wide mb-3">Every startup I audit wastes 30–40% on AWS</p>
             <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-              Your portfolio is <span class="text-red-400">burning ${{ (exampleMonthlySavings / 1000).toFixed(0) }}K+/mo</span> on AWS nobody audited.
+              Your portfolio is <span class="text-red-400">burning ${{ (ex.monthlySavings / 1000).toFixed(0) }}K+/mo</span> on AWS nobody audited.
             </h1>
             <p class="text-gray-400 text-lg mb-4">
               One engagement. Permanent savings. No savings? <strong class="text-gray-200">No fee.</strong>
@@ -92,25 +116,11 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
       </div>
     </section>
 
+    <!-- Video -->
+    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="investors_intro" />
+
     <!-- Stats -->
-    <section class="bg-gray-900">
-      <div class="max-w-3xl mx-auto px-6 py-12">
-        <div class="grid sm:grid-cols-3 gap-6 text-center">
-          <div>
-            <p class="text-brand-400 text-3xl font-bold">30–40%</p>
-            <p class="text-gray-500 text-sm mt-1">Average waste per account (yes, really 😳)</p>
-          </div>
-          <div>
-            <p class="text-green-400 text-3xl font-bold">{{ monthsToRoi }} mo</p>
-            <p class="text-gray-500 text-sm mt-1">Time to ROI — faster than your next board meeting</p>
-          </div>
-          <div>
-            <p class="text-brand-400 text-3xl font-bold">19 yrs</p>
-            <p class="text-gray-500 text-sm mt-1">AWS experience — since before it was cool (2007)</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <SectionStats :stats="stats" :bg="true" />
 
     <!-- Client Logos (moved up — social proof early) -->
     <section>
@@ -126,19 +136,19 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
         <p class="text-gray-500 text-sm mb-8">${{ (exampleAwsMonthly / 1000).toFixed(0) }}K/mo AWS spend · {{ exampleWastePct }}% waste found</p>
         <div class="grid sm:grid-cols-3 gap-6">
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-green-400 text-3xl font-bold">${{ (exampleAnnualSavings / 1000).toFixed(0) }}K</p>
+            <p class="text-green-400 text-3xl font-bold">${{ (ex.annualSavings / 1000).toFixed(0) }}K</p>
             <p class="text-gray-500 text-sm mt-2">Annual savings found</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-brand-400 text-3xl font-bold">${{ (exampleFixFee / 1000).toFixed(0) }}K</p>
+            <p class="text-brand-400 text-3xl font-bold">${{ (ex.fixFee / 1000).toFixed(0) }}K</p>
             <p class="text-gray-500 text-sm mt-2">Max total fee ({{ pricing.reportPct }}% + {{ pricing.implPct }}%)</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-green-400 text-3xl font-bold">${{ (exampleAnnualSavings / 1000).toFixed(0) }}K</p>
+            <p class="text-green-400 text-3xl font-bold">${{ (ex.annualSavings / 1000).toFixed(0) }}K</p>
             <p class="text-gray-500 text-sm mt-2">Saved every year after — forever 🎉</p>
           </div>
         </div>
-        <p class="text-gray-600 text-xs mt-6">Year 1 net: ${{ (exampleKeepYear1 / 1000).toFixed(0) }}K kept · Year 2+: full ${{ (exampleAnnualSavings / 1000).toFixed(0) }}K/yr goes straight to runway</p>
+        <p class="text-gray-600 text-xs mt-6">Year 1 net: ${{ (ex.fixNet / 1000).toFixed(0) }}K kept · Year 2+: full ${{ (ex.annualSavings / 1000).toFixed(0) }}K/yr goes straight to runway</p>
       </div>
     </section>
 
@@ -168,48 +178,18 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
     <!-- Value props -->
     <section class="bg-gray-900">
       <div class="max-w-3xl mx-auto px-6 py-16">
-        <div class="grid sm:grid-cols-3 gap-6 text-left">
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-2xl mb-2">💸</p>
-            <h3 class="font-bold mb-1">Pay on results</h3>
-            <p class="text-gray-500 text-sm">No retainer. No hourly. You pay a percentage of verified savings — if I don't find waste, you owe nothing. Wild concept for consulting, I know. 🤷</p>
-          </div>
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-2xl mb-2">⏱️</p>
-            <h3 class="font-bold mb-1">{{ monthsToRoi }}-month ROI</h3>
-            <p class="text-gray-500 text-sm">Most engagements pay for themselves within {{ monthsToRoi }} months. After that, every dollar saved goes straight to runway. CFOs love this. Investors love it more. 😏</p>
-          </div>
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-2xl mb-2">🔁</p>
-            <h3 class="font-bold mb-1">No recurring fees</h3>
-            <p class="text-gray-500 text-sm">I'm not another SaaS on your portfolio's credit card. One engagement, permanent savings. The only thing that recurs is the money your companies keep. Every. Single. Month.</p>
-          </div>
-        </div>
+        <ValuePropCards :cards="valueProps" :columns="3" />
       </div>
     </section>
 
     <!-- Qualifier -->
     <section class="max-w-3xl mx-auto px-6 py-16 text-center">
-      <h2 class="text-2xl font-bold mb-2">Your portfolio company is a good fit if… 🎯</h2>
-      <p class="text-gray-500 text-sm mb-8">Not every company needs this. Here's who gets the most value.</p>
-      <div class="grid sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
-        <div class="flex items-start gap-3 bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <span class="text-brand-400 text-lg mt-0.5">✅</span>
-          <p class="text-gray-400 text-sm">Spending <span class="text-gray-200 font-semibold">${{ pricing.minAws / 1000 }}K+/mo</span> on AWS</p>
-        </div>
-        <div class="flex items-start gap-3 bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <span class="text-brand-400 text-lg mt-0.5">✅</span>
-          <p class="text-gray-400 text-sm">Engineering team is <span class="text-gray-200 font-semibold">too busy shipping</span> to optimize infra</p>
-        </div>
-        <div class="flex items-start gap-3 bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <span class="text-brand-400 text-lg mt-0.5">✅</span>
-          <p class="text-gray-400 text-sm">AWS bill has been <span class="text-gray-200 font-semibold">growing unsupervised</span> since launch</p>
-        </div>
-        <div class="flex items-start gap-3 bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <span class="text-brand-400 text-lg mt-0.5">✅</span>
-          <p class="text-gray-400 text-sm">Nobody on the team has <span class="text-gray-200 font-semibold">done a cost audit</span> in the last 12 months</p>
-        </div>
-      </div>
+      <QualifierSection
+        headline="Your portfolio company is a good fit if… 🎯"
+        subheadline="Not every company needs this. Here's who gets the most value."
+        :items="qualifierItems"
+        layout="grid"
+      />
     </section>
 
     <!-- Testimonials -->
@@ -219,48 +199,55 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
       </div>
     </section>
 
-    <!-- Security Promo (if active) -->
-    <section v-if="promoActive" class="max-w-3xl mx-auto px-6 py-12 text-center">
-      <div class="bg-brand-500/10 border border-brand-500/30 rounded-2xl p-8">
-        <p class="text-2xl mb-3">🛡️</p>
-        <h3 class="text-xl font-bold mb-2">FREE Security Audit for Portfolio Companies</h3>
-        <p class="text-gray-400 text-sm mb-2">Normally {{ pricing.securityPct }}% of AWS annual spend. Free for the next {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}.</p>
-        <p class="text-gray-500 text-xs">Misconfigs, public S3 buckets, overprivileged IAM roles — the stuff that keeps CISOs up at night.</p>
+    <!-- Common Waste / Usual Suspects -->
+    <section class="bg-gray-900">
+      <div class="max-w-5xl mx-auto px-6 py-24">
+        <h2 class="text-3xl font-bold mb-2 text-center">🕵️ What I Find in Every Portfolio Company</h2>
+        <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
+        <WasteList :items="wasteSources" />
       </div>
+    </section>
+
+    <!-- Security & Compliance -->
+    <section>
+      <SecuritySection />
+    </section>
+
+    <!-- Security Promo (if active) -->
+    <SecurityPromo />
+
+    <!-- About David -->
+    <section>
+      <AboutSection />
+    </section>
+
+    <!-- FAQ -->
+    <section class="bg-gray-900">
+      <FaqSection
+        headline="❓ Questions investors ask"
+        :questions="faqQuestions"
+      />
     </section>
 
     <!-- Bottom CTA -->
-    <section class="bg-gray-900">
-      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
-        <h2 class="text-2xl font-bold mb-3">Extend runway without cutting headcount.</h2>
-        <p class="text-gray-400 mb-6">
-          One engagement. Permanent savings. Your board deck gets a new slide and your portfolio companies stop lighting money on fire. 📊
-        </p>
-        <NuxtLink
-          to="/book?c=investor-bottom"
-          class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-        >
-          🗓️ Book Your Free Intro Call
-        </NuxtLink>
-        <p class="text-gray-600 text-sm mt-3">
-          Multiple portfolio companies?
-          <a href="mailto:david@cutmyaws.com?subject=Portfolio%20AWS%20Optimization%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AI%20invest%20in%20%5B%23%5D%20companies%20running%20on%20AWS.%20Let's%20talk%20about%20portfolio%20pricing." class="text-brand-400 hover:underline">Email David for bulk pricing</a> — volume discounts available 🧮
-        </p>
-        <p class="text-gray-600 text-sm mt-6">
-          Prefer email? <a href="mailto:david@cutmyaws.com?subject=Portfolio%20AWS%20Optimization%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AI%20invest%20in%20%5B%23%5D%20companies%20running%20on%20AWS.%20Let's%20talk." class="text-brand-400 hover:underline">david@cutmyaws.com</a>
-        </p>
-      </div>
-    </section>
+    <CtaSection
+      headline="Extend runway without cutting headcount."
+      subtext="One engagement. Permanent savings. Your board deck gets a new slide and your portfolio companies stop lighting money on fire. 📊"
+      cta-link="/book?c=investor-bottom"
+    >
+      <p class="text-gray-600 text-sm mt-3">
+        Multiple portfolio companies?
+        <a href="mailto:david@cutmyaws.com?subject=Portfolio%20AWS%20Optimization%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AI%20invest%20in%20%5B%23%5D%20companies%20running%20on%20AWS.%20Let's%20talk%20about%20portfolio%20pricing." class="text-brand-400 hover:underline">Email David for bulk pricing</a> — volume discounts available 🧮
+      </p>
+      <p class="text-gray-600 text-sm mt-6">
+        Prefer email? <a href="mailto:david@cutmyaws.com?subject=Portfolio%20AWS%20Optimization%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AI%20invest%20in%20%5B%23%5D%20companies%20running%20on%20AWS.%20Let's%20talk." class="text-brand-400 hover:underline">david@cutmyaws.com</a>
+      </p>
+    </CtaSection>
 
     <!-- Mobile sticky CTA -->
-    <div class="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-gray-950/95 backdrop-blur-sm border-t border-gray-800 px-4 py-3">
-      <NuxtLink
-        to="/book?c=investor-mobile-sticky"
-        class="block w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-xl text-center transition-colors"
-      >
-        🗓️ Book Free Intro Call
-      </NuxtLink>
-    </div>
+    <MobileStickyCtaBar
+      link="/book?c=investor-mobile-sticky"
+    />
 
   </div>
 </template>

@@ -1,12 +1,6 @@
 <script setup>
 const route = useRoute()
-
-// Promo: free security scan — single source of truth
-const promoEnd = new Date('2026-04-04T23:59:59')
-const now = new Date()
-const promoActive = now < promoEnd
-const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
-const securityPct = 10
+const { promoActive, promoDaysLeft, securityPct } = usePricing()
 
 // Hide book button on booking-related pages
 const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))

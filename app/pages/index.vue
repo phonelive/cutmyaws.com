@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 
-const calendly = (campaign) => `/book?c=${campaign}`
+const { pricing, promoActive, promoDaysLeft, minAwsK, calendly, calculateExample } = usePricing()
+
 
 // ── Mobile sticky CTA visibility ──
 const showMobileCta = ref(false)
@@ -77,19 +78,14 @@ const calcMonthsToRoi = computed(() => {
 const calcFiveYearSavings = computed(() => calcAnnualSavings.value * 5)
 const calcFiveYearNet = computed(() => calcFiveYearSavings.value - calcFixFee.value)
 
-// Promo: free security scan — update this date to extend/end the promo
-const promoEnd = new Date('2026-04-04T23:59:59')
-const now = new Date()
-const promoActive = now < promoEnd
-const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
-
+// ── Stats ──
 const stats = [
   { value: '19 Years', label: '☁️ Of AWS expertise. In production since 2007.' },
   { value: '$100M', label: '💰 Saved & improved across client accounts.' },
   { value: '150', label: '🔍 AWS accounts audited. Zero unsurprised CFOs.' }
 ]
 
-
+// ── Waste sources ──
 const wasteSources = [
   { emoji: '🖥️', service: 'EC2', name: 'Servers running 24/7 for a workload that shows up at 9am and leaves at 5pm', savings: '40-70%' },
   { emoji: '🏗️', service: 'RDS', name: 'A database the size of a school bus for an app with 50 users', savings: '30-60%' },
@@ -100,33 +96,44 @@ const wasteSources = [
   { emoji: '🐿️', service: 'Architecture', name: 'Built for the pitch deck, not the business you\'re actually running', savings: '20-50%' }
 ]
 
-// ── Pricing (change here, updates everywhere) ──
-const pricing = {
-  depositPct: 1,       // Down payment: 1% of AWS annual spend to start (The Report)
-  fixDepositPct: 4,    // Down payment: 4% of AWS annual spend to start (The Fix)
-  reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
-  implPct: 60,         // Implementation portion
-  fixPct: 75,          // The Fix: 75% total (15% report + 60% implementation)
-  securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
-  minAws: 5000,        // We work best with $5K+/mo AWS spend
-  overageRate: 500,    // Hourly rate for out-of-scope work
-}
+// ── Why CutMyAWS cards ──
+const whyCards = [
+  { emoji: '🧑‍💻', title: 'Keep your tech team building value', description: 'Your engineers should be shipping product, not hunting for savings. I dig into your architecture, find the misalignment, and do the one-time cleanup so they don\'t have to. No recurring retainer. No ongoing distraction. Just results. 🚀' },
+  { emoji: '🙅', title: 'Not a dashboard. Not an AI. A human.', description: 'Cloud cost optimization tools show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. Real cloud cost optimization is a person, not a platform. And I only make money when you do. 🤝' },
+  { emoji: '💰', title: 'You don\'t pay until you see results', description: 'This is a one-time commitment, not an ongoing contract. The implementation fee isn\'t due until you\'ve experienced the savings for 90 days. You only pay on realized savings. No savings? No fee. I carry the risk, not you. 🎯' },
+  { emoji: '📉', title: 'Growing ≠ efficient', description: 'Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you\'re paying for infrastructure you forgot existed. That\'s not negligence — that\'s just building a business. Let me clean it up. 🧾' },
+]
+
+// ── Qualifier items ──
+const fitItems = [
+  { emoji: '💰', text: `Spending ${minAwsK}+/mo on AWS` },
+  { emoji: '🕸️', text: 'Nobody\'s looked under the hood in a while' },
+  { emoji: '📈', text: 'Bill keeps growing but you\'re not sure why' },
+  { emoji: '🏗️', text: 'Architecture decisions from 2+ years ago' },
+  { emoji: '🧑‍💻', text: 'Team too busy building to optimize' },
+]
+
+const notFitItems = [
+  { emoji: '💸', text: `Under ${minAwsK}/mo (not enough waste to justify)` },
+  { emoji: '📊', text: 'Looking for a dashboard or SaaS tool' },
+  { emoji: '🔄', text: 'Want ongoing managed services' },
+  { emoji: '☁️', text: 'Azure or GCP only (AWS is my lane)' },
+]
+
+// ── FAQ questions ──
+const faqQuestions = [
+  { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. I\'ll send you a congratulatory email.' },
+  { emoji: '🤨', question: 'When do I actually pay?', answer: `${pricing.depositPct}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. ${pricing.reportPct}% of annualized savings (minus the deposit) is due when The Report is delivered. If you opt for implementation, there's a ${pricing.fixDepositPct}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining ${pricing.implPct}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. 😅` },
+  { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
+  { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
+  { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
+  { emoji: '🤖', question: 'How is this different from tools like CloudHealth or ProsperOps?', answer: 'Those are dashboards that scan your account and show you charts. I\'m a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. I find the structural misalignment between your tech and your business that no tool can see. 😏' },
+]
 
 // ── Example numbers ──
 const exampleBefore = 25000
 const exampleSavings = 9000
-const exampleAnnual = exampleSavings * 12
-const exampleAwsAnnual = exampleBefore * 12
-const depositFee = Math.round(exampleAwsAnnual * pricing.depositPct / 100)
-const reportFee = Math.round(exampleAnnual * pricing.reportPct / 100)
-const reportRemainder = reportFee - depositFee
-const fixDepositFee = Math.round(exampleAwsAnnual * pricing.fixDepositPct / 100)
-const fixFee = Math.round(exampleAnnual * pricing.fixPct / 100)
-const reportNet = exampleAnnual - reportFee
-const fixNet = exampleAnnual - fixFee
-const exampleMonthsToRoi = Math.ceil(fixFee / exampleSavings)
-const exampleThreeYearNet = (exampleAnnual * 3) - fixFee
-const minAwsK = `$${pricing.minAws / 1000}K`
+const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 100)
 </script>
 
 <template>
@@ -196,15 +203,11 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       </div>
     </section>
 
+    <!-- Video -->
+    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="homepage_intro" />
+
     <!-- Stats -->
-    <section id="stats" class="bg-gray-900">
-      <div class="max-w-4xl mx-auto px-6 py-24 grid grid-cols-1 sm:grid-cols-3 gap-12">
-        <div v-for="stat in stats" :key="stat.label" class="text-center px-4">
-          <div class="text-3xl font-bold text-brand-400 mb-2">{{ stat.value }}</div>
-          <div class="text-sm text-gray-400 leading-relaxed">{{ stat.label }}</div>
-        </div>
-      </div>
-    </section>
+    <SectionStats id="stats" :stats="stats" :bg="true" />
 
     <!-- Clients -->
     <section id="clients" class="py-24 px-6">
@@ -214,28 +217,12 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     <!-- Is This For You? -->
     <section id="fit" class="bg-gray-900">
       <div class="max-w-4xl mx-auto px-6 py-24">
-        <h2 class="text-3xl font-bold mb-12 text-center">Is this for you? 🤔</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-8">
-            <h3 class="font-bold text-lg mb-4 text-green-400">Great fit ✅</h3>
-            <ul class="space-y-3 text-gray-400 text-sm">
-              <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">💰</span> Spending {{ minAwsK }}+/mo on AWS</li>
-              <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">🕸️</span> Nobody's looked under the hood in a while</li>
-              <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">📈</span> Bill keeps growing but you're not sure why</li>
-              <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">🏗️</span> Architecture decisions from 2+ years ago</li>
-              <li class="flex items-start gap-2"><span class="text-green-400 mt-0.5">🧑‍💻</span> Team too busy building to optimize</li>
-            </ul>
-          </div>
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-8">
-            <h3 class="font-bold text-lg mb-4 text-gray-500">Not a fit ❌</h3>
-            <ul class="space-y-3 text-gray-500 text-sm">
-              <li class="flex items-start gap-2"><span class="mt-0.5">💸</span> Under {{ minAwsK }}/mo (not enough waste to justify)</li>
-              <li class="flex items-start gap-2"><span class="mt-0.5">📊</span> Looking for a dashboard or SaaS tool</li>
-              <li class="flex items-start gap-2"><span class="mt-0.5">🔄</span> Want ongoing managed services</li>
-              <li class="flex items-start gap-2"><span class="mt-0.5">☁️</span> Azure or GCP only (AWS is my lane)</li>
-            </ul>
-          </div>
-        </div>
+        <QualifierSection
+          headline="Is this for you? 🤔"
+          :items="fitItems"
+          :not-fit-items="notFitItems"
+          layout="dual"
+        />
       </div>
     </section>
 
@@ -243,27 +230,8 @@ const minAwsK = `$${pricing.minAws / 1000}K`
     <section id="why" class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-4 text-center">Why Cut My AWS? 🤔</h2>
       <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Growing cloud spend doesn't mean efficient cloud spend. Cloud cost optimization tools show you charts &mdash; I show you why your tech doesn't match your business. Your revenue grew 40% &mdash; did your AWS bill grow 40% too? Or 80%? 📈</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          <p class="text-2xl mb-3">🧑‍💻</p>
-          <h3 class="text-lg font-bold mb-2">Keep your tech team building value</h3>
-          <p class="text-gray-400">Your engineers should be shipping product, not hunting for savings. I dig into your architecture, find the misalignment, and do the one-time cleanup so they don't have to. No recurring retainer. No ongoing distraction. Just results. 🚀</p>
-        </div>
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          <p class="text-2xl mb-3">🙅</p>
-          <h3 class="text-lg font-bold mb-2">Not a dashboard. Not an AI. A human.</h3>
-          <p class="text-gray-400">Cloud cost optimization tools show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. Real cloud cost optimization is a person, not a platform. And I only make money when you do. 🤝</p>
-        </div>
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          <p class="text-2xl mb-3">💰</p>
-          <h3 class="text-lg font-bold mb-2">You don't pay until you see results</h3>
-          <p class="text-gray-400">This is a one-time commitment, not an ongoing contract. The implementation fee isn't due until you've experienced the savings for 90 days. You only pay on realized savings. No savings? No fee. I carry the risk, not you. 🎯</p>
-        </div>
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          <p class="text-2xl mb-3">📉</p>
-          <h3 class="text-lg font-bold mb-2">Growing ≠ efficient</h3>
-          <p class="text-gray-400">Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you're paying for infrastructure you forgot existed. That's not negligence &mdash; that's just building a business. Let me clean it up. 🧾</p>
-        </div>
+      <div class="max-w-4xl mx-auto">
+        <ValuePropCards :cards="whyCards" :columns="2" />
       </div>
       <!-- Mid-page CTA -->
       <div class="text-center pt-8 pb-0">
@@ -532,7 +500,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <div class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-2 text-center">🧮 Real Math, Fake Company</h2>
       <p class="text-gray-400 text-center mb-2">A ${{ (exampleBefore).toLocaleString() }}/mo SaaS company that swore their AWS was "pretty optimized" 👀</p>
-      <p class="text-brand-400 font-semibold text-center mb-8">One-time fee. Paid from your recurring savings. ~{{ exampleMonthsToRoi }}-month ROI. 🎯</p>
+      <p class="text-brand-400 font-semibold text-center mb-8">One-time fee. Paid from your recurring savings. ~{{ ex.monthsToRoi }}-month ROI. 🎯</p>
 
       <!-- Shared finding -->
       <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8">
@@ -542,7 +510,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         </div>
         <div class="flex justify-between">
           <span class="text-gray-400">💰 Annual savings (just vibing in their account)</span>
-          <span class="font-semibold">${{ exampleAnnual.toLocaleString() }}/yr</span>
+          <span class="font-semibold">${{ ex.annualSavings.toLocaleString() }}/yr</span>
         </div>
       </div>
 
@@ -555,46 +523,46 @@ const minAwsK = `$${pricing.minAws / 1000}K`
               <span class="text-gray-300 font-medium">🗓️ Intro Call</span>
               <span class="text-gray-500 ml-2">Day 1</span>
             </div>
-            <span class="font-semibold">${{ depositFee.toLocaleString() }}</span>
+            <span class="font-semibold">${{ ex.depositFee.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ exampleAwsAnnual.toLocaleString() }} annual AWS spend = ${{ depositFee.toLocaleString() }} (deducted from The Report fee)</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annual AWS spend = ${{ ex.depositFee.toLocaleString() }} (deducted from The Report fee)</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">📋 The Report (45-min call + PDF)</span>
               <span class="text-gray-500 ml-2">~2 weeks</span>
             </div>
-            <span class="font-semibold">${{ reportRemainder.toLocaleString() }}</span>
+            <span class="font-semibold">${{ ex.reportRemainder.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.reportPct }}% of ${{ exampleAnnual.toLocaleString() }} = ${{ reportFee.toLocaleString() }} minus ${{ depositFee.toLocaleString() }} deposit = ${{ reportRemainder.toLocaleString() }}</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.reportPct }}% of ${{ ex.annualSavings.toLocaleString() }} = ${{ ex.reportFee.toLocaleString() }} minus ${{ ex.depositFee.toLocaleString() }} deposit = ${{ ex.reportRemainder.toLocaleString() }}</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">🔧 The Fix Deposit (Implementation Kickoff)</span>
               <span class="text-gray-500 ml-2">~3 weeks</span>
             </div>
-            <span class="font-semibold">${{ fixDepositFee.toLocaleString() }}</span>
+            <span class="font-semibold">${{ ex.fixDepositFee.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.fixDepositPct }}% of ${{ exampleAwsAnnual.toLocaleString() }} annual AWS spend = ${{ fixDepositFee.toLocaleString() }} (deducted from implementation fee)</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.fixDepositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annual AWS spend = ${{ ex.fixDepositFee.toLocaleString() }} (deducted from implementation fee)</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
               <span class="text-gray-500 ml-2">~4-5 months</span>
             </div>
-            <span class="font-semibold">${{ (fixFee - reportFee - fixDepositFee).toLocaleString() }}</span>
+            <span class="font-semibold">${{ (ex.fixFee - ex.reportFee - ex.fixDepositFee).toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.implPct }}% of <strong>verified</strong> savings only, minus ${{ fixDepositFee.toLocaleString() }} deposit already paid. No savings? No charge. 🤙</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.implPct }}% of <strong>verified</strong> savings only, minus ${{ ex.fixDepositFee.toLocaleString() }} deposit already paid. No savings? No charge. 🤙</div>
           <hr class="border-gray-700">
           <div class="flex justify-between text-base">
             <span class="font-bold text-gray-300">Total max ({{ pricing.fixPct }}%)</span>
-            <span class="font-bold">${{ fixFee.toLocaleString() }}</span>
+            <span class="font-bold">${{ ex.fixFee.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">${{ depositFee.toLocaleString() }} + ${{ reportRemainder.toLocaleString() }} + ${{ fixDepositFee.toLocaleString() }} + ${{ (fixFee - reportFee - fixDepositFee).toLocaleString() }} = ${{ fixFee.toLocaleString() }} (deposits deducted from fees)</div>
+          <div class="text-gray-500 text-xs pl-4">${{ ex.depositFee.toLocaleString() }} + ${{ ex.reportRemainder.toLocaleString() }} + ${{ ex.fixDepositFee.toLocaleString() }} + ${{ (ex.fixFee - ex.reportFee - ex.fixDepositFee).toLocaleString() }} = ${{ ex.fixFee.toLocaleString() }} (deposits deducted from fees)</div>
           <div class="flex justify-between text-base">
             <span class="font-bold text-brand-400">🎉 You keep (year 1)</span>
-            <span class="font-bold text-brand-400">${{ fixNet.toLocaleString() }}</span>
+            <span class="font-bold text-brand-400">${{ ex.fixNet.toLocaleString() }}</span>
           </div>
           <div class="flex justify-between text-base">
             <span class="font-bold text-green-400">🚀 You keep (every year after that, forever)</span>
-            <span class="font-bold text-green-400">${{ exampleAnnual.toLocaleString() }}</span>
+            <span class="font-bold text-green-400">${{ ex.annualSavings.toLocaleString() }}</span>
           </div>
         </div>
       </div>
@@ -603,22 +571,22 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         <h3 class="font-bold text-center mb-6">📊 Return on Investment</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           <div>
-            <p class="text-green-400 text-3xl font-bold">{{ exampleMonthsToRoi }} mo</p>
+            <p class="text-green-400 text-3xl font-bold">{{ ex.monthsToRoi }} mo</p>
             <p class="text-gray-400 text-sm mt-1">⏱️ Time to ROI</p>
           </div>
           <div>
-            <p class="text-green-400 text-3xl font-bold">${{ fixNet.toLocaleString() }}</p>
+            <p class="text-green-400 text-3xl font-bold">${{ ex.fixNet.toLocaleString() }}</p>
             <p class="text-gray-400 text-sm mt-1">🎉 Year 1 net savings</p>
           </div>
           <div>
-            <p class="text-green-400 text-3xl font-bold">${{ exampleThreeYearNet.toLocaleString() }}</p>
+            <p class="text-green-400 text-3xl font-bold">${{ ex.threeYearNet.toLocaleString() }}</p>
             <p class="text-gray-400 text-sm mt-1">🚀 3-year net savings</p>
           </div>
         </div>
         <p class="text-gray-500 text-xs text-center mt-4">One-time fee. Every dollar saved after that is yours. Forever. ✂️</p>
       </div>
 
-      <p class="text-gray-500 text-sm text-center mt-6">Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. You keep ${{ reportNet.toLocaleString() }} year one. 💰</p>
+      <p class="text-gray-500 text-sm text-center mt-6">Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. You keep ${{ ex.reportNet.toLocaleString() }} year one. 💰</p>
       </div>
     </section>
 
@@ -627,143 +595,23 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
         <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
-        <div class="max-w-3xl mx-auto space-y-4">
-          <div
-            v-for="item in wasteSources"
-            :key="item.name"
-            class="flex items-center gap-4 bg-gray-950 border border-gray-800 rounded-xl px-5 py-4"
-          >
-            <span class="text-2xl shrink-0">{{ item.emoji }}</span>
-            <span class="bg-brand-500/15 text-brand-400 text-xs font-bold px-2.5 py-1 rounded-md shrink-0 w-24 text-center">{{ item.service }}</span>
-            <span class="text-gray-300 flex-1">{{ item.name }}</span>
-            <span class="text-red-400 font-bold text-sm whitespace-nowrap ml-2">{{ item.savings }}</span>
-          </div>
-        </div>
+        <WasteList :items="wasteSources" />
       </div>
     </section>
 
     <!-- About -->
     <section id="about">
-      <div class="max-w-2xl mx-auto px-6 py-24 text-center">
-        <img src="/david.png" alt="David Plappert" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
-        <a href="https://www.linkedin.com/in/davidplappert/" target="_blank" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-brand-400 transition-colors mb-6">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          Connect with me on LinkedIn
-        </a>
-        <h2 class="text-3xl font-bold mb-6">👋 Who's poking around my AWS account?</h2>
-        <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I'm David Plappert &mdash; an actual human being with 19 years of AWS experience who will personally
-          dig through your account, read your architecture, and understand your business. 🍱 Not an AI-generated summary.
-          Not a dashboard with traffic lights. Not a junior analyst following a checklist. Me. On a call. With opinions. And a mildly aggressive sense of humor.
-        </p>
-        <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I build and run production serverless SaaS at Fortune 100 scale &mdash; Lambda, API Gateway, S3, SES, the whole buffet.
-          I even have a <a href="https://patents.google.com/patent/US11146689" target="_blank" class="text-brand-400 hover:underline">U.S. patent on cloud infrastructure</a> (because apparently I don't spend enough time with AWS already).
-          I know where AWS hides the markup because <strong class="text-gray-200">I've been paying it myself for years.</strong>
-          Most cloud cost optimization tools tell you what you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and I make it <strong class="text-gray-200">not just cheaper, but better.</strong> 🎯
-        </p>
-        <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          Should that EC2 fleet be Lambda functions? (Probably.) Does that RDS instance need to be that big? (It does not.)
-          Is your architecture built for a business model that pivoted two years ago? (Almost certainly.) I ask the questions a dashboard can't. 🤔
-        </p>
-        <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          I only need <strong class="text-gray-200">read-only access</strong> for the scan. 🔒
-          No write permissions. I can look but I can't touch. Think of it as window shopping your infrastructure. Very judgmentally.
-        </p>
-        <p class="text-gray-400 text-lg leading-relaxed mb-4">
-          When I'm not auditing your infrastructure, I'm in the suburbs of Peoria, IL with my wife and two young kids. 🏡
-          The honest truth? I started Cut My AWS because I want to pay off our house and get my family completely debt-free.
-          That's it. No VC funding. No exit strategy. Just a dad who's <strong class="text-gray-200">really good at AWS</strong> and
-          <strong class="text-gray-200">really motivated</strong> to find your savings &mdash; because every dollar I earn pays off my house faster. 😅
-        </p>
-        <p class="text-gray-500 text-base">
-          Yes, "Cut My AWS" is a real business name registered with the state of Florida. No, I will not apologize for it. ✂️
-        </p>
-      </div>
+      <AboutSection />
     </section>
 
     <!-- Security & Compliance -->
     <section id="security" class="bg-gray-900">
-      <div class="max-w-5xl mx-auto px-6 py-24">
-        <h2 class="text-3xl font-bold mb-4 text-center">🔒 Your Data. My Paranoia.</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">I've worked with organizations that handle the most sensitive data in the country. Your AWS account is in good hands. Careful, experienced, slightly paranoid hands. 🫡</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6 text-center">
-            <p class="text-3xl mb-3">🏥</p>
-            <h3 class="font-bold mb-1">HIPAA</h3>
-            <p class="text-gray-500 text-sm">Protected health information? Been there, secured that.</p>
-          </div>
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6 text-center">
-            <p class="text-3xl mb-3">🏛️</p>
-            <h3 class="font-bold mb-1">DC Health Link</h3>
-            <p class="text-gray-500 text-sm">Health exchange data for the nation's capital.</p>
-          </div>
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6 text-center">
-            <p class="text-3xl mb-3">💳</p>
-            <h3 class="font-bold mb-1">PII &amp; eCommerce</h3>
-            <p class="text-gray-500 text-sm">Customer data, payment data, the stuff that keeps you up at night.</p>
-          </div>
-          <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6 text-center">
-            <p class="text-3xl mb-3">📋</p>
-            <h3 class="font-bold mb-1">IRS Pub 1075</h3>
-            <p class="text-gray-500 text-sm">Federal tax information. The government trusted me. You can too.</p>
-          </div>
-        </div>
-        <div class="max-w-2xl mx-auto bg-gray-950 border border-gray-800 rounded-2xl p-8">
-          <h3 class="font-bold mb-4 text-center">🛡️ How access works</h3>
-          <ul class="space-y-3 text-gray-400">
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">✅</span>
-              <span><strong class="text-gray-200">Read-only IAM role</strong> &mdash; scoped policy, your team provisions it. I can look but I literally cannot touch. 👀</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">✅</span>
-              <span><strong class="text-gray-200">No data extraction</strong> &mdash; I audit infrastructure and architecture, not your application data.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">✅</span>
-              <span><strong class="text-gray-200">SOC 2, HIPAA, FedRAMP environments</strong> &mdash; I've worked inside all of them. I know the rules. 🏗️</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-brand-400 mt-0.5">✅</span>
-              <span><strong class="text-gray-200">Access revoked when we're done</strong> &mdash; you control it the entire time. Delete the role and I'm gone.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <SecuritySection />
     </section>
 
     <!-- FAQ -->
     <section id="faq">
-      <div class="max-w-5xl mx-auto px-6 py-24">
-        <h2 class="text-3xl font-bold mb-12 text-center">❓ Questions you're definitely asking right now</h2>
-        <div class="max-w-2xl mx-auto space-y-10">
-          <div>
-            <h3 class="text-lg font-bold mb-3">🤔 What if you don't find any savings?</h3>
-            <p class="text-gray-400">Then you have the most optimized AWS account I've ever seen, and honestly? I'll be impressed. In my career this has happened exactly zero times, but I hear there's a first time for everything. I'll send you a congratulatory email.</p>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold mb-2">🤨 When do I actually pay?</h3>
-            <p class="text-gray-400">{{ pricing.depositPct }}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. {{ pricing.reportPct }}% of annualized savings (minus the deposit) is due when The Report is delivered. If you opt for implementation, there's a {{ pricing.fixDepositPct }}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining {{ pricing.implPct }}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. 😅</p>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold mb-2">🎯 Is this just a cost audit or something more?</h3>
-            <p class="text-gray-400">Way more. Cloud cost optimization tools tell you <em>what</em> you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and that's where the real cloud cost savings live. I'm a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️</p>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold mb-2">📏 What size AWS accounts do you work with?</h3>
-            <p class="text-gray-400">We work best with AWS accounts spending {{ minAwsK }}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡</p>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold mb-2">🧑‍💻 Can't my team just optimize this ourselves?</h3>
-            <p class="text-gray-400">They can try! But cloud cost optimization isn't scanning dashboards for random savings. I'm reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It's the difference between a thermometer and a doctor. 🌡️</p>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold mb-2">🤖 How is this different from tools like CloudHealth or ProsperOps?</h3>
-            <p class="text-gray-400">Those are dashboards that scan your account and show you charts. I'm a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. I find the structural misalignment between your tech and your business that no tool can see. 😏</p>
-          </div>
-        </div>
-      </div>
+      <FaqSection :questions="faqQuestions" />
     </section>
 
     <!-- Final CTA -->
@@ -793,18 +641,12 @@ const minAwsK = `$${pricing.minAws / 1000}K`
       </div>
     </section>
 
-    <!-- Mobile sticky CTA (padding at bottom so content isn't hidden behind it) -->
-    <div v-show="showMobileCta" class="h-16 sm:hidden"></div>
-
-    <!-- Mobile sticky CTA bar -->
-    <div v-show="showMobileCta" class="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-gray-950/95 backdrop-blur-sm border-t border-gray-800 p-3 transition-opacity" :class="showMobileCta ? 'opacity-100' : 'opacity-0'">
-      <NuxtLink
-        to="/book?c=mobile-sticky"
-        class="block w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-xl text-center transition-colors"
-      >
-        🗓️ Book Free Intro Call — 15 min, free
-      </NuxtLink>
-    </div>
+    <!-- Mobile sticky CTA -->
+    <MobileStickyCtaBar
+      link="/book?c=mobile-sticky"
+      text="🗓️ Book Free Intro Call — 15 min, free"
+      :visible="showMobileCta"
+    />
 
   </div>
 </template>
