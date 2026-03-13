@@ -1,65 +1,58 @@
 <script setup>
-const caseStudies = [
-  {
-    title: 'EC2 → Microservices: 30% Cloud Savings Across 3 State Exchanges',
-    client: 'DC Health Link, MA Health Connector & more',
-    industry: 'Government Healthcare (ACA)',
-    stats: [
-      { value: '30%', label: 'Cost reduction' },
-      { value: '6', label: 'AWS accounts' },
-      { value: '10 yrs', label: 'Engagement' },
-    ],
-    tags: ['Lambda', 'ECS', 'EKS', 'HIPAA', 'Microservices'],
-    href: '/case-study-dcgov.html',
-  },
-]
-
-function trackOpen(study) {
+function trackOpen() {
   const { trackEvent } = useTracking()
-  trackEvent('case_study_open', { event_category: 'engagement', event_label: study.title })
+  trackEvent('case_study_open', { event_category: 'engagement', event_label: 'dc-health-link' })
 }
 </script>
 
 <template>
   <div class="max-w-5xl mx-auto px-6 py-24">
-    <h2 class="text-3xl font-bold mb-2 text-center">📋 Case Studies</h2>
-    <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Real engagements. Real savings. Real architecture changes.</p>
+    <h2 class="text-3xl font-bold mb-2 text-center">📋 See It In Action</h2>
+    <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">10 years. 3 state healthcare exchanges. 6 AWS accounts. Here's the full story.</p>
 
-    <div class="max-w-3xl mx-auto space-y-6">
-      <a
-        v-for="study in caseStudies"
-        :key="study.title"
-        :href="study.href"
-        target="_blank"
-        rel="noopener"
-        class="block bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8 hover:border-brand-500 transition-colors group"
-        @click="trackOpen(study)"
-      >
-        <div class="flex items-center justify-between mb-3">
-          <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">{{ study.industry }}</span>
-          <span class="text-gray-600 text-xs group-hover:text-gray-400 transition-colors">Open ↗</span>
-        </div>
+    <a
+      href="/case-study-dcgov.html"
+      target="_blank"
+      rel="noopener"
+      class="block max-w-3xl mx-auto bg-gray-900 border-2 border-gray-800 rounded-2xl overflow-hidden hover:border-brand-500 transition-colors group"
+      @click="trackOpen"
+    >
+      <!-- Top banner -->
+      <div class="bg-brand-500/10 px-6 sm:px-8 py-3 flex items-center justify-between">
+        <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Featured Case Study · Government Healthcare</span>
+        <span class="text-gray-500 text-xs group-hover:text-brand-400 transition-colors">Read the full story ↗</span>
+      </div>
 
-        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-400 transition-colors">{{ study.title }}</h3>
-        <p class="text-gray-500 text-sm mb-4">{{ study.client }}</p>
+      <div class="p-6 sm:p-8">
+        <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-400 transition-colors">EC2 → Microservices: 30% Cloud Savings Across 3 State Exchanges</h3>
+        <p class="text-gray-400 text-sm mb-6">How David led DevOps for DC Health Link, the MA Health Connector, and more — migrating from monolithic EC2 to Lambda, ECS, and EKS while maintaining HIPAA compliance and 24/7 uptime.</p>
 
-        <!-- Stats -->
-        <div class="flex gap-6 mb-4">
-          <div v-for="stat in study.stats" :key="stat.label" class="text-center">
-            <p class="text-green-400 text-xl font-bold">{{ stat.value }}</p>
-            <p class="text-gray-600 text-xs">{{ stat.label }}</p>
+        <!-- Stats row -->
+        <div class="grid grid-cols-3 gap-4 mb-6">
+          <div class="bg-gray-950 border border-gray-800 rounded-xl p-4 text-center">
+            <p class="text-green-400 text-2xl font-bold">30%</p>
+            <p class="text-gray-600 text-xs mt-1">Cost reduction</p>
+          </div>
+          <div class="bg-gray-950 border border-gray-800 rounded-xl p-4 text-center">
+            <p class="text-green-400 text-2xl font-bold">6</p>
+            <p class="text-gray-600 text-xs mt-1">AWS accounts</p>
+          </div>
+          <div class="bg-gray-950 border border-gray-800 rounded-xl p-4 text-center">
+            <p class="text-green-400 text-2xl font-bold">10 yrs</p>
+            <p class="text-gray-600 text-xs mt-1">Engagement</p>
           </div>
         </div>
 
         <!-- Tags -->
         <div class="flex flex-wrap gap-2">
-          <span
-            v-for="tag in study.tags"
-            :key="tag"
-            class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full"
-          >{{ tag }}</span>
+          <span class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full">Lambda</span>
+          <span class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full">ECS</span>
+          <span class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full">EKS</span>
+          <span class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full">HIPAA</span>
+          <span class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full">Microservices</span>
+          <span class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full">Cost Optimization</span>
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
   </div>
 </template>
