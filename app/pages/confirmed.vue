@@ -26,7 +26,15 @@ const shareUrl = encodeURIComponent('https://cutmyaws.com')
 
 onMounted(() => {
   const { trackEvent } = useTracking()
-  trackEvent('booking_confirmed', { event_category: 'conversion', linkedin_conversion_id: 26412858, reddit_event: 'Lead' })
+
+  // Only fire conversion events if we have a real name from Calendly.
+  // This prevents false conversions from direct URL visits or bots.
+  if (firstName.value) {
+    trackEvent('booking_confirmed', { event_category: 'conversion', linkedin_conversion_id: 26412858, reddit_event: 'Lead' })
+  } else {
+    // Still track the page view, but NOT as a conversion
+    trackEvent('confirmed_page_view', { event_category: 'engagement' })
+  }
 })
 </script>
 

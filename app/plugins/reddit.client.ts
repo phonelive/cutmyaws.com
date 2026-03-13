@@ -13,11 +13,6 @@ export default defineNuxtPlugin(() => {
   w.rdt('init', 'a2_inkp2wvyvllm', { optOut: false, useDecimalCurrencyValues: true })
   w.rdt('track', 'PageVisit')
 
-  // Track Calendly link clicks as Lead conversions
-  document.addEventListener('click', (e) => {
-    const link = (e.target as HTMLElement).closest('a[href*="/book"], a[href*="calendly.com"]')
-    if (link) {
-      w.rdt('track', 'Lead')
-    }
-  })
+  // Link clicks are engagement only — real Lead conversion fires on /confirmed with name
+  // (Reddit Lead tracked via useTracking in confirmed.vue)
 })

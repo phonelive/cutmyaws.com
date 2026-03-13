@@ -14,11 +14,6 @@ export default defineNuxtPlugin(() => {
   s.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js'
   document.head.appendChild(s)
 
-  // Track booking link clicks as conversions
-  document.addEventListener('click', (e) => {
-    const link = (e.target as HTMLElement).closest('a[href*="/book"], a[href*="calendly.com"]')
-    if (link) {
-      w.lintrk('track', { conversion_id: 26412858 })
-    }
-  })
+  // Link clicks are engagement only — real conversion fires on /confirmed with name
+  // (LinkedIn conversion tracked via useTracking in confirmed.vue)
 })

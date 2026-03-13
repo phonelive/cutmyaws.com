@@ -17,7 +17,13 @@ const calendlyUrl = `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?
 
 function onCalendlyMessage(e) {
   if (e.data?.event === 'calendly.event_scheduled') {
-    router.push('/confirmed')
+    // Calendly payload includes invitee URI but not name directly.
+    // Pass whatever we can extract to the confirmation page.
+    const payload = e.data?.payload || {}
+    const query = {}
+    if (payload.invitee?.name) query.invitee_full_name = payload.invitee.name
+    if (payload.invitee?.email) query.email = payload.invitee.email
+    router.push({ path: '/confirmed', query })
   }
 }
 

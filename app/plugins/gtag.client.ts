@@ -11,12 +11,12 @@ export default defineNuxtPlugin(() => {
   gtag('config', 'G-ZGPX081LFE')
   gtag('config', 'GT-K8KHLNZJ')
 
-  // Track Calendly link clicks as conversions
+  // Track Calendly link clicks as engagement (not conversion — conversion fires on /confirmed with name)
   document.addEventListener('click', (e) => {
     const link = (e.target as HTMLElement).closest('a[href*="/book"], a[href*="calendly.com"]')
     if (link) {
-      gtag('event', 'manual_event_SUBMIT_LEAD_FORM', {
-        event_category: 'conversion',
+      gtag('event', 'cta_click', {
+        event_category: 'engagement',
         event_label: link.getAttribute('href')
       })
     }
