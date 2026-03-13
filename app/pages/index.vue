@@ -342,7 +342,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
                 <p class="text-gray-500 text-sm">{{ pricing.fixDepositPct }}% deposit at kickoff &middot; {{ pricing.fixPct }}% total max</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-3">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. {{ pricing.fixDepositPct }}% deposit (of AWS annual spend) at kickoff, deducted from the implementation fee. 💪</p>
+            <p class="text-gray-400 mb-3">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. {{ pricing.fixDepositPct }}% deposit (of AWS annual spend) at kickoff, deducted from the implementation fee. Everything follows standard SDLC &mdash; changes go into a dev environment first, get tested, and I work with your team to promote to production. No cowboy deploys. 💪</p>
             <p class="text-gray-500 text-sm">⚠️ Not every Report item may be implementable &mdash; dependencies and constraints happen. You only pay the {{ pricing.implPct }}% on <strong class="text-gray-400">realized, verified savings</strong>.</p>
           </div>
 
