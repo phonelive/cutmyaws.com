@@ -642,6 +642,7 @@ const minAwsK = `$${pricing.minAws / 1000}K`
         </p>
         <p class="text-gray-400 text-lg leading-relaxed mb-4">
           I build and run production serverless SaaS at Fortune 100 scale &mdash; Lambda, API Gateway, S3, SES, the whole buffet.
+          I even have a <a href="https://patents.google.com/patent/US11146689" target="_blank" class="text-brand-400 hover:underline">U.S. patent on cloud infrastructure</a> (because apparently I don't spend enough time with AWS already).
           I know where AWS hides the markup because <strong class="text-gray-200">I've been paying it myself for years.</strong>
           Most cloud cost optimization tools tell you what you're spending. I tell you <em>why</em> your tech doesn't match your business &mdash; and I make it <strong class="text-gray-200">not just cheaper, but better.</strong> 🎯
         </p>
