@@ -37,7 +37,7 @@ onMounted(() => {
   trackEvent('book_page_view', { event_category: 'engagement' })
 
   // Tell Reddit this visitor reached the booking page (mid-funnel signal)
-  if ((window as any).rdt) (window as any).rdt('track', 'ViewContent')
+  if (window.rdt) window.rdt('track', 'ViewContent')
 
   window.addEventListener('message', onCalendlyMessage)
 })
