@@ -44,12 +44,15 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
         <div class="flex flex-col lg:flex-row gap-12 items-center">
           <!-- Left: Text -->
           <div class="flex-1">
+            <p class="text-brand-400 text-sm font-bold uppercase tracking-wide mb-3">Every startup I audit wastes 30–40% on AWS</p>
             <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-              Your portfolio companies are <span class="text-brand-400">overpaying AWS.</span>
+              Your portfolio is <span class="text-red-400">burning ${{ (exampleMonthlySavings / 1000).toFixed(0) }}K+/mo</span> on AWS nobody audited.
             </h1>
-            <p class="text-gray-400 text-lg mb-8">
-              Nobody opened the AWS bill. It's been growing unsupervised since day one.
-              I audit the account, find the waste, and fix it — while their engineering team stays focused on shipping. 🚀
+            <p class="text-gray-400 text-lg mb-4">
+              One engagement. Permanent savings. No savings? <strong class="text-gray-200">No fee.</strong>
+            </p>
+            <p class="text-gray-500 text-base mb-8">
+              I read the architecture, find the mismatch between tech and business, and tell you exactly what to change — while their engineering team stays focused on shipping. 🚀
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
               <NuxtLink
@@ -229,7 +232,7 @@ const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime())
     <!-- Bottom CTA -->
     <section class="bg-gray-900">
       <div class="max-w-3xl mx-auto px-6 py-16 text-center">
-        <h2 class="text-2xl font-bold mb-3">Extend your portfolio's runway — without the uncomfortable headcount conversation.</h2>
+        <h2 class="text-2xl font-bold mb-3">Extend runway without cutting headcount.</h2>
         <p class="text-gray-400 mb-6">
           One engagement. Permanent savings. Your board deck gets a new slide and your portfolio companies stop lighting money on fire. 📊
         </p>
