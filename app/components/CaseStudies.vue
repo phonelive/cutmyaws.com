@@ -38,8 +38,8 @@ function trackOpen() {
             <p class="text-gray-600 text-xs mt-1">AWS accounts</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-xl p-4 text-center">
-            <p class="text-green-400 text-2xl font-bold">10 yrs</p>
-            <p class="text-gray-600 text-xs mt-1">Engagement</p>
+            <p class="text-green-400 text-2xl font-bold">HIPAA</p>
+            <p class="text-gray-600 text-xs mt-1">Full compliance</p>
           </div>
         </div>
 
