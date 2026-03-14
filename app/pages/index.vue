@@ -114,16 +114,16 @@ const fitItems = [
 ]
 
 const notFitItems = [
-  { emoji: '💸', text: `Under ${minAwsK}/mo (not enough waste to justify)` },
-  { emoji: '📊', text: 'Looking for a dashboard or SaaS tool' },
-  { emoji: '🔄', text: 'Want ongoing managed services' },
+  { emoji: '💸', text: `Under ${minAwsK}/mo (but growing fast? let's talk)` },
+  { emoji: '📊', text: 'Looking for a self-serve dashboard (I\'m hands-on)' },
+  { emoji: '🔄', text: 'Want ongoing managed services (this is one-time)' },
   { emoji: '☁️', text: 'Azure or GCP only (AWS is my lane)' },
 ]
 
 // ── FAQ questions ──
 const faqQuestions = [
   { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. I\'ll send you a congratulatory email.' },
-  { emoji: '🤨', question: 'When do I actually pay?', answer: `${pricing.depositPct}% of your AWS annual spend is due at the intro call as a down payment &mdash; it gets deducted from The Report fee. ${pricing.reportPct}% of annualized savings (minus the deposit) is due when The Report is delivered. If you opt for implementation, there's a ${pricing.fixDepositPct}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining ${pricing.implPct}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. 😅` },
+  { emoji: '🤨', question: 'When do I actually pay?', answer: `The intro call is free &mdash; no payment, no commitment. If it's a fit, a ${pricing.depositPct}% deposit (of your AWS annual spend) kicks off the audit &mdash; deducted from The Report fee. ${pricing.reportPct}% of annualized savings (minus the deposit) is due when The Report is delivered. If you opt for implementation, there's a ${pricing.fixDepositPct}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining ${pricing.implPct}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. 😅` },
   { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
   { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
   { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
@@ -163,7 +163,10 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             >
               🗓️ Book Your Free<br class="sm:hidden"> Intro Call
             </a>
-            <p class="text-gray-500 text-sm self-center">15 min &middot; free &middot; no pitch deck 😏</p>
+            <div class="text-gray-500 text-sm self-center">
+              <p class="mb-1">15 min &middot; free &middot; no pitch deck 😏</p>
+              <p class="text-xs text-gray-600">We talk about your AWS setup, I ask a few questions, and you find out if it's worth digging deeper. That's it.</p>
+            </div>
           </div>
           <a href="#how-it-works" class="inline-block text-gray-500 hover:text-gray-400 text-sm mt-6 transition-colors">See how it works ↓</a>
         </div>
@@ -204,6 +207,9 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Video -->
+    <section class="max-w-3xl mx-auto px-6 pt-12 pb-0 text-center">
+      <p class="text-gray-500 text-sm mb-4">👋 60 seconds. No slides. Just David explaining what he does.</p>
+    </section>
     <YouTubeEmbed video-id="ZVUOW87e-Jc" label="homepage_intro" />
 
     <!-- Stats -->
@@ -274,7 +280,8 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
                 <p class="text-gray-500 text-sm">15 min &middot; free</p>
               </div>
             </div>
-            <p class="text-gray-400">We meet, I ask questions about your business, and you <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. If it's a fit, a {{ pricing.depositPct }}% deposit (based on <NuxtLink to="/onboarding/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink>) kicks off the audit &mdash; deducted from The Report fee. 🔍</p>
+            <p class="text-gray-400 mb-3">We meet, I ask questions about your business, and we figure out if there's a fit. No payment. No AWS access. Just a conversation. 🔍</p>
+            <p class="text-gray-500 text-sm">If it's a fit, a {{ pricing.depositPct }}% deposit (based on <NuxtLink to="/onboarding/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink>) kicks off the audit. You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>, and I get to work.</p>
           </div>
 
           <!-- Arrow -->
@@ -324,7 +331,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
               <div>
                 <h3 class="text-lg font-bold">🔧 The Fix</h3>
-                <p class="text-gray-500 text-sm">{{ pricing.fixDepositPct }}% deposit at kickoff &middot; {{ pricing.fixPct }}% total max</p>
+                <p class="text-gray-500 text-sm">{{ pricing.fixDepositPct }}% deposit at kickoff &middot; you keep {{ 100 - pricing.fixPct }}%+ year 1, 100% every year after</p>
               </div>
             </div>
             <p class="text-gray-400 mb-3">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. {{ pricing.fixDepositPct }}% deposit (of AWS annual spend) at kickoff, deducted from the implementation fee. Everything follows standard SDLC &mdash; changes go into a dev environment first, get tested, and I work with your team to promote to production. No cowboy deploys. 💪</p>
@@ -349,7 +356,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         </div>
 
         <!-- Pricing summary -->
-        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">{{ pricing.fixPct }}% total max ({{ pricing.reportPct }}% report + {{ pricing.implPct }}% implementation). Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
+        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixPct }}%+ of savings year 1, and 100% every year after. Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
       </div>
     </section>
 
@@ -528,6 +535,14 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               <span class="text-gray-300 font-medium">🗓️ Intro Call</span>
               <span class="text-gray-500 ml-2">Day 1</span>
             </div>
+            <span class="font-semibold text-green-400">Free</span>
+          </div>
+          <div class="text-gray-500 text-xs pl-4">15 min. No commitment. We figure out if it's a fit.</div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-gray-300 font-medium">💳 Audit Deposit</span>
+              <span class="text-gray-500 ml-2">After intro call</span>
+            </div>
             <span class="font-semibold">${{ ex.depositFee.toLocaleString() }}</span>
           </div>
           <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annual AWS spend = ${{ ex.depositFee.toLocaleString() }} (deducted from The Report fee)</div>
@@ -601,6 +616,15 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ The Usual Suspects</h2>
         <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
         <WasteList :items="wasteSources" />
+        <div class="text-center mt-10">
+          <a
+            :href="calendly('waste-section')"
+            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
+          >
+            🗓️ Find Out What's Hiding in Yours
+          </a>
+          <p class="text-gray-600 text-sm mt-3">15 min. Free. No commitment. 😏</p>
+        </div>
       </div>
     </section>
 
@@ -617,6 +641,15 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     <!-- FAQ -->
     <section id="faq">
       <FaqSection :questions="faqQuestions" />
+      <div class="text-center pb-12">
+        <a
+          :href="calendly('faq')"
+          class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
+        >
+          🗓️ Still Have Questions? Let's Talk
+        </a>
+        <p class="text-gray-600 text-sm mt-3">15 minutes. Free. I'll answer anything. 🤝</p>
+      </div>
     </section>
 
     <!-- Final CTA -->
