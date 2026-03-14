@@ -11,7 +11,7 @@ function trackOpen() {
     <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">10 years. 3 state healthcare exchanges. 6 AWS accounts. Here's the full story.</p>
 
     <a
-      href="/case-study-dcgov.html"
+      href="/case-study-dcgov.pdf"
       target="_blank"
       rel="noopener"
       class="block max-w-3xl mx-auto bg-gray-900 border-2 border-gray-800 rounded-2xl overflow-hidden hover:border-brand-500 transition-colors group"
