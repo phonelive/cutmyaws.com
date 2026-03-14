@@ -149,10 +149,11 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <!-- Left: Text -->
         <div class="flex-1">
           <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Save 25% on your AWS bill in 90 days</p>
-          <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-8">
+          <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             Your AWS bill is a symptom.<br>
             <span class="text-brand-400">I find the cure.</span>
           </h1>
+          <p class="text-lg text-gray-400 mb-8">You pay a % of what I save you. No savings? No fee. 💸</p>
           <div class="flex flex-col items-start gap-3 mb-8">
             <a
               :href="calendly('hero')"
