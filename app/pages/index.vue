@@ -144,19 +144,16 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       <div class="absolute inset-0 bg-gradient-to-br from-brand-500/5 via-transparent to-brand-500/3"></div>
       <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
       <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-500/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
-    <div class="relative max-w-5xl mx-auto px-6 pt-16 pb-16">
-      <div class="flex flex-col lg:flex-row gap-12 items-center">
+    <div class="relative max-w-5xl mx-auto px-6 pt-24 pb-24">
+      <div class="flex flex-col lg:flex-row gap-16 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-4 text-lg">✂️ Save 25% on your AWS bill in 90 days</p>
-          <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
+          <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Save 25% on your AWS bill in 90 days</p>
+          <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-8">
             Your AWS bill is a symptom.<br>
             <span class="text-brand-400">I find the cure.</span>
           </h1>
-          <p class="text-xl text-gray-400 mb-6">
-            I audit your architecture, find 30–40% waste, and fix it. <strong class="text-gray-200">You only pay a % of what I save you.</strong> 💸
-          </p>
-          <div class="flex flex-col items-start gap-3">
+          <div class="flex flex-col items-start gap-3 mb-8">
             <a
               :href="calendly('hero')"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
@@ -165,7 +162,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             </a>
             <p class="text-gray-500 text-sm">15 min &middot; free &middot; no pitch deck 😏</p>
           </div>
-          <a href="#how-it-works" class="inline-block text-gray-500 hover:text-gray-400 text-sm mt-6 transition-colors">See how it works ↓</a>
+          <a href="#how-it-works" class="inline-block text-gray-500 hover:text-gray-400 text-sm transition-colors">See how it works ↓</a>
         </div>
 
         <!-- Right: Visual card -->
