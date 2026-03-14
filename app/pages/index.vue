@@ -163,7 +163,6 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             </a>
             <p class="text-gray-500 text-sm">15 min &middot; free &middot; no pitch deck 😏</p>
           </div>
-          <a href="#how-it-works" class="inline-block text-gray-500 hover:text-gray-400 text-sm transition-colors">See how it works ↓</a>
         </div>
 
         <!-- Right: Visual card -->
