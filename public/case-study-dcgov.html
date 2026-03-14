@@ -33,6 +33,22 @@
     background-size: 32px 32px;
     pointer-events: none;
   }
+  /* Flowing content pages — no forced page breaks */
+  .flow {
+    width: 8.5in;
+    padding: 0.6in 0.85in;
+    position: relative;
+  }
+  .flow::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
   .accent-top {
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -43,7 +59,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5in;
+    margin-bottom: 0.4in;
     position: relative;
     z-index: 1;
   }
@@ -87,45 +103,44 @@
     background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 60%);
     pointer-events: none;
   }
-  h2 { font-size: 26px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.5px; }
+  h2 { font-size: 24px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.5px; page-break-after: avoid; }
   h2 .emoji { margin-right: 8px; }
-  h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; margin-top: 24px; color: #f97316; }
-  p { font-size: 14px; color: #9ca3af; margin-bottom: 12px; }
+  h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; margin-top: 20px; color: #f97316; page-break-after: avoid; }
+  p { font-size: 13.5px; color: #9ca3af; margin-bottom: 10px; }
   .content { position: relative; z-index: 1; }
   .quote {
-    border-left: 4px solid #f97316; padding: 20px 24px;
-    background: rgba(249,115,22,0.05); border-radius: 0 12px 12px 0; margin: 24px 0;
+    border-left: 4px solid #f97316; padding: 16px 20px;
+    background: rgba(249,115,22,0.05); border-radius: 0 12px 12px 0; margin: 16px 0;
+    page-break-inside: avoid;
   }
-  .quote p { font-size: 15px; color: #f3f4f6; font-style: italic; margin-bottom: 8px; line-height: 1.6; }
-  .quote .attribution { font-size: 13px; color: #6b7280; font-style: normal; }
-  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+  .quote p { font-size: 14px; color: #f3f4f6; font-style: italic; margin-bottom: 6px; line-height: 1.6; }
+  .quote .attribution { font-size: 12px; color: #6b7280; font-style: normal; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; page-break-inside: avoid; }
   .stat-card {
     background: #111827; border: 1px solid #1f2937;
-    border-radius: 12px; padding: 20px; text-align: center;
+    border-radius: 12px; padding: 16px; text-align: center;
   }
-  .stat-card .value { font-size: 28px; font-weight: 900; color: #4ade80; }
-  .stat-card .label { font-size: 12px; color: #6b7280; margin-top: 4px; }
+  .stat-card .value { font-size: 26px; font-weight: 900; color: #4ade80; }
+  .stat-card .label { font-size: 11px; color: #6b7280; margin-top: 4px; }
   .stat-card.orange .value { color: #f97316; }
   .finding {
-    display: flex; gap: 12px; padding: 14px 0;
+    display: flex; gap: 12px; padding: 10px 0;
     border-bottom: 1px solid #1f2937;
+    page-break-inside: avoid;
   }
   .finding:last-child { border-bottom: none; }
-  .finding .icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; padding-top: 2px; }
-  .finding .text { font-size: 14px; color: #d1d5db; line-height: 1.5; }
+  .finding .icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; padding-top: 2px; }
+  .finding .text { font-size: 13.5px; color: #d1d5db; line-height: 1.5; }
   .finding .text strong { color: #f3f4f6; }
-  ul { padding-left: 20px; margin-bottom: 12px; }
-  li { font-size: 14px; color: #9ca3af; margin-bottom: 6px; }
+  ul { padding-left: 20px; margin-bottom: 10px; }
+  li { font-size: 13.5px; color: #9ca3af; margin-bottom: 4px; }
   li strong { color: #d1d5db; }
-  hr { border: none; border-top: 1px solid #1f2937; margin: 28px 0; }
-  .footer {
-    position: absolute; bottom: 0.6in; left: 0.85in; right: 0.85in;
-    display: flex; justify-content: space-between; font-size: 11px; color: #4b5563; z-index: 1;
-  }
+  hr { border: none; border-top: 1px solid #1f2937; margin: 22px 0; }
   .migration-arrow {
     display: flex; align-items: center; gap: 16px;
     background: #111827; border: 1px solid #1f2937;
-    border-radius: 12px; padding: 20px 24px; margin: 20px 0;
+    border-radius: 12px; padding: 16px 20px; margin: 16px 0;
+    page-break-inside: avoid;
   }
   .migration-arrow .before {
     font-size: 14px; color: #f87171; font-weight: 600;
@@ -137,13 +152,14 @@
     font-size: 14px; color: #4ade80; font-weight: 600;
   }
   .tech-tags {
-    display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0;
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0;
   }
   .tech-tag {
-    font-size: 12px; font-weight: 600; color: #f97316;
+    font-size: 11px; font-weight: 600; color: #f97316;
     background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3);
-    padding: 4px 12px; border-radius: 6px;
+    padding: 3px 10px; border-radius: 6px;
   }
+  .section-break { page-break-before: always; }
 </style>
 </head>
 <body>
@@ -194,9 +210,8 @@
   </div>
 </div>
 
-<!-- ============ PAGE 2: CHALLENGE ============ -->
-<div class="page">
-  <div class="accent-top"></div>
+<!-- ============ FLOWING CONTENT ============ -->
+<div class="flow">
   <div class="header">
     <div class="brand">✂️ Cut My AWS</div>
     <div class="badge">Case Study</div>
@@ -260,23 +275,9 @@
       <span class="tech-tag">Node.js</span>
       <span class="tech-tag">CloudFormation</span>
     </div>
-  </div>
 
-  <div class="footer">
-    <span>DC Health Link Case Study · Page 2</span>
-    <span>cutmyaws.com</span>
-  </div>
-</div>
+    <hr>
 
-<!-- ============ PAGE 3: THE MIGRATION ============ -->
-<div class="page">
-  <div class="accent-top"></div>
-  <div class="header">
-    <div class="brand">✂️ Cut My AWS</div>
-    <div class="badge">Case Study</div>
-  </div>
-
-  <div class="content">
     <h2><span class="emoji">🔧</span> The Migration: EC2 → Microservices</h2>
     <p>The original DC Health Link infrastructure was built on standard EC2 instances — a monolithic architecture that worked at launch but became increasingly expensive and inflexible as the platform grew.</p>
 
@@ -310,7 +311,7 @@
       <div class="text"><strong>Open enrollment handled elastically</strong> — Instead of over-provisioning all year for a 6-week surge, the microservices architecture auto-scaled during enrollment and contracted after — no manual intervention.</div>
     </div>
 
-    <div class="stats-grid" style="margin-top: 28px;">
+    <div class="stats-grid" style="margin-top: 20px;">
       <div class="stat-card">
         <div class="value">30%</div>
         <div class="label">Cloud cost reduction</div>
@@ -346,23 +347,9 @@
       <div class="icon">🔍</div>
       <div class="text"><strong>Vulnerability management</strong> — Regular security assessments, patching cadence, and proactive remediation of misconfigurations before they became incidents.</div>
     </div>
-  </div>
 
-  <div class="footer">
-    <span>DC Health Link Case Study · Page 3</span>
-    <span>cutmyaws.com</span>
-  </div>
-</div>
+    <hr>
 
-<!-- ============ PAGE 4: RESULTS + TESTIMONIAL ============ -->
-<div class="page">
-  <div class="accent-top"></div>
-  <div class="header">
-    <div class="brand">✂️ Cut My AWS</div>
-    <div class="badge">Case Study</div>
-  </div>
-
-  <div class="content">
     <h2><span class="emoji">📊</span> Results</h2>
 
     <div class="stats-grid">
@@ -417,18 +404,13 @@
     <hr>
 
     <h2><span class="emoji">🎯</span> The Takeaway</h2>
-    <p style="font-size: 16px; color: #d1d5db; line-height: 1.7;">David spent 10 years doing for DC Health Link what most organizations need done once: finding the mismatch between their cloud infrastructure and their actual business needs — and fixing it.</p>
-    <p style="font-size: 16px; color: #d1d5db; line-height: 1.7;">The same expertise is now available to your organization. One audit. One report. Permanent savings. No 10-year commitment required.</p>
-  </div>
-
-  <div class="footer">
-    <span>DC Health Link Case Study · Page 4</span>
-    <span>cutmyaws.com</span>
+    <p style="font-size: 15px; color: #d1d5db; line-height: 1.7;">David spent 10 years doing for DC Health Link what most organizations need done once: finding the mismatch between their cloud infrastructure and their actual business needs — and fixing it.</p>
+    <p style="font-size: 15px; color: #d1d5db; line-height: 1.7;">The same expertise is now available to your organization. One audit. One report. Permanent savings. No 10-year commitment required.</p>
   </div>
 </div>
 
-<!-- ============ PAGE 5: CTA ============ -->
-<div class="page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+<!-- ============ LAST PAGE: CTA ============ -->
+<div class="page section-break" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <div class="accent-top"></div>
   <div class="cover-glow" style="top: 2in; left: 1in;"></div>
 
