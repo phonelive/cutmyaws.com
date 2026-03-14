@@ -49,9 +49,11 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <!-- Header -->
-    <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-6 text-center">
-      <h1 class="text-2xl sm:text-3xl font-bold mb-4">🗓️ Book Your Free Intro Call</h1>
+    <!-- Header with David's profile -->
+    <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-4 text-center">
+      <img src="/david.png" alt="David Plappert" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
+      <h1 class="text-2xl sm:text-3xl font-bold mb-2">🗓️ Book Your Free Intro Call</h1>
+      <p class="text-gray-400 mb-4">with David Plappert · 19 years on AWS</p>
 
       <!-- Trust badges -->
       <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-400">
@@ -60,6 +62,9 @@ onBeforeUnmount(() => {
         <span>✅ No savings = no fee</span>
       </div>
     </div>
+
+    <!-- Video -->
+    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="book_page_intro" />
 
     <!-- Calendly embed -->
     <div
