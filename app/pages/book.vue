@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- Video -->
-    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="book_page_intro" />
+    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="intro" page="book" />
 
     <!-- Calendly embed -->
     <div

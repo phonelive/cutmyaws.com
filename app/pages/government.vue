@@ -126,7 +126,7 @@ const govLogos = [
     </section>
 
     <!-- Video -->
-    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="government_intro" />
+    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="intro" page="government" />
 
     <!-- Stats -->
     <SectionStats :stats="stats" />

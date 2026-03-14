@@ -3,7 +3,8 @@ import { onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   videoId: { type: String, required: true },
-  label: { type: String, default: 'homepage_intro' },
+  label: { type: String, default: 'intro' },  // video name (e.g. intro, demo)
+  page: { type: String, default: 'home' },     // page context (e.g. home, book, investors)
 })
 
 const iframeId = `yt-${props.label}`
@@ -15,10 +16,13 @@ function onStateChange(event) {
   const { trackEvent } = useTracking()
   const YT = window.YT
 
+  // Event format: video_{name}_{page}_{action}
+  const prefix = `video_${props.label}_${props.page}`
+
   if (event.data === YT.PlayerState.PLAYING) {
     if (!firedMilestones.has(0)) {
       firedMilestones.add(0)
-      trackEvent('video_start', { event_category: 'video', event_label: props.label })
+      trackEvent(`${prefix}_play`, { event_category: 'video', event_label: `${props.label}_${props.page}` })
     }
     if (!progressInterval) {
       progressInterval = setInterval(() => {
@@ -27,7 +31,7 @@ function onStateChange(event) {
         for (const milestone of [25, 50, 75]) {
           if (pct >= milestone && !firedMilestones.has(milestone)) {
             firedMilestones.add(milestone)
-            trackEvent(`video_progress_${milestone}`, { event_category: 'video', event_label: props.label })
+            trackEvent(`${prefix}_progress_${milestone}`, { event_category: 'video', event_label: `${props.label}_${props.page}` })
           }
         }
       }, 1000)
@@ -37,7 +41,7 @@ function onStateChange(event) {
   if (event.data === YT.PlayerState.ENDED) {
     if (!firedMilestones.has(100)) {
       firedMilestones.add(100)
-      trackEvent('video_complete', { event_category: 'video', event_label: props.label })
+      trackEvent(`${prefix}_complete`, { event_category: 'video', event_label: `${props.label}_${props.page}` })
     }
     if (progressInterval) {
       clearInterval(progressInterval)

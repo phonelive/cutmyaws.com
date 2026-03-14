@@ -201,7 +201,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Video -->
-    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="homepage_intro" />
+    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="intro" page="home" />
 
     <!-- Stats -->
     <SectionStats id="stats" :stats="stats" />

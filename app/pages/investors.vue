@@ -117,7 +117,7 @@ const faqQuestions = [
     </section>
 
     <!-- Video -->
-    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="investors_intro" />
+    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="intro" page="investors" />
 
     <!-- Stats -->
     <SectionStats :stats="stats" :bg="true" />
