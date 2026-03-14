@@ -201,9 +201,6 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Video -->
-    <div class="max-w-3xl mx-auto px-6 pt-8 text-center">
-      <p class="text-gray-500 text-sm">👋 60 seconds. No slides. Just David.</p>
-    </div>
     <YouTubeEmbed video-id="ZVUOW87e-Jc" label="homepage_intro" />
 
     <!-- Stats -->
