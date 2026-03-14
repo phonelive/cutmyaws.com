@@ -45,7 +45,10 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'canonical', href: 'https://cutmyaws.com' }
+        { rel: 'canonical', href: 'https://cutmyaws.com' },
+        { rel: 'me', href: 'https://www.linkedin.com/in/davidplappert/' },
+        { rel: 'me', href: 'https://www.linkedin.com/company/cut-my-aws/' },
+        { rel: 'me', href: 'https://www.youtube.com/@CutMyAWS' },
       ],
       script: [
         // GA + Clarity loaded via app/plugins/*.client.ts
@@ -70,7 +73,10 @@ export default defineNuxtConfig({
                   jobTitle: 'Senior AWS Serverless Architect',
                   url: 'https://www.linkedin.com/in/davidplappert/',
                   image: 'https://cutmyaws.com/og-image.png',
-                  sameAs: ['https://www.linkedin.com/in/davidplappert/']
+                  sameAs: [
+                    'https://www.linkedin.com/in/davidplappert/',
+                    'https://www.youtube.com/@CutMyAWS'
+                  ]
                 },
                 parentOrganization: {
                   '@type': 'Organization',
@@ -89,7 +95,11 @@ export default defineNuxtConfig({
                 priceRange: '15-75% of verified savings',
                 knowsAbout: ['Cloud Cost Optimization', 'Cloud Cost Optimization Solutions', 'Cloud Cost Optimization Strategies', 'Cloud Cost Savings', 'Amazon Web Services', 'AWS Lambda', 'Serverless Architecture', 'FinOps', 'FinOps Consulting', 'AWS FinOps', 'AWS EC2', 'AWS RDS', 'AWS S3', 'DevOps'],
                 email: 'david@cutmyaws.com',
-                sameAs: ['https://www.linkedin.com/in/davidplappert/']
+                sameAs: [
+                  'https://www.linkedin.com/in/davidplappert/',
+                  'https://www.linkedin.com/company/cut-my-aws/',
+                  'https://www.youtube.com/@CutMyAWS'
+                ]
               },
               {
                 '@type': 'WebPage',
