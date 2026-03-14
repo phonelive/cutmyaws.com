@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
 
     <!-- Calendly embed -->
     <div
-      class="calendly-inline-widget mx-auto h-[1100px] sm:h-[750px]"
+      class="calendly-inline-widget mx-auto h-[1300px] sm:h-[950px]"
       :data-url="calendlyUrl"
       style="min-width: 320px; width: 100%;"
     ></div>
