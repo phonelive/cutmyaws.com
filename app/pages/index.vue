@@ -156,14 +156,14 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           <p class="text-xl text-gray-400 mb-6">
             I audit your architecture, find 30–40% waste, and fix it. <strong class="text-gray-200">You only pay a % of what I save you.</strong> 💸
           </p>
-          <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex flex-col items-start gap-3">
             <a
               :href="calendly('hero')"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
-              🗓️ Book Your Free<br class="sm:hidden"> Intro Call
+              🗓️ Book Your Free Intro Call
             </a>
-            <p class="text-gray-500 text-sm self-center">15 min &middot; free &middot; no pitch deck 😏</p>
+            <p class="text-gray-500 text-sm">15 min &middot; free &middot; no pitch deck 😏</p>
           </div>
           <a href="#how-it-works" class="inline-block text-gray-500 hover:text-gray-400 text-sm mt-6 transition-colors">See how it works ↓</a>
         </div>
