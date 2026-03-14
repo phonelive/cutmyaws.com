@@ -2,6 +2,8 @@
 import { onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+definePageMeta({ layout: 'book' })
+
 useHead({
   title: 'Book Your Free Intro Call — Cut My AWS',
   meta: [
