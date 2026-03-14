@@ -56,11 +56,38 @@ function onStateChange(event) {
       progressInterval = null
     }
   }
+
+  if (event.data === YT.PlayerState.BUFFERING) {
+    trackEvent(`${prefix}_buffer`, { event_category: 'video', event_label: `${props.label}_${props.page}` })
+  }
+}
+
+function onReady() {
+  const { trackEvent } = useTracking()
+  const prefix = `video_${props.label}_${props.page}`
+  trackEvent(`${prefix}_ready`, { event_category: 'video', event_label: `${props.label}_${props.page}` })
+}
+
+function onError(event) {
+  const { trackEvent } = useTracking()
+  const prefix = `video_${props.label}_${props.page}`
+  trackEvent(`${prefix}_error`, { event_category: 'video', event_label: `${props.label}_${props.page}`, value: event.data })
+}
+
+function onPlaybackRateChange(event) {
+  const { trackEvent } = useTracking()
+  const prefix = `video_${props.label}_${props.page}`
+  trackEvent(`${prefix}_speed_change`, { event_category: 'video', event_label: `${props.label}_${props.page}`, value: event.data })
 }
 
 function initPlayer() {
   player = new window.YT.Player(iframeId, {
-    events: { onStateChange },
+    events: {
+      onStateChange,
+      onReady,
+      onError,
+      onPlaybackRateChange,
+    },
   })
 }
 
