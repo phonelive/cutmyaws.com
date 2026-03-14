@@ -13,7 +13,7 @@ const route = useRoute()
 const router = useRouter()
 const campaign = route.query.c || 'book'
 
-const calendlyUrl = `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${campaign}&hide_gdpr_banner=1&background_color=030712&text_color=f3f4f6&primary_color=f97316`
+const calendlyUrl = `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${campaign}&hide_gdpr_banner=1&hide_event_type_details=1&background_color=030712&text_color=f3f4f6&primary_color=f97316`
 
 function onCalendlyMessage(e) {
   if (e.data?.event === 'calendly.event_scheduled') {
