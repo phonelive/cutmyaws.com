@@ -271,10 +271,10 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
               <div>
                 <h3 class="text-lg font-bold">🗓️ Intro Call</h3>
-                <p class="text-gray-500 text-sm">15 min &middot; free &middot; {{ pricing.depositPct }}% deposit to kick off the audit</p>
+                <p class="text-gray-500 text-sm">15 min &middot; free</p>
               </div>
             </div>
-            <p class="text-gray-400">We meet, I ask questions about your business, and you <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. The {{ pricing.depositPct }}% deposit (based on <NuxtLink to="/onboarding/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink>) gets deducted from The Report fee. 🔍</p>
+            <p class="text-gray-400">We meet, I ask questions about your business, and you <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. If it's a fit, a {{ pricing.depositPct }}% deposit (based on <NuxtLink to="/onboarding/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink>) kicks off the audit &mdash; deducted from The Report fee. 🔍</p>
           </div>
 
           <!-- Arrow -->
