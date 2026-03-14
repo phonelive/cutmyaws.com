@@ -148,13 +148,13 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       <div class="flex flex-col lg:flex-row gap-12 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-4 text-lg">💰 I find 30–40% waste hiding in your AWS account</p>
+          <p class="text-brand-400 font-semibold mb-4 text-lg">✂️ Save 25% on your AWS bill in 90 days</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-            Been using AWS for years? 🕸️<br>
-            <span class="text-brand-400">When's the last time you cleaned house?</span>
+            Your AWS bill is a symptom.<br>
+            <span class="text-brand-400">I find the cure.</span>
           </h1>
           <p class="text-xl text-gray-400 mb-6">
-            With 300+ AWS services and years of buildup, I find the waste, fix the aging architecture &mdash; and <strong class="text-gray-200">you only pay a one-time % of what I save you.</strong> 💸
+            I audit your architecture, find 30–40% waste, and fix it. <strong class="text-gray-200">You only pay a % of what I save you.</strong> 💸
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a
@@ -163,10 +163,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             >
               🗓️ Book Your Free<br class="sm:hidden"> Intro Call
             </a>
-            <div class="text-gray-500 text-sm self-center">
-              <p class="mb-1">15 min &middot; free &middot; no pitch deck 😏</p>
-              <p class="text-xs text-gray-600">We talk about your AWS setup, I ask a few questions, and you find out if it's worth digging deeper. That's it.</p>
-            </div>
+            <p class="text-gray-500 text-sm self-center">15 min &middot; free &middot; no pitch deck 😏</p>
           </div>
           <a href="#how-it-works" class="inline-block text-gray-500 hover:text-gray-400 text-sm mt-6 transition-colors">See how it works ↓</a>
         </div>
@@ -207,9 +204,9 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Video -->
-    <section class="max-w-3xl mx-auto px-6 pt-12 pb-0 text-center">
-      <p class="text-gray-500 text-sm mb-4">👋 60 seconds. No slides. Just David explaining what he does.</p>
-    </section>
+    <div class="max-w-3xl mx-auto px-6 pt-8 text-center">
+      <p class="text-gray-500 text-sm">👋 60 seconds. No slides. Just David.</p>
+    </div>
     <YouTubeEmbed video-id="ZVUOW87e-Jc" label="homepage_intro" />
 
     <!-- Stats -->
