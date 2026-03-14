@@ -50,6 +50,7 @@ function onStateChange(event) {
   }
 
   if (event.data === YT.PlayerState.PAUSED) {
+    trackEvent(`${prefix}_pause`, { event_category: 'video', event_label: `${props.label}_${props.page}` })
     if (progressInterval) {
       clearInterval(progressInterval)
       progressInterval = null
