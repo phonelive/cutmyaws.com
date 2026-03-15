@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
     <h2 class="text-3xl font-bold mb-1">🗓️ Book Your Free Intro Call</h2>
     <p class="text-gray-400 mb-3">with David Plappert · 19 years on AWS</p>
     <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-500 mb-6">
-      <span>⚡ Takes 30 seconds</span>
+      <span>⚡ 30 seconds to book</span>
       <span>☕ 15-minute call</span>
       <span>✅ Free</span>
       <span>💰 No savings = no fee</span>
