@@ -81,11 +81,12 @@ const faqQuestions = [
             <div class="flex flex-col sm:flex-row gap-4">
               <a
                 href="#book"
-                class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors text-center"
+                class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-5 sm:px-8 sm:py-4 rounded-xl text-xl sm:text-lg transition-colors text-center w-full sm:w-auto"
               >
                 🗓️ Book Your Free Intro Call
               </a>
-              <p class="text-gray-500 text-sm self-center">15 min · free · no pitch deck 😏</p>
+              <p class="text-brand-400/80 text-xs font-semibold self-center sm:self-start">⚡ Book in 30 seconds</p>
+              <p class="text-gray-500 text-sm self-center sm:self-start">15 min · free · no pitch deck 😏</p>
             </div>
           </div>
 
@@ -114,6 +115,11 @@ const faqQuestions = [
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- Calendly Embed (above the fold) -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="investors" />
     </section>
 
     <!-- Video -->
@@ -177,11 +183,6 @@ const faqQuestions = [
       </div>
     </section>
 
-    <!-- Calendly Embed -->
-    <section id="book-section">
-      <CalendlyEmbed campaign="investors" />
-    </section>
-
     <!-- Value props -->
     <section>
       <div class="max-w-3xl mx-auto px-6 py-16">
@@ -241,6 +242,11 @@ const faqQuestions = [
         headline="❓ Questions investors ask"
         :questions="faqQuestions"
       />
+    </section>
+
+    <!-- Bottom Calendly Embed -->
+    <section>
+      <CalendlyEmbed campaign="investors-bottom" anchor-id="book-bottom" />
     </section>
 
     <!-- Bottom CTA -->

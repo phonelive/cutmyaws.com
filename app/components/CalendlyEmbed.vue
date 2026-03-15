@@ -3,6 +3,7 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
 const props = defineProps({
   campaign: { type: String, default: 'inline' },
+  anchorId: { type: String, default: 'book' },
 })
 
 const router = useRouter()
@@ -29,7 +30,7 @@ onMounted(async () => {
   await nextTick()
 
   // Detect the parent section's computed background color
-  const el = document.getElementById('book')
+  const el = document.getElementById(props.anchorId)
   if (el) {
     const section = el.closest('section')
     if (section) {
@@ -59,7 +60,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div id="book" class="max-w-4xl mx-auto px-6 py-12 text-center">
+  <div :id="anchorId" class="max-w-4xl mx-auto px-6 py-12 text-center">
     <h2 class="text-3xl font-bold mb-2">🗓️ Book Your Free Intro Call</h2>
     <p class="text-gray-400 mb-2">15 minutes with David. No pitch deck. No commitment.</p>
     <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-500 mb-6">
