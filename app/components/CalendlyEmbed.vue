@@ -22,12 +22,16 @@ function onCalendlyMessage(e) {
 }
 
 onMounted(() => {
-  // Only load script once
+  // Delay script load so the inline-widget container is fully rendered
+  // before Calendly's widget.js tries to postMessage into iframes
+  // (fixes "null is not an object" on older iOS Safari)
   if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
-    const script = document.createElement('script')
-    script.src = 'https://assets.calendly.com/assets/external/widget.js'
-    script.async = true
-    document.head.appendChild(script)
+    requestAnimationFrame(() => {
+      const script = document.createElement('script')
+      script.src = 'https://assets.calendly.com/assets/external/widget.js'
+      script.async = true
+      document.head.appendChild(script)
+    })
   }
   window.addEventListener('message', onCalendlyMessage)
 })
