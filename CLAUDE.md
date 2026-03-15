@@ -228,7 +228,7 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | Email | Google Workspace (cutmyaws.com as secondary domain) |
 | Analytics | Google Analytics (`G-ZGPX081LFE`) via client plugin |
 | Heatmaps | Microsoft Clarity (`vr2el2utus`) via client plugin |
-| Booking | Calendly (free intro call) |
+| Booking | Calendly (inline embed on every page via `CalendlyEmbed.vue` component) |
 | Deployment | GitHub Actions → GitHub Pages (auto on push to main) |
 
 ### Key Files
@@ -236,7 +236,8 @@ The site is dark-mode only. All design tokens assume a dark background. Do not a
 | File | Purpose |
 |------|---------|
 | `app/pages/index.vue` | The entire landing page (single page site) |
-| `app/pages/book.vue` | Calendly embed page — all CTAs route here via `/book?c=campaign` |
+| `app/components/CalendlyEmbed.vue` | Reusable Calendly widget — embedded inline on every page with a booking CTA |
+| `app/pages/book.vue` | Legacy Calendly page — kept for backward compat (existing ad links). New traffic uses inline embeds. |
 | `app/pages/investors.vue` | Dedicated investor landing page for ad campaigns (noindex) |
 | `app/pages/give-david-access/index.vue` | Client audit onboarding — grant read-only AWS access (noindex) |
 | `app/pages/calculate-savings/index.vue` | Annualized AWS bill calculator with savings estimates (noindex) |
@@ -632,7 +633,7 @@ Same math, different packaging. Website shows 75% as the all-in max. Marketplace
 
 **Negative keywords (all campaigns):** aws free tier, aws certification, aws training, aws jobs, aws tutorial, aws pricing calculator
 
-#### Campaign 1: CutMyAWS-Investors — $55/day (TOP PERFORMER)
+#### Campaign 1: CutMyAWS-Investors — $40/day (TOP PERFORMER)
 
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search + Search Partners
@@ -921,6 +922,132 @@ npx playwright screenshot --viewport-size="1200,630" --full-page /tmp/og-templat
 
 To regenerate: edit `/tmp/og-template.html` and re-run the command. Requires Playwright with Chromium installed.
 
+## Booking & Conversion Architecture (updated 2026-03-14)
+
+### Inline Calendly Embed (no more /book redirect)
+
+Every page with a booking CTA now has Calendly embedded inline via `CalendlyEmbed.vue`. Users scroll to `#book` instead of navigating to `/book`. This eliminates one click from the funnel.
+
+**Component:** `app/components/CalendlyEmbed.vue`
+- Props: `campaign` (string, for UTM tracking)
+- Loads Calendly widget script (deduplicated — only loads once)
+- Listens for `calendly.event_scheduled` message → extracts invitee name/email → redirects to `/confirmed`
+- Responsive: 1300px height on mobile, 950px on desktop
+
+**Pages with inline Calendly:**
+- Homepage (`campaign="homepage"`) — after How It Works section
+- Investors (`campaign="investors"`) — after How It Works
+- Government (`campaign="government"`) — after How It Works
+- Referrals (`campaign="referral"`) — replaces bottom CTA
+- Hire (`campaign="hire"`) — replaces bottom CTA
+- Agreements (`campaign="agreements"`) — replaces bottom CTA
+- Calculate Savings (`campaign="calculate-savings"`) — at bottom
+
+**All CTAs site-wide** (hero, mid-page, nav, footer, mobile sticky, promo banner) use `href="#book"` for smooth scroll.
+
+**`/book` page is kept** for backward compatibility — existing ad URLs and bookmarks still work.
+
+### Conversion Funnel
+
+```
+Ad impression (Google/Reddit)
+  → Click → Landing page (homepage, /investors, /government)
+    → Scroll to #book (Calendly inline embed)
+      → User selects time + enters info in Calendly
+        → calendly.event_scheduled fires
+          → Redirect to /confirmed?invitee_full_name=...
+            → IF name present: trackEvent('booking_confirmed')
+              → GA4 + Bing UET + LinkedIn (26412858) + Reddit (Lead)
+            → IF no name: trackEvent('confirmed_page_view') (not a conversion)
+```
+
+**Google Ads primary conversion:** `booking_confirmed` (GA4 import, Primary action under Book appointment goal). Old `manual_event_SUBMIT_LEAD_FORM` demoted to Secondary.
+
+## Revenue Model: Path to $1M Profit in 12 Months
+
+### The Math
+
+| Metric | Value |
+|--------|-------|
+| **Target annual profit** | $1,000,000 |
+| **Average client AWS spend** | $25,000/mo ($300K/yr) |
+| **Average waste found** | 30-36% ($90K-$108K/yr savings) |
+| **The Report fee (15%)** | $13,500-$16,200 per client |
+| **The Fix fee (75% total)** | $67,500-$81,000 per client |
+| **Average revenue per full engagement** | ~$75,000 |
+| **Clients needed for $1M (Report + Fix)** | ~14 clients |
+| **Clients needed for $1M (Report only)** | ~67 clients |
+| **Blended (50% convert to Fix)** | ~20 clients |
+
+### Revenue Scenarios
+
+| Scenario | Clients | Report-only | Report + Fix | Revenue |
+|----------|---------|------------|--------------|---------|
+| Conservative | 20 | 10 @ $15K | 10 @ $75K | $900K |
+| Target | 22 | 10 @ $15K | 12 @ $75K | $1.05M |
+| Aggressive | 25 | 10 @ $15K | 15 @ $75K | $1.275M |
+
+### Monthly Cadence to Hit $1M
+
+| Month | Intro Calls | Reports Delivered | Fix Starts | Cumulative Revenue |
+|-------|-------------|-------------------|------------|-------------------|
+| 1-2 | 8-10 | 0 | 0 | $0 (pipeline building) |
+| 3 | 4-5 | 3-4 | 0 | $45K-$60K (report fees) |
+| 4 | 4-5 | 3-4 | 1-2 | $90K-$120K |
+| 5 | 4-5 | 3-4 | 2-3 | $135K-$180K |
+| 6 | 4-5 | 3-4 | 2-3 | $180K-$240K |
+| 7-9 | 4-5/mo | 3-4/mo | 2-3/mo | First Fix fees come due (90 days post-impl) |
+| 10-12 | 4-5/mo | 3-4/mo | 2-3/mo | Fix fees stacking → $800K-$1.2M |
+
+**Key insight:** Fix fees ($52K-$65K per client) don't come due until 90 days after implementation. Revenue is back-loaded — months 7-12 are where the big checks arrive.
+
+### Sales Funnel Targets
+
+```
+Awareness (ads, organic, referrals)
+  → 200-300 website visitors/mo
+    → 8-10 intro calls booked/mo (3-5% conversion rate)
+      → 6-8 qualified (spending $5K+/mo)
+        → 4-5 sign Report ($15K each)
+          → 2-3 convert to Fix ($60K-$75K additional)
+```
+
+### Lead Sources (in priority order)
+
+| Source | Monthly Target | Cost | Notes |
+|--------|---------------|------|-------|
+| **Google Ads** | 4-5 bookings | $70/day ($2,100/mo) | Top performer, $10-15/booking |
+| **Reddit Ads** | 1-2 bookings | $30/day ($900/mo) | Testing conversion objective |
+| **LinkedIn organic** | 1-2 bookings | Free | 2 posts/week, personal profile |
+| **Reddit organic** | 0-1 bookings | Free | Answer AWS cost questions in subreddits |
+| **Referral partners** | 1-2 bookings | Referral fee | `/referrals` page, partner network |
+| **YouTube** | 0-1 bookings | Free | Record exploration calls as case studies |
+| **Word of mouth** | 1-2 bookings | Free | Happy clients refer others |
+
+### Costs
+
+| Item | Monthly | Annual |
+|------|---------|--------|
+| Ad spend | $3,000 | $36,000 |
+| Domain + hosting | $0 | $0 (GitHub Pages) |
+| Google Workspace | $7 | $84 |
+| Calendly | $0 | $0 (free tier) |
+| AWS (audit account) | ~$5 | ~$60 |
+| **Total costs** | **~$3,012** | **~$36,144** |
+| **Target revenue** | **$83,333** | **$1,000,000** |
+| **Target profit margin** | **96%** | — |
+
+### Milestones & Decision Points
+
+| Date | Milestone | Action if not met |
+|------|-----------|-------------------|
+| 2026-03-28 | Reddit ads: at least 1 booking in 2 weeks | Kill Reddit ads, move $30/day to Google |
+| 2026-04-14 | 4+ intro calls booked from ads (total) | Review ad copy, landing pages, targeting |
+| 2026-04-30 | 2+ Reports signed | Validate pricing, review sales process |
+| 2026-06-30 | $100K+ revenue pipeline | On track — continue. Below → pivot strategy |
+| 2026-09-30 | $500K+ revenue (including pending Fix fees) | On track for $1M |
+| 2026-12-31 | $1M revenue | 🎯 |
+
 ## Compact Instructions
 
-When compacting, preserve pricing structure, brand voice rules, key file paths, and ad platform details (account IDs, budgets, conversion tracking flow).
+When compacting, preserve pricing structure, brand voice rules, key file paths, conversion funnel architecture, ad platform details (account IDs, budgets, conversion tracking flow), and $1M revenue model.
