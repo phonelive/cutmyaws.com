@@ -15,6 +15,9 @@ const calendlyUrl = computed(() =>
   `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${props.campaign}&hide_gdpr_banner=1&hide_event_type_details=1&background_color=${bgColor.value}&text_color=f3f4f6&primary_color=f97316`
 )
 
+// Dynamic height — Calendly sends page_height events as the user navigates
+const widgetHeight = ref(null) // null = use CSS default
+
 function onCalendlyMessage(e) {
   if (e.data?.event === 'calendly.event_scheduled') {
     const payload = e.data?.payload || {}
@@ -22,6 +25,13 @@ function onCalendlyMessage(e) {
     if (payload.invitee?.name) query.invitee_full_name = payload.invitee.name
     if (payload.invitee?.email) query.email = payload.invitee.email
     router.push({ path: '/confirmed', query })
+  }
+  // Auto-resize: Calendly posts page_height when content changes
+  if (e.data?.event === 'calendly.page_height') {
+    const height = parseFloat(e.data.payload?.height)
+    if (height && height > 100) {
+      widgetHeight.value = `${height}px`
+    }
   }
 }
 
@@ -69,9 +79,10 @@ onBeforeUnmount(() => {
       <span>✅ No savings = no fee</span>
     </div>
     <div
-      class="calendly-inline-widget mx-auto h-[1300px] sm:h-[950px]"
+      class="calendly-inline-widget mx-auto transition-[height] duration-300"
+      :class="widgetHeight ? '' : 'h-[1300px] sm:h-[950px]'"
+      :style="{ minWidth: '320px', width: '100%', ...(widgetHeight ? { height: widgetHeight } : {}) }"
       :data-url="calendlyUrl"
-      style="min-width: 320px; width: 100%;"
     ></div>
   </div>
 </template>
