@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
 const props = defineProps({
   campaign: { type: String, default: 'inline' },
@@ -7,8 +7,11 @@ const props = defineProps({
 
 const router = useRouter()
 
+// Detect section background to match Calendly widget color
+const bgColor = ref('030712') // default: base dark (odd sections)
+
 const calendlyUrl = computed(() =>
-  `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${props.campaign}&hide_gdpr_banner=1&hide_event_type_details=1&background_color=030712&text_color=f3f4f6&primary_color=f97316`
+  `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${props.campaign}&hide_gdpr_banner=1&hide_event_type_details=1&background_color=${bgColor.value}&text_color=f3f4f6&primary_color=f97316`
 )
 
 function onCalendlyMessage(e) {
@@ -21,10 +24,24 @@ function onCalendlyMessage(e) {
   }
 }
 
-onMounted(() => {
-  // Delay script load so the inline-widget container is fully rendered
-  // before Calendly's widget.js tries to postMessage into iframes
-  // (fixes "null is not an object" on older iOS Safari)
+onMounted(async () => {
+  // Wait for DOM + CSS (nth-child backgrounds) to be applied
+  await nextTick()
+
+  // Detect the parent section's computed background color
+  const el = document.getElementById('book')
+  if (el) {
+    const section = el.closest('section')
+    if (section) {
+      const bg = getComputedStyle(section).backgroundColor
+      // rgb(17, 24, 39) = bg-gray-900 (#111827)
+      if (bg === 'rgb(17, 24, 39)') {
+        bgColor.value = '111827'
+      }
+    }
+  }
+
+  // Load Calendly script after bgColor is set
   if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
     requestAnimationFrame(() => {
       const script = document.createElement('script')
@@ -51,7 +68,7 @@ onBeforeUnmount(() => {
       <span>✅ No savings = no fee</span>
     </div>
     <div
-      class="calendly-inline-widget mx-auto h-[1300px] sm:h-[950px]"
+      class="calendly-inline-widget mx-auto h-[1300px] sm:h-[950px] [&_iframe]:!border-0"
       :data-url="calendlyUrl"
       style="min-width: 320px; width: 100%;"
     ></div>
