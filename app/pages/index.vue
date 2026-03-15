@@ -224,7 +224,8 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     </section>
 
     <!-- Why CutMyAWS -->
-    <section id="why" class="max-w-5xl mx-auto px-6 py-24">
+    <section id="why">
+      <div class="max-w-5xl mx-auto px-6 py-24">
       <h2 class="text-3xl font-bold mb-4 text-center">Why Cut My AWS? 🤔</h2>
       <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Growing cloud spend doesn't mean efficient cloud spend. Cloud cost optimization tools show you charts &mdash; I show you why your tech doesn't match your business. Your revenue grew 40% &mdash; did your AWS bill grow 40% too? Or 80%? 📈</p>
       <div class="max-w-4xl mx-auto">
@@ -239,6 +240,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           🗓️ Book Your Free Intro Call
         </a>
         <p class="text-gray-600 text-sm mt-3">15 minutes. Free. Just math and honest answers. 🧮</p>
+      </div>
       </div>
     </section>
 

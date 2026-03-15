@@ -10,32 +10,34 @@ useHead({
 <template>
   <PageSections>
     <!-- Hero -->
-    <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
-      <div class="flex items-center justify-center gap-4 mb-6">
-        <img src="/david.png" alt="David Plappert" class="w-16 h-16 rounded-full border-2 border-gray-800" />
-        <div class="text-left">
-          <p class="font-bold text-lg">David Plappert</p>
-          <p class="text-gray-500 text-sm">Senior AWS Architect · 19 years</p>
+    <section>
+      <div class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="flex items-center justify-center gap-4 mb-6">
+          <img src="/david.png" alt="David Plappert" class="w-16 h-16 rounded-full border-2 border-gray-800" />
+          <div class="text-left">
+            <p class="font-bold text-lg">David Plappert</p>
+            <p class="text-gray-500 text-sm">Senior AWS Architect · 19 years</p>
+          </div>
         </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">
+          Send me your clients' AWS bills. <span class="text-brand-400">Get paid.</span>
+        </h1>
+        <p class="text-gray-400 text-lg mb-4">
+          You already know which of your clients are bleeding money on AWS.
+          You've seen the invoices. You've heard the complaints. You just don't have time to fix it. 😅
+        </p>
+        <p class="text-gray-400 text-lg mb-8">
+          I do. You make an intro, I handle the rest, and you earn a referral fee for every engagement that closes.
+          Everybody wins — except AWS. 🎯
+        </p>
+        <a
+          href="#book"
+          class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
+        >
+          🗓️ Book a Quick Chat About Referrals
+        </a>
+        <p class="text-gray-600 text-sm mt-3">15 min · no strings · just two people who like money 💰</p>
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">
-        Send me your clients' AWS bills. <span class="text-brand-400">Get paid.</span>
-      </h1>
-      <p class="text-gray-400 text-lg mb-4">
-        You already know which of your clients are bleeding money on AWS.
-        You've seen the invoices. You've heard the complaints. You just don't have time to fix it. 😅
-      </p>
-      <p class="text-gray-400 text-lg mb-8">
-        I do. You make an intro, I handle the rest, and you earn a referral fee for every engagement that closes.
-        Everybody wins — except AWS. 🎯
-      </p>
-      <a
-        href="#book"
-        class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-      >
-        🗓️ Book a Quick Chat About Referrals
-      </a>
-      <p class="text-gray-600 text-sm mt-3">15 min · no strings · just two people who like money 💰</p>
     </section>
 
     <!-- How it works -->
@@ -64,8 +66,9 @@ useHead({
     </section>
 
     <!-- Value props -->
-    <section class="max-w-3xl mx-auto px-6 py-16">
-      <div class="grid sm:grid-cols-3 gap-6 text-left">
+    <section>
+      <div class="max-w-3xl mx-auto px-6 py-16">
+        <div class="grid sm:grid-cols-3 gap-6 text-left">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
           <p class="text-2xl mb-2">✌️</p>
           <h3 class="font-bold mb-1">Stupid easy</h3>
@@ -80,6 +83,7 @@ useHead({
           <p class="text-2xl mb-2">🏆</p>
           <h3 class="font-bold mb-1">Your clients win</h3>
           <p class="text-gray-500 text-sm">They save real money. Their infrastructure gets better. And you're the one who made it happen. That's the kind of referral that gets you a thank-you lunch. 🍔</p>
+        </div>
         </div>
       </div>
     </section>
@@ -110,8 +114,10 @@ useHead({
     </section>
 
     <!-- Social proof -->
-    <section class="max-w-3xl mx-auto px-6 py-12">
-      <ClientLogos />
+    <section>
+      <div class="max-w-3xl mx-auto px-6 py-12">
+        <ClientLogos />
+      </div>
     </section>
 
     <!-- Calendly Embed -->

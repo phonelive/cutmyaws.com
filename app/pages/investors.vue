@@ -153,24 +153,26 @@ const faqQuestions = [
     </section>
 
     <!-- How it works -->
-    <section class="max-w-3xl mx-auto px-6 py-16 text-center">
-      <h2 class="text-2xl font-bold mb-2">How it works for portfolio companies</h2>
-      <p class="text-gray-500 text-sm mb-8">Three steps. Less effort than reading a pitch deck. 📄</p>
-      <div class="grid sm:grid-cols-3 gap-8 text-left">
-        <div>
-          <p class="text-brand-400 text-sm font-bold mb-2">STEP 1</p>
-          <h3 class="font-bold mb-1">You forward one email</h3>
-          <p class="text-gray-500 text-sm">Introduce David to your portfolio company's CTO. That's it. Lowest effort, highest ROI move you'll make this quarter. ⌨️</p>
-        </div>
-        <div>
-          <p class="text-brand-400 text-sm font-bold mb-2">STEP 2</p>
-          <h3 class="font-bold mb-1">David audits the account</h3>
-          <p class="text-gray-500 text-sm">Read-only access, 5–10 business days. Full report: every waste item, dollar amounts, architecture fixes. The kind of due diligence AWS hopes nobody does. 🔍</p>
-        </div>
-        <div>
-          <p class="text-brand-400 text-sm font-bold mb-2">STEP 3</p>
-          <h3 class="font-bold mb-1">Savings hit the P&L</h3>
-          <p class="text-gray-500 text-sm">Your portfolio company keeps the savings forever. One-time fee based on verified savings. No recurring costs. No "enterprise plan." 🎉</p>
+    <section>
+      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
+        <h2 class="text-2xl font-bold mb-2">How it works for portfolio companies</h2>
+        <p class="text-gray-500 text-sm mb-8">Three steps. Less effort than reading a pitch deck. 📄</p>
+        <div class="grid sm:grid-cols-3 gap-8 text-left">
+          <div>
+            <p class="text-brand-400 text-sm font-bold mb-2">STEP 1</p>
+            <h3 class="font-bold mb-1">You forward one email</h3>
+            <p class="text-gray-500 text-sm">Introduce David to your portfolio company's CTO. That's it. Lowest effort, highest ROI move you'll make this quarter. ⌨️</p>
+          </div>
+          <div>
+            <p class="text-brand-400 text-sm font-bold mb-2">STEP 2</p>
+            <h3 class="font-bold mb-1">David audits the account</h3>
+            <p class="text-gray-500 text-sm">Read-only access, 5–10 business days. Full report: every waste item, dollar amounts, architecture fixes. The kind of due diligence AWS hopes nobody does. 🔍</p>
+          </div>
+          <div>
+            <p class="text-brand-400 text-sm font-bold mb-2">STEP 3</p>
+            <h3 class="font-bold mb-1">Savings hit the P&L</h3>
+            <p class="text-gray-500 text-sm">Your portfolio company keeps the savings forever. One-time fee based on verified savings. No recurring costs. No "enterprise plan." 🎉</p>
+          </div>
         </div>
       </div>
     </section>
@@ -188,13 +190,15 @@ const faqQuestions = [
     </section>
 
     <!-- Qualifier -->
-    <section class="max-w-3xl mx-auto px-6 py-16 text-center">
-      <QualifierSection
-        headline="Your portfolio company is a good fit if… 🎯"
-        subheadline="Not every company needs this. Here's who gets the most value."
-        :items="qualifierItems"
-        layout="grid"
-      />
+    <section>
+      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
+        <QualifierSection
+          headline="Your portfolio company is a good fit if… 🎯"
+          subheadline="Not every company needs this. Here's who gets the most value."
+          :items="qualifierItems"
+          layout="grid"
+        />
+      </div>
     </section>
 
     <!-- Testimonials -->

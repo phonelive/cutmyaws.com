@@ -10,14 +10,15 @@ useHead({
 <template>
   <PageSections>
     <!-- Hero -->
-    <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
-      <div class="flex items-center justify-center gap-4 mb-6">
-        <img src="/david.png" alt="David Plappert" class="w-16 h-16 rounded-full border-2 border-gray-800" />
-        <div class="text-left">
-          <p class="font-bold text-lg">David Plappert</p>
-          <p class="text-gray-500 text-sm">Senior AWS Serverless Architect · 19 years</p>
+    <section>
+      <div class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="flex items-center justify-center gap-4 mb-6">
+          <img src="/david.png" alt="David Plappert" class="w-16 h-16 rounded-full border-2 border-gray-800" />
+          <div class="text-left">
+            <p class="font-bold text-lg">David Plappert</p>
+            <p class="text-gray-500 text-sm">Senior AWS Serverless Architect · 19 years</p>
+          </div>
         </div>
-      </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">
         Hire someone who <span class="text-brand-400">ships</span>, not someone who bills hours. 🚀
       </h1>
@@ -35,6 +36,7 @@ useHead({
         📧 Email David to start a conversation
       </a>
       <p class="text-gray-600 text-sm mt-3">david@cutmyaws.com — I respond fast ⚡</p>
+      </div>
     </section>
 
     <!-- What I do -->
@@ -68,7 +70,8 @@ useHead({
     </section>
 
     <!-- Why hire me -->
-    <section class="max-w-3xl mx-auto px-6 py-16 text-center">
+    <section>
+      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
       <h2 class="text-2xl font-bold mb-2">Why hire me 🤔</h2>
       <p class="text-gray-500 text-sm mb-8">The short version. I'll spare you the origin story.</p>
       <div class="grid sm:grid-cols-2 gap-6 text-left">
@@ -100,6 +103,7 @@ useHead({
             <p class="text-gray-500 text-sm">Not a PowerPoint consultant. Not a "let me loop in my team" consultant. I do the work. I push the code. I make the thing go live. Radical concept, I know. 😅</p>
           </div>
         </div>
+      </div>
       </div>
     </section>
 
