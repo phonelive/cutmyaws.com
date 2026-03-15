@@ -68,9 +68,17 @@ onBeforeUnmount(() => {
       <span>✅ No savings = no fee</span>
     </div>
     <div
-      class="calendly-inline-widget mx-auto h-[1300px] sm:h-[950px] [&_iframe]:!border-0"
+      class="calendly-inline-widget mx-auto h-[1300px] sm:h-[950px]"
       :data-url="calendlyUrl"
       style="min-width: 320px; width: 100%;"
     ></div>
   </div>
 </template>
+
+<style>
+.calendly-inline-widget iframe {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+</style>
