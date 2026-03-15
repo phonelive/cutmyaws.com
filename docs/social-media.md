@@ -7,6 +7,7 @@
 - Experience section: CutMyAWS listed as role under Smart Talk LLC
 - Content types: educational tips, story/opinion, case studies
 - No company page needed — personal posts get 10x engagement
+- **Outbound automation:** [Botdog](https://botdog.co) — automated LinkedIn sequences (visit profile → send invite → follow-up message if accepted → withdraw if not). Scales outbound DMs to CTOs/VPs Eng at Series B+ startups spending $5K+/mo on AWS.
 
 ## Content Bank (first month)
 
@@ -23,11 +24,11 @@
 
 | Platform | Status | Notes |
 |----------|--------|-------|
-| LinkedIn (company page + ads) | **Active** | Company page + paid ads ($45/day total: $15 general + $30 investors) |
-| LinkedIn (personal) | **Active** | Primary organic channel |
-| Reddit (u/cutmyaws) | **Active** | Organic answers + paid ads ($30/day: $15 general + $15 investors), pixel: a2_inkp2wvyvllm |
-| Google Ads | **Active** | Search ads ($30/day: CutMyAWS-V2 + CutMyAWS-Investors) |
-| Bing/Microsoft Ads | **Active** | Import Google campaign ($10/day) |
+| LinkedIn (personal) | **Active** | Primary organic channel + Botdog outbound automation |
+| LinkedIn (company page + ads) | **Paused** | All LinkedIn ads paused (account 525710547) |
+| Google Ads | **Active** | $70/day: Investors $45, Serverless $15, V2 $10. 4 campaigns paused. |
+| Reddit (u/cutmyaws) | **Active (testing)** | $30/day across 3 conversion campaigns. 0 bookings. Kill deadline: 2026-03-28. |
+| Bing/Microsoft Ads | **Not working** | Account G145R2VD |
 | YouTube (@CutMyAWS) | **Active** | Channel live, record exploration calls as case studies |
 | Dev.to / Hashnode | Future | Technical deep-dives for SEO |
 | Twitter/X | Maybe later | DevOps community exists but slower |

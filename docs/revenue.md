@@ -51,9 +51,10 @@ Awareness (ads, organic, referrals)
 
 | Source | Monthly Target | Cost | Notes |
 |--------|---------------|------|-------|
-| **Google Ads** | 4-5 bookings | $70/day ($2,100/mo) | Top performer, $10-15/booking |
-| **Reddit Ads** | 1-2 bookings | $30/day ($900/mo) | Testing conversion objective |
+| **Google Ads** | 4-6 bookings | $70/day ($2,100/mo) | Top performer. 3 active campaigns (Investors, Serverless, V2) |
+| **LinkedIn outbound (Botdog)** | 2-3 bookings | Botdog subscription | Automated sequences to CTOs/VPs Eng at $5K+/mo AWS spenders |
 | **LinkedIn organic** | 1-2 bookings | Free | 2 posts/week, personal profile |
+| **Reddit Ads** | 1-2 bookings | $30/day ($900/mo) | Testing conversion objective. Kill deadline: 2026-03-28 |
 | **Reddit organic** | 0-1 bookings | Free | Answer AWS cost questions in subreddits |
 | **Referral partners** | 1-2 bookings | Referral fee | `/referrals` page, partner network |
 | **YouTube** | 0-1 bookings | Free | Record exploration calls as case studies |
