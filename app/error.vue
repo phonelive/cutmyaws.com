@@ -48,7 +48,7 @@ const handleError = () => clearError({ redirect: '/' })
             ← Back to home
           </button>
           <a
-            href="/book?c=404"
+            href="/#book"
             class="text-brand-400 hover:text-brand-300 font-semibold px-6 py-3 transition-colors"
           >
             🗓️ Book a call instead

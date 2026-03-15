@@ -626,17 +626,9 @@ const meetings = [
       </div>
     </section>
 
-    <!-- ═══ Bottom CTA ═══ -->
-    <div class="max-w-3xl mx-auto px-6 py-16 text-center">
-      <h2 class="text-2xl font-bold mb-3">Ready to get started?</h2>
-      <p class="text-gray-400 mb-6">Book a free 15-minute intro call. No commitment. No pitch deck. Just a conversation about your AWS bill.</p>
-      <NuxtLink
-        to="/book?c=agreements-bottom"
-        class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-      >
-        🗓️ Book Your Free Intro Call
-      </NuxtLink>
-      <p class="text-gray-600 text-sm mt-3">Questions? <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a></p>
-    </div>
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="agreements" />
+    </section>
   </div>
 </template>

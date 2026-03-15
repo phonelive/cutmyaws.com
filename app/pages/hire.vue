@@ -110,28 +110,9 @@ useHead({
       </div>
     </section>
 
-    <!-- Bottom CTA -->
-    <section class="max-w-3xl mx-auto px-6 py-16 text-center">
-      <h2 class="text-2xl font-bold mb-3">Let's build something that doesn't need to be fixed later. 🔧</h2>
-      <p class="text-gray-400 mb-8">
-        Tell me what you're working on. I'll tell you if I can help — and if I can't, I'll tell you that too.
-        No sales pitch. No 47-email nurture sequence. Just a conversation. 🤝
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a
-          href="mailto:david@cutmyaws.com?subject=Custom%20Engagement%20%F0%9F%9A%80&body=Hey%20David%2C%0A%0AI%20need%20help%20with%20%5Bdescribe%20your%20project%5D.%20Let's%20talk."
-          class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-        >
-          📧 Email David
-        </a>
-        <NuxtLink
-          to="/book?c=hire"
-          class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors border border-gray-700"
-        >
-          🗓️ Or book a quick intro call
-        </NuxtLink>
-      </div>
-      <p class="text-gray-600 text-sm mt-4">david@cutmyaws.com — I respond fast ⚡</p>
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="hire" />
     </section>
 
   </div>

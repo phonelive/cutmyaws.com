@@ -29,12 +29,12 @@ useHead({
         I do. You make an intro, I handle the rest, and you earn a referral fee for every engagement that closes.
         Everybody wins — except AWS. 🎯
       </p>
-      <NuxtLink
-        to="/book?c=referral-hero"
+      <a
+        href="#book"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
       >
         🗓️ Book a Quick Chat About Referrals
-      </NuxtLink>
+      </a>
       <p class="text-gray-600 text-sm mt-3">15 min · no strings · just two people who like money 💰</p>
     </section>
 
@@ -114,29 +114,9 @@ useHead({
       <ClientLogos />
     </section>
 
-    <!-- Bottom CTA -->
-    <section class="bg-gray-900">
-      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
-        <h2 class="text-2xl font-bold mb-3">Let's set up your referral partnership. 🤝</h2>
-        <p class="text-gray-400 mb-8">
-          Quick call to get on the same page — who your clients are, how intros work, and what you earn.
-          No paperwork on this call. Just a conversation.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <NuxtLink
-            to="/book?c=referral"
-            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
-          >
-            🗓️ Book a Quick Chat About Referrals
-          </NuxtLink>
-          <a
-            href="mailto:david@cutmyaws.com?subject=Referral%20Partnership%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AI%20run%20%5Bcompany%5D%20and%20have%20clients%20on%20AWS.%20Let's%20talk%20referrals."
-            class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors border border-gray-700"
-          >
-            📧 david@cutmyaws.com
-          </a>
-        </div>
-      </div>
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="referral" />
     </section>
 
   </div>

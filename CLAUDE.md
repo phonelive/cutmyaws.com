@@ -610,39 +610,42 @@ Same math, different packaging. Website shows 75% as the all-in max. Marketplace
 
 ## Paid Advertising
 
-### Budget: $100/day total (as of 2026-03-14)
+### Budget: $100/day total (revised 2026-03-14)
 
 | Platform | Campaigns | Daily Budget | Status |
 |----------|-----------|-------------|--------|
-| Google Ads (120-353-4001) | 7 campaigns | $55/day | **Active** |
-| Reddit Ads (u/cutmyaws) | 5 campaigns | $45/day | **Active** |
+| Google Ads (120-353-4001) | 7 campaigns | **$70/day** | **Active** |
+| Reddit Ads (u/cutmyaws) | 3 campaigns | **$30/day** | **Active** |
 | Bing/Microsoft Ads (G145R2VD) | CutMyAWS-V2 | $0/day | **Not working** |
 | LinkedIn Ads (525710547) | 2 campaigns | $0/day | **All paused** |
+
+**Strategy (2026-03-14):** All campaigns use conversion objective (not clicks/traffic). Google Investors is top performer. Reddit testing 3 campaigns at $10/day each with conversion objective — evaluate by 2026-03-28. If no bookings, kill Reddit and move $30/day to Google.
 
 ### Google Ads
 
 **Account:** Cut My AWS (120-353-4001), david@phonelive.io
 **Google Tag:** GT-K8KHLNZJ (configured in `app/plugins/gtag.client.ts`)
-**Conversion:** GA4-imported event `manual_event_SUBMIT_LEAD_FORM`
+**Conversion:** GA4-imported `booking_confirmed` event (Primary, fires on /confirmed with name param). Old `manual_event_SUBMIT_LEAD_FORM` demoted to Secondary (click-based only).
 **Promo:** $500 spend-match credit (applied)
 
 **RSA Character Limits:** Headlines ≤ 30 chars, Descriptions ≤ 90 chars, Paths ≤ 15 chars each
 
 **Negative keywords (all campaigns):** aws free tier, aws certification, aws training, aws jobs, aws tutorial, aws pricing calculator
 
-#### Campaign 1: CutMyAWS-Investors — $20/day (TOP PERFORMER)
+#### Campaign 1: CutMyAWS-Investors — $55/day (TOP PERFORMER)
 
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search + Search Partners
 - **Landing:** `cutmyaws.com/investors`
-- **Performance (Mar 11-14):** 25 clicks, 300 impr, **8.33% CTR**, $1.29 CPC, **3 conversions, 12% conv rate**
+- **Performance (Mar 11-14):** 25 clicks, 300 impr, **8.33% CTR**, $1.29 CPC, 3 click-conversions (old metric — Calendly link clicks, not actual bookings), ~1 real booking
+- **Note:** Conversion tracking fixed 2026-03-14 — now uses `booking_confirmed` (actual Calendly completion with name) instead of link clicks
 - **54 keywords** (Broad): cloud optimization tools, aws cost review, optimizing cloud spend, aws waste, cost optimization cloud, cloud optimisation, aws overspending, cloud cost optimization, reduce cloud costs, cut aws bill, aws cost savings, cloud spend optimization, aws finops, lower aws bill, aws cost audit, aws cost optimization, aws consulting, finops consulting, cloud cost audit, reduce aws bill, + 34 more
 - **Headlines:** Cut Your AWS Bill by 30-40% | No Savings = No Fee | Free 15-Min Intro Call | 19 Years of AWS Experience | Pay Only on Verified Savings | AWS Cost Audit for Startups | 9-Month ROI on Average | Not a Dashboard. A Real Human. | Stop Overpaying AWS | No Retainer. No Hourly. | Extend Your Startup's Runway | Free Security Audit Included | Trusted by Caterpillar & PBS | AWS Cost Optimization Expert
 - **Descriptions:** We find 30-40% AWS waste on average. Pay only on verified savings. Free intro call. | 19 years of AWS experience. A real architect, not a dashboard. Free 15-min call. | Your startups are overpaying AWS. One engagement, permanent savings. No retainer. | Cut your AWS bill without slowing dev teams. No commitment. Results-based pricing.
 
-#### Campaign 2: CutMyAWS-V2 — $10/day
+#### Campaign 2: CutMyAWS-V2 — $5/day
 
-- **Bid Strategy:** Maximize clicks
+- **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com`
 - **Performance (Mar 11-14):** 3 clicks, 155 impr, 1.94% CTR, $5.61 CPC
@@ -654,7 +657,7 @@ Same math, different packaging. Website shows 75% as the all-in max. Marketplace
 #### Campaign 3: CutMyAWS-Symptom — $5/day (NEW 2026-03-14)
 
 - **Angle:** Problem awareness — "your bill is a symptom"
-- **Bid Strategy:** Maximize clicks
+- **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-symptom`
 - **Path:** aws / audit
@@ -665,7 +668,7 @@ Same math, different packaging. Website shows 75% as the all-in max. Marketplace
 #### Campaign 4: CutMyAWS-25pct — $5/day (NEW 2026-03-14)
 
 - **Angle:** Hard number + risk reversal — "save 25% in 90 days"
-- **Bid Strategy:** Maximize clicks
+- **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-25pct`
 - **Path:** aws / savings
@@ -676,7 +679,7 @@ Same math, different packaging. Website shows 75% as the all-in max. Marketplace
 #### Campaign 5: CutMyAWS-Human — $5/day (NEW 2026-03-14)
 
 - **Angle:** Differentiation — "not a dashboard, a human"
-- **Bid Strategy:** Maximize clicks
+- **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-human`
 - **Path:** aws / consultant
@@ -687,7 +690,7 @@ Same math, different packaging. Website shows 75% as the all-in max. Marketplace
 #### Campaign 6: CutMyAWS-Serverless — $5/day (NEW 2026-03-14)
 
 - **Angle:** Technical — "still running EC2 24/7?"
-- **Bid Strategy:** Maximize clicks
+- **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-serverless`
 - **Path:** aws / serverless
@@ -698,7 +701,7 @@ Same math, different packaging. Website shows 75% as the all-in max. Marketplace
 #### Campaign 7: CutMyAWS-Audit — $5/day (NEW 2026-03-14)
 
 - **Angle:** Direct intent — "AWS cost audit"
-- **Bid Strategy:** Maximize clicks
+- **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-audit`
 - **Path:** aws / audit
@@ -729,48 +732,46 @@ Export/import campaigns via Google Ads Editor (free desktop app). Import file fo
 
 **Shared targeting (all campaigns):** Keywords (aws bill, aws cost, aws infrastructure, aws savings, cloud optimization, cloud spend, cloud waste, finops, reduce aws) + Communities (r/FinOps, r/SaaS, r/aws, r/cloudcomputing, r/devops, r/startups, r/sysadmin) + US only
 
-#### Old Campaigns (all inactive)
+#### Old Campaigns (all paused/inactive)
 
-| Campaign | Lifetime Performance |
-|----------|---------------------|
-| CutMyAWS-Investors (traffic) | 9,532 impr, 58 clicks, **$0.59 CPC, 0.608% CTR**, $34.40 spent |
-| Cut My AWS V1 (traffic) | 6,056 impr, 31 clicks, $1.00 CPC, 0.512% CTR, $30.87 spent |
-| CutMyAWS-Investors-Conversion | 146 impr, 0 clicks, $47.36 eCPM, $6.91 spent (conversion obj failed) |
+| Campaign | Lifetime Performance | Status |
+|----------|---------------------|--------|
+| CutMyAWS-Investors (traffic) | 9,532 impr, 58 clicks, $0.59 CPC, 0.608% CTR, $34.40 spent | Inactive (cheap clicks, 0 bookings) |
+| Cut My AWS V1 (traffic) | 6,056 impr, 31 clicks, $1.00 CPC, 0.512% CTR, $30.87 spent | Inactive (cheap clicks, 0 bookings) |
+| CutMyAWS-Investors-Conversion | 174 impr, 1 click, $8.98 CPC, $51.62 spent | Paused (conversion obj failed at low budget) |
 
-#### Campaign 1: CutMyAWS-Symptom — $5/day (NEW 2026-03-14)
+**Reddit total: 90 clicks, $74.25 spent, 0 bookings.** Testing 3 campaigns with conversion objective at $10/day each for 2 weeks. If no bookings by 2026-03-28, kill Reddit ads entirely and move $30/day to Google.
 
-- **Headline:** Your AWS bill is a symptom. The disease is architecture nobody's touched in 3 years.
-- **Image:** `public/reddit-ad-symptom.png` (1080x1080)
-- **CTA:** Learn More
-- **Landing:** `cutmyaws.com?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-symptom`
+#### Campaign 1: CutMyAWS-25pct — $10/day (NEW 2026-03-14)
 
-#### Campaign 2: CutMyAWS-25pct — $5/day (NEW 2026-03-14)
-
+- **Objective:** Conversions
 - **Headline:** Save 25% on your AWS bill in 90 days. No savings = no fee.
 - **Image:** `public/reddit-ad-25pct.png` (1080x1080)
 - **CTA:** Learn More
 - **Landing:** `cutmyaws.com?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-25pct`
 
-#### Campaign 3: CutMyAWS-Human — $5/day (NEW 2026-03-14)
+#### Campaign 2: CutMyAWS-NATGateway — $10/day (NEW 2026-03-14)
 
+- **Objective:** Conversions
+- **Headline:** Your NAT Gateway costs more than your team's lunch budget. I find the charges nobody's watching.
+- **Image:** `public/reddit-ad-natgateway.png` (1080x1080)
+- **CTA:** Learn More
+- **Landing:** `cutmyaws.com?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-natgateway`
+
+#### Campaign 3: CutMyAWS-Human — $10/day (NEW 2026-03-14)
+
+- **Objective:** Conversions
 - **Headline:** Cloud cost tools show charts. I read your architecture and tell you what to change. Just David.
 - **Image:** `public/reddit-ad-human.png` (1080x1080)
 - **CTA:** Learn More
 - **Landing:** `cutmyaws.com?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-human`
 
-#### Campaign 4: CutMyAWS-Investors — $5/day (NEW 2026-03-14)
+#### Shelved Reddit Campaigns (activate if Reddit proves it can convert)
 
-- **Headline:** Found $9K/mo in AWS waste for a startup last week. Their investors had no idea.
-- **Image:** `public/reddit-ad-investors-v2.png` (1080x1080)
-- **CTA:** Learn More
-- **Landing:** `cutmyaws.com/investors?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-investors`
-
-#### Campaign 5: CutMyAWS-NATGateway — $5/day (NEW 2026-03-14)
-
-- **Headline:** Your NAT Gateway costs more than your team's lunch budget. I find the charges nobody's watching.
-- **Image:** `public/reddit-ad-natgateway.png` (1080x1080)
-- **CTA:** Learn More
-- **Landing:** `cutmyaws.com?utm_source=reddit&utm_medium=paid&utm_campaign=cutmyaws-natgateway`
+| Campaign | Headline | Image |
+|----------|----------|-------|
+| CutMyAWS-Symptom | Your AWS bill is a symptom. The disease is architecture nobody's touched in 3 years. | `reddit-ad-symptom.png` |
+| CutMyAWS-Investors | Found $9K/mo in AWS waste for a startup last week. Their investors had no idea. | `reddit-ad-investors-v2.png` |
 
 #### Reddit Ad Assets
 

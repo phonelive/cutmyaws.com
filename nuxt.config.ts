@@ -8,9 +8,14 @@ export default defineNuxtConfig({
   site: {
     url: 'https://cutmyaws.com'
   },
+  router: {
+    options: {
+      scrollBehaviorType: 'smooth',
+    },
+  },
   app: {
     head: {
-      htmlAttrs: { lang: 'en' },
+      htmlAttrs: { lang: 'en', style: 'scroll-behavior: smooth' },
       bodyAttrs: { style: 'background-color:#030712' },
       title: 'Cut My AWS — Been Using AWS for Years? When\'s the Last Time You Cleaned House?',
       meta: [

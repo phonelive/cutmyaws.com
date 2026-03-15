@@ -88,12 +88,12 @@ const govLogos = [
               I read the architecture, find the mismatch between your infrastructure and your mission, and tell you exactly what to change — while your team stays focused on delivery. 🏛️
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <NuxtLink
-                to="/book?c=gov-hero"
+              <a
+                href="#book"
                 class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors text-center"
               >
                 🗓️ Book Your Free Intro Call
-              </NuxtLink>
+              </a>
               <p class="text-gray-500 text-sm self-center">15 min · free · no pitch deck 😏</p>
             </div>
           </div>
@@ -198,6 +198,11 @@ const govLogos = [
       </div>
     </section>
 
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="government" />
+    </section>
+
     <!-- Value Props -->
     <section>
       <div class="max-w-3xl mx-auto px-6 py-16">
@@ -294,7 +299,7 @@ const govLogos = [
     <CtaSection
       headline="Every dollar saved goes back to the mission."
       subtext="One engagement. Permanent savings. Available through AWS Marketplace and Carahsoft. No recurring contracts. 🏛️"
-      cta-link="/book?c=gov-bottom"
+      cta-link="#book"
     >
       <p class="text-gray-600 text-sm mt-3">
         Procurement questions?
@@ -304,7 +309,7 @@ const govLogos = [
 
     <!-- Mobile sticky CTA -->
     <MobileStickyCtaBar
-      link="/book?c=gov-mobile-sticky"
+      link="#book"
     />
 
   </div>

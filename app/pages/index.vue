@@ -156,7 +156,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           <p class="text-lg text-gray-400 mb-8">You pay a % of what I save you. No savings? No fee. 💸</p>
           <div class="flex flex-col items-start gap-3 mb-8">
             <a
-              :href="calendly('hero')"
+              href="#book"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
               🗓️ Book Your Free Intro Call
@@ -233,7 +233,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       <!-- Mid-page CTA -->
       <div class="text-center pt-8 pb-0">
         <a
-          :href="calendly('mid-page')"
+          href="#book"
           class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
         >
           🗓️ Book Your Free Intro Call
@@ -349,6 +349,11 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <!-- Pricing summary -->
         <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixPct }}%+ of savings year 1, and 100% every year after. Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
       </div>
+    </section>
+
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="homepage" />
     </section>
 
     <!-- ROI Calculator -->
@@ -488,7 +493,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <!-- CTA -->
         <div class="text-center">
           <a
-            :href="calendly('calculator')"
+            href="#book"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
           >
             🗓️ Book Your Free Intro Call →
@@ -609,7 +614,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <WasteList :items="wasteSources" />
         <div class="text-center mt-10">
           <a
-            :href="calendly('waste-section')"
+            href="#book"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
           >
             🗓️ Find Out What's Hiding in Yours
@@ -634,7 +639,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       <FaqSection :questions="faqQuestions" />
       <div class="text-center pb-12">
         <a
-          :href="calendly('faq')"
+          href="#book"
           class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
         >
           🗓️ Still Have Questions? Let's Talk
@@ -650,7 +655,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       <p class="text-xl text-gray-400 mb-2">15 minutes. Free. No pitch deck.</p>
       <p class="text-gray-500 mb-8">Find out what you're wasting &mdash; with zero risk and zero commitment. 💰</p>
       <a
-        :href="calendly('bottom-cta')"
+        href="#book"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
       >
         🗓️ Book Your Free Intro Call
@@ -676,7 +681,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
 
     <!-- Mobile sticky CTA -->
     <MobileStickyCtaBar
-      link="/book?c=mobile-sticky"
+      link="#book"
       text="🗓️ Book Free Intro Call — 15 min, free"
       :visible="showMobileCta"
     />

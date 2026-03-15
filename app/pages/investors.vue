@@ -79,12 +79,12 @@ const faqQuestions = [
               I read the architecture, find the mismatch between tech and business, and tell you exactly what to change — while their engineering team stays focused on shipping. 🚀
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <NuxtLink
-                to="/book?c=investor-hero"
+              <a
+                href="#book"
                 class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors text-center"
               >
                 🗓️ Book Your Free Intro Call
-              </NuxtLink>
+              </a>
               <p class="text-gray-500 text-sm self-center">15 min · free · no pitch deck 😏</p>
             </div>
           </div>
@@ -175,6 +175,11 @@ const faqQuestions = [
       </div>
     </section>
 
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="investors" />
+    </section>
+
     <!-- Value props -->
     <section class="bg-gray-900">
       <div class="max-w-3xl mx-auto px-6 py-16">
@@ -238,7 +243,7 @@ const faqQuestions = [
     <CtaSection
       headline="Extend runway without cutting headcount."
       subtext="One engagement. Permanent savings. Your board deck gets a new slide and your portfolio companies stop lighting money on fire. 📊"
-      cta-link="/book?c=investor-bottom"
+      cta-link="#book"
     >
       <p class="text-gray-600 text-sm mt-3">
         Multiple portfolio companies?
@@ -251,7 +256,7 @@ const faqQuestions = [
 
     <!-- Mobile sticky CTA -->
     <MobileStickyCtaBar
-      link="/book?c=investor-mobile-sticky"
+      link="#book"
     />
 
   </div>

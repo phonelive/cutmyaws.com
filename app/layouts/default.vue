@@ -12,9 +12,9 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
     <div class="sticky top-0 z-50 bg-gray-950/95 backdrop-blur-sm">
       <!-- Promo Banner -->
       <div v-if="promoActive" class="bg-brand-600 text-white text-center py-1.5 px-4 text-xs sm:text-sm font-medium">
-        <NuxtLink to="/book?c=promo-banner" class="hover:underline">
+        <a href="#book" class="hover:underline">
           🛡️ FREE Security Audit (normally {{ securityPct }}% of AWS annual spend) — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
-        </NuxtLink>
+        </a>
       </div>
 
       <!-- Nav -->
@@ -24,13 +24,13 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
             <span class="text-xl sm:text-2xl">✂️</span>
             <span class="font-bold text-base sm:text-lg">Cut My AWS</span>
           </NuxtLink>
-          <NuxtLink
+          <a
             v-if="!hideBookBtn"
-            to="/book?c=nav"
+            href="#book"
             class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 sm:px-5 py-1.5 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm"
           >
             🗓️ Book Free Intro Call
-          </NuxtLink>
+          </a>
         </div>
       </nav>
     </div>
@@ -70,7 +70,7 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
             <div>
               <p class="text-gray-400 font-semibold mb-3">Contact</p>
               <ul class="space-y-2 text-gray-500">
-                <li v-if="!hideBookBtn"><NuxtLink to="/book?c=footer" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</NuxtLink></li>
+                <li v-if="!hideBookBtn"><a href="#book" class="text-brand-400 hover:text-brand-300 font-semibold transition-colors">🗓️ Book Free Intro</a></li>
                 <li><a href="mailto:david@cutmyaws.com" class="hover:text-gray-300 transition-colors">📧 david@cutmyaws.com</a></li>
               </ul>
             </div>

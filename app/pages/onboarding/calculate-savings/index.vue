@@ -433,12 +433,12 @@ async function copyCliCommand() {
 
         <!-- CTA -->
         <div class="text-center">
-          <NuxtLink
-            to="/book?c=calculate-savings"
+          <a
+            href="#book"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
           >
             🗓️ Book Your Free Intro Call
-          </NuxtLink>
+          </a>
           <p class="text-gray-500 text-sm mt-3">15 min · free · no pitch deck 😏</p>
         </div>
       </template>
@@ -452,6 +452,11 @@ async function copyCliCommand() {
         <p class="text-gray-400" v-else>Enter your monthly AWS totals above. Run the CLI command to get them quickly.</p>
       </div>
     </div>
+
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="calculate-savings" />
+    </section>
 
   </div>
 </template>
