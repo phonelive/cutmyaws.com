@@ -8,7 +8,7 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <PageSections>
     <!-- Hero -->
     <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
       <div class="flex items-center justify-center gap-4 mb-6">
@@ -38,7 +38,7 @@ useHead({
     </section>
 
     <!-- What I do -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-3xl mx-auto px-6 py-16">
         <h2 class="text-2xl font-bold text-center mb-2">What I do 🧰</h2>
         <p class="text-gray-500 text-sm text-center mb-8">Beyond cost optimization — the full AWS toolkit.</p>
@@ -104,7 +104,7 @@ useHead({
     </section>
 
     <!-- Social proof -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-3xl mx-auto px-6 py-12">
         <ClientLogos />
       </div>
@@ -115,5 +115,5 @@ useHead({
       <CalendlyEmbed campaign="hire" />
     </section>
 
-  </div>
+  </PageSections>
 </template>

@@ -137,7 +137,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
 </script>
 
 <template>
-  <div>
+  <PageSections>
     <!-- Hero -->
     <section id="hero" class="relative overflow-hidden">
       <!-- Background gradient -->
@@ -686,5 +686,5 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       :visible="showMobileCta"
     />
 
-  </div>
+  </PageSections>
 </template>

@@ -68,7 +68,7 @@ const govLogos = [
 </script>
 
 <template>
-  <div>
+  <PageSections>
     <!-- Hero -->
     <section class="relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-brand-500/5 via-transparent to-brand-500/3"></div>
@@ -300,6 +300,7 @@ const govLogos = [
       headline="Every dollar saved goes back to the mission."
       subtext="One engagement. Permanent savings. Available through AWS Marketplace and Carahsoft. No recurring contracts. 🏛️"
       cta-link="#book"
+      :bg="false"
     >
       <p class="text-gray-600 text-sm mt-3">
         Procurement questions?
@@ -312,5 +313,5 @@ const govLogos = [
       link="#book"
     />
 
-  </div>
+  </PageSections>
 </template>

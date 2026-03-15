@@ -8,7 +8,7 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <PageSections>
     <!-- Hero -->
     <section class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
       <div class="flex items-center justify-center gap-4 mb-6">
@@ -39,7 +39,7 @@ useHead({
     </section>
 
     <!-- How it works -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-3xl mx-auto px-6 py-16 text-center">
         <h2 class="text-2xl font-bold mb-2">How it works</h2>
         <p class="text-gray-500 text-sm mb-8">Three steps. Less effort than writing a Slack message. 💬</p>
@@ -85,7 +85,7 @@ useHead({
     </section>
 
     <!-- Who's a good referral -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-3xl mx-auto px-6 py-16 text-center">
         <h2 class="text-2xl font-bold mb-2">Who's a good referral? 🎯</h2>
         <p class="text-gray-500 text-sm mb-8">If you're nodding at any of these, we should talk.</p>
@@ -119,5 +119,5 @@ useHead({
       <CalendlyEmbed campaign="referral" />
     </section>
 
-  </div>
+  </PageSections>
 </template>

@@ -46,7 +46,7 @@ const meetings = [
 </script>
 
 <template>
-  <div>
+  <PageSections>
     <!-- Header -->
     <div class="max-w-3xl mx-auto px-6 pt-12 sm:pt-16 pb-8 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold mb-3">📋 How Engagements Work</h1>
@@ -81,7 +81,7 @@ const meetings = [
     </div>
 
     <!-- ═══ Phase 1: The Report ═══ -->
-    <section class="bg-gray-900 py-12">
+    <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-xl font-bold mb-6">📋 Phase 1: The Report</h2>
         <div class="space-y-4">
@@ -186,7 +186,7 @@ const meetings = [
     </div>
 
     <!-- ═══ Phase 3: The Proof ═══ -->
-    <section class="bg-gray-900 py-12">
+    <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-xl font-bold mb-6">📊 Phase 3: The Proof</h2>
         <div class="bg-gray-950 rounded-xl border border-gray-800 p-6">
@@ -275,7 +275,7 @@ const meetings = [
     </div>
 
     <!-- ═══ Sample SOW: The Report ═══ -->
-    <section class="bg-gray-900 py-12">
+    <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-xl font-bold mb-2">📋 Sample SOW: The Report</h2>
         <p class="text-gray-500 text-sm mb-6">This is a sample. Your actual SOW includes your specific AWS account ID, annualized spend, and deposit amount.</p>
@@ -384,7 +384,7 @@ const meetings = [
     </div>
 
     <!-- ═══ Communication Policy ═══ -->
-    <section class="bg-gray-900 py-12">
+    <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-xl font-bold mb-2">📧 Communication Policy</h2>
         <p class="text-gray-500 text-sm mb-6">Simple rules. No Slack channel. No project portal. Just email.</p>
@@ -479,7 +479,7 @@ const meetings = [
     </div>
 
     <!-- ═══ Scope Changes ═══ -->
-    <section class="bg-gray-900 py-12">
+    <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-xl font-bold mb-2">🔄 Scope Changes</h2>
         <p class="text-gray-500 text-sm mb-6">Plans change. That's fine. Here's how we handle it.</p>
@@ -544,7 +544,7 @@ const meetings = [
     </div>
 
     <!-- ═══ Example Engagement Timeline ═══ -->
-    <section class="bg-gray-900 py-12">
+    <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-xl font-bold mb-2">📅 Example Engagement Timeline</h2>
         <p class="text-gray-500 text-sm mb-6">Full engagement (Report + Fix + Proof) for a {{ fmt(exampleBefore) }}/mo AWS account with ~36% waste.</p>
@@ -630,5 +630,5 @@ const meetings = [
     <section id="book-section">
       <CalendlyEmbed campaign="agreements" />
     </section>
-  </div>
+  </PageSections>
 </template>

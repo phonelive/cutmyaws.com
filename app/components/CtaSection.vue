@@ -20,11 +20,15 @@ defineProps({
     type: String,
     default: '',
   },
+  bg: {
+    type: Boolean,
+    default: true,
+  },
 })
 </script>
 
 <template>
-  <section class="bg-gray-900">
+  <section :class="bg ? 'bg-gray-900' : ''">
     <div class="max-w-3xl mx-auto px-6 py-16 text-center">
       <h2 class="text-2xl font-bold mb-3">{{ headline }}</h2>
       <p v-if="subtext" class="text-gray-400 mb-6">{{ subtext }}</p>

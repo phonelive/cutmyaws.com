@@ -59,7 +59,7 @@ const faqQuestions = [
 </script>
 
 <template>
-  <div>
+  <PageSections>
     <!-- Hero -->
     <section class="relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-brand-500/5 via-transparent to-brand-500/3"></div>
@@ -120,7 +120,7 @@ const faqQuestions = [
     <YouTubeEmbed video-id="ZVUOW87e-Jc" label="intro" page="investors" />
 
     <!-- Stats -->
-    <SectionStats :stats="stats" :bg="true" />
+    <SectionStats :stats="stats" />
 
     <!-- Client Logos (moved up — social proof early) -->
     <section>
@@ -130,7 +130,7 @@ const faqQuestions = [
     </section>
 
     <!-- Dollar Example -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-3xl mx-auto px-6 py-16 text-center">
         <h2 class="text-2xl font-bold mb-2">The math on a typical portfolio company 🧮</h2>
         <p class="text-gray-500 text-sm mb-8">${{ (exampleAwsMonthly / 1000).toFixed(0) }}K/mo AWS spend · {{ exampleWastePct }}% waste found</p>
@@ -181,7 +181,7 @@ const faqQuestions = [
     </section>
 
     <!-- Value props -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-3xl mx-auto px-6 py-16">
         <ValuePropCards :cards="valueProps" :columns="3" />
       </div>
@@ -198,7 +198,7 @@ const faqQuestions = [
     </section>
 
     <!-- Testimonials -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-3xl mx-auto px-6 py-12">
         <Testimonials />
       </div>
@@ -210,7 +210,7 @@ const faqQuestions = [
     </section>
 
     <!-- Common Waste / Usual Suspects -->
-    <section class="bg-gray-900">
+    <section>
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-2 text-center">🕵️ What I Find in Every Portfolio Company</h2>
         <p class="text-gray-400 text-center mb-8">Decisions that made sense at the time. That time was 2021. It's not 2021 anymore.</p>
@@ -232,7 +232,7 @@ const faqQuestions = [
     </section>
 
     <!-- FAQ -->
-    <section class="bg-gray-900">
+    <section>
       <FaqSection
         headline="❓ Questions investors ask"
         :questions="faqQuestions"
@@ -244,6 +244,7 @@ const faqQuestions = [
       headline="Extend runway without cutting headcount."
       subtext="One engagement. Permanent savings. Your board deck gets a new slide and your portfolio companies stop lighting money on fire. 📊"
       cta-link="#book"
+      :bg="false"
     >
       <p class="text-gray-600 text-sm mt-3">
         Multiple portfolio companies?
@@ -259,5 +260,5 @@ const faqQuestions = [
       link="#book"
     />
 
-  </div>
+  </PageSections>
 </template>
