@@ -12,7 +12,7 @@ const router = useRouter()
 const bgColor = ref('030712') // default: base dark (odd sections)
 
 const calendlyUrl = computed(() =>
-  `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${props.campaign}&hide_gdpr_banner=1&hide_event_type_details=1&background_color=${bgColor.value}&text_color=f3f4f6&primary_color=f97316`
+  `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${props.campaign}&hide_gdpr_banner=1&hide_event_type_details=1&hide_landing_page_details=1&background_color=${bgColor.value}&text_color=f3f4f6&primary_color=f97316`
 )
 
 // Dynamic height — Calendly sends page_height events as the user navigates
