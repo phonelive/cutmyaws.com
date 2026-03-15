@@ -1023,6 +1023,14 @@ Awareness (ads, organic, referrals)
 | **Referral partners** | 1-2 bookings | Referral fee | `/referrals` page, partner network |
 | **YouTube** | 0-1 bookings | Free | Record exploration calls as case studies |
 | **Word of mouth** | 1-2 bookings | Free | Happy clients refer others |
+| **Direct outreach** | 1-2 bookings | Free | LinkedIn DMs to CTOs at target companies (see outreach docs) |
+
+### Target Account Outreach
+
+Enterprise-scale clients ($100K+/mo AWS) pursued via direct LinkedIn outreach to CTOs. One large client = 1-3 months of revenue target in a single engagement.
+
+**Active targets:**
+- **Ramsey Solutions** — $100K-$500K+/mo AWS, 250+ engineers, CTO: Brendan Wovchko. Full research in `.claude/memory/reference_ramsey_outreach.md`
 
 ### Costs
 
@@ -1036,6 +1044,31 @@ Awareness (ads, organic, referrals)
 | **Total costs** | **~$3,012** | **~$36,144** |
 | **Target revenue** | **$83,333** | **$1,000,000** |
 | **Target profit margin** | **96%** | — |
+
+### Annual Checkup (Repeat Revenue)
+
+~33% of clients return every 12-24 months for another Report/Fix cycle. Same pricing (15% Report, 75% total with Fix) — no discount. Lower revenue is a natural result of a healthier account, not a price cut. Includes free security scan.
+
+| | First Engagement | Annual Checkup |
+|--|--|--|
+| AWS spend | $300K/yr | ~$210K/yr (post-optimization) |
+| Waste found | 30-36% ($90-108K) | 10-20% ($21-42K) |
+| Avg full engagement revenue | ~$75K | ~$25K |
+| Acquisition cost | $150-500 (ads) | $0 (existing relationship) |
+| Delivery time | 5-10 days | 3-5 days (already know the account) |
+| Fix conversion rate | ~50% | ~60-70% (trust established) |
+
+**Why it works:** Drift is real — new devs, new services, config rot. 12-24 months of untouched infrastructure creates real waste again.
+
+**Compounding effect on revenue:**
+
+| Year | New Clients | Repeat Clients | New Rev | Repeat Rev | Total |
+|------|------------|----------------|---------|------------|-------|
+| 1 | 20 | 0 | $1M | $0 | $1M |
+| 2 | 20 | 7 (33% of Y1) | $1M | $175K | $1.175M |
+| 3 | 20 | 13 (33% of Y1+Y2) | $1M | $325K | $1.325M |
+
+By Year 3, repeat clients create a **$300K+ annual revenue floor** before signing a single new client.
 
 ### Milestones & Decision Points
 
