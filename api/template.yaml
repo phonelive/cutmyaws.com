@@ -87,6 +87,7 @@ Resources:
   # ---------------------------------------------------------------------------
   PreQualApi:
     Type: AWS::Serverless::HttpApi
+    DependsOn: ApiAccessLogGroup
     Properties:
       StageName: !Ref Stage
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
@@ -96,6 +97,7 @@ Resources:
       # Logs every request with: requestId, IP, method, path, status, latency,
       # response length, integration status, errors, origin, user-agent.
       # Matches Ezra's access log format for consistency.
+      # Log group: /aws/httpapi/cutmyaws-{stage}
       # -----------------------------------------------------------------------
       AccessLogSettings:
         DestinationArn: !GetAtt ApiAccessLogGroup.Arn
