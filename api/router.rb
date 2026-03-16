@@ -63,6 +63,19 @@ def router(event:, context:)
   event['httpMethod'] ||= event.dig('requestContext', 'http', 'method')
   event['path'] ||= event['rawPath']
 
+  # ---------------------------------------------------------------------------
+  # Strip API Gateway stage prefix from path
+  # ---------------------------------------------------------------------------
+  # HTTP API includes the stage name in the path (e.g., /prod/prequal).
+  # Strip it so routing works correctly (prequal_get, not prod_prequal_get).
+  #
+  stage = event.dig('requestContext', 'stage')
+  if stage && event['path']&.start_with?("/#{stage}/")
+    event['path'] = event['path'].sub("/#{stage}", "")
+  elsif stage && event['path'] == "/#{stage}"
+    event['path'] = "/"
+  end
+
   begin
     # -------------------------------------------------------------------------
     # Route 1: Scheduled Events / Direct Invocations
