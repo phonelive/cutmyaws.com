@@ -3,14 +3,14 @@ defineProps({
   clients: {
     type: Array,
     default: () => [
-      { name: 'Caterpillar', url: 'https://www.caterpillar.com', logo: '/logos/cat.svg' },
-      { name: 'DC Government', url: 'https://dc.gov', logo: '/logos/dc-gov.png' },
-      { name: 'Best Buy', url: 'https://www.bestbuy.com', logo: '/logos/best-buy.svg' },
-      { name: 'PBS', url: 'https://www.pbs.org', logo: '/logos/pbs.svg' },
-      { name: 'Commonwealth of Massachusetts', url: 'https://www.mass.gov', logo: '/logos/ma-state.png' },
-      { name: 'Argonne National Laboratory', url: 'https://www.anl.gov', logo: '/logos/argonne.png' },
-      { name: 'PhoneLive', url: 'https://phonelive.io', logo: '/logos/phonelive.png' },
-      { name: 'EZRA Cloud', url: 'https://ezracloud.com', logo: '/logos/ezra.png' },
+      { name: 'Caterpillar', logo: '/logos/cat.svg' },
+      { name: 'DC Government', logo: '/logos/dc-gov.png' },
+      { name: 'Best Buy', logo: '/logos/best-buy.svg' },
+      { name: 'PBS', logo: '/logos/pbs.svg' },
+      { name: 'Commonwealth of Massachusetts', logo: '/logos/ma-state.png' },
+      { name: 'Argonne National Laboratory', logo: '/logos/argonne.png' },
+      { name: 'PhoneLive', logo: '/logos/phonelive.png' },
+      { name: 'EZRA Cloud', logo: '/logos/ezra.png' },
     ],
   },
   headline: {
@@ -27,9 +27,7 @@ defineProps({
       <a
         v-for="client in clients"
         :key="client.name"
-        :href="client.url"
-        target="_blank"
-        rel="noopener"
+        href="#book"
         class="group flex items-center justify-center h-20 w-full px-4 rounded-lg bg-white/90 hover:bg-white transition-all"
         :title="client.name"
       >
