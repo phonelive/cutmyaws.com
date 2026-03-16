@@ -91,8 +91,8 @@ const faqQuestions = [
           </div>
 
           <!-- Right: David card -->
-          <div class="w-full lg:w-[380px] shrink-0">
-            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+          <a href="#book" class="w-full lg:w-[380px] shrink-0 block group">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center group-hover:border-brand-500/50 transition-colors">
               <img src="/david.png" alt="David Plappert" width="112" height="112" fetchpriority="high" class="w-28 h-28 rounded-full mx-auto mb-5 object-cover object-top border-2 border-gray-700">
               <p class="font-bold text-lg mb-1">David Plappert</p>
               <p class="text-gray-500 text-sm mb-6">Senior AWS Architect · 19 years ☕</p>
@@ -112,7 +112,7 @@ const faqQuestions = [
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </section>

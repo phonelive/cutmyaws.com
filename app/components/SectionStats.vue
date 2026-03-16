@@ -14,10 +14,10 @@ defineProps({
 <template>
   <section :class="bg ? 'bg-gray-900' : ''">
     <div class="max-w-4xl mx-auto px-6 py-24 grid grid-cols-1 sm:grid-cols-3 gap-12">
-      <div v-for="stat in stats" :key="stat.label" class="text-center px-4">
+      <a v-for="stat in stats" :key="stat.label" href="#book" class="text-center px-4 block hover:opacity-80 transition-opacity">
         <div class="text-3xl font-bold mb-2" :class="stat.color || 'text-brand-400'">{{ stat.value }}</div>
         <div class="text-sm text-gray-400 leading-relaxed">{{ stat.label }}</div>
-      </div>
+      </a>
     </div>
   </section>
 </template>
