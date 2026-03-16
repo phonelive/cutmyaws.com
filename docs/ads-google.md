@@ -11,15 +11,15 @@
 
 ## Budget Recommendations (as of Mar 16)
 
-- **Move V2 budget → Serverless:** V2 has 0 conversions at $10/day ($16.84 spent, 1.92% CTR). Serverless has best CPA ($15.44), highest Clarity engagement (18 sessions), and 13.39% CTR. Recommend: pause V2, increase Serverless to $25/day.
-- **Investors ($45/day):** Keep. 3 conversions, 13.91% CTR. High volume driver.
+- **Move V2 budget → Serverless:** V2 has 0 conversions at $10/day ($16.84 spent, 1.92% CTR). Serverless has best CPA ($25.58), highest Clarity engagement (18 sessions), and 13.64% CTR. Recommend: pause V2, increase Serverless to $25/day.
+- **Investors ($45/day):** Keep. 3 conversions, 14.43% CTR. High volume driver.
 
 ## Campaign 1: CutMyAWS-Investors — $45/day (TOP PERFORMER)
 
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search + Search Partners
 - **Landing:** `cutmyaws.com/investors`
-- **Performance (as of Mar 16):** 95 clicks, 683 impr, **13.91% CTR**, $1.64 CPC, $155.73 spend, **3 conversions**, $51.91 CPA, 3.16% conv rate
+- **Performance (as of Mar 16):** 103 clicks, 714 impr, **14.43% CTR**, $1.61 CPC, $165.92 spend, **3 conversions**, $55.31 CPA, 2.91% conv rate
 - **Note (historical):** Before 2026-03-14 tracking fix, 2 of 3 early conversions were false positives from old `manual_event_SUBMIT_LEAD_FORM`. Primary conversion is now `booking_confirmed` (fires on /confirmed with invitee name).
 - **54 keywords** (Broad): cloud optimization tools, aws cost review, optimizing cloud spend, aws waste, cost optimization cloud, cloud optimisation, aws overspending, cloud cost optimization, reduce cloud costs, cut aws bill, aws cost savings, cloud spend optimization, aws finops, lower aws bill, aws cost audit, aws cost optimization, aws consulting, finops consulting, cloud cost audit, reduce aws bill, + 34 more
 - **Headlines:** Cut Your AWS Bill by 30-40% | No Savings = No Fee | Free 15-Min Intro Call | 19 Years of AWS Experience | Pay Only on Verified Savings | AWS Cost Audit for Startups | 9-Month ROI on Average | Not a Dashboard. A Real Human. | Stop Overpaying AWS | No Retainer. No Hourly. | Extend Your Startup's Runway | Free Security Audit Included | Trusted by Caterpillar & PBS | AWS Cost Optimization Expert
@@ -77,7 +77,7 @@
 - **Angle:** Technical — "still running EC2 24/7?"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (as of Mar 16):** 17 clicks, 127 impr, **13.39% CTR**, $0.91 CPC, $15.44 spend, **1 conversion**, $15.44 CPA, 5.88% conv rate
+- **Performance (as of Mar 16):** 18 clicks, 132 impr, **13.64% CTR**, $1.42 CPC, $25.58 spend, **1 conversion**, $25.58 CPA, 5.56% conv rate
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-serverless`
 - **Path:** aws / serverless
 - **Keywords (10, Broad):** serverless migration aws, ec2 cost optimization, ec2 to lambda migration, rds cost optimization, ec2 to serverless, aws serverless consultant, migrate ec2 to containers, aws architecture modernization, ec2 right sizing, aws lambda migration

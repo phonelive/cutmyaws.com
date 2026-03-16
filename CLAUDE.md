@@ -74,8 +74,8 @@ Schema.org JSON-LD in `nuxt.config.ts`. AI crawlers allowed in `robots.txt`. `ll
 | LinkedIn Ads (525710547) | $0/day | All paused | [docs/ads-other.md](docs/ads-other.md) |
 | Bing/Microsoft (G145R2VD) | $0/day | Not working | [docs/ads-other.md](docs/ads-other.md) |
 
-**Top performers:** Google Investors ($45/day, 13.91% CTR, 3 conversions, $51.91 CPA) and Google Serverless ($15/day, 13.39% CTR, 1 conversion, $15.44 CPA — best CPA).
-**Reddit deadline:** If 0 bookings by 2026-03-28, kill Reddit ads and move $30/day to Google. Currently 94 clicks, $127.18 spent, 0 bookings.
+**Top performers:** Google Investors ($45/day, 14.43% CTR, 3 conversions, $55.31 CPA) and Google Serverless ($15/day, 13.64% CTR, 1 conversion, $25.58 CPA — best CPA).
+**Reddit deadline:** If 0 bookings by 2026-03-28, kill Reddit ads and move $30/day to Google. Currently 94 clicks, $133.88 spent, 0 bookings.
 
 → UTM standards, conversion tracking, promos: [docs/ads-tracking.md](docs/ads-tracking.md)
 
