@@ -9,14 +9,18 @@
 
 **Negative keywords (all campaigns):** aws free tier, aws certification, aws training, aws jobs, aws tutorial, aws pricing calculator
 
+## Budget Recommendations (as of Mar 16)
+
+- **Move V2 budget → Serverless:** V2 has 0 conversions at $10/day ($16.84 spent, 1.92% CTR). Serverless has best CPA ($15.44), highest Clarity engagement (18 sessions), and 13.39% CTR. Recommend: pause V2, increase Serverless to $25/day.
+- **Investors ($45/day):** Keep. 3 conversions, 13.91% CTR. High volume driver.
+
 ## Campaign 1: CutMyAWS-Investors — $45/day (TOP PERFORMER)
 
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search + Search Partners
 - **Landing:** `cutmyaws.com/investors`
-- **Performance (Mar 11-15):** 74 clicks, 609 impr, **11.77% CTR**, $1.55 CPC, $115.00 spend, **3 reported conversions** (2 false), $38.33 reported CPA, 4.05% conv rate
-- **Note:** 2 of 3 conversions were false positives — old tracking (`manual_event_SUBMIT_LEAD_FORM`) fired on booking page load, not actual Calendly completion. Fixed 2026-03-14: primary conversion is now `booking_confirmed` (fires on /confirmed with invitee name). **Real conversions: 1.** Real CPA: ~$115.
-- **Ads Advisor (Mar 15):** "Conversions up, great start! CutMyAWS-Investors driving 3.00 conversions in the last 7 days (March 8 to March 14). Cost per conversion of $11.68." (Note: $11.68 CPA is inflated by false conversions.)
+- **Performance (as of Mar 16):** 95 clicks, 683 impr, **13.91% CTR**, $1.64 CPC, $155.73 spend, **3 conversions**, $51.91 CPA, 3.16% conv rate
+- **Note (historical):** Before 2026-03-14 tracking fix, 2 of 3 early conversions were false positives from old `manual_event_SUBMIT_LEAD_FORM`. Primary conversion is now `booking_confirmed` (fires on /confirmed with invitee name).
 - **54 keywords** (Broad): cloud optimization tools, aws cost review, optimizing cloud spend, aws waste, cost optimization cloud, cloud optimisation, aws overspending, cloud cost optimization, reduce cloud costs, cut aws bill, aws cost savings, cloud spend optimization, aws finops, lower aws bill, aws cost audit, aws cost optimization, aws consulting, finops consulting, cloud cost audit, reduce aws bill, + 34 more
 - **Headlines:** Cut Your AWS Bill by 30-40% | No Savings = No Fee | Free 15-Min Intro Call | 19 Years of AWS Experience | Pay Only on Verified Savings | AWS Cost Audit for Startups | 9-Month ROI on Average | Not a Dashboard. A Real Human. | Stop Overpaying AWS | No Retainer. No Hourly. | Extend Your Startup's Runway | Free Security Audit Included | Trusted by Caterpillar & PBS | AWS Cost Optimization Expert
 - **Descriptions:** We find 30-40% AWS waste on average. Pay only on verified savings. Free intro call. | 19 years of AWS experience. A real architect, not a dashboard. Free 15-min call. | Your startups are overpaying AWS. One engagement, permanent savings. No retainer. | Cut your AWS bill without slowing dev teams. No commitment. Results-based pricing.
@@ -26,7 +30,7 @@
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com`
-- **Performance (Mar 11-15):** 3 clicks, 156 impr, 1.92% CTR, $5.61 CPC, $16.84 spend, 0 conversions
+- **Performance (as of Mar 16):** 3 clicks, 156 impr, 1.92% CTR, $5.61 CPC, $16.84 spend, 0 conversions
 - **Cleanup (2026-03-14):** Paused 20 bad keywords (savings plans, tools, AWS features like compute optimizer, audit manager, trusted advisor)
 - **49 keywords** (Broad, 20 paused): aws cloud cost optimization, aws optimization, aws cost optimisation, ec2 cost optimization, aws architecture review, aws cost cutting, cloud cost optimization aws, rds cost optimization, s3 cost optimization, aws audit, eks cost optimization, aws lambda cost optimization, + more
 - **Headlines:** Cut Your AWS Bill 30%+ | AWS Cost Optimization Expert | 19 Years AWS Experience | No Savings = No Fee | Not a Dashboard. A Human. | Free 15-Min Intro Call | $5K+/mo AWS Spend? | Senior AWS Architect | Pay For Only Real Savings | AWS Cost Audit & Fix | Business-Aligned AWS Audit | Transparent % Pricing | Stop Overpaying for AWS | AWS Bill Analysis | Proven AWS Savings
@@ -37,7 +41,7 @@
 - **Angle:** Problem awareness — "your bill is a symptom"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (Mar 11-15):** 0 clicks, 1 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 16):** 0 clicks, 1 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-symptom`
 - **Path:** aws / audit
 - **Keywords (10, Broad):** aws bill too high, aws costs growing, why is my aws bill so high, aws spending too much, aws bill keeps increasing, aws overspending, cloud spend out of control, aws infrastructure costs, aws bill analysis, aws cost problem
@@ -49,7 +53,7 @@
 - **Angle:** Hard number + risk reversal — "save 25% in 90 days"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (Mar 11-15):** 0 clicks, 2 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 16):** 0 clicks, 2 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-25pct`
 - **Path:** aws / savings
 - **Keywords (10, Broad):** reduce aws costs, cut aws bill, lower aws bill, aws cost reduction, save on aws, aws cost savings, reduce cloud costs, cut cloud costs, aws bill optimization, aws spending optimization
@@ -61,7 +65,7 @@
 - **Angle:** Differentiation — "not a dashboard, a human"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (Mar 11-15):** 0 clicks, 4 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 16):** 0 clicks, 5 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-human`
 - **Path:** aws / consultant
 - **Keywords (10, Broad):** aws cost consultant, aws consulting, finops consultant, cloud cost consultant, aws architect for hire, cloud cost optimization consultant, aws cost optimization services, hire aws expert, aws cost optimization consultant, finops consulting
@@ -73,7 +77,7 @@
 - **Angle:** Technical — "still running EC2 24/7?"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (Mar 11-15):** 3 clicks, 9 impr, **33.33% CTR**, $0.99 CPC, $2.96 spend, 0 conversions
+- **Performance (as of Mar 16):** 17 clicks, 127 impr, **13.39% CTR**, $0.91 CPC, $15.44 spend, **1 conversion**, $15.44 CPA, 5.88% conv rate
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-serverless`
 - **Path:** aws / serverless
 - **Keywords (10, Broad):** serverless migration aws, ec2 cost optimization, ec2 to lambda migration, rds cost optimization, ec2 to serverless, aws serverless consultant, migrate ec2 to containers, aws architecture modernization, ec2 right sizing, aws lambda migration
@@ -85,7 +89,7 @@
 - **Angle:** Direct intent — "AWS cost audit"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (Mar 11-15):** 0 clicks, 0 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 16):** 0 clicks, 0 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-audit`
 - **Path:** aws / audit
 - **Keywords (10, Broad):** aws cost audit, aws architecture review, cloud cost audit, aws account audit, aws infrastructure audit, aws cost analysis, aws spend analysis, aws cost review, audit aws account, aws bill review service

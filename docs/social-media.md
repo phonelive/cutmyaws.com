@@ -8,6 +8,9 @@
 - Content types: educational tips, story/opinion, case studies
 - No company page needed — personal posts get 10x engagement
 - **Outbound automation:** [Botdog](https://botdog.co) — automated LinkedIn sequences (visit profile → send invite → follow-up message if accepted → withdraw if not). Scales outbound DMs to CTOs/VPs Eng at Series B+ startups spending $5K+/mo on AWS.
+- **Active campaign:** "SWB AWS Take 3" — 173 contacts, 25 InMails sent, 0% connection rate, 0% reply rate (as of Mar 16). Started Mar 11, 2026.
+- **InMail copy updated Mar 15:** ~22-23 sent with old copy (0 replies), only 2-3 sent with new copy. Too early to evaluate new message — check back after ~15-20 sends of new copy.
+- **Note:** Clarity shows 6 LinkedIn sessions and 35% "FacebookApp" browser traffic — this is LinkedIn's mobile in-app browser from Botdog outreach. People are clicking through to the site even if not replying.
 
 ## Content Bank (first month)
 

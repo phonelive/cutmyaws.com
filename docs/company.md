@@ -17,6 +17,7 @@
 | MS Clarity | vr2el2utus |
 | YouTube | https://www.youtube.com/@CutMyAWS |
 | Reddit | u/cutmyaws |
+| Future Domain | cutmyazure.com (same model, Azure-focused — launch after CutMyAWS established) |
 | Reddit Pixel | a2_inkp2wvyvllm |
 | Google Ads | david@phonelive.io account |
 | Microsoft Ads | G145R2VD |

@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div :id="anchorId" class="max-w-4xl mx-auto px-6 py-12 text-center">
-    <img src="/david.png" alt="David Plappert" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
+    <img src="/david.png" alt="David Plappert" width="80" height="80" loading="lazy" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
     <h2 class="text-3xl font-bold mb-1">🗓️ Book Your Free Intro Call</h2>
     <p class="text-gray-400 mb-3">with David Plappert · 19 years on AWS</p>
     <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-500 mb-6">

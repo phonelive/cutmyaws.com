@@ -15,12 +15,16 @@
 | Cut My AWS V1 (traffic) | 6,056 impr, 31 clicks, $1.00 CPC, 0.512% CTR, $30.87 spent | Inactive (cheap clicks, 0 bookings) |
 | CutMyAWS-Investors-Conversion | 174 impr, 1 click, $8.98 CPC, $51.62 eCPM, $8.98 spent | Inactive (conversion obj failed at low budget) |
 
-**Reddit total (Mar 1-15): 92 clicks, $97.15 spent, 0 bookings.** Testing 3 new conversion campaigns at $10/day each. If no bookings by 2026-03-28, kill Reddit ads entirely and move $30/day to Google.
+**Reddit total (Mar 1-16): 94 clicks, $127.18 spent, 0 bookings.** 17,766 impressions, $1.35 CPC, 0.529% CTR. Testing 3 new conversion campaigns at $10/day each. If no bookings by 2026-03-28, kill Reddit ads entirely and move $30/day to Google.
+
+### Recommendations (as of Mar 16)
+- **Pause CutMyAWS-25pct:** 563 impr, 0 clicks, highest eCPM ($31.13) of 3 active campaigns. Zero engagement. Redistribute $10/day to Human or NATGateway.
+- **Verify geo-targeting:** Clarity shows ~20% non-US sessions. Confirm US-only targeting on all campaigns (shared targeting says US only — may be Search Partners or VPN traffic).
 
 ## Campaign 1: CutMyAWS-25pct — $10/day (NEW 2026-03-14)
 
 - **Objective:** Conversions
-- **Performance (Mar 1-15):** 291 impr, 0 clicks, $24.78 eCPM, $7.21 spent, 0 conversions
+- **Performance (Mar 1-16):** 563 impr, 0 clicks, $31.13 eCPM, $17.53 spent, 0 conversions
 - **Headline:** Save 25% on your AWS bill in 90 days. No savings = no fee.
 - **Image:** `public/reddit-ad-25pct.png` (1080x1080)
 - **CTA:** Learn More
@@ -29,7 +33,7 @@
 ## Campaign 2: CutMyAWS-NATGateway — $10/day (NEW 2026-03-14)
 
 - **Objective:** Conversions
-- **Performance (Mar 1-15):** 314 impr, 1 click, $6.20 CPC, $19.73 eCPM, $6.20 spent, 0 conversions
+- **Performance (Mar 1-16):** 683 impr, 2 clicks, $9.16 CPC, 0.293% CTR, $26.83 eCPM, $18.33 spent, 0 conversions
 - **Headline:** Your NAT Gateway costs more than your team's lunch budget. I find the charges nobody's watching.
 - **Image:** `public/reddit-ad-natgateway.png` (1080x1080)
 - **CTA:** Learn More
@@ -38,7 +42,7 @@
 ## Campaign 3: CutMyAWS-Human — $10/day (NEW 2026-03-14)
 
 - **Objective:** Conversions
-- **Performance (Mar 1-15):** 453 impr, 1 click, $9.50 CPC, $20.96 eCPM, $9.50 spent, 0 conversions
+- **Performance (Mar 1-16):** 758 impr, 2 clicks, $8.54 CPC, 0.264% CTR, $22.54 eCPM, $17.08 spent, 0 conversions
 - **Headline:** Cloud cost tools show charts. I read your architecture and tell you what to change. Just David.
 - **Image:** `public/reddit-ad-human.png` (1080x1080)
 - **CTA:** Learn More

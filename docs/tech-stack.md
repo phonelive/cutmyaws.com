@@ -34,7 +34,8 @@
 | `app/pages/confirmed.vue` | Post-booking confirmation page (noindex), fires `booking_confirmed` conversion |
 | `nuxt.config.ts` | Meta tags, SEO, structured data, OG tags |
 | `public/logos/` | Client logos (8 logos, PNG/SVG) |
-| `public/david.png` | David's headshot |
+| `public/david.png` | David's headshot (resized to 512px for web performance, original at `david-full.png`) |
+| `public/david-full.png` | Original full-resolution headshot (1248x832, 1.1MB) — for ad images/print |
 | `public/og-image.png` | Social sharing preview image (1200x630) |
 | `public/robots.txt` | Search + AI crawler permissions |
 | `public/sitemap.xml` | Search engine sitemap |
