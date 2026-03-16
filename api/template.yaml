@@ -62,12 +62,20 @@ Globals:
         TZ: UTC
         env: !Ref Stage
         PREFIX: !Sub "cutmyaws-${Stage}"
-        DB_NAME: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/name}}"
-        DB_HOST: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/host}}"
-        DB_USER: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/user}}"
-        DB_PASS: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/pass}}"
-        DB_PORT: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/port}}"
-        TURNSTILE_SECRET_KEY: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/turnstile/secret_key}}"
+        # ---------------------------------------------------------------
+        # ALL secrets are stored as SecureString in SSM and fetched
+        # at runtime by awsssm_get_param() in app/libs/aws_ssm.rb.
+        # This keeps secrets out of CloudFormation templates and the
+        # Lambda console. Values are cached in ENV after first fetch.
+        #
+        # SSM params fetched at runtime:
+        #   /cutmyaws/{stage}/db/host
+        #   /cutmyaws/{stage}/db/port
+        #   /cutmyaws/{stage}/db/user
+        #   /cutmyaws/{stage}/db/pass
+        #   /cutmyaws/{stage}/db/name
+        #   /cutmyaws/{stage}/turnstile/secret_key
+        # ---------------------------------------------------------------
 
 Resources:
   # ---------------------------------------------------------------------------
