@@ -93,6 +93,20 @@ All deploys via GitHub Actions only (no CLI deploys). Uses `github-deploy` IAM u
 | SES Config Set | `cutmyaws-tracking` (open, click, delivery, bounce, complaint) | us-east-1 |
 | SNS Topic | `arn:aws:sns:us-east-1:731039145080:cutmyaws-ses-events` | us-east-1 |
 | SES Production | Pending review (sandbox: 200 emails/day) | us-east-1 |
+| S3 Logs Bucket | `cutmyaws-logs` (90-day lifecycle expiry) | us-east-1 |
+| SNS Site Alerts | `arn:aws:sns:us-east-1:731039145080:cutmyaws-site-alerts` | us-east-1 |
+| CW Alarm | `cutmyaws-prod-5xx-errors` (>5% 5xx for 5min) | us-east-1 |
+| CW Alarm | `cutmyaws-prod-4xx-errors` (>25% 4xx for 10min) | us-east-1 |
+
+### Logging
+
+| Source | Destination | Prefix |
+|--------|-------------|--------|
+| S3 `cutmyaws-com` access logs | `cutmyaws-logs` | `s3/cutmyaws-com/` |
+| S3 `dev-cutmyaws-com` access logs | `cutmyaws-logs` | `s3/dev-cutmyaws-com/` |
+| CloudFront prod standard logs | `cutmyaws-logs` | `cloudfront/prod/` |
+| CloudFront dev standard logs | `cutmyaws-logs` | `cloudfront/dev/` |
+| CloudFront real-time metrics | CloudWatch (`AWS/CloudFront`) | — |
 
 ### Environment DNS Plan
 
