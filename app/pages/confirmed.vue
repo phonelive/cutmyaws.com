@@ -62,6 +62,14 @@ onMounted(() => {
         <p class="text-gray-400 text-sm mb-3">🤝 Know someone overpaying AWS? Share the love:</p>
         <div class="flex items-center justify-center gap-3">
           <a
+            :href="`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`"
+            target="_blank"
+            rel="noopener"
+            class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors border border-gray-700"
+          >
+            💼 Share on LinkedIn
+          </a>
+          <a
             href="mailto:?subject=Check%20out%20Cut%20My%20AWS&body=I%20just%20booked%20a%20free%20AWS%20cost%20audit%20with%20Cut%20My%20AWS.%20They%20only%20charge%20a%20%25%20of%20the%20savings%20they%20find.%20No%20savings%20%3D%20no%20fee.%0A%0Ahttps%3A%2F%2Fcutmyaws.com"
             class="bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors border border-gray-700"
           >

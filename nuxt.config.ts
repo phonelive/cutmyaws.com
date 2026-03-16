@@ -50,7 +50,6 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'canonical', href: 'https://cutmyaws.com' },
         { rel: 'me', href: 'https://www.linkedin.com/in/davidplappert/' },
         { rel: 'me', href: 'https://www.linkedin.com/company/cut-my-aws/' },
         { rel: 'me', href: 'https://www.youtube.com/@CutMyAWS' },
