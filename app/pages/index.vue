@@ -244,6 +244,11 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       </div>
     </section>
 
+    <!-- Calendly Embed -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="homepage" />
+    </section>
+
     <!-- Testimonials -->
     <section id="testimonials">
       <div class="max-w-5xl mx-auto px-6 py-24">
@@ -351,11 +356,6 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <!-- Pricing summary -->
         <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixPct }}%+ of savings year 1, and 100% every year after. Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
       </div>
-    </section>
-
-    <!-- Calendly Embed -->
-    <section id="book-section">
-      <CalendlyEmbed campaign="homepage" />
     </section>
 
     <!-- ROI Calculator -->
