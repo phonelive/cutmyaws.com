@@ -100,7 +100,7 @@ Resources:
       # Log group: /aws/httpapi/cutmyaws-{stage}
       # -----------------------------------------------------------------------
       AccessLogSettings:
-        DestinationArn: !GetAtt ApiAccessLogGroup.Arn
+        DestinationArn: !Sub "arn:aws:logs:us-east-1:731039145080:log-group:/aws/httpapi/cutmyaws-${Stage}"
         Format: '{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","path":"$context.path","status":"$context.status","responseLength":"$context.responseLength","responseLatency":"$context.responseLatency","integrationLatency":"$context.integrationLatency","integrationStatus":"$context.integrationStatus","error":"$context.error.message","origin":"$request.header.origin","userAgent":"$request.header.user-agent","contentType":"$request.header.content-type"}'
 
   # ---------------------------------------------------------------------------
