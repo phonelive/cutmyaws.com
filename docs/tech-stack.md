@@ -9,7 +9,7 @@
 | Hosting | GitHub Pages (free) |
 | Domain | AWS Route 53 (cutmyaws.com) — registered in `pl` account, transfer to `cutmyaws` after 2026-03-23 |
 | DNS | Route 53 hosted zone `Z10236932X9JIETO6LHWY` (cutmyaws account 731039145080) |
-| Email | Google Workspace (cutmyaws.com as secondary domain) |
+| Email | Google Workspace (cutmyaws.com as secondary domain) + AWS SES (cutmyaws acct, us-east-1) |
 | Analytics | Google Analytics (`G-ZGPX081LFE`) via client plugin |
 | Heatmaps | Microsoft Clarity (`vr2el2utus`) via client plugin |
 | Booking | Calendly (inline embed on every page via `CalendlyEmbed.vue` component) |
@@ -61,14 +61,39 @@
 
 Push to `main` → GitHub Actions builds Nuxt static → deploys to GitHub Pages. Takes ~45 seconds.
 
-## DNS Records (Route 53)
+## DNS Records (Route 53 — zone Z10236932X9JIETO6LHWY in cutmyaws acct)
 
 | Record | Type | Value |
 |--------|------|-------|
 | `cutmyaws.com` | A | GitHub Pages IPs (185.199.108-111.153) |
 | `www.cutmyaws.com` | CNAME | `phonelive.github.io` |
 | `cutmyaws.com` | MX | Google Workspace (5 records) |
-| `cutmyaws.com` | TXT | SPF (`v=spf1 include:_spf.google.com ~all`) |
+| `cutmyaws.com` | TXT | SPF (`v=spf1 include:_spf.google.com include:amazonses.com ~all`) |
 | `cutmyaws.com` | TXT | Google site verification |
 | `_dmarc.cutmyaws.com` | TXT | DMARC (`v=DMARC1; p=quarantine`) |
-| `google._domainkey.cutmyaws.com` | TXT | DKIM |
+| `google._domainkey.cutmyaws.com` | TXT | Google Workspace DKIM |
+| `*._domainkey.cutmyaws.com` | CNAME | 3 SES DKIM records (`*.dkim.amazonses.com`) |
+| `track.cutmyaws.com` | CNAME | `r.us-east-1.awstrack.me` (SES open/click tracking) |
+| `_*.cutmyaws.com` | CNAME | ACM validation for cutmyaws.com + *.cutmyaws.com |
+| `_*.dev.cutmyaws.com` | CNAME | ACM validation for *.dev.cutmyaws.com |
+
+## AWS Infrastructure (cutmyaws account 731039145080)
+
+| Resource | ID / ARN | Region |
+|----------|----------|--------|
+| ACM Cert | `arn:aws:acm:us-east-1:731039145080:certificate/4380f959-075b-47e1-a5c4-a563f2b9aa35` | us-east-1 |
+| ACM SANs | cutmyaws.com, *.cutmyaws.com, *.dev.cutmyaws.com | — |
+| SES Domain | cutmyaws.com (DKIM verified, DMARC quarantine) | us-east-1 |
+| SES Config Set | `cutmyaws-tracking` (open, click, delivery, bounce, complaint) | us-east-1 |
+| SNS Topic | `arn:aws:sns:us-east-1:731039145080:cutmyaws-ses-events` | us-east-1 |
+| SES Production | Pending review (sandbox: 200 emails/day) | us-east-1 |
+
+### Environment DNS Plan
+
+| Subdomain | Purpose |
+|-----------|---------|
+| `cutmyaws.com` | Production site (currently GitHub Pages, future S3+CloudFront) |
+| `dev.cutmyaws.com` | Dev environment site |
+| `api.cutmyaws.com` | Production API Gateway |
+| `api.dev.cutmyaws.com` | Dev API Gateway |
+| `track.cutmyaws.com` | SES open/click tracking |
