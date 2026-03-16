@@ -32,7 +32,7 @@
 | Google Ads | **Active** | $70/day: Investors $45, Serverless $15, V2 $10. 4 campaigns paused. |
 | Reddit (u/cutmyaws) | **Active (testing)** | $30/day across 3 conversion campaigns. 0 bookings. Kill deadline: 2026-03-28. |
 | Bing/Microsoft Ads | **Not working** | Account G145R2VD |
-| YouTube (@CutMyAWS) | **Active** | Channel live, record exploration calls as case studies |
+| YouTube (@CutMyAWS) | **Active** | 1 sub, 4 views, 1 video published (Mar 13). 67.8% avg retention. |
 | Dev.to / Hashnode | Future | Technical deep-dives for SEO |
 | Twitter/X | Maybe later | DevOps community exists but slower |
 | Facebook/Instagram/TikTok | Skip | Wrong audience |
@@ -41,6 +41,19 @@
 
 **Channel:** https://www.youtube.com/@CutMyAWS
 **Handle:** @CutMyAWS
+
+### Channel Stats (as of 2026-03-16, last 28 days: Feb 16 – Mar 15)
+
+| Metric | Value |
+|--------|-------|
+| Subscribers | 1 |
+| Views | 4 |
+| Watch time (hours) | 0.1 |
+| Impressions CTR | 1.4% |
+
+**Latest video:** "Your AWS Bill Is a Symptom. Here's the Cure." (published Mar 13, 2026)
+- Views: 4
+- Avg view duration: 1:17 (67.8% retention)
 
 ### Welcome Video (first video — 30-60 seconds)
 
