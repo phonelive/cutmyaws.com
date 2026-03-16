@@ -6,14 +6,14 @@
 |-----------|-----------|
 | Framework | Nuxt 4 (static generation) |
 | CSS | Tailwind CSS |
-| Hosting | GitHub Pages (free) |
+| Hosting | S3 + CloudFront (cutmyaws account) |
 | Domain | AWS Route 53 (cutmyaws.com) — registered in `pl` account, transfer to `cutmyaws` after 2026-03-23 |
 | DNS | Route 53 hosted zone `Z10236932X9JIETO6LHWY` (cutmyaws account 731039145080) |
 | Email | Google Workspace (cutmyaws.com as secondary domain) + AWS SES (cutmyaws acct, us-east-1) |
 | Analytics | Google Analytics (`G-ZGPX081LFE`) via client plugin |
 | Heatmaps | Microsoft Clarity (`vr2el2utus`) via client plugin |
 | Booking | Calendly (inline embed on every page via `CalendlyEmbed.vue` component) |
-| Deployment | GitHub Actions → GitHub Pages (auto on push to main) |
+| Deployment | GitHub Actions → S3 sync + CloudFront invalidation (auto on push to main) |
 
 ## Key Files
 
@@ -40,7 +40,6 @@
 | `public/robots.txt` | Search + AI crawler permissions |
 | `public/sitemap.xml` | Search engine sitemap |
 | `public/llms.txt` | AI/LLM-readable service description |
-| `public/CNAME` | GitHub Pages custom domain |
 | `public/logo-dollar.png` | Google Ads logo variant |
 | `public/logo-scissors.png` | Google Ads logo variant |
 | `public/reddit-ad.png` | Reddit ad image (1080x1080) |
@@ -59,7 +58,9 @@
 
 ## Deployment
 
-Push to `main` → GitHub Actions builds Nuxt static → deploys to GitHub Pages. Takes ~45 seconds.
+Push to `main` → GitHub Actions builds Nuxt static → syncs to S3 → invalidates CloudFront.
+
+All deploys via GitHub Actions only (no CLI deploys). Uses `github-deploy` IAM user credentials stored as GitHub secrets (`AWS_ACCESS_KEY_ID_CUTMYAWS`, `AWS_SECRET_ACCESS_KEY_CUTMYAWS`).
 
 ## DNS Records (Route 53 — zone Z10236932X9JIETO6LHWY in cutmyaws acct)
 
@@ -81,6 +82,11 @@ Push to `main` → GitHub Actions builds Nuxt static → deploys to GitHub Pages
 
 | Resource | ID / ARN | Region |
 |----------|----------|--------|
+| S3 Bucket (prod) | `cutmyaws-com` | us-east-1 |
+| S3 Bucket (dev) | `dev-cutmyaws-com` | us-east-1 |
+| CloudFront (prod) | `E1QP2X8FI34J2A` → cutmyaws.com, www.cutmyaws.com | us-east-1 |
+| CloudFront (dev) | `E3AM3WI3FESOBD` → dev.cutmyaws.com | us-east-1 |
+| CloudFront OAC | `E3MY3M484PPXUC` (cutmyaws-s3-oac) | — |
 | ACM Cert | `arn:aws:acm:us-east-1:731039145080:certificate/4380f959-075b-47e1-a5c4-a563f2b9aa35` | us-east-1 |
 | ACM SANs | cutmyaws.com, *.cutmyaws.com, *.dev.cutmyaws.com | — |
 | SES Domain | cutmyaws.com (DKIM verified, DMARC quarantine) | us-east-1 |

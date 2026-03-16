@@ -1,23 +1,25 @@
-name: Deploy to GitHub Pages
+name: Deploy Site to AWS
 
 on:
   push:
     branches: [main]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    paths-ignore:
+      - 'api/**'
+      - 'docs/**'
+      - '*.md'
 
 concurrency:
-  group: pages
+  group: deploy-site
   cancel-in-progress: true
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_CUTMYAWS }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_CUTMYAWS }}
+  AWS_DEFAULT_REGION: us-east-1
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -28,16 +30,9 @@ jobs:
       - run: npm ci
       - run: npx nuxt generate
       - run: node scripts/inline-css.mjs
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: .output/public
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4.0.5
+      - name: Sync to S3
+        run: aws s3 sync .output/public/ s3://cutmyaws-com --delete
+
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id E1QP2X8FI34J2A --paths "/*"
