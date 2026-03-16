@@ -19,18 +19,15 @@
 #   Automated via GitHub Actions on push to main (prod) or dev branch (dev).
 #   NEVER deploy from the command line — always push to trigger CI/CD.
 #
-# MANUAL DEPLOY (emergency only):
-#   sam build && sam deploy --config-env prod
+# SECRETS:
+#   All secrets stored as SecureString in SSM. Resolved at deploy time in
+#   GitHub Actions, injected via CloudFormation NoEcho parameters. This means:
+#   - SSM values encrypted at rest (SecureString)
+#   - Values masked in CloudFormation console (NoEcho: true)
+#   - Lambda never calls SSM at runtime (zero cold start overhead)
+#   - Values visible in Lambda env vars tab (anyone with lambda:GetFunctionConfiguration)
 #
 # AWS ACCOUNT: 731039145080 (Cut My AWS)
-#
-# SSM PARAMETERS (must exist before deploy):
-#   /cutmyaws/{stage}/db/host           — TiDB Cloud hostname
-#   /cutmyaws/{stage}/db/port           — TiDB Cloud port (4000)
-#   /cutmyaws/{stage}/db/user           — TiDB Cloud username
-#   /cutmyaws/{stage}/db/pass           — TiDB Cloud password (SecureString)
-#   /cutmyaws/{stage}/db/name           — TiDB Cloud database name
-#   /cutmyaws/{stage}/turnstile/secret_key — Cloudflare Turnstile secret
 #
 # =============================================================================
 
@@ -39,7 +36,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: CutMyAWS Pre-Qualification API
 
 # -----------------------------------------------------------------------------
-# Parameters — set per environment via samconfig.toml
+# Parameters — Stage set via samconfig.toml, secrets injected by GitHub Actions
 # -----------------------------------------------------------------------------
 Parameters:
   Stage:
@@ -47,6 +44,30 @@ Parameters:
     Default: prod
     AllowedValues: [dev, prod]
     Description: Deployment stage (dev or prod)
+  DbHost:
+    Type: String
+    NoEcho: true
+    Description: TiDB Cloud hostname (from SSM)
+  DbPort:
+    Type: String
+    NoEcho: true
+    Description: TiDB Cloud port (from SSM)
+  DbUser:
+    Type: String
+    NoEcho: true
+    Description: TiDB Cloud username (from SSM)
+  DbPass:
+    Type: String
+    NoEcho: true
+    Description: TiDB Cloud password (from SSM)
+  DbName:
+    Type: String
+    NoEcho: true
+    Description: TiDB Cloud database name (from SSM)
+  TurnstileSecretKey:
+    Type: String
+    NoEcho: true
+    Description: Cloudflare Turnstile secret key (from SSM)
 
 Globals:
   Function:
@@ -62,20 +83,12 @@ Globals:
         TZ: UTC
         env: !Ref Stage
         PREFIX: !Sub "cutmyaws-${Stage}"
-        # ---------------------------------------------------------------
-        # ALL secrets are stored as SecureString in SSM and fetched
-        # at runtime by awsssm_get_param() in app/libs/aws_ssm.rb.
-        # This keeps secrets out of CloudFormation templates and the
-        # Lambda console. Values are cached in ENV after first fetch.
-        #
-        # SSM params fetched at runtime:
-        #   /cutmyaws/{stage}/db/host
-        #   /cutmyaws/{stage}/db/port
-        #   /cutmyaws/{stage}/db/user
-        #   /cutmyaws/{stage}/db/pass
-        #   /cutmyaws/{stage}/db/name
-        #   /cutmyaws/{stage}/turnstile/secret_key
-        # ---------------------------------------------------------------
+        DB_HOST: !Ref DbHost
+        DB_PORT: !Ref DbPort
+        DB_USER: !Ref DbUser
+        DB_PASS: !Ref DbPass
+        DB_NAME: !Ref DbName
+        TURNSTILE_SECRET_KEY: !Ref TurnstileSecretKey
 
 Resources:
   # ---------------------------------------------------------------------------
@@ -84,24 +97,15 @@ Resources:
   # CORS is handled by Lambda (router.rb OPTIONS handler + api_response.rb).
   # Do NOT configure CORS here — API Gateway's CORS handling can strip
   # Content-Type from Lambda responses, breaking JSON parsing.
+  #
+  # Access logging will be added later via API Gateway account-level
+  # CloudWatch role configuration.
   # ---------------------------------------------------------------------------
   PreQualApi:
     Type: AWS::Serverless::HttpApi
-    DependsOn: ApiAccessLogGroup
     Properties:
       StageName: !Ref Stage
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
-      # -----------------------------------------------------------------------
-      # API Gateway Access Logging — all requests logged to CloudWatch
-      # -----------------------------------------------------------------------
-      # Logs every request with: requestId, IP, method, path, status, latency,
-      # response length, integration status, errors, origin, user-agent.
-      # Matches Ezra's access log format for consistency.
-      # Log group: /aws/httpapi/cutmyaws-{stage}
-      # -----------------------------------------------------------------------
-      AccessLogSettings:
-        DestinationArn: !Sub "arn:aws:logs:us-east-1:731039145080:log-group:/aws/httpapi/cutmyaws-${Stage}"
-        Format: '{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","path":"$context.path","status":"$context.status","responseLength":"$context.responseLength","responseLatency":"$context.responseLatency","integrationLatency":"$context.integrationLatency","integrationStatus":"$context.integrationStatus","error":"$context.error.message","origin":"$request.header.origin","userAgent":"$request.header.user-agent","contentType":"$request.header.content-type"}'
 
   # ---------------------------------------------------------------------------
   # Lambda Function — Router
@@ -139,7 +143,7 @@ Resources:
                 - ses:SendEmail
                 - ses:SendRawEmail
               Resource: "*"
-        # SSM: Read secrets (DB credentials, Turnstile key)
+        # SSM: Read secrets at runtime (fallback for local dev / IRB console)
         - Statement:
             - Effect: Allow
               Action:
@@ -155,20 +159,13 @@ Resources:
               Resource: "*"
 
   # ---------------------------------------------------------------------------
-  # CloudWatch Log Groups — explicit creation for retention control
+  # CloudWatch Log Group — explicit creation for retention control
   # ---------------------------------------------------------------------------
   # Lambda function logs (application-level: requests, DB queries, errors)
   RouterLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
-      RetentionInDays: 60
-
-  # API Gateway access logs (every HTTP request: IP, method, path, status, latency)
-  ApiAccessLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub "/aws/httpapi/cutmyaws-${Stage}"
       RetentionInDays: 60
 
 # -----------------------------------------------------------------------------

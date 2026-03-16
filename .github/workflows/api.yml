@@ -169,16 +169,51 @@ jobs:
           sam build --template-file template.yaml
 
       # -----------------------------------------------------------------------
-      # 10. SAM Deploy
+      # 10. Resolve SSM Secrets
+      # -----------------------------------------------------------------------
+      # Fetch all SecureString params from SSM at deploy time.
+      # Values are injected into CloudFormation as NoEcho parameters,
+      # which masks them in the CloudFormation console. Lambda gets them
+      # as env vars — zero SSM API calls at runtime.
+      # -----------------------------------------------------------------------
+      - name: Resolve SSM Secrets
+        run: |
+          ENV="${{ env.DEPLOY_ENV }}"
+          echo "Resolving SSM parameters for /cutmyaws/${ENV}/..."
+
+          get_ssm() {
+            aws ssm get-parameter --name "$1" --with-decryption --query Parameter.Value --output text
+          }
+
+          echo "DB_HOST=$(get_ssm /cutmyaws/${ENV}/db/host)" >> $GITHUB_ENV
+          echo "DB_PORT=$(get_ssm /cutmyaws/${ENV}/db/port)" >> $GITHUB_ENV
+          echo "DB_USER=$(get_ssm /cutmyaws/${ENV}/db/user)" >> $GITHUB_ENV
+          echo "DB_PASS=$(get_ssm /cutmyaws/${ENV}/db/pass)" >> $GITHUB_ENV
+          echo "DB_NAME=$(get_ssm /cutmyaws/${ENV}/db/name)" >> $GITHUB_ENV
+          echo "TURNSTILE_SECRET_KEY=$(get_ssm /cutmyaws/${ENV}/turnstile/secret_key)" >> $GITHUB_ENV
+
+          echo "All SSM parameters resolved."
+
+      # -----------------------------------------------------------------------
+      # 11. SAM Deploy
       # -----------------------------------------------------------------------
       # Deploys to the target environment using samconfig.toml settings.
-      # --no-confirm-changeset: auto-approve (CI/CD, not interactive)
-      # --config-env: selects dev or prod settings from samconfig.toml
+      # SSM values are passed as CloudFormation parameter overrides.
       # -----------------------------------------------------------------------
       - name: SAM Deploy
         run: |
           cd api
-          sam deploy --config-env ${{ env.DEPLOY_ENV }} --no-fail-on-empty-changeset
+          sam deploy \
+            --config-env ${{ env.DEPLOY_ENV }} \
+            --no-fail-on-empty-changeset \
+            --parameter-overrides \
+              "Stage=${{ env.DEPLOY_ENV }}" \
+              "DbHost=${{ env.DB_HOST }}" \
+              "DbPort=${{ env.DB_PORT }}" \
+              "DbUser=${{ env.DB_USER }}" \
+              "DbPass=${{ env.DB_PASS }}" \
+              "DbName=${{ env.DB_NAME }}" \
+              "TurnstileSecretKey=${{ env.TURNSTILE_SECRET_KEY }}"
 
       # -----------------------------------------------------------------------
       # 11. Warm Lambda and verify deployment
