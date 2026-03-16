@@ -65,9 +65,9 @@ Globals:
         DB_NAME: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/name}}"
         DB_HOST: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/host}}"
         DB_USER: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/user}}"
-        DB_PASS: !Sub "{{resolve:ssm-secure:/cutmyaws/${Stage}/db/pass}}"
+        DB_PASS: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/pass}}"
         DB_PORT: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/port}}"
-        TURNSTILE_SECRET_KEY: !Sub "{{resolve:ssm-secure:/cutmyaws/${Stage}/turnstile/secret_key}}"
+        TURNSTILE_SECRET_KEY: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/turnstile/secret_key}}"
 
 Resources:
   # ---------------------------------------------------------------------------
