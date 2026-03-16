@@ -55,6 +55,8 @@ Globals:
     Architectures:
       - arm64
     Runtime: ruby3.4
+    # X-Ray tracing for end-to-end request visibility
+    Tracing: Active
     Environment:
       Variables:
         TZ: UTC
@@ -80,6 +82,16 @@ Resources:
     Properties:
       StageName: !Ref Stage
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
+      # -----------------------------------------------------------------------
+      # API Gateway Access Logging — all requests logged to CloudWatch
+      # -----------------------------------------------------------------------
+      # Logs every request with: requestId, IP, method, path, status, latency,
+      # response length, integration status, errors, origin, user-agent.
+      # Matches Ezra's access log format for consistency.
+      # -----------------------------------------------------------------------
+      AccessLogSettings:
+        DestinationArn: !GetAtt ApiAccessLogGroup.Arn
+        Format: '{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","path":"$context.path","status":"$context.status","responseLength":"$context.responseLength","responseLatency":"$context.responseLatency","integrationLatency":"$context.integrationLatency","integrationStatus":"$context.integrationStatus","error":"$context.error.message","origin":"$request.header.origin","userAgent":"$request.header.user-agent","contentType":"$request.header.content-type"}'
 
   # ---------------------------------------------------------------------------
   # Lambda Function — Router
@@ -124,14 +136,29 @@ Resources:
                 - ssm:GetParameter
               Resource:
                 - !Sub "arn:aws:ssm:us-east-1:731039145080:parameter/cutmyaws/${Stage}/*"
+        # X-Ray: Tracing for end-to-end request visibility
+        - Statement:
+            - Effect: Allow
+              Action:
+                - xray:PutTraceSegments
+                - xray:PutTelemetryRecords
+              Resource: "*"
 
   # ---------------------------------------------------------------------------
-  # CloudWatch Log Group — explicit creation for retention control
+  # CloudWatch Log Groups — explicit creation for retention control
   # ---------------------------------------------------------------------------
+  # Lambda function logs (application-level: requests, DB queries, errors)
   RouterLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
+      RetentionInDays: 60
+
+  # API Gateway access logs (every HTTP request: IP, method, path, status, latency)
+  ApiAccessLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/httpapi/cutmyaws-${Stage}"
       RetentionInDays: 60
 
 # -----------------------------------------------------------------------------
