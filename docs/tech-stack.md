@@ -7,8 +7,8 @@
 | Framework | Nuxt 4 (static generation) |
 | CSS | Tailwind CSS |
 | Hosting | GitHub Pages (free) |
-| Domain | AWS Route 53 (cutmyaws.com) |
-| DNS | Route 53 hosted zone `Z094524813GXW2EAFA9GE` |
+| Domain | AWS Route 53 (cutmyaws.com) — registered in `pl` account, transfer to `cutmyaws` after 2026-03-23 |
+| DNS | Route 53 hosted zone `Z10236932X9JIETO6LHWY` (cutmyaws account 731039145080) |
 | Email | Google Workspace (cutmyaws.com as secondary domain) |
 | Analytics | Google Analytics (`G-ZGPX081LFE`) via client plugin |
 | Heatmaps | Microsoft Clarity (`vr2el2utus`) via client plugin |

@@ -5,7 +5,7 @@
 | Account | ID | Email | Purpose |
 |---------|-----|-------|---------|
 | PhoneLive (management) | 734267377938 | aws@phonelive.io | Parent org, consolidated billing |
-| Cut My AWS | 731039145080 | cutmyaws.aws@phonelive.io | Audit operations, assumes roles into client accounts |
+| Cut My AWS | 731039145080 | cutmyaws.aws@phonelive.io | Audit operations, DNS (Route 53), SES, assumes roles into client accounts |
 
 Organization ID: `o-hub50yd8sx`. All billing rolls up to PhoneLive management account.
 

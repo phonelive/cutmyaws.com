@@ -134,7 +134,8 @@ First hire: 1099 AWS Implementation Contractor around month 4-5 (Jun-Jul 2026). 
 | Stripe | acct_1TA6p5E7PhfaMBf2 |
 | AWS Account | 731039145080 |
 | AWS Org | 734267377938 |
-| Route 53 Zone | Z094524813GXW2EAFA9GE |
+| Route 53 Zone (cutmyaws.com) | Z10236932X9JIETO6LHWY (cutmyaws acct) |
+| Route 53 Zone (cutmyazure.com) | Z069219924T1FMI64PIIU (cutmyaws acct) |
 | Calendly | calendly.com/phonelivestreaming/cutmyaws-com-intro |
 
 → Full details: [docs/company.md](docs/company.md) (founder bio, target audience, competitive landscape, email deliverability)
