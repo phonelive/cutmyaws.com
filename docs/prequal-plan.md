@@ -39,18 +39,36 @@ Frontend on success
 
 ```
 cutmyaws.com/
-  api/                              # NEW - SAM backend
+  api/                              # NEW - Ruby Lambda backend (SAM)
     template.yaml                   # SAM template (API GW + Lambda + IAM)
-    samconfig.toml                  # SAM deploy config
-    package.json                    # Lambda deps (mysql2)
-    src/
-      prequal/
-        index.mjs                   # Lambda handler
-        lib/
-          turnstile.mjs             # Turnstile verification
-          tidb.mjs                  # TiDB connection + queries
-          ses.mjs                   # SES email helper
-          validate.mjs              # Server-side validation
+    samconfig.toml                  # SAM deploy config (dev + prod)
+    router.rb                       # Lambda entry point (dynamic routing)
+    init.rb                         # Bootstrap (bundler, env, auto-loading)
+    Gemfile                         # Ruby dependencies (trilogy, activerecord, aws-sdk)
+    Rakefile                        # Dev tasks (irb_dev, irb_prod, http_dev, db_create)
+    app/
+      libs/
+        aws.rb                      # AWS SDK global config
+        aws_ssm.rb                  # SSM parameter fetching with ENV caching
+        db.rb                       # TiDB connection via Trilogy + AutoReconnect
+        api_response.rb             # CORS, api_success/error, api_handler wrapper
+        turnstile.rb                # Cloudflare Turnstile token verification
+        ses.rb                      # SES email notification to David
+        validate.rb                 # Server-side form validation rules
+      controllers/
+        prequal.rb                  # POST /prequal (main endpoint)
+    fn/
+      router_test.rb                # Lambda health check / warmup
+    scripts/
+      irb.sh                        # IRB console launcher
+    .docker/
+      bundle-install/               # Docker build for Lambda-compatible gems
+    db/
+      001_create_prequal_submissions.sql
+  .github/
+    workflows/
+      api.yml                       # GitHub Actions: SAM deploy on push
+      deploy.yml                    # GitHub Actions: Nuxt → GitHub Pages
   app/                              # EXISTING - Nuxt source (unchanged structure)
     components/
       CalendlyEmbed.vue             # MODIFY - accept prefill props
@@ -62,28 +80,35 @@ cutmyaws.com/
 ## Turnstile
 
 - **Site key:** `0x4AAAAAACrv6ddaepEh0qEx` (public, in frontend code)
-- **Secret key:** stored in SSM at `/cutmyaws/prequal/turnstile-secret`
+- **Secret key:** stored in SSM at `/cutmyaws/{env}/turnstile/secret_key`
 - **Mode:** Invisible (no widget shown, validates silently)
 - Load script: `https://challenges.cloudflare.com/turnstile/v0/api.js`
 - Call `turnstile.execute(siteKey)` on form submit → get token → include in POST body
 
 ## SAM Template (`api/template.yaml`)
 
-**Resources:**
-1. `PreQualApi` — `AWS::Serverless::Api` with CORS for `https://cutmyaws.com`
-2. `PreQualFunction` — `AWS::Serverless::Function`
-   - Runtime: `nodejs20.x`, Architecture: `arm64`, Memory: 256, Timeout: 15
-   - Handler: `src/prequal/index.handler`
-   - Policies: SSM read (`/cutmyaws/prequal/*`), SES send
-   - Event: POST `/prequal`
+**Language:** Ruby 3.4 (NOT Node.js — matches Ezra project patterns)
 
-**SSM Parameters (create manually before deploy):**
-- `/cutmyaws/prequal/turnstile-secret`
-- `/cutmyaws/prequal/tidb-host`
-- `/cutmyaws/prequal/tidb-port` (4000)
-- `/cutmyaws/prequal/tidb-user`
-- `/cutmyaws/prequal/tidb-password` (SecureString)
-- `/cutmyaws/prequal/tidb-database`
+**Resources:**
+1. `PreQualApi` — `AWS::Serverless::HttpApi` (HTTP API, payload 2.0)
+2. `RouterFunction` — `AWS::Serverless::Function`
+   - Runtime: `ruby3.4`, Architecture: `arm64`, Memory: 256, Timeout: 15
+   - Handler: `router.router`
+   - Policies: SSM read (`/cutmyaws/{stage}/*`), SES send
+   - Events: ANY `/{proxy+}` + ANY `/`
+
+**Environments:** dev and prod (via `Stage` parameter in samconfig.toml)
+
+**Deployment:** GitHub Actions ONLY — push to `main` (prod) or `dev` branch (dev).
+NEVER deploy from the command line.
+
+**SSM Parameters (already created in both dev and prod):**
+- `/cutmyaws/{env}/db/host` — gateway01.us-east-1.prod.aws.tidbcloud.com
+- `/cutmyaws/{env}/db/port` — 4000
+- `/cutmyaws/{env}/db/user` — 4EA5RRLJJAkgUTA.root
+- `/cutmyaws/{env}/db/pass` — (SecureString)
+- `/cutmyaws/{env}/db/name` — test
+- `/cutmyaws/{env}/turnstile/secret_key` — (SecureString; dev uses Cloudflare test key)
 
 ## Lambda Handler Flow
 
@@ -213,28 +238,34 @@ Both values are public. API is protected by Turnstile + CORS + server-side valid
 
 ## Deployment Order
 
-1. Create SSM parameters in AWS Console
-2. Set up SES identity for `cutmyaws.com` domain
-3. Create TiDB database + run CREATE TABLE
-4. `cd api/ && sam build && sam deploy --guided`
-5. Get API Gateway URL → update `useConfig.ts`
-6. (Optional) Set up `api.cutmyaws.com` custom domain in Route 53 → API Gateway
-7. Push frontend changes to `main` (auto-deploys via GitHub Actions)
+1. ~~Create SSM parameters~~ ✅ Done (both dev and prod)
+2. Set up SES identity for `cutmyaws.com` domain (or verify sender in sandbox)
+3. ~~Create TiDB database + run CREATE TABLE~~ ✅ Done (`bundle exec rake db_create`)
+4. Set GitHub secrets: `AWS_ACCESS_KEY_ID_CUTMYAWS` + `AWS_SECRET_ACCESS_KEY_CUTMYAWS`
+5. Push `api/` to `main` → GitHub Actions deploys to prod via SAM
+6. Get API Gateway URL from CloudFormation outputs → update `useConfig.ts`
+7. (Optional) Set up `api.cutmyaws.com` custom domain in Route 53 → API Gateway
+8. Push frontend changes to `main` (auto-deploys via GitHub Actions)
 
-## Lambda Dependencies
+**IMPORTANT:** All deployments happen through GitHub Actions on push.
+NEVER deploy from the command line. See `.github/workflows/api.yml`.
 
-```json
-{
-  "name": "cutmyaws-prequal-api",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "mysql2": "^3.11.0"
-  }
-}
+**Environments:**
+- Push to `main` → deploys to **prod** (cutmyaws-prod-api stack)
+- Push to `dev` branch → deploys to **dev** (cutmyaws-dev-api stack)
+- Manual workflow_dispatch → choose dev or prod
+
+## Ruby Dependencies (Gemfile)
+
+```ruby
+gem 'trilogy'                              # MySQL/TiDB adapter (faster than mysql2)
+gem 'activerecord', '~> 8.0.0'            # ORM for database queries
+gem 'activesupport'                        # Timezone, utilities
+gem 'aws-sdk-ssm'                          # SSM Parameter Store
+gem 'aws-sdk-ses'                          # Email sending
 ```
 
-Only `mysql2` needed. AWS SDK v3 (SES, SSM) included in Lambda runtime. Turnstile uses native `fetch`.
+Trilogy is chosen over mysql2 (same as Ezra project) for better Lambda performance and TiDB Cloud SSL compatibility. Auto-reconnect module handles idle connection drops.
 
 ## Calendly Configuration (manual)
 

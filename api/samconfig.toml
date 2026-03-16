@@ -1,0 +1,55 @@
+# =============================================================================
+# SAM DEPLOY CONFIGURATION — CutMyAWS API
+# =============================================================================
+#
+# Per-environment deployment settings for `sam deploy`.
+# GitHub Actions uses --config-env to select the right environment.
+#
+# USAGE (GitHub Actions only — never deploy manually):
+#   sam deploy --config-env dev
+#   sam deploy --config-env prod
+#
+# AWS ACCOUNT: 731039145080 (Cut My AWS)
+# REGION: us-east-1
+#
+# =============================================================================
+
+version = 0.1
+
+[default.global.parameters]
+region = "us-east-1"
+
+# -----------------------------------------------------------------------------
+# Dev Environment
+# -----------------------------------------------------------------------------
+# Deployed on push to `dev` branch.
+# SSM params: /cutmyaws/dev/*
+# API URL: https://{api-id}.execute-api.us-east-1.amazonaws.com/dev
+# -----------------------------------------------------------------------------
+[dev.deploy.parameters]
+stack_name = "cutmyaws-dev-api"
+resolve_s3 = true
+s3_prefix = "cutmyaws-dev-api"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Stage=dev"
+tags = "project=cutmyaws env=dev"
+
+# -----------------------------------------------------------------------------
+# Prod Environment
+# -----------------------------------------------------------------------------
+# Deployed on push to `main` branch.
+# SSM params: /cutmyaws/prod/*
+# API URL: https://{api-id}.execute-api.us-east-1.amazonaws.com/prod
+# Future: api.cutmyaws.com custom domain
+# -----------------------------------------------------------------------------
+[prod.deploy.parameters]
+stack_name = "cutmyaws-prod-api"
+resolve_s3 = true
+s3_prefix = "cutmyaws-prod-api"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Stage=prod"
+tags = "project=cutmyaws env=prod"

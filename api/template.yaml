@@ -1,0 +1,149 @@
+# =============================================================================
+# SAM TEMPLATE — CutMyAWS Pre-Qualification API
+# =============================================================================
+#
+# Deploys a Ruby Lambda function behind API Gateway HTTP API.
+# Handles pre-qualification form submissions from cutmyaws.com.
+#
+# ARCHITECTURE:
+#   API Gateway HTTP API (payload 2.0) → Lambda (Ruby 3.4, arm64)
+#     → Cloudflare Turnstile verification
+#     → TiDB Cloud (MySQL-compatible) for lead storage
+#     → SES for email notification to David
+#
+# ENVIRONMENTS:
+#   dev:  cutmyaws-dev  → api.dev.cutmyaws.com (future)
+#   prod: cutmyaws-prod → api.cutmyaws.com
+#
+# DEPLOYMENT:
+#   Automated via GitHub Actions on push to main (prod) or dev branch (dev).
+#   NEVER deploy from the command line — always push to trigger CI/CD.
+#
+# MANUAL DEPLOY (emergency only):
+#   sam build && sam deploy --config-env prod
+#
+# AWS ACCOUNT: 731039145080 (Cut My AWS)
+#
+# SSM PARAMETERS (must exist before deploy):
+#   /cutmyaws/{stage}/db/host           — TiDB Cloud hostname
+#   /cutmyaws/{stage}/db/port           — TiDB Cloud port (4000)
+#   /cutmyaws/{stage}/db/user           — TiDB Cloud username
+#   /cutmyaws/{stage}/db/pass           — TiDB Cloud password (SecureString)
+#   /cutmyaws/{stage}/db/name           — TiDB Cloud database name
+#   /cutmyaws/{stage}/turnstile/secret_key — Cloudflare Turnstile secret
+#
+# =============================================================================
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CutMyAWS Pre-Qualification API
+
+# -----------------------------------------------------------------------------
+# Parameters — set per environment via samconfig.toml
+# -----------------------------------------------------------------------------
+Parameters:
+  Stage:
+    Type: String
+    Default: prod
+    AllowedValues: [dev, prod]
+    Description: Deployment stage (dev or prod)
+
+Globals:
+  Function:
+    Timeout: 15
+    MemorySize: 256
+    Architectures:
+      - arm64
+    Runtime: ruby3.4
+    Environment:
+      Variables:
+        TZ: UTC
+        env: !Ref Stage
+        PREFIX: !Sub "cutmyaws-${Stage}"
+        DB_NAME: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/name}}"
+        DB_HOST: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/host}}"
+        DB_USER: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/user}}"
+        DB_PASS: !Sub "{{resolve:ssm-secure:/cutmyaws/${Stage}/db/pass}}"
+        DB_PORT: !Sub "{{resolve:ssm:/cutmyaws/${Stage}/db/port}}"
+        TURNSTILE_SECRET_KEY: !Sub "{{resolve:ssm-secure:/cutmyaws/${Stage}/turnstile/secret_key}}"
+
+Resources:
+  # ---------------------------------------------------------------------------
+  # API Gateway HTTP API
+  # ---------------------------------------------------------------------------
+  # CORS is handled by Lambda (router.rb OPTIONS handler + api_response.rb).
+  # Do NOT configure CORS here — API Gateway's CORS handling can strip
+  # Content-Type from Lambda responses, breaking JSON parsing.
+  # ---------------------------------------------------------------------------
+  PreQualApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref Stage
+      Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
+
+  # ---------------------------------------------------------------------------
+  # Lambda Function — Router
+  # ---------------------------------------------------------------------------
+  # Single function handles all routes via dynamic routing in router.rb.
+  # See router.rb for routing pattern: {path}_{method}(event, context)
+  # ---------------------------------------------------------------------------
+  RouterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "cutmyaws-${Stage}-router"
+      Handler: router.router
+      CodeUri: .
+      Description: !Sub "CutMyAWS API router (${Stage})"
+      LoggingConfig:
+        LogGroup: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
+      Events:
+        CatchAll:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref PreQualApi
+            Path: /{proxy+}
+            Method: ANY
+        Root:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref PreQualApi
+            Path: /
+            Method: ANY
+      Policies:
+        # SES: Send notification emails to David
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+                - ses:SendRawEmail
+              Resource: "*"
+        # SSM: Read secrets (DB credentials, Turnstile key)
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ssm:GetParameter
+              Resource:
+                - !Sub "arn:aws:ssm:us-east-1:731039145080:parameter/cutmyaws/${Stage}/*"
+
+  # ---------------------------------------------------------------------------
+  # CloudWatch Log Group — explicit creation for retention control
+  # ---------------------------------------------------------------------------
+  RouterLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
+      RetentionInDays: 60
+
+# -----------------------------------------------------------------------------
+# Outputs — used by GitHub Actions for verification and custom domain setup
+# -----------------------------------------------------------------------------
+Outputs:
+  ApiUrl:
+    Description: API Gateway endpoint URL
+    Value: !Sub "https://${PreQualApi}.execute-api.us-east-1.amazonaws.com/${Stage}"
+  FunctionName:
+    Description: Lambda function name
+    Value: !Ref RouterFunction
+  FunctionArn:
+    Description: Lambda function ARN
+    Value: !GetAtt RouterFunction.Arn

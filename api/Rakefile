@@ -1,0 +1,243 @@
+# =============================================================================
+# RAKEFILE — CutMyAWS API Development Tasks
+# =============================================================================
+#
+# Available tasks:
+#   bundle exec rake irb_dev       — IRB console connected to dev TiDB
+#   bundle exec rake irb_prod      — IRB console connected to prod TiDB
+#   bundle exec rake http_dev      — Local WEBrick dev server on port 4001
+#   bundle exec rake db_create     — Create prequal_submissions table in TiDB
+#
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# IRB Console (Production)
+# -----------------------------------------------------------------------------
+# Opens an IRB session connected to the production TiDB database.
+# Loads all libs so you can run raw SQL, check leads, etc.
+#
+# Usage:
+#   bundle exec rake irb_prod
+#
+# In the console:
+#   ActiveRecord::Base.connection.execute("SELECT * FROM prequal_submissions ORDER BY created_at DESC LIMIT 5")
+#   reconnect!   # if connection drops after idle
+#
+task :irb_dev do
+  system './scripts/irb.sh dev'
+end
+
+task :irb_prod do
+  system './scripts/irb.sh prod'
+end
+
+# -----------------------------------------------------------------------------
+# Database Table Creation
+# -----------------------------------------------------------------------------
+# Creates the prequal_submissions table in TiDB. Safe to run multiple times
+# (uses IF NOT EXISTS). Run this before the first deploy.
+#
+# Usage:
+#   bundle exec rake db_create
+#
+task :db_create do
+  if ENV['PREFIX'].nil?
+    ENV['PREFIX'] = "cutmyaws-prod"
+  end
+  ENV['TZ'] = 'UTC'
+  ENV['IS_LOCAL'] = 'true'
+
+  # Fix for OpenSSL 3.6.0+ CRL checking issue on macOS
+  openssl_config = File.expand_path('_dev/openssl-no-crl.cnf', __dir__)
+  if File.exist?(openssl_config)
+    ENV['OPENSSL_CONF'] = openssl_config
+  end
+
+  require 'openssl'
+  require 'aws-sdk-core'
+  Aws.config.update(ssl_verify_peer: false)
+
+  require './init.rb'
+
+  sql = <<~SQL
+    CREATE TABLE IF NOT EXISTS prequal_submissions (
+      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      company TEXT NOT NULL,
+      aws_monthly VARCHAR(50) NOT NULL,
+      turnstile_success BOOLEAN DEFAULT TRUE,
+      ip_address VARCHAR(45),
+      user_agent TEXT,
+      utm_source VARCHAR(100),
+      utm_medium VARCHAR(100),
+      utm_campaign VARCHAR(100),
+      page_url VARCHAR(500),
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      INDEX idx_email (email),
+      INDEX idx_created (created_at)
+    );
+  SQL
+
+  ActiveRecord::Base.connection.execute(sql)
+  puts "✓ prequal_submissions table created (or already exists)"
+
+  # Verify
+  count = ActiveRecord::Base.connection.execute("SELECT COUNT(*) AS c FROM prequal_submissions")
+  puts "  Current row count: #{count.first[0]}"
+end
+
+# -----------------------------------------------------------------------------
+# Local Development Server
+# -----------------------------------------------------------------------------
+# Starts a WEBrick HTTP server on port 4001 that mimics API Gateway.
+# Hot-reloads controller and lib files on every request.
+#
+# Usage:
+#   bundle exec rake http_dev
+#
+# Then test with:
+#   curl -X POST http://localhost:4001/prequal \
+#     -H 'Content-Type: application/json' \
+#     -d '{"name":"Test","email":"test@test.com","awsMonthly":"$25K - $50K","company":"Test company here","turnstileToken":"test"}'
+#
+task :http_dev do
+  if ENV['PREFIX'].nil?
+    ENV['PREFIX'] = "cutmyaws-prod"
+  end
+  ENV['TZ'] = 'UTC'
+  ENV['IS_LOCAL'] = 'true'
+
+  # Fix for OpenSSL 3.6.0+ CRL checking issue on macOS
+  openssl_config = File.expand_path('_dev/openssl-no-crl.cnf', __dir__)
+  if File.exist?(openssl_config)
+    ENV['OPENSSL_CONF'] = openssl_config
+  end
+
+  require 'openssl'
+  require 'aws-sdk-core'
+  Aws.config.update(ssl_verify_peer: false)
+
+  require './init.rb'
+
+  puts "RUNNING ENV: #{ENV['env']}"
+
+  class Server < WEBrick::HTTPServlet::AbstractServlet
+    @@file_mtimes = {}
+
+    def file_changed?(file)
+      current_mtime = File.mtime(file)
+      last_mtime = @@file_mtimes[file]
+      @@file_mtimes[file] = current_mtime
+      last_mtime.nil? || current_mtime > last_mtime
+    end
+
+    def reloader
+      changed_files = []
+
+      Dir.glob('./app/libs/*.rb').each do |file|
+        if file_changed?(file)
+          changed_files << file
+          load file rescue puts "[ERROR] HOT_RELOAD: #{file}: #{$!}"
+        end
+      end
+
+      Dir.glob('./app/controllers/*.rb').each do |file|
+        if file_changed?(file)
+          changed_files << file
+          load file rescue puts "[ERROR] HOT_RELOAD: #{file}: #{$!}"
+        end
+      end
+
+      Dir.glob('./fn/*.rb').each do |file|
+        if file_changed?(file)
+          changed_files << file
+          load file rescue puts "[ERROR] HOT_RELOAD: #{file}: #{$!}"
+        end
+      end
+
+      if changed_files.any?
+        puts "  [HOT RELOAD] Reloaded: #{changed_files.map { |f| File.basename(f) }.join(', ')}"
+      end
+    end
+
+    def build_event(request)
+      event = {
+        'path' => request.path,
+        'httpMethod' => request.request_method,
+        'queryStringParameters' => {},
+        'body' => request.body,
+        'requestContext' => {
+          'http' => {
+            'sourceIp' => request.peeraddr[2],
+            'method' => request.request_method,
+          }
+        },
+        'headers' => {}
+      }
+      unless request.query_string.nil?
+        request.query_string.split("&").map { |q| { "#{q.split("=")[0]}" => "#{q.split("=")[1]}" } }.each do |h|
+          event['queryStringParameters'].merge! h
+        end
+      end
+      request.raw_header.map { |rh| { "#{rh.split(": ")[0]}" => "#{rh.split(": ")[1]&.gsub("\r\n","")}" } }.each do |h|
+        event['headers'].merge! h
+      end
+      return event
+    end
+
+    def build_response(response, output)
+      response.status = output[:statusCode]
+      response.body = output[:body] if output[:body]
+      if output[:headers]
+        output[:headers].each { |k, v| response[k.to_s] = v }
+      end
+      return response
+    end
+
+    def runner(event)
+      context = {}
+      function_name = "#{event['path'][1..99].downcase.gsub('-', '_').split("/").reject(&:empty?).join("_")}_#{event['httpMethod'].downcase}"
+      puts "\n  RUNNING #{function_name}"
+      timer_start = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      output = send(function_name, event, context)
+      timer_elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - timer_start
+      puts "  COMPLETED #{function_name} in #{(timer_elapsed * 1000).to_i}ms"
+      if output[:body]
+        begin
+          puts "  Response: #{JSON.pretty_generate(JSON.parse(output[:body]))}"
+        rescue
+          puts "  Response: #{output[:body]}"
+        end
+      end
+      puts ""
+      return output
+    end
+
+    def do_GET(request, response)
+      reloader
+      build_response(response, runner(build_event(request)))
+    end
+
+    def do_POST(request, response)
+      reloader
+      build_response(response, runner(build_event(request)))
+    end
+
+    def do_OPTIONS(request, response)
+      response.status = 200
+      response['Access-Control-Allow-Headers'] = 'Content-Type'
+      response['Access-Control-Allow-Methods'] = 'OPTIONS,GET,POST'
+      response['Access-Control-Allow-Origin'] = "*"
+    end
+  end
+
+  server = WEBrick::HTTPServer.new(:Port => 4001)
+  server.mount "/", Server
+
+  trap "INT" do
+    server.shutdown
+  end
+
+  server.start
+end

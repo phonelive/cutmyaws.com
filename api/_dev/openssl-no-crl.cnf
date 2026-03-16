@@ -1,0 +1,20 @@
+# OpenSSL configuration for local development
+# Disables CRL (Certificate Revocation List) checking which can cause
+# "certificate verify failed (unable to get certificate CRL)" errors
+#
+# Usage: Set OPENSSL_CONF=/path/to/this/file before running Ruby
+#
+# See: https://www.openssl.org/docs/man3.0/man5/x509v3_config.html
+
+openssl_conf = openssl_init
+
+[openssl_init]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+# Disable CRL checking for local development
+# This is safe for dev but should NOT be used in production
+Options = -CRL_check -CRL_check_all

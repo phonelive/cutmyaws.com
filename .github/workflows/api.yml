@@ -1,0 +1,234 @@
+# =============================================================================
+# API BUILD AND DEPLOY — CutMyAWS Pre-Qualification API
+# =============================================================================
+#
+# Deploys the Ruby Lambda API via AWS SAM on push to main (prod) or dev (dev).
+#
+# TRIGGER:
+#   - Push to `main` branch with changes in api/ → deploys to PROD
+#   - Push to `dev` branch with changes in api/  → deploys to DEV
+#   - Manual workflow_dispatch (choose environment)
+#
+# STEPS:
+#   1. Checkout code (sparse — only api/ directory)
+#   2. Set up Ruby 3.4, install gems for local validation
+#   3. Rebuild gems in Docker for Lambda ARM64 compatibility
+#   4. SAM build + deploy to the target environment
+#   5. Warm Lambda and verify deployment health
+#
+# DEPLOYMENT RULE:
+#   All deployments go through this workflow. NEVER deploy from the CLI.
+#   Push to the appropriate branch and let GitHub Actions handle it.
+#
+# AWS ACCOUNT: 731039145080 (Cut My AWS)
+# REGION: us-east-1
+#
+# REQUIRED GITHUB SECRETS:
+#   AWS_ACCESS_KEY_ID_CUTMYAWS     — IAM user with deploy permissions
+#   AWS_SECRET_ACCESS_KEY_CUTMYAWS — IAM user secret key
+#
+# =============================================================================
+
+name: API Build and Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - api/**
+      - .github/workflows/api.yml
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 10
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: cutmyaws-api-${{ github.ref_name }}
+      cancel-in-progress: false
+
+    steps:
+      # -----------------------------------------------------------------------
+      # 1. Checkout — sparse checkout for speed (only api/ directory)
+      # -----------------------------------------------------------------------
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            api
+          sparse-checkout-cone-mode: true
+
+      # -----------------------------------------------------------------------
+      # 2. Determine environment from branch or manual input
+      # -----------------------------------------------------------------------
+      - name: Set Environment
+        id: setenv
+        run: |
+          SHORT_SHA=$(echo $GITHUB_SHA | head -c7)
+          echo "SHORT_SHA=${SHORT_SHA}" >> $GITHUB_ENV
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            ENV="${{ github.event.inputs.environment }}"
+          elif [ "${GITHUB_REF_NAME}" = "main" ]; then
+            ENV="prod"
+          elif [ "${GITHUB_REF_NAME}" = "dev" ]; then
+            ENV="dev"
+          else
+            ENV="dev"
+          fi
+
+          echo "DEPLOY_ENV=${ENV}" >> $GITHUB_ENV
+          echo "DEPLOY_ENV=${ENV}" >> $GITHUB_OUTPUT
+          echo "Deploying to: ${ENV}"
+
+      # -----------------------------------------------------------------------
+      # 3. Configure AWS credentials (CutMyAWS account: 731039145080)
+      # -----------------------------------------------------------------------
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_CUTMYAWS }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_CUTMYAWS }}
+          aws-region: us-east-1
+
+      # -----------------------------------------------------------------------
+      # 4. Cache gems and Docker layers for faster deploys
+      # -----------------------------------------------------------------------
+      - name: Cache RubyGems
+        id: cache-gems
+        uses: actions/cache@v4
+        with:
+          key: cutmyaws-api-gems-${{ hashFiles('api/Gemfile.lock') }}
+          path: |
+            api/.bundle
+            api/vendor
+
+      # -----------------------------------------------------------------------
+      # 5. Set up Ruby (for local gem install before Docker rebuild)
+      # -----------------------------------------------------------------------
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.7'
+          bundler-cache: false
+
+      # -----------------------------------------------------------------------
+      # 6. Install gems locally (needed for cache seeding)
+      # -----------------------------------------------------------------------
+      - name: Install Gems
+        if: steps.cache-gems.outputs.cache-hit != 'true'
+        run: |
+          cd api
+          bundle config set --local path 'vendor/bundle'
+          bundle install --jobs 4
+
+      # -----------------------------------------------------------------------
+      # 7. Rebuild gems in Docker for Lambda ARM64 compatibility
+      # -----------------------------------------------------------------------
+      # Native extensions (trilogy) must be compiled against Amazon Linux's
+      # glibc and OpenSSL, not Ubuntu's. This Docker image matches Lambda's
+      # runtime exactly.
+      # -----------------------------------------------------------------------
+      - name: Bundle Install for Lambda (Docker)
+        if: steps.cache-gems.outputs.cache-hit != 'true'
+        run: |
+          docker run --platform linux/arm64 --rm \
+            -v $PWD/api:/var/task -w /var/task \
+            $(docker buildx build --platform linux/arm64 -q api/.docker/bundle-install)
+
+      # -----------------------------------------------------------------------
+      # 8. Set up SAM CLI
+      # -----------------------------------------------------------------------
+      - name: Set up SAM CLI
+        uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
+
+      # -----------------------------------------------------------------------
+      # 9. SAM Build
+      # -----------------------------------------------------------------------
+      # Packages the Lambda function code. Uses --use-container=false since
+      # we already built Lambda-compatible gems in the Docker step above.
+      # -----------------------------------------------------------------------
+      - name: SAM Build
+        run: |
+          cd api
+          sam build --template-file template.yaml
+
+      # -----------------------------------------------------------------------
+      # 10. SAM Deploy
+      # -----------------------------------------------------------------------
+      # Deploys to the target environment using samconfig.toml settings.
+      # --no-confirm-changeset: auto-approve (CI/CD, not interactive)
+      # --config-env: selects dev or prod settings from samconfig.toml
+      # -----------------------------------------------------------------------
+      - name: SAM Deploy
+        run: |
+          cd api
+          sam deploy --config-env ${{ env.DEPLOY_ENV }} --no-fail-on-empty-changeset
+
+      # -----------------------------------------------------------------------
+      # 11. Warm Lambda and verify deployment
+      # -----------------------------------------------------------------------
+      # Fire a health check to verify the Lambda boots, connects to TiDB,
+      # and responds correctly. Also warms a few instances.
+      # -----------------------------------------------------------------------
+      - name: Warm Lambda & Verify Deployment
+        run: |
+          FUNCTION_NAME="cutmyaws-${{ env.DEPLOY_ENV }}-router"
+
+          echo "Warming Lambda: ${FUNCTION_NAME}..."
+
+          # Warm 3 instances in parallel
+          for i in 1 2 3; do
+            aws lambda invoke \
+              --function-name "$FUNCTION_NAME" \
+              --payload '{}' \
+              --cli-binary-format raw-in-base64-out \
+              /tmp/warm_$i.json &
+          done
+
+          # Wait for all warmups
+          wait
+
+          # Read the last response as health check
+          RESPONSE=$(cat /tmp/warm_3.json 2>/dev/null || echo "{}")
+          echo "Health check response: ${RESPONSE}"
+
+          # Verify the response has a body with status
+          BODY=$(echo "$RESPONSE" | jq -r '.body // empty' 2>/dev/null || echo "")
+          if [ -n "$BODY" ]; then
+            DB_STATUS=$(echo "$BODY" | jq -r '.db // empty' 2>/dev/null || echo "")
+            echo "DB status: ${DB_STATUS}"
+            if [ "$DB_STATUS" = "error" ]; then
+              echo "WARNING: Database connection failed on health check"
+            fi
+          fi
+
+          echo "Deployment complete: ${FUNCTION_NAME}"
+
+      # -----------------------------------------------------------------------
+      # 12. Print API URL
+      # -----------------------------------------------------------------------
+      - name: Print API URL
+        run: |
+          cd api
+          API_URL=$(aws cloudformation describe-stacks \
+            --stack-name "cutmyaws-${{ env.DEPLOY_ENV }}-api" \
+            --query 'Stacks[0].Outputs[?OutputKey==`ApiUrl`].OutputValue' \
+            --output text 2>/dev/null || echo "unknown")
+          echo "API URL: ${API_URL}"
+          echo "Health check: ${API_URL}/prequal"

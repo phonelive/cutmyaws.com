@@ -1,0 +1,18 @@
+# =============================================================================
+# .gitignore — CutMyAWS API
+# =============================================================================
+
+# Bundler — gems installed locally for dev/Docker
+vendor/
+.bundle/
+
+# SAM build output
+.aws-sam/
+
+# Temporary files
+tmp/
+*.log
+.byebug_history
+
+# macOS
+.DS_Store
