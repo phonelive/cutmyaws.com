@@ -15,15 +15,6 @@ const stats = [
   { value: '19 yrs', label: 'AWS experience — in production since 2007 ☁️' },
 ]
 
-// ── Government client logos ──
-const govLogos = [
-  { name: 'DC Government', url: 'https://dc.gov', logo: '/logos/dc-gov.png' },
-  { name: 'Commonwealth of MA', url: 'https://mass.gov', logo: '/logos/ma-state.png' },
-  { name: 'PBS', url: 'https://pbs.org', logo: '/logos/pbs.svg' },
-  { name: 'Argonne National Lab', url: 'https://anl.gov', logo: '/logos/argonne.png' },
-  { name: 'Caterpillar', url: 'https://caterpillar.com', logo: '/logos/cat.svg' },
-]
-
 // ── How it works steps ──
 const steps = [
   { title: 'Your team grants read-only access', description: 'CloudFormation template, 15-minute setup. External ID for confused deputy protection. You control it, you revoke it when we\'re done. 🔒' },
@@ -80,13 +71,10 @@ const faqQuestions = [
     <!-- Stats -->
     <SectionStats :stats="stats" />
 
-    <!-- Government Client Logos -->
+    <!-- Client Logos -->
     <section>
       <div class="max-w-3xl mx-auto px-6 py-12">
-        <ClientLogos
-          :clients="govLogos"
-          headline="Trusted by government agencies and public sector organizations"
-        />
+        <ClientLogos />
       </div>
     </section>
 
