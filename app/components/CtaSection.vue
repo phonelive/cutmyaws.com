@@ -14,7 +14,7 @@ defineProps({
   },
   ctaText: {
     type: String,
-    default: '🗓️ Book Your Free Intro Call',
+    default: '🗓️ Book a Free 15-Min Chat',
   },
   secondaryHtml: {
     type: String,

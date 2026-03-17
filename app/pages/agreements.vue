@@ -36,7 +36,7 @@ function fmt(n) {
 }
 
 const meetings = [
-  { name: 'Intro Call', when: 'Before audit begins', duration: '15 min', format: 'Zoom', count: '1', phase: 'Report' },
+  { name: 'Free Chat', when: 'Before audit begins', duration: '15 min', format: 'Zoom', count: '1', phase: 'Report' },
   { name: 'Exploration Call', when: '5–10 business days after access', duration: '45 min', format: 'Zoom', count: '1', phase: 'Report' },
   { name: 'Implementation Kickoff', when: 'After SOW signed', duration: '30 min', format: 'Zoom', count: '1', phase: 'Fix' },
   { name: 'Weekly Check-ins', when: 'During implementation', duration: '15 min', format: 'Zoom', count: '1/week', phase: 'Fix' },
@@ -109,7 +109,7 @@ const meetings = [
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">3</span>
             <div>
               <p class="text-gray-200 font-medium">Meetings</p>
-              <p class="text-gray-400 text-sm"><strong class="text-gray-200">2 meetings total.</strong> Intro call (15 min) + Exploration call (45 min, report delivery). That's it.</p>
+              <p class="text-gray-400 text-sm"><strong class="text-gray-200">2 meetings total.</strong> Free chat (15 min) + Exploration call (45 min, report delivery). That's it.</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -553,7 +553,7 @@ const meetings = [
           <div class="divide-y divide-gray-800">
             <div class="flex justify-between items-center p-4">
               <div>
-                <p class="text-gray-200 font-medium text-sm">Week 0 — Intro Call</p>
+                <p class="text-gray-200 font-medium text-sm">Week 0 — Free Chat</p>
                 <p class="text-gray-500 text-xs">15 min · Free · Client grants read-only access</p>
               </div>
               <span class="text-gray-600 text-sm">{{ fmt(0) }}</span>

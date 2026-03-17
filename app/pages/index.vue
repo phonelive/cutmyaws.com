@@ -123,7 +123,7 @@ const notFitItems = [
 // ── FAQ questions ──
 const faqQuestions = [
   { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. I\'ll send you a congratulatory email.' },
-  { emoji: '🤨', question: 'When do I actually pay?', answer: `The intro call is free &mdash; no payment, no commitment. If it's a fit, a ${pricing.depositPct}% deposit (of your AWS annual spend) kicks off the audit &mdash; deducted from The Report fee. ${pricing.reportPct}% of annualized savings (minus the deposit) is due when The Report is delivered. If you opt for implementation, there's a ${pricing.fixDepositPct}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining ${pricing.implPct}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. 😅` },
+  { emoji: '🤨', question: 'When do I actually pay?', answer: `The initial chat is free &mdash; no payment, no commitment. If it's a fit, a ${pricing.depositPct}% deposit (of your AWS annual spend) kicks off the audit &mdash; deducted from The Report fee. ${pricing.reportPct}% of annualized savings (minus the deposit) is due when The Report is delivered. If you opt for implementation, there's a ${pricing.fixDepositPct}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining ${pricing.implPct}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. 😅` },
   { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
   { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
   { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
@@ -159,7 +159,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               href="#book"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
             >
-              🗓️ Book Your Free Intro Call
+              🗓️ Book a Free 15-Min Chat
             </a>
             <p class="text-gray-500 text-sm">15 min &middot; free &middot; no pitch deck 😏</p>
           </div>
@@ -237,7 +237,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           href="#book"
           class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
         >
-          🗓️ Book Your Free Intro Call
+          🗓️ Book a Free 15-Min Chat
         </a>
         <p class="text-gray-600 text-sm mt-3">15 minutes. Free. Just math and honest answers. 🧮</p>
       </div>
@@ -269,12 +269,12 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
 
         <div class="max-w-2xl mx-auto space-y-6">
 
-          <!-- Step 1: Intro Call -->
+          <!-- Step 1: Free Chat -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
               <div>
-                <h3 class="text-lg font-bold">🗓️ Intro Call</h3>
+                <h3 class="text-lg font-bold">🗓️ Free Chat</h3>
                 <p class="text-gray-500 text-sm">15 min &middot; free</p>
               </div>
             </div>
@@ -498,7 +498,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             href="#book"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
           >
-            🗓️ Book Your Free Intro Call →
+            🗓️ Book a Free 15-Min Chat →
           </a>
         </div>
       </div>
@@ -530,7 +530,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <div class="space-y-4 text-sm">
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-gray-300 font-medium">🗓️ Intro Call</span>
+              <span class="text-gray-300 font-medium">🗓️ Free Chat</span>
               <span class="text-gray-500 ml-2">Day 1</span>
             </div>
             <span class="font-semibold text-green-400">Free</span>
@@ -539,7 +539,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">💳 Audit Deposit</span>
-              <span class="text-gray-500 ml-2">After intro call</span>
+              <span class="text-gray-500 ml-2">After chat</span>
             </div>
             <span class="font-semibold">${{ ex.depositFee.toLocaleString() }}</span>
           </div>
@@ -660,7 +660,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         href="#book"
         class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
       >
-        🗓️ Book Your Free Intro Call
+        🗓️ Book a Free 15-Min Chat
       </a>
       <p class="text-gray-600 text-sm mt-4">No hard sell. No PowerPoints. Just math. 🧮</p>
       </div>
@@ -684,7 +684,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     <!-- Mobile sticky CTA -->
     <MobileStickyCtaBar
       link="#book"
-      text="🗓️ Book Free Intro Call — 15 min, free"
+      text="🗓️ Book a Free 15-Min Chat"
       :visible="showMobileCta"
     />
 

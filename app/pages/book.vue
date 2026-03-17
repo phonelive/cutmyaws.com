@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 definePageMeta({ layout: 'book' })
 
 useHead({
-  title: 'Book Your Free Intro Call — Cut My AWS',
+  title: 'Book a Free 15-Min Chat — Cut My AWS',
   meta: [
     { name: 'robots', content: 'noindex' },
   ],
@@ -54,7 +54,7 @@ onBeforeUnmount(() => {
     <!-- Header with David's profile -->
     <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-4 text-center">
       <img src="/david.png" alt="David Plappert" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
-      <h1 class="text-2xl sm:text-3xl font-bold mb-2">🗓️ Book Your Free Intro Call</h1>
+      <h1 class="text-2xl sm:text-3xl font-bold mb-2">🗓️ Book a Free 15-Min Chat</h1>
       <p class="text-gray-400 mb-4">with David Plappert · 19 years on AWS</p>
 
       <!-- Trust badges -->

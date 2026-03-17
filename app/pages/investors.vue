@@ -51,7 +51,7 @@ const wasteSources = [
 const faqQuestions = [
   { emoji: '🤔', question: 'Can you audit multiple portfolio companies?', answer: 'Absolutely. That\'s the whole idea. I can run audits in parallel across your portfolio. Volume discounts available &mdash; email <a href="mailto:david@cutmyaws.com" class="text-brand-400 hover:underline">david@cutmyaws.com</a> for bulk pricing. Each company gets its own report, its own findings, its own savings. 📊' },
   { emoji: '📋', question: 'What does this look like in a board deck?', answer: 'One slide: "We reduced AWS spend by X% across N portfolio companies, saving $Y annually. One-time cost, permanent savings, zero headcount impact." Your LPs will love it. I can even help you draft the slide. 🎯' },
-  { emoji: '🤝', question: 'How do I introduce you to my CTOs?', answer: 'Forward one email. I\'ll take it from there &mdash; 15-minute intro call, I explain the process, they grant read-only access, and 5-10 business days later they have a full report. Zero disruption to their engineering roadmap. The lowest-effort, highest-ROI introduction you\'ll make this quarter. ⌨️' },
+  { emoji: '🤝', question: 'How do I introduce you to my CTOs?', answer: 'Forward one email. I\'ll take it from there &mdash; 15-minute chat, I explain the process, they grant read-only access, and 5-10 business days later they have a full report. Zero disruption to their engineering roadmap. The lowest-effort, highest-ROI introduction you\'ll make this quarter. ⌨️' },
   { emoji: '💰', question: 'What if you don\'t find any savings?', answer: 'Then your portfolio companies have the most optimized AWS accounts I\'ve ever seen. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. No savings = no fee. You literally cannot lose. 🤷' },
   { emoji: '🔒', question: 'What access do you need?', answer: 'Read-only IAM role. I can look but I literally cannot touch. Your portfolio company\'s team provisions the role, controls it the entire time, and deletes it when we\'re done. I audit infrastructure and architecture, not application data. 👀' },
   { emoji: '📏', question: 'What size companies benefit most?', answer: `Companies spending ${minAwsK}+/mo on AWS. Below that, there usually isn't enough waste to justify an engagement. The sweet spot is $10K-$100K/mo &mdash; big enough to have real infrastructure, too busy building product to optimize it. 🫡` },
@@ -83,7 +83,7 @@ const faqQuestions = [
                 href="#book"
                 class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-5 sm:px-8 sm:py-4 rounded-xl text-xl sm:text-lg transition-colors text-center w-full sm:w-auto"
               >
-                🗓️ Book Your Free Intro Call
+                🗓️ Book a Free 15-Min Chat
               </a>
               <p class="text-brand-400/80 text-xs font-semibold self-center sm:self-start">⚡ Book in 30 seconds</p>
               <p class="text-gray-500 text-sm self-center sm:self-start">15 min · free · no pitch deck 😏</p>

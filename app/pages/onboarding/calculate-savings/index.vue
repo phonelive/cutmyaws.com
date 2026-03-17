@@ -437,7 +437,7 @@ async function copyCliCommand() {
             href="#book"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
           >
-            🗓️ Book Your Free Intro Call
+            🗓️ Book a Free 15-Min Chat
           </a>
           <p class="text-gray-500 text-sm mt-3">15 min · free · no pitch deck 😏</p>
         </div>

@@ -6,7 +6,7 @@ defineProps({
   },
   text: {
     type: String,
-    default: '🗓️ Book Free Intro Call',
+    default: '🗓️ Book a Free 15-Min Chat',
   },
   visible: {
     type: Boolean,

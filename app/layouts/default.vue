@@ -29,7 +29,7 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
             href="#book"
             class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 sm:px-5 py-1.5 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm"
           >
-            🗓️ Book Free Intro Call
+            🗓️ Free 15-Min Chat
           </a>
         </div>
       </nav>

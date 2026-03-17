@@ -23,7 +23,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
 
         // SEO meta
-        { name: 'description', content: 'Cloud cost optimization for AWS — 300+ services, years of buildup, cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human consultant with 19 years of AWS experience delivers cloud cost optimization strategies that make your infrastructure not just cheaper, but better. Free intro call.' },
+        { name: 'description', content: 'Cloud cost optimization for AWS — 300+ services, years of buildup, cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human consultant with 19 years of AWS experience delivers cloud cost optimization strategies that make your infrastructure not just cheaper, but better. Free 15-min chat.' },
         { name: 'keywords', content: 'cloud cost optimization, cloud cost optimization solutions, cloud cost optimization strategies, cloud cost optimization services, cloud cost savings, reduce cloud cost, AWS cost optimization, AWS cloud cost optimization, reduce AWS cost, AWS cost savings, cloud cost management, FinOps, FinOps consulting, FinOps consultant, AWS consulting, serverless migration, cut AWS bill, AWS waste, business-aligned technology audit' },
         { name: 'author', content: 'David Plappert' },
         { name: 'robots', content: 'index, follow' },
@@ -40,7 +40,7 @@ export default defineNuxtConfig({
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Cut My AWS — When\'s the Last Time You Cleaned House?' },
-        { name: 'twitter:description', content: 'We only charge a % of the savings we find. No savings, no fee. Free intro call. Not a dashboard. Just David.' },
+        { name: 'twitter:description', content: 'We only charge a % of the savings we find. No savings, no fee. Free 15-min chat. Not a dashboard. Just David.' },
         { name: 'twitter:image', content: 'https://cutmyaws.com/og-image.png' },
 
         // GEO/AEO: help AI systems understand the page
@@ -110,7 +110,7 @@ export default defineNuxtConfig({
                 '@id': 'https://cutmyaws.com/#webpage',
                 url: 'https://cutmyaws.com',
                 name: 'Cut My AWS — Cloud Cost Optimization & AWS FinOps Consulting',
-                description: 'Cloud cost optimization solutions and AWS cost savings for small businesses spending $5K+/mo. Free intro call.',
+                description: 'Cloud cost optimization solutions and AWS cost savings for small businesses spending $5K+/mo. Free 15-min chat.',
                 isPartOf: { '@id': 'https://cutmyaws.com/#organization' },
                 about: { '@id': 'https://cutmyaws.com/#organization' }
               },
@@ -125,7 +125,7 @@ export default defineNuxtConfig({
                   '@type': 'Offer',
                   price: '15% of annual savings found',
                   priceCurrency: 'USD',
-                  description: 'Free intro call. 15% of identified annual AWS savings due at exploration call.'
+                  description: 'Free 15-min chat. 15% of identified annual AWS savings due at exploration call.'
                 }
               },
               {
@@ -149,12 +149,12 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'What if you don\'t find any AWS savings?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'Nothing. The intro call is free. In 19 years of AWS auditing this has happened zero times. Most accounts are wasting 30-40%.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'Nothing. The initial chat is free. In 19 years of AWS auditing this has happened zero times. Most accounts are wasting 30-40%.' }
                   },
                   {
                     '@type': 'Question',
                     name: 'When do I pay for the AWS cost audit?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'The intro call is free. 1% deposit at engagement start (deducted from report fee). 15% of savings is due at the exploration call when you receive the report. If you opt for implementation, a 4% deposit is due at kickoff (deducted from implementation fee). The remaining 60% is due 90 days after deliverables — and only on verified realized savings. Not all Report items may be implementable due to dependencies or constraints, but you only pay on savings that actually materialize.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'The initial chat is free. 1% deposit at engagement start (deducted from report fee). 15% of savings is due at the exploration call when you receive the report. If you opt for implementation, a 4% deposit is due at kickoff (deducted from implementation fee). The remaining 60% is due 90 days after deliverables — and only on verified realized savings. Not all Report items may be implementable due to dependencies or constraints, but you only pay on savings that actually materialize.' }
                   },
                   {
                     '@type': 'Question',

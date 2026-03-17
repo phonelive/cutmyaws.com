@@ -21,7 +21,7 @@
               href="#book"
               class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors text-center"
             >
-              🗓️ Book Your Free Intro Call
+              🗓️ Book a Free 15-Min Chat
             </a>
             <p class="text-gray-500 text-sm self-center">15 min · free · no pitch deck 😏</p>
           </div>
