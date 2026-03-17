@@ -12,7 +12,7 @@
 | **What** | Business-aligned AWS cost audit & optimization for $5K+/mo spenders |
 | **Differentiator** | Not a dashboard. Not an AI. Just David. |
 | **Framework** | Nuxt 4 (static) + Tailwind CSS on S3 + CloudFront |
-| **Deployment** | Push to `main` → GitHub Actions → S3 sync + CloudFront invalidation |
+| **Deployment** | Push to `main` → dev, git tag → prod (GitHub Actions → S3 + CloudFront) |
 
 ## Products & Pricing
 

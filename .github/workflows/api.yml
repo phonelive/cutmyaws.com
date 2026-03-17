@@ -2,11 +2,11 @@
 # API BUILD AND DEPLOY — CutMyAWS Pre-Qualification API
 # =============================================================================
 #
-# Deploys the Ruby Lambda API via AWS SAM on push to main (prod) or dev (dev).
+# Deploys the Ruby Lambda API via AWS SAM.
 #
 # TRIGGER:
-#   - Push to `main` branch with changes in api/ → deploys to PROD
-#   - Push to `dev` branch with changes in api/  → deploys to DEV
+#   - Push to `main` branch with changes in api/ → deploys to DEV
+#   - Push a git tag (v*)                        → deploys to PROD
 #   - Manual workflow_dispatch (choose environment)
 #
 # STEPS:
@@ -18,7 +18,7 @@
 #
 # DEPLOYMENT RULE:
 #   All deployments go through this workflow. NEVER deploy from the CLI.
-#   Push to the appropriate branch and let GitHub Actions handle it.
+#   Push to main (dev) or create a tag (prod) and let GitHub Actions handle it.
 #
 # AWS ACCOUNT: 731039145080 (Cut My AWS)
 # REGION: us-east-1
@@ -45,20 +45,61 @@ on:
   push:
     branches:
       - main
-      - dev
+    tags:
+      - 'v*'
     paths:
       - api/**
       - .github/workflows/api.yml
 
 jobs:
+  # -------------------------------------------------------------------------
+  # Detect changes — for tag deploys, check if api files changed since
+  # the previous tag. For branch pushes, paths filter handles this.
+  # -------------------------------------------------------------------------
+  detect-changes:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    outputs:
+      api_changed: ${{ steps.check.outputs.api_changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check for API changes since last tag
+        id: check
+        run: |
+          PREV_TAG=$(git tag --sort=-creatordate | grep -v "^${GITHUB_REF_NAME}$" | head -1)
+          if [ -z "$PREV_TAG" ]; then
+            echo "No previous tag found — deploying everything"
+            echo "api_changed=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "Comparing ${PREV_TAG}..${GITHUB_REF_NAME}"
+
+          CHANGES=$(git diff --name-only "$PREV_TAG".."$GITHUB_REF_NAME" -- \
+            'api/**' '.github/workflows/api.yml' | head -1)
+
+          if [ -n "$CHANGES" ]; then
+            echo "api_changed=true" >> $GITHUB_OUTPUT
+            echo "API files changed — will deploy"
+          else
+            echo "api_changed=false" >> $GITHUB_OUTPUT
+            echo "No API files changed — skipping deploy"
+          fi
+
   build-and-deploy:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
+    needs: [detect-changes]
+    if: |
+      always() &&
+      (needs.detect-changes.result == 'skipped' || needs.detect-changes.outputs.api_changed == 'true')
     permissions:
       id-token: write
       contents: read
     concurrency:
-      group: cutmyaws-api-${{ github.ref_name }}
+      group: cutmyaws-api-${{ github.ref_type == 'tag' && 'prod' || 'dev' }}
       cancel-in-progress: false
 
     steps:
@@ -72,7 +113,7 @@ jobs:
           sparse-checkout-cone-mode: true
 
       # -----------------------------------------------------------------------
-      # 2. Determine environment from branch or manual input
+      # 2. Determine environment from ref type or manual input
       # -----------------------------------------------------------------------
       - name: Set Environment
         id: setenv
@@ -82,10 +123,8 @@ jobs:
 
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             ENV="${{ github.event.inputs.environment }}"
-          elif [ "${GITHUB_REF_NAME}" = "main" ]; then
+          elif [ "${{ github.ref_type }}" = "tag" ]; then
             ENV="prod"
-          elif [ "${GITHUB_REF_NAME}" = "dev" ]; then
-            ENV="dev"
           else
             ENV="dev"
           fi
@@ -216,7 +255,7 @@ jobs:
               "TurnstileSecretKey=${{ env.TURNSTILE_SECRET_KEY }}"
 
       # -----------------------------------------------------------------------
-      # 11. Warm Lambda and verify deployment
+      # 12. Warm Lambda and verify deployment
       # -----------------------------------------------------------------------
       # Fire a health check to verify the Lambda boots, connects to TiDB,
       # and responds correctly. Also warms a few instances.
@@ -256,7 +295,7 @@ jobs:
           echo "Deployment complete: ${FUNCTION_NAME}"
 
       # -----------------------------------------------------------------------
-      # 12. Print API URL
+      # 13. Print API URL
       # -----------------------------------------------------------------------
       - name: Print API URL
         run: |

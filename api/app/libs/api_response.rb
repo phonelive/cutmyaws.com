@@ -38,6 +38,8 @@ unless defined?(ALLOWED_ORIGINS)
     # Production
     'https://cutmyaws.com',
     'https://www.cutmyaws.com',
+    # Dev environment
+    'https://dev.cutmyaws.com',
     # Local development
     'http://localhost:3000',
     'http://localhost:3400',

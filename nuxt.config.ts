@@ -1,3 +1,6 @@
+const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://cutmyaws.com'
+const isDevBuild = process.env.NUXT_PUBLIC_NOINDEX === 'true'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   future: { compatibilityVersion: 4 },
@@ -6,7 +9,7 @@ export default defineNuxtConfig({
     preset: 'github-pages'
   },
   site: {
-    url: 'https://cutmyaws.com'
+    url: siteUrl
   },
   router: {
     options: {
@@ -26,22 +29,22 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Cloud cost optimization for AWS — 300+ services, years of buildup, cobwebs everywhere. We only charge a % of the savings we find — no savings, no fee. A real human consultant with 19 years of AWS experience delivers cloud cost optimization strategies that make your infrastructure not just cheaper, but better. Free 15-min chat.' },
         { name: 'keywords', content: 'cloud cost optimization, cloud cost optimization solutions, cloud cost optimization strategies, cloud cost optimization services, cloud cost savings, reduce cloud cost, AWS cost optimization, AWS cloud cost optimization, reduce AWS cost, AWS cost savings, cloud cost management, FinOps, FinOps consulting, FinOps consultant, AWS consulting, serverless migration, cut AWS bill, AWS waste, business-aligned technology audit' },
         { name: 'author', content: 'David Plappert' },
-        { name: 'robots', content: 'index, follow' },
+        { name: 'robots', content: isDevBuild ? 'noindex, nofollow' : 'index, follow' },
 
         // Open Graph
         { property: 'og:title', content: 'Cut My AWS — Been Using AWS for Years? When\'s the Last Time You Cleaned House?' },
         { property: 'og:description', content: 'We only charge a % of the savings we find. No savings, no fee. A real human with 19 years makes your AWS not just cheaper — but better.' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: 'https://cutmyaws.com' },
+        { property: 'og:url', content: siteUrl },
         { property: 'og:site_name', content: 'Cut My AWS' },
-        { property: 'og:image', content: 'https://cutmyaws.com/og-image.png' },
+        { property: 'og:image', content: `${siteUrl}/og-image.png` },
         { property: 'og:locale', content: 'en_US' },
 
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Cut My AWS — When\'s the Last Time You Cleaned House?' },
         { name: 'twitter:description', content: 'We only charge a % of the savings we find. No savings, no fee. Free 15-min chat. Not a dashboard. Just David.' },
-        { name: 'twitter:image', content: 'https://cutmyaws.com/og-image.png' },
+        { name: 'twitter:image', content: `${siteUrl}/og-image.png` },
 
         // GEO/AEO: help AI systems understand the page
         { name: 'subject', content: 'Cloud Cost Optimization & AWS FinOps Consulting' },
@@ -64,19 +67,19 @@ export default defineNuxtConfig({
             '@graph': [
               {
                 '@type': 'ProfessionalService',
-                '@id': 'https://cutmyaws.com/#organization',
+                '@id': `${siteUrl}/#organization`,
                 name: 'Cut My AWS',
                 alternateName: 'CutMyAWS',
-                url: 'https://cutmyaws.com',
-                logo: 'https://cutmyaws.com/favicon.svg',
-                image: 'https://cutmyaws.com/og-image.png',
+                url: siteUrl,
+                logo: `${siteUrl}/favicon.svg`,
+                image: `${siteUrl}/og-image.png`,
                 description: 'Cloud cost optimization solutions for small businesses spending $5K+/mo on AWS. Business-aligned cloud cost optimization strategies from a real consultant with 19 years of AWS experience — not a dashboard, not an AI.',
                 founder: {
                   '@type': 'Person',
                   name: 'David Plappert',
                   jobTitle: 'Senior AWS Serverless Architect',
                   url: 'https://www.linkedin.com/in/davidplappert/',
-                  image: 'https://cutmyaws.com/og-image.png',
+                  image: `${siteUrl}/og-image.png`,
                   sameAs: [
                     'https://www.linkedin.com/in/davidplappert/',
                     'https://www.youtube.com/@CutMyAWS'
@@ -107,19 +110,19 @@ export default defineNuxtConfig({
               },
               {
                 '@type': 'WebPage',
-                '@id': 'https://cutmyaws.com/#webpage',
-                url: 'https://cutmyaws.com',
+                '@id': `${siteUrl}/#webpage`,
+                url: siteUrl,
                 name: 'Cut My AWS — Cloud Cost Optimization & AWS FinOps Consulting',
                 description: 'Cloud cost optimization solutions and AWS cost savings for small businesses spending $5K+/mo. Free 15-min chat.',
-                isPartOf: { '@id': 'https://cutmyaws.com/#organization' },
-                about: { '@id': 'https://cutmyaws.com/#organization' }
+                isPartOf: { '@id': `${siteUrl}/#organization` },
+                about: { '@id': `${siteUrl}/#organization` }
               },
               {
                 '@type': 'Service',
-                '@id': 'https://cutmyaws.com/#report',
+                '@id': `${siteUrl}/#report`,
                 name: 'The Report — AWS Cost Audit',
                 description: 'Full AWS cost and architecture audit with line-by-line savings breakdown, business alignment recommendations, and implementation guide. Delivered as PDF in 5-10 business days.',
-                provider: { '@id': 'https://cutmyaws.com/#organization' },
+                provider: { '@id': `${siteUrl}/#organization` },
                 serviceType: 'AWS Cost Audit',
                 offers: {
                   '@type': 'Offer',
@@ -130,10 +133,10 @@ export default defineNuxtConfig({
               },
               {
                 '@type': 'Service',
-                '@id': 'https://cutmyaws.com/#fix',
+                '@id': `${siteUrl}/#fix`,
                 name: 'The Fix — AWS Cost Implementation',
                 description: 'Implementation of cost optimizations including serverless migrations, right-sizing, Savings Plans, and architecture improvements. 4% deposit at kickoff. 90-day verification period. Fee based on verified realized savings only — not all Report items may be implementable due to dependencies or constraints outside consultant control.',
-                provider: { '@id': 'https://cutmyaws.com/#organization' },
+                provider: { '@id': `${siteUrl}/#organization` },
                 serviceType: 'AWS Cost Optimization Implementation',
                 offers: {
                   '@type': 'Offer',
@@ -144,7 +147,7 @@ export default defineNuxtConfig({
               },
               {
                 '@type': 'FAQPage',
-                '@id': 'https://cutmyaws.com/#faq',
+                '@id': `${siteUrl}/#faq`,
                 mainEntity: [
                   {
                     '@type': 'Question',

@@ -68,7 +68,7 @@ ENV['TMPDIR'] = "/tmp/tmp"
 if ENV['PREFIX'] == "cutmyaws-dev"
   ENV['env'] = "dev"
   ENV['API_BASE'] = "https://api.dev.cutmyaws.com"
-  ENV['SITE_BASE'] = "https://cutmyaws.com"
+  ENV['SITE_BASE'] = "https://dev.cutmyaws.com"
 
 elsif ENV['PREFIX'] == "cutmyaws-prod"
   ENV['env'] = "prod"

@@ -13,7 +13,7 @@
 | Analytics | Google Analytics (`G-ZGPX081LFE`) via client plugin |
 | Heatmaps | Microsoft Clarity (`vr2el2utus`) via client plugin |
 | Booking | Calendly (inline embed on every page via `CalendlyEmbed.vue` component) |
-| Deployment | GitHub Actions → S3 sync + CloudFront invalidation (auto on push to main) |
+| Deployment | GitHub Actions → push to `main` deploys to dev, git tag (`v*`) deploys to prod |
 
 ## Key Files
 
@@ -49,7 +49,7 @@
 | `public/linkedin-ad.png` | LinkedIn ad image (1200x627) |
 | `public/youtube-banner.png` | YouTube channel banner (2048x1152) |
 | `public/marketplace-product-logo.png` | AWS Marketplace product logo (400x400 orange $) |
-| `.github/workflows/deploy.yml` | Auto-deploy on push |
+| `.github/workflows/deploy.yml` | Site deploy: main→dev, tag→prod |
 | `/tmp/og-template.html` | HTML template for og-image.png |
 | `/tmp/reddit-ad-image.html` | HTML template for reddit-ad.png |
 | `/tmp/reddit-ad-thumb.html` | HTML template for reddit-ad-thumb.png |
@@ -58,9 +58,24 @@
 
 ## Deployment
 
-Push to `main` → GitHub Actions builds Nuxt static → syncs to S3 → invalidates CloudFront.
+Two environments, fully separated:
+
+| | Dev | Prod |
+|--|-----|------|
+| **Trigger** | Push to `main` | Git tag (`v*`) |
+| **Site URL** | dev.cutmyaws.com | cutmyaws.com |
+| **S3 Bucket** | dev-cutmyaws-com | cutmyaws-com |
+| **CloudFront** | E3AM3WI3FESOBD | E1QP2X8FI34J2A |
+| **API URL** | api.dev.cutmyaws.com | api.cutmyaws.com |
+| **Lambda** | cutmyaws-dev-router | cutmyaws-prod-router |
+| **CFn Stack** | cutmyaws-dev-api | cutmyaws-prod-api |
+| **TiDB DB** | cutmyaws_dev | test |
+| **SSM Path** | /cutmyaws/dev/* | /cutmyaws/prod/* |
+| **Robots** | noindex, nofollow | index, follow |
 
 All deploys via GitHub Actions only (no CLI deploys). Uses `github-deploy` IAM user credentials stored as GitHub secrets (`AWS_ACCESS_KEY_ID_CUTMYAWS`, `AWS_SECRET_ACCESS_KEY_CUTMYAWS`).
+
+**To deploy to prod:** `git tag v1.x.x && git push --tags`
 
 ## DNS Records (Route 53 — zone Z10236932X9JIETO6LHWY in cutmyaws acct)
 
@@ -108,12 +123,12 @@ All deploys via GitHub Actions only (no CLI deploys). Uses `github-deploy` IAM u
 | CloudFront dev standard logs | `cutmyaws-logs` | `cloudfront/dev/` |
 | CloudFront real-time metrics | CloudWatch (`AWS/CloudFront`) | — |
 
-### Environment DNS Plan
+### Environment DNS
 
 | Subdomain | Purpose |
 |-----------|---------|
-| `cutmyaws.com` | Production site (currently GitHub Pages, future S3+CloudFront) |
-| `dev.cutmyaws.com` | Dev environment site |
+| `cutmyaws.com` | Production site (S3+CloudFront) |
+| `dev.cutmyaws.com` | Dev environment site (S3+CloudFront) |
 | `api.cutmyaws.com` | Production API Gateway |
 | `api.dev.cutmyaws.com` | Dev API Gateway |
 | `track.cutmyaws.com` | SES open/click tracking |
