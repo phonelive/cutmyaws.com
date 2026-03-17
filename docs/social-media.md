@@ -7,10 +7,83 @@
 - Experience section: CutMyAWS listed as role under Smart Talk LLC
 - Content types: educational tips, story/opinion, case studies
 - No company page needed — personal posts get 10x engagement
-- **Outbound automation:** [Botdog](https://botdog.co) — automated LinkedIn sequences (visit profile → send invite → follow-up message if accepted → withdraw if not). Scales outbound DMs to CTOs/VPs Eng at Series B+ startups spending $5K+/mo on AWS.
-- **Active campaign:** "SWB AWS Take 3" — 173 contacts, 25 InMails sent, 0% connection rate, 0% reply rate (as of Mar 16). Started Mar 11, 2026.
-- **InMail copy updated Mar 15:** ~22-23 sent with old copy (0 replies), only 2-3 sent with new copy. Too early to evaluate new message — check back after ~15-20 sends of new copy.
+- **Outbound automation:** [Botdog](https://botdog.co) — automated LinkedIn sequences. Scales outbound InMails to CEOs/CTOs at tech companies spending $5K+/mo on AWS.
+- **Active campaign:** "SWB AWS Take 3" — 173 contacts, 30 InMails sent, 0% reply rate (as of Mar 16). Started Mar 11, 2026.
+- **InMail copy updated Mar 15:** Old copy (~22-23 sends, 0 replies). New copy started ~Mar 15. Too early to evaluate — check back after ~50 total sends.
 - **Note:** Clarity shows 6 LinkedIn sessions and 35% "FacebookApp" browser traffic — this is LinkedIn's mobile in-app browser from Botdog outreach. People are clicking through to the site even if not replying.
+
+### Botdog Sequence Flow
+
+```
+1. Visit profile
+2. Wait 2 hours
+3. Send InMail (not-connected path)
+```
+
+### InMail Copy (v2 — Mar 15, 2026)
+
+**Subject line:** Your {{currentCompany | }} AWS bill has a secret
+
+```
+{{firstName | Hey}} —
+
+I've spent 19 years reading AWS accounts. Every single one I audit has 30-40%
+waste hiding in plain sight. {{currentCompany | Your company}} is probably no
+different.
+
+Three things I find in every account:
+
+1. Ghost resources — idle RDS instances and over-provisioned EBS volumes
+   billing you 24/7 for zero utilization
+
+2. Architecture from 2021 — workloads still on x86 that should be on Graviton,
+   no Spot for non-critical jobs. 40%+ compute savings left on the table.
+
+3. S3 hoarding — old data sitting in Standard that should be in
+   Intelligent-Tiering or Glacier. You're paying premium prices for files
+   nobody's touched in years.
+
+The catch? Your engineers are too busy shipping to do this housekeeping. That's
+where I come in.
+
+Not a dashboard. Not an AI. Just me, reading your architecture and telling you
+exactly what to change. I only charge a percentage of verified savings. No
+savings? No fee.
+
+15 minutes — I'll tell you if it's worth going deeper: https://cutmyaws.com
+
+David Plappert
+(651) 894-4607
+```
+
+**Template variables:** `{{firstName}}` (fallback: "Hey"), `{{currentCompany}}` (fallback: "Your company")
+
+### Targeting Quality Issues (Mar 16 audit)
+
+The contact list has targeting problems. Several contacts are off-target for an AWS cost optimization pitch:
+
+**Remove / skip — wrong audience:**
+
+| Contact | Company | Why |
+|---------|---------|-----|
+| Phil Pergola | CloudZero | **Direct competitor** — CloudZero is an AWS cost optimization platform |
+| Vadim Vladimirskiy | Nerdio | **Microsoft cloud** company, not AWS |
+| Jeff Uphues | DC BLOX | Data center company, competes *with* AWS |
+| Chitra Patel | WealthWorth | Financial advisor, not running tech infrastructure |
+| Anthem Hayek Blanchard | Substack | Crypto newsletter publisher, no significant AWS spend |
+| Prof Rick Hillum | Novocomms | Space/defence hardware, not SaaS/cloud |
+
+**Good targets in the list:**
+
+| Contact | Company | Why |
+|---------|---------|-----|
+| Nick Turner | Dreamdata | B2B SaaS attribution platform, likely AWS-heavy |
+| Rahul Sasi | CloudSEK | Cybersecurity SaaS, likely heavy AWS user |
+| Cody Barbo | Trust & Will | Online estate planning platform, likely AWS |
+| Ronen Schwartz | K2view | Data/cloud management company |
+| Yoram Wijngaarde | Dealroom.co | Startup data platform |
+
+**Recommendation:** Tighten Botdog filters to focus on SaaS/tech companies. Filter out financial services, hardware, publishers, and (obviously) cloud cost optimization competitors. Each wasted InMail credit is a missed shot at a real prospect.
 
 ## Content Bank (first month)
 
