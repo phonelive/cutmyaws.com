@@ -84,12 +84,13 @@ onBeforeUnmount(() => {
     <img src="/david.png" alt="David Plappert" width="80" height="80" loading="lazy" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
     <h2 class="text-3xl font-bold mb-1">🗓️ Book a Free 15-Min Chat</h2>
     <p class="text-gray-400 mb-3">with David Plappert · 19 years on AWS</p>
-    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-500 mb-6">
+    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-500 mb-3">
       <span>⚡ 30 seconds to book</span>
       <span>☕ 15-minute call</span>
       <span>✅ Free</span>
       <span>💰 No savings = no fee</span>
     </div>
+    <p class="text-gray-600 text-xs mb-6">What to expect: I'll ask about your AWS setup, we'll see if there's a fit, and I'll explain exactly what the audit covers. No prep needed.</p>
     <div
       class="calendly-inline-widget mx-auto transition-[height] duration-300"
       :class="widgetHeight ? '' : 'h-[1300px] sm:h-[950px]'"

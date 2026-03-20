@@ -7,26 +7,7 @@ const { pricing, minAwsK } = usePricing()
 // ── Mobile sticky CTA visibility ──
 const showMobileCta = ref(false)
 
-// ── Hero ticker animation ──
-const tickerValue = ref(0)
-const tickerTarget = 108000 // $108K on a $25K/mo account at 36% savings
-const tickerDisplay = computed(() => tickerValue.value.toLocaleString())
-
 onMounted(() => {
-  const duration = 4000
-  const steps = 120
-  const increment = tickerTarget / steps
-  let current = 0
-  const interval = setInterval(() => {
-    current += increment
-    if (current >= tickerTarget) {
-      tickerValue.value = tickerTarget
-      clearInterval(interval)
-    } else {
-      tickerValue.value = Math.round(current)
-    }
-  }, duration / steps)
-
   // ── Section scroll tracking ──
   const { trackEvent } = useTracking()
   const observer = new IntersectionObserver((entries) => {
@@ -84,21 +65,16 @@ const fitItems = [
   { emoji: '🧑‍💻', text: 'Team too busy building to optimize' },
 ]
 
-const notFitItems = [
-  { emoji: '💸', text: `Under ${minAwsK}/mo (but growing fast? let's talk)` },
-  { emoji: '📊', text: 'Looking for a self-serve dashboard (I\'m hands-on)' },
-  { emoji: '🔄', text: 'Want ongoing managed services (this is one-time)' },
-  { emoji: '☁️', text: 'Azure or GCP only (AWS is my lane)' },
-]
 
 // ── FAQ questions ──
 const faqQuestions = [
-  { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. I\'ll send you a congratulatory email.' },
+  { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. And if the savings are small enough that implementation isn\'t worth the hassle, I\'ll tell you that too. I\'ll send you a congratulatory email either way.' },
   { emoji: '🤨', question: 'When do I actually pay?', answer: 'The intro call is free. The audit is free. You don\'t pay a dime until you\'ve seen the report and decided you want me to fix it. I only charge a percentage of verified savings &mdash; savings that actually show up in your AWS bill. No savings? No fee. 😅' },
   { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
   { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
   { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
   { emoji: '🤖', question: 'How is this different from tools like CloudHealth or ProsperOps?', answer: 'Those are dashboards that scan your account and show you charts. I\'m a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. I find the structural misalignment between your tech and your business that no tool can see. 😏' },
+  { emoji: '⏱️', question: 'How much of my team\'s time does this take?', answer: 'Almost none. Grant read-only access (15 min setup), attend 1 findings meeting, and review changes before production. That\'s it. I do the work. Your team stays focused on shipping. 🚀' },
 ]
 
 </script>
@@ -115,7 +91,7 @@ const faqQuestions = [
       <div class="flex flex-col lg:flex-row gap-16 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Save 25% on your AWS bill in 90 days</p>
+          <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Free audit. You only pay on savings I find.</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             Your AWS bill is a symptom.<br>
             <span class="text-brand-400">I find the cure.</span>
@@ -140,13 +116,11 @@ const faqQuestions = [
             <p class="font-bold text-lg mb-1">David Plappert</p>
             <p class="text-gray-500 text-sm mb-6">19 years on AWS &middot; Since 2007 ☕</p>
 
-            <!-- Animated savings ticker -->
+            <!-- Value prop -->
             <div class="bg-gray-950 rounded-xl p-5 border border-gray-800 mb-5">
-              <p class="text-gray-500 text-xs uppercase tracking-wider mb-2">Typical savings found</p>
-              <p class="text-4xl font-bold text-green-400 tabular-nums">
-                $<span ref="tickerRef">{{ tickerDisplay }}</span><span class="text-gray-500 text-lg">/yr</span>
-              </p>
-              <p class="text-gray-600 text-xs mt-1">on a $25K/mo account 👀</p>
+              <p class="text-gray-500 text-xs uppercase tracking-wider mb-2">What I typically find</p>
+              <p class="text-4xl font-bold text-green-400">25–40%</p>
+              <p class="text-gray-600 text-xs mt-1">of AWS spend is waste 👀</p>
             </div>
 
             <!-- Quick value props -->
@@ -184,8 +158,7 @@ const faqQuestions = [
         <QualifierSection
           headline="Is this for you? 🤔"
           :items="fitItems"
-          :not-fit-items="notFitItems"
-          layout="dual"
+          layout="grid"
         />
       </div>
     </section>
@@ -259,7 +232,7 @@ const faqQuestions = [
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <h3 class="text-lg font-bold">📋 Audit <span class="text-gray-500 text-sm font-normal">&middot; 5–10 business days &middot; free</span></h3>
             </div>
-            <p class="text-gray-400">You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. I dig into your architecture, billing history, and resource utilization. No charge. 📄</p>
+            <p class="text-gray-400">You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink> (15 min setup). I dig into your architecture, billing history, and resource utilization. I see infrastructure and billing &mdash; not your application data, databases, or secrets. No charge. 📄</p>
           </div>
 
           <div class="text-center text-gray-600 text-sm">↓</div>
@@ -302,9 +275,9 @@ const faqQuestions = [
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
-              <h3 class="text-lg font-bold">🔧 Implementation <span class="text-gray-500 text-sm font-normal">&middot; 2–8 weeks</span></h3>
+              <h3 class="text-lg font-bold">🔧 Implementation <span class="text-gray-500 text-sm font-normal">&middot; typically 2–4 weeks</span></h3>
             </div>
-            <p class="text-gray-400">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. Everything follows standard SDLC &mdash; dev first, tested, then promoted to production with your team. No cowboy deploys. 💪</p>
+            <p class="text-gray-400">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. I work asynchronously &mdash; your team just reviews before production. Dev first, tested, then promoted. No cowboy deploys. Minimal disruption. 💪</p>
           </div>
 
           <div class="text-center text-gray-600 text-sm">↓</div>
