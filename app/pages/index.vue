@@ -260,7 +260,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <!-- Two payments callout -->
         <div class="max-w-2xl mx-auto bg-brand-500/10 border border-brand-500/30 rounded-xl p-5 mb-12 text-center">
           <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay when you want me to fix it.</p>
-          <p class="text-gray-400 text-sm">{{ pricing.depositPct }}% deposit to start implementation &middot; remainder due 90 days after I prove the savings are real.</p>
+          <p class="text-gray-400 text-sm">{{ pricing.depositPct }}% of annualized AWS spend to start implementation &middot; remainder due 90 days after I prove the savings are real.</p>
         </div>
 
         <div class="max-w-2xl mx-auto space-y-4">
@@ -291,7 +291,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             </div>
           </div>
 
-          <div class="text-center text-gray-600 text-sm">↓ Want me to fix it? {{ pricing.depositPct }}% deposit kicks off implementation.</div>
+          <div class="text-center text-gray-600 text-sm">↓ Want me to fix it? {{ pricing.depositPct }}% of annualized AWS spend kicks off implementation.</div>
 
           <!-- Step 3: Implementation -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
@@ -424,7 +424,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               <span class="font-semibold text-green-400">Free</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-gray-500">Deposit to start implementation ({{ pricing.depositPct }}%)</span>
+              <span class="text-gray-500">Deposit to start implementation ({{ pricing.depositPct }}% of annual AWS spend)</span>
               <span class="font-semibold">${{ calcDepositFee.toLocaleString() }}</span>
             </div>
             <div class="flex justify-between">

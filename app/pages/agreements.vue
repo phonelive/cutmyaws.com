@@ -54,7 +54,7 @@ const meetings = [
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
           <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 1</p>
           <p class="text-2xl font-bold mb-1">{{ pricing.depositPct }}% Deposit</p>
-          <p class="text-gray-500 text-xs">Only if you want implementation. Deducted from final fee.</p>
+          <p class="text-gray-500 text-xs">Of annualized AWS spend. Only if you want implementation. Deducted from final fee.</p>
         </div>
         <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-6 text-center">
           <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 2</p>
@@ -169,7 +169,7 @@ const meetings = [
           <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">4</span>
           <div>
             <p class="text-gray-200 font-medium">Payment</p>
-            <p class="text-gray-400 text-sm">No additional payment during implementation. The {{ pricing.depositPct }}% deposit paid at engagement start covers the kickoff. The fee is calculated and due after the 90-day verification period.</p>
+            <p class="text-gray-400 text-sm">No additional payment during implementation. The {{ pricing.depositPct }}% deposit (of annualized AWS spend) covers the kickoff. The fee is calculated and due after the 90-day verification period.</p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -304,7 +304,7 @@ const meetings = [
           <div>
             <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Compensation</p>
             <ul class="text-gray-300 space-y-2">
-              <li><strong class="text-gray-100">Deposit:</strong> {{ pricing.depositPct }}% of Client's annualized AWS spend, due at engagement start <span class="text-gray-500">(example: {{ fmt(depositFee) }} on {{ fmt(exampleAwsAnnual) }}/yr spend)</span>. Deducted from total fee. Non-refundable after audit begins.</li>
+              <li><strong class="text-gray-100">Deposit:</strong> {{ pricing.depositPct }}% of Client's annualized AWS spend, due at implementation kickoff (after free audit) <span class="text-gray-500">(example: {{ fmt(depositFee) }} on {{ fmt(exampleAwsAnnual) }}/yr spend)</span>. Deducted from total fee. Non-refundable after implementation begins.</li>
               <li><strong class="text-gray-100">Fixed savings fee:</strong> {{ pricing.fixedPct }}% of verified annual savings that Consultant implemented <span class="text-gray-500">(example: {{ fmt(totalFee) }} on {{ fmt(exampleAnnual) }}/yr savings if all items fixed)</span></li>
               <li><strong class="text-gray-100">Unfixed savings:</strong> No fee. Savings identified but not implemented (due to dependencies, compliance, or constraints) are not charged.</li>
               <li><strong class="text-gray-100">Payment timing:</strong> Fee due 90 calendar days after final implementation deliverable, based on verified savings only. Deposit deducted from total.</li>
@@ -479,7 +479,7 @@ const meetings = [
             <h3 class="text-sm font-bold text-gray-200 uppercase tracking-wider mb-4">🚪 Termination</h3>
             <ul class="space-y-3 text-sm text-gray-400">
               <li><strong class="text-gray-200">Either party</strong> may terminate with 5 business days written notice.</li>
-              <li><strong class="text-gray-200">Deposit</strong> ({{ pricing.depositPct }}%) is non-refundable after audit begins.</li>
+              <li><strong class="text-gray-200">Deposit</strong> ({{ pricing.depositPct }}% of annualized AWS spend) is non-refundable after implementation begins.</li>
               <li><strong class="text-gray-200">If terminated early:</strong> Client pays {{ pricing.fixedPct }}% of savings achieved to date (fixed items only), minus deposit. No fee on unfixed items. No kill fee.</li>
               <li><strong class="text-gray-200">Immediate termination:</strong> Delete the IAM role. David ceases all work immediately.</li>
               <li><strong class="text-gray-200">Post-termination:</strong> Client keeps all deliverables forever. David retains no copies of Client data.</li>
