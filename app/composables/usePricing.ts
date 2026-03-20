@@ -9,12 +9,8 @@ export function usePricing() {
   // ── Derived convenience values ──
   const minAwsK = `$${pricing.minAws / 1000}K`
 
-  // ── Calendly link builder ──
-  const calendly = (campaign: string) => `/book?c=${campaign}`
-
   return {
     pricing,
     minAwsK,
-    calendly,
   }
 }

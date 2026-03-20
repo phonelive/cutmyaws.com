@@ -11,9 +11,9 @@ export default defineNuxtPlugin(() => {
   gtag('config', 'G-ZGPX081LFE')
   gtag('config', 'GT-K8KHLNZJ')
 
-  // Track Calendly link clicks as engagement (not conversion — conversion fires on /confirmed with name)
+  // Track CTA link clicks as engagement
   document.addEventListener('click', (e) => {
-    const link = (e.target as HTMLElement).closest('a[href*="/book"], a[href*="calendly.com"]')
+    const link = (e.target as HTMLElement).closest('a[href*="/book"], a[href*="#book"]')
     if (link) {
       gtag('event', 'cta_click', {
         event_category: 'engagement',

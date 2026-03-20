@@ -2,7 +2,7 @@
 const route = useRoute()
 
 // Hide book button on booking-related pages
-const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
+const hideBookBtn = computed(() => ['/book'].includes(route.path))
 </script>
 
 <template>

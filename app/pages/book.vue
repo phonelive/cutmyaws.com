@@ -1,6 +1,5 @@
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 
 definePageMeta({ layout: 'book' })
 
@@ -12,68 +11,21 @@ useHead({
 })
 
 const route = useRoute()
-const router = useRouter()
 const campaign = route.query.c || 'book'
 
-const calendlyUrl = `https://calendly.com/phonelivestreaming/cutmyaws-com-intro?utm_source=cutmyaws&utm_medium=website&utm_campaign=${campaign}&hide_gdpr_banner=1&hide_event_type_details=1&background_color=030712&text_color=f3f4f6&primary_color=f97316`
-
-function onCalendlyMessage(e) {
-  if (e.data?.event === 'calendly.event_scheduled') {
-    // Calendly payload includes invitee URI but not name directly.
-    // Pass whatever we can extract to the confirmation page.
-    const payload = e.data?.payload || {}
-    const query = {}
-    if (payload.invitee?.name) query.invitee_full_name = payload.invitee.name
-    if (payload.invitee?.email) query.email = payload.invitee.email
-    router.push({ path: '/confirmed', query })
-  }
-}
-
 onMounted(() => {
-  const script = document.createElement('script')
-  script.src = 'https://assets.calendly.com/assets/external/widget.js'
-  script.async = true
-  document.head.appendChild(script)
-
   const { trackEvent } = useTracking()
   trackEvent('book_page_view', { event_category: 'engagement' })
 
   // Tell Reddit this visitor reached the booking page (mid-funnel signal)
   if (window.rdt) window.rdt('track', 'ViewContent')
-
-  window.addEventListener('message', onCalendlyMessage)
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('message', onCalendlyMessage)
 })
 </script>
 
 <template>
   <div>
-    <!-- Header with David's profile -->
-    <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-4 text-center">
-      <img src="/david.png" alt="David Plappert" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
-      <h1 class="text-2xl sm:text-3xl font-bold mb-2">🗓️ Book a Free 15-Min Chat</h1>
-      <p class="text-gray-400 mb-4">with David Plappert · 19 years on AWS</p>
-
-      <!-- Trust badges -->
-      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-400">
-        <span>✅ 15 minutes</span>
-        <span>✅ No commitment</span>
-        <span>✅ No savings = no fee</span>
-      </div>
-    </div>
-
-    <!-- Video -->
-    <YouTubeEmbed video-id="ZVUOW87e-Jc" label="intro" page="book" />
-
-    <!-- Calendly embed -->
-    <div
-      class="calendly-inline-widget mx-auto h-[1300px] sm:h-[950px]"
-      :data-url="calendlyUrl"
-      style="min-width: 320px; width: 100%;"
-    ></div>
+    <!-- Contact Form -->
+    <ContactForm :campaign="campaign" />
 
     <!-- Best fit -->
     <div class="max-w-3xl mx-auto px-6 py-10 sm:py-12">

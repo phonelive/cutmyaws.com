@@ -111,9 +111,9 @@ const faqQuestions = [
       </div>
     </section>
 
-    <!-- Calendly Embed (above the fold) -->
+    <!-- Contact Form (above the fold) -->
     <section id="book-section">
-      <CalendlyEmbed campaign="investors" />
+      <ContactForm campaign="investors" />
     </section>
 
     <!-- Video -->
@@ -235,9 +235,9 @@ const faqQuestions = [
       />
     </section>
 
-    <!-- Bottom Calendly Embed -->
+    <!-- Bottom Contact Form -->
     <section>
-      <CalendlyEmbed campaign="investors-bottom" anchor-id="book-bottom" />
+      <ContactForm campaign="investors-bottom" anchor-id="book-bottom" />
     </section>
 
     <!-- Bottom CTA -->

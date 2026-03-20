@@ -44,15 +44,17 @@ def send_prequal_notification(lead)
     end
     ses = Aws::SES::Client.new(ses_client_opts)
 
-    subject = "New Pre-Qual: #{lead[:name]} — #{lead[:aws_monthly]}/mo"
+    subject = "New Lead: #{lead[:name]} — #{lead[:aws_monthly]}/mo"
 
     body = <<~EMAIL
-      New pre-qualification submission from cutmyaws.com
+      New lead from cutmyaws.com
 
       Name: #{lead[:name]}
       Email: #{lead[:email]}
       AWS Monthly Spend: #{lead[:aws_monthly]}
       Company: #{lead[:company]}
+      Best Times: #{lead[:availability] || '(not specified)'}
+      Notes: #{lead[:notes].to_s.strip.empty? ? '(none)' : lead[:notes]}
 
       Campaign: #{lead[:utm_campaign] || '(none)'}
       Source: #{lead[:utm_source] || '(none)'} / #{lead[:utm_medium] || '(none)'}
@@ -60,7 +62,7 @@ def send_prequal_notification(lead)
       Submitted: #{lead[:created_at]}
 
       ---
-      This person is now seeing the Calendly booking widget.
+      Reply to this person to schedule the intro call.
     EMAIL
 
     ses.send_email({

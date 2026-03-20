@@ -120,9 +120,9 @@ useHead({
       </div>
     </section>
 
-    <!-- Calendly Embed -->
+    <!-- Contact Form -->
     <section id="book-section">
-      <CalendlyEmbed campaign="referral" />
+      <ContactForm campaign="referral" />
     </section>
 
   </PageSections>

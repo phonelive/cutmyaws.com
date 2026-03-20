@@ -532,9 +532,9 @@ const meetings = [
       </div>
     </div>
 
-    <!-- Calendly Embed -->
+    <!-- Contact Form -->
     <section id="book-section">
-      <CalendlyEmbed campaign="agreements" />
+      <ContactForm campaign="agreements" />
     </section>
   </PageSections>
 </template>

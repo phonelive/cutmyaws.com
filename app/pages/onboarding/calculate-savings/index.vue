@@ -400,9 +400,9 @@ async function copyCliCommand() {
       </div>
     </div>
 
-    <!-- Calendly Embed -->
+    <!-- Contact Form -->
     <section id="book-section">
-      <CalendlyEmbed campaign="calculate-savings" />
+      <ContactForm campaign="calculate-savings" />
     </section>
 
   </div>

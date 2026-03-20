@@ -141,9 +141,9 @@ const faqQuestions = [
       </div>
     </section>
 
-    <!-- Calendly Embed (top — right after hero) -->
+    <!-- Contact Form (top — right after hero) -->
     <section id="book-section">
-      <CalendlyEmbed campaign="homepage-top" />
+      <ContactForm campaign="homepage-top" />
     </section>
 
     <!-- Video -->
@@ -340,9 +340,9 @@ const faqQuestions = [
       </div>
     </section>
 
-    <!-- Calendly Embed (bottom — after all content) -->
+    <!-- Contact Form (bottom — after all content) -->
     <section id="book-bottom">
-      <CalendlyEmbed campaign="homepage-bottom" anchor-id="book-bottom-embed" />
+      <ContactForm campaign="homepage-bottom" anchor-id="book-bottom-embed" />
     </section>
 
     <!-- Available Through -->
