@@ -1,10 +1,9 @@
 export function usePricing() {
   // ── Pricing (change here, updates everywhere) ──
-  // One product: David audits + fixes. You pay after results.
+  // Free audit. You only pay when David fixes it.
   const pricing = {
-    depositPct: 4,       // Down payment: 4% of AWS annual spend to start
-    fixedPct: 75,        // 75% of annualized savings found AND fixed
-    unfixedPct: 15,      // 15% of annualized savings found but NOT fixed
+    depositPct: 4,       // Down payment: 4% of AWS annual spend to start implementation (after free audit)
+    fixedPct: 75,        // 75% of annualized savings David finds AND fixes
     securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
     minAws: 5000,        // We work best with $5K+/mo AWS spend
     overageRate: 500,    // Hourly rate for out-of-scope work
@@ -24,8 +23,7 @@ export function usePricing() {
   const calendly = (campaign: string) => `/book?c=${campaign}`
 
   // ── Example / calculator helper ──
-  // Assumes all savings get fixed (75% fee) — best case for David, worst case for client.
-  // In practice, unfixed items are only 15%.
+  // Assumes all savings get fixed (75% fee). You only pay on what David fixes.
   function calculateExample(monthlySpend: number, wastePct: number) {
     const monthlySavings = Math.round(monthlySpend * wastePct / 100)
     const annualSavings = monthlySavings * 12

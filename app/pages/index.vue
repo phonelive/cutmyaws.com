@@ -90,7 +90,7 @@ const wasteSources = [
 const whyCards = [
   { emoji: '🧑‍💻', title: 'Keep your tech team building value', description: 'Your engineers should be shipping product, not hunting for savings. I dig into your architecture, find the misalignment, and do the one-time cleanup so they don\'t have to. No recurring retainer. No ongoing distraction. Just results. 🚀' },
   { emoji: '🙅', title: 'Not a dashboard. Not an AI. A human.', description: 'Cloud cost optimization tools show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. Real cloud cost optimization is a person, not a platform. And I only make money when you do. 🤝' },
-  { emoji: '💰', title: 'You don\'t pay until you see results', description: 'A small deposit kicks things off, but the real fee isn\'t due until you\'ve experienced the savings for 90 days. You only pay on realized savings. No savings? No fee. I carry the risk, not you. 🎯' },
+  { emoji: '💰', title: 'You don\'t pay until you see results', description: 'The audit is free. You see the full report before spending a dollar. If you want me to fix it, a small deposit starts implementation — and the real fee isn\'t due until 90 days after the savings are proven. I carry the risk, not you. 🎯' },
   { emoji: '📉', title: 'Growing ≠ efficient', description: 'Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you\'re paying for infrastructure you forgot existed. That\'s not negligence — that\'s just building a business. Let me clean it up. 🧾' },
 ]
 
@@ -113,7 +113,7 @@ const notFitItems = [
 // ── FAQ questions ──
 const faqQuestions = [
   { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. I\'ll send you a congratulatory email.' },
-  { emoji: '🤨', question: 'When do I actually pay?', answer: `The initial chat is free &mdash; no payment, no commitment. If it's a fit, a ${pricing.depositPct}% deposit (of your AWS annual spend) kicks off the engagement &mdash; deducted from your total fee. I audit your account, present findings, and implement fixes. The fee isn't due until <strong>90 days after implementation</strong> &mdash; ${pricing.fixedPct}% of savings I fix, ${pricing.unfixedPct}% of savings I find but don't fix. Only on verified savings. No savings? No fee. 😅` },
+  { emoji: '🤨', question: 'When do I actually pay?', answer: `The chat is free. The audit is free. You don't pay a dime until you've seen the report and decided you want me to fix it. Then a ${pricing.depositPct}% deposit (of your AWS annual spend) kicks off implementation &mdash; deducted from your total fee. The rest isn't due until <strong>90 days after implementation</strong> &mdash; ${pricing.fixedPct}% of verified savings I actually fixed. No savings? No fee. 😅` },
   { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
   { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
   { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
@@ -259,8 +259,8 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
 
         <!-- Two payments callout -->
         <div class="max-w-2xl mx-auto bg-brand-500/10 border border-brand-500/30 rounded-xl p-5 mb-12 text-center">
-          <p class="text-brand-400 font-semibold text-lg mb-1">Two payments. That's it.</p>
-          <p class="text-gray-400 text-sm">{{ pricing.depositPct }}% deposit to start &middot; remainder due 90 days after I prove the savings are real.</p>
+          <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay when you want me to fix it.</p>
+          <p class="text-gray-400 text-sm">{{ pricing.depositPct }}% deposit to start implementation &middot; remainder due 90 days after I prove the savings are real.</p>
         </div>
 
         <div class="max-w-2xl mx-auto space-y-4">
@@ -274,24 +274,24 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             <p class="text-gray-400">We meet, I ask questions about your business, and we figure out if there's a fit. No payment. No AWS access. Just a conversation. 🔍</p>
           </div>
 
-          <div class="text-center text-gray-600 text-sm">↓ If it's a fit: {{ pricing.depositPct }}% deposit kicks off the engagement</div>
+          <div class="text-center text-gray-600 text-sm">↓ If it's a fit, you grant read-only access. No payment yet.</div>
 
           <!-- Step 2: Audit -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
-              <h3 class="text-lg font-bold">📋 Audit <span class="text-gray-500 text-sm font-normal">&middot; 5–10 business days</span></h3>
+              <h3 class="text-lg font-bold">📋 Audit <span class="text-gray-500 text-sm font-normal">&middot; 5–10 business days &middot; free</span></h3>
             </div>
-            <p class="text-gray-400 mb-3">You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. I dig into your architecture, billing history, and resource utilization. Then I walk your team through every finding on a <strong class="text-gray-200">45-minute call</strong> and hand you a <strong class="text-gray-200">full PDF</strong> you keep forever. 📄</p>
+            <p class="text-gray-400 mb-3">You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. I dig into your architecture, billing history, and resource utilization. Then I walk you through what I found &mdash; which services are costing you, how much you can save, and what it takes to fix it. No charge. 📄</p>
             <div class="flex flex-wrap gap-2 text-xs">
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ 45-min findings call</span>
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Full PDF report</span>
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Architecture recs</span>
+              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Findings call</span>
+              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ High-level savings report</span>
+              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Service-by-service breakdown</span>
               <span v-if="promoActive" class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/30">🎁 + FREE Security Audit ({{ promoDaysLeft }}d left)</span>
             </div>
           </div>
 
-          <div class="text-center text-gray-600 text-sm">↓</div>
+          <div class="text-center text-gray-600 text-sm">↓ Want me to fix it? {{ pricing.depositPct }}% deposit kicks off implementation.</div>
 
           <!-- Step 3: Implementation -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
@@ -312,9 +312,9 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             </div>
             <p class="text-gray-400 mb-3">We pull up your AWS bill. Before. After. Side by side. Based on <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections. If the savings didn't show up, I don't get paid. 💰</p>
             <div class="bg-gray-950 rounded-xl p-4 space-y-2 text-sm">
-              <div class="flex justify-between"><span class="text-gray-400">Savings I found <strong class="text-gray-200">and fixed</strong></span><span class="text-brand-400 font-bold">{{ pricing.fixedPct }}%</span></div>
-              <div class="flex justify-between"><span class="text-gray-400">Savings I found <strong class="text-gray-200">but didn't fix</strong></span><span class="text-gray-300 font-bold">{{ pricing.unfixedPct }}%</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">You pay</span><span class="text-brand-400 font-bold">{{ pricing.fixedPct }}% of savings I fixed</span></div>
               <div class="flex justify-between"><span class="text-gray-400">Deposit deducted from total</span><span class="text-green-400">✓</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">Savings I didn't fix?</span><span class="text-green-400 font-bold">Free</span></div>
               <div class="flex justify-between"><span class="text-gray-400">No savings?</span><span class="text-green-400 font-bold">No fee</span></div>
             </div>
           </div>
@@ -417,10 +417,14 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
 
         <!-- Pricing breakdown -->
         <div class="bg-gray-900 rounded-xl p-5 border-2 border-brand-500 mb-6">
-          <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">✂️ One engagement &middot; {{ pricing.fixedPct }}% of savings fixed &middot; {{ pricing.unfixedPct }}% of savings found but not fixed</p>
+          <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">✂️ Free audit &middot; {{ pricing.fixedPct }}% of savings I fix &middot; savings I don't fix are free</p>
           <div class="space-y-2 text-sm">
             <div class="flex justify-between">
-              <span class="text-gray-500">Deposit ({{ pricing.depositPct }}% of AWS annual spend)</span>
+              <span class="text-gray-500">Audit + report</span>
+              <span class="font-semibold text-green-400">Free</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Deposit to start implementation ({{ pricing.depositPct }}%)</span>
               <span class="font-semibold">${{ calcDepositFee.toLocaleString() }}</span>
             </div>
             <div class="flex justify-between">
@@ -494,18 +498,25 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
       <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
         <h3 class="font-bold text-center mb-6">💳 Two Payments. That's It.</h3>
         <div class="space-y-5 text-sm">
+          <!-- Free audit -->
+          <div class="bg-gray-950 rounded-xl p-5 border border-gray-800">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-200 font-bold">📋 Audit + Report</span>
+              <span class="text-green-400 font-bold text-lg">Free</span>
+            </div>
+            <p class="text-gray-500 text-xs">High-level audit: which services, how much waste, what it takes to fix. You see the numbers before you spend a dollar.</p>
+          </div>
           <!-- Payment 1 -->
           <div class="bg-gray-950 rounded-xl p-5 border border-gray-800">
             <div class="flex justify-between items-center mb-2">
               <span class="text-gray-200 font-bold">Payment 1 &mdash; Deposit</span>
               <span class="text-brand-400 font-bold text-lg">${{ ex.depositFee.toLocaleString() }}</span>
             </div>
-            <p class="text-gray-500 text-xs">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annualized AWS spend. Kicks off the engagement. Deducted from your final fee.</p>
+            <p class="text-gray-500 text-xs">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annualized AWS spend. Only if you want me to fix it. Deducted from your final fee.</p>
           </div>
           <!-- What happens in between -->
           <div class="text-center text-gray-600 text-xs space-y-1">
-            <p>📋 Audit &middot; 🔧 Implementation &middot; ⏳ 90-day verification</p>
-            <p>You don't pay anything during this. I do the work.</p>
+            <p>🔧 Implementation &middot; ⏳ 90-day verification</p>
           </div>
           <!-- Payment 2 -->
           <div class="bg-gray-950 rounded-xl p-5 border-2 border-brand-500">
@@ -513,7 +524,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               <span class="text-gray-200 font-bold">Payment 2 &mdash; After Verification</span>
               <span class="text-brand-400 font-bold text-lg">${{ ex.feeAfterDeposit.toLocaleString() }}</span>
             </div>
-            <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of verified savings I fixed, {{ pricing.unfixedPct }}% of savings I found but didn't fix &mdash; minus your ${{ ex.depositFee.toLocaleString() }} deposit. No savings? No charge. 🤙</p>
+            <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of verified savings I actually fixed &mdash; minus your ${{ ex.depositFee.toLocaleString() }} deposit. No savings? No charge. 🤙</p>
           </div>
           <hr class="border-gray-700">
           <div class="flex justify-between text-base">

@@ -42,19 +42,24 @@ const meetings = [
 
     <!-- ═══ Engagement Overview ═══ -->
     <div class="max-w-3xl mx-auto px-6 pb-12">
-      <h2 class="text-xl font-bold mb-6 text-center">🗺️ One Engagement. Two Payments.</h2>
+      <h2 class="text-xl font-bold mb-6 text-center">🗺️ Free Audit. Pay Only When You Want the Fix.</h2>
 
       <!-- Two payments -->
-      <div class="grid sm:grid-cols-2 gap-4 mb-6">
+      <div class="grid sm:grid-cols-3 gap-4 mb-6">
+        <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
+          <p class="text-green-400 text-xs uppercase tracking-wider font-bold mb-2">Audit</p>
+          <p class="text-2xl font-bold mb-1">Free</p>
+          <p class="text-gray-500 text-xs">Full audit + 45-min call + PDF. No charge. See the numbers first.</p>
+        </div>
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
           <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 1</p>
           <p class="text-2xl font-bold mb-1">{{ pricing.depositPct }}% Deposit</p>
-          <p class="text-gray-500 text-xs">Of annualized AWS spend. Kicks things off. Deducted from final fee.</p>
+          <p class="text-gray-500 text-xs">Only if you want implementation. Deducted from final fee.</p>
         </div>
         <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-6 text-center">
           <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 2</p>
           <p class="text-2xl font-bold mb-1">After Verification</p>
-          <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of savings fixed, {{ pricing.unfixedPct }}% of savings found but not fixed. 90 days after implementation.</p>
+          <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of verified savings fixed. 90 days after implementation. Deposit deducted.</p>
         </div>
       </div>
 
@@ -90,11 +95,10 @@ const meetings = [
             <div>
               <p class="text-gray-200 font-medium">What's included</p>
               <ul class="text-gray-400 text-sm space-y-1 mt-1">
-                <li>✅ Full architecture audit across all active services</li>
-                <li>✅ 48-month billing history analysis</li>
-                <li>✅ Line-by-line savings breakdown with dollar amounts</li>
-                <li>✅ Architecture recommendations and implementation guide</li>
-                <li>✅ Security observations (misconfigs, public buckets, overprivileged IAM)</li>
+                <li>✅ Architecture review across all active services</li>
+                <li>✅ Billing history analysis</li>
+                <li>✅ High-level savings breakdown by service with dollar amounts</li>
+                <li>✅ Enough detail to know what's fixable and what it's worth</li>
               </ul>
             </div>
           </div>
@@ -116,7 +120,7 @@ const meetings = [
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">5</span>
             <div>
               <p class="text-gray-200 font-medium">Payment</p>
-              <p class="text-gray-400 text-sm">{{ pricing.depositPct }}% of annualized AWS spend at engagement start (deposit toward services). <strong class="text-gray-200">No separate audit fee.</strong> The audit is included in the engagement — you don't pay for findings until after implementation and verification.</p>
+              <p class="text-gray-400 text-sm"><strong class="text-gray-200">The audit is free.</strong> No deposit, no payment. You see the findings before committing a dollar. If you want David to implement the fixes, a {{ pricing.depositPct }}% deposit (of annualized AWS spend) kicks off implementation.</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -151,7 +155,7 @@ const meetings = [
               <li>✅ Before/after comparison at each milestone</li>
               <li>✅ Rollback plan for every change</li>
             </ul>
-            <p class="text-gray-500 text-xs mt-2">⚠️ Not every item in the audit may be implementable. Dependencies, compliance requirements, org constraints, and third-party limitations can prevent certain changes. David works to maximize realized savings, but some items may be deferred or excluded. <strong class="text-gray-400">Savings I fix: {{ pricing.fixedPct }}%. Savings I find but can't fix: {{ pricing.unfixedPct }}%.</strong></p>
+            <p class="text-gray-500 text-xs mt-2">⚠️ Not every item in the audit may be implementable. Dependencies, compliance requirements, org constraints, and third-party limitations can prevent certain changes. David works to maximize realized savings, but some items may be deferred or excluded. <strong class="text-gray-400">You only pay {{ pricing.fixedPct }}% on savings David actually fixes.</strong></p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -208,7 +212,7 @@ const meetings = [
             </div>
             <div>
               <p class="text-gray-200 font-medium">Payment</p>
-              <p class="text-gray-400"><strong class="text-gray-200">{{ pricing.fixedPct }}%</strong> of verified annual savings I implemented + <strong class="text-gray-200">{{ pricing.unfixedPct }}%</strong> of verified annual savings I found but didn't fix. Deposit ({{ pricing.depositPct }}%) deducted from total. Invoiced within 5 business days of verification call. Net 30 terms. If savings are $0: fee is $0. No minimums.</p>
+              <p class="text-gray-400"><strong class="text-gray-200">{{ pricing.fixedPct }}%</strong> of verified annual savings David actually implemented. Deposit ({{ pricing.depositPct }}%) deducted from total. Invoiced within 5 business days of verification call. Net 30 terms. If savings are $0: fee is $0. No minimums. Savings identified but not fixed? No charge.</p>
             </div>
           </div>
         </div>
@@ -302,7 +306,7 @@ const meetings = [
             <ul class="text-gray-300 space-y-2">
               <li><strong class="text-gray-100">Deposit:</strong> {{ pricing.depositPct }}% of Client's annualized AWS spend, due at engagement start <span class="text-gray-500">(example: {{ fmt(depositFee) }} on {{ fmt(exampleAwsAnnual) }}/yr spend)</span>. Deducted from total fee. Non-refundable after audit begins.</li>
               <li><strong class="text-gray-100">Fixed savings fee:</strong> {{ pricing.fixedPct }}% of verified annual savings that Consultant implemented <span class="text-gray-500">(example: {{ fmt(totalFee) }} on {{ fmt(exampleAnnual) }}/yr savings if all items fixed)</span></li>
-              <li><strong class="text-gray-100">Unfixed savings fee:</strong> {{ pricing.unfixedPct }}% of verified annual savings identified but not implemented (due to dependencies, compliance, or constraints outside Consultant's control)</li>
+              <li><strong class="text-gray-100">Unfixed savings:</strong> No fee. Savings identified but not implemented (due to dependencies, compliance, or constraints) are not charged.</li>
               <li><strong class="text-gray-100">Payment timing:</strong> Fee due 90 calendar days after final implementation deliverable, based on verified savings only. Deposit deducted from total.</li>
               <li><strong class="text-gray-100">Verification method:</strong> Side-by-side Cost Explorer comparison — 3-month average × 12 before vs. after</li>
               <li><strong class="text-gray-100">Savings are $0:</strong> Fee is $0 (deposit non-refundable)</li>
@@ -318,7 +322,7 @@ const meetings = [
           </div>
           <div>
             <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Termination</p>
-            <p class="text-gray-300">Either party may terminate with 5 business days written notice. Deposit ({{ pricing.depositPct }}%) is non-refundable. Client pays {{ pricing.fixedPct }}% of verified savings achieved up to termination date (for items fixed) and {{ pricing.unfixedPct }}% of identified savings (for items not fixed), minus deposit already paid. No kill fee. No penalties. Client keeps all deliverables.</p>
+            <p class="text-gray-300">Either party may terminate with 5 business days written notice. Deposit ({{ pricing.depositPct }}%) is non-refundable after implementation begins. Client pays {{ pricing.fixedPct }}% of verified savings achieved up to termination date, minus deposit already paid. No fee on unfixed items. No kill fee. No penalties. Client keeps all deliverables.</p>
           </div>
         </div>
       </div>
@@ -476,7 +480,7 @@ const meetings = [
             <ul class="space-y-3 text-sm text-gray-400">
               <li><strong class="text-gray-200">Either party</strong> may terminate with 5 business days written notice.</li>
               <li><strong class="text-gray-200">Deposit</strong> ({{ pricing.depositPct }}%) is non-refundable after audit begins.</li>
-              <li><strong class="text-gray-200">If terminated early:</strong> Client pays {{ pricing.fixedPct }}% of savings achieved to date (for fixed items) and {{ pricing.unfixedPct }}% of identified savings (for unfixed items), minus deposit. No kill fee.</li>
+              <li><strong class="text-gray-200">If terminated early:</strong> Client pays {{ pricing.fixedPct }}% of savings achieved to date (fixed items only), minus deposit. No fee on unfixed items. No kill fee.</li>
               <li><strong class="text-gray-200">Immediate termination:</strong> Delete the IAM role. David ceases all work immediately.</li>
               <li><strong class="text-gray-200">Post-termination:</strong> Client keeps all deliverables forever. David retains no copies of Client data.</li>
             </ul>

@@ -14,16 +14,17 @@
 | **Framework** | Nuxt 4 (static) + Tailwind CSS on S3 + CloudFront |
 | **Deployment** | Push to `main` → dev, git tag → prod (GitHub Actions → S3 + CloudFront) |
 
-## Pricing — One Product
+## Pricing
 
 | | Fee |
 |--|-----|
-| **Savings I find AND fix** | 75% of annualized savings |
-| **Savings I find but do NOT fix** | 15% of annualized savings |
-| **Deposit to start** | 4% of annualized AWS spend (deducted from total fee) |
+| **Audit** | Free (high-level: services, amounts, what's fixable) |
+| **Savings David fixes** | 75% of annualized verified savings |
+| **Savings found but not fixed** | Free |
+| **Deposit** | 4% of annualized AWS spend (only when client wants implementation, deducted from total fee) |
 | **No savings** | No fee |
 
-One engagement: audit + implementation + 90-day verification. Fee due after verification.
+Free audit → client decides → 4% deposit starts implementation → 75% of fixed savings at 90 days.
 
 Pricing is centralized in `app/composables/usePricing.ts`. Change in ONE place.
 
@@ -145,4 +146,4 @@ First hire: 1099 AWS Implementation Contractor around month 4-5 (Jun-Jul 2026). 
 
 ## Compact Instructions
 
-When compacting, preserve: pricing structure (75% fixed / 15% unfixed / 4% deposit), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.
+When compacting, preserve: pricing structure (free audit, 75% of fixed savings, 4% deposit for implementation), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.

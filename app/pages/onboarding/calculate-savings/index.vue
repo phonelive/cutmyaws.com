@@ -73,7 +73,6 @@ const selectedPct = computed(() => tiers.find(t => t.key === selectedTier.value)
 
 // Pricing breakdown (mirrors usePricing.ts)
 const fixedPct = 75
-const unfixedPct = 15
 const depositPct = 4
 
 const depositFee = computed(() => Math.round(annualizedSpend.value * depositPct / 100))
