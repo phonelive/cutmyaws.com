@@ -91,7 +91,7 @@ const faqQuestions = [
       <div class="flex flex-col lg:flex-row gap-16 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Free audit. You only pay on actual savings. Guaranteed ROI.</p>
+          <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Free audit. You only pay a % of actual savings. Guaranteed ROI.</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             Your AWS bill is a symptom.<br>
             <span class="text-brand-400">I find the cure.</span>
@@ -126,7 +126,7 @@ const faqQuestions = [
             <!-- Quick value props -->
             <div class="space-y-2 text-left text-sm">
               <div class="flex items-center gap-2 text-gray-400">
-                <span class="text-brand-400">✅</span> You only pay on actual savings. Guaranteed ROI.
+                <span class="text-brand-400">✅</span> You only pay a % of actual savings. Guaranteed ROI.
               </div>
               <div class="flex items-center gap-2 text-gray-400">
                 <span class="text-brand-400">✅</span> No savings? No fee. Period.
@@ -205,11 +205,11 @@ const faqQuestions = [
     <section id="how-it-works">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
-        <p class="text-gray-400 text-center mb-4 max-w-xl mx-auto">One engagement. I audit, I fix, you pay on results. No savings? No fee. 🤝</p>
+        <p class="text-gray-400 text-center mb-4 max-w-xl mx-auto">One engagement. I audit, I fix, you only pay a % of actual savings. No savings? No fee. 🤝</p>
 
         <!-- Key message -->
         <div class="max-w-2xl mx-auto bg-brand-500/10 border border-brand-500/30 rounded-xl p-5 mb-12 text-center">
-          <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay on actual savings. Guaranteed ROI.</p>
+          <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay a % of actual savings. Guaranteed ROI.</p>
           <p class="text-gray-400 text-sm">Not projections &mdash; real reductions on your AWS bill. No savings? No fee.</p>
         </div>
 
