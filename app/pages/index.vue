@@ -141,6 +141,11 @@ const faqQuestions = [
       </div>
     </section>
 
+    <!-- Calendly Embed (top — right after hero) -->
+    <section id="book-section">
+      <CalendlyEmbed campaign="homepage-top" />
+    </section>
+
     <!-- Video -->
     <YouTubeEmbed video-id="ZVUOW87e-Jc" label="intro" page="home" />
 
@@ -182,11 +187,6 @@ const faqQuestions = [
         <p class="text-gray-600 text-sm mt-3">15 minutes. Free. Just math and honest answers. 🧮</p>
       </div>
       </div>
-    </section>
-
-    <!-- Calendly Embed -->
-    <section id="book-section">
-      <CalendlyEmbed campaign="homepage" />
     </section>
 
     <!-- Testimonials -->
@@ -306,7 +306,7 @@ const faqQuestions = [
         <WasteList :items="wasteSources" />
         <div class="text-center mt-10">
           <a
-            href="#book"
+            href="#book-bottom-embed"
             class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
           >
             🗓️ Find Out What's Hiding in Yours
@@ -331,7 +331,7 @@ const faqQuestions = [
       <FaqSection :questions="faqQuestions" />
       <div class="text-center pb-12">
         <a
-          href="#book"
+          href="#book-bottom-embed"
           class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg"
         >
           🗓️ Still Have Questions? Let's Talk
@@ -340,20 +340,9 @@ const faqQuestions = [
       </div>
     </section>
 
-    <!-- Final CTA -->
-    <section id="cta">
-      <div class="max-w-5xl mx-auto px-6 py-24 text-center">
-      <h2 class="text-3xl font-bold mb-4">Your AWS bill isn't going to cut itself. ✂️</h2>
-      <p class="text-xl text-gray-400 mb-2">15 minutes. Free. No pitch deck.</p>
-      <p class="text-gray-500 mb-8">Find out what you're wasting &mdash; with zero risk and zero commitment. 💰</p>
-      <a
-        href="#book"
-        class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
-      >
-        🗓️ Book a Free 15-Min Chat
-      </a>
-      <p class="text-gray-600 text-sm mt-4">No hard sell. No PowerPoints. Just math. 🧮</p>
-      </div>
+    <!-- Calendly Embed (bottom — after all content) -->
+    <section id="book-bottom">
+      <CalendlyEmbed campaign="homepage-bottom" anchor-id="book-bottom-embed" />
     </section>
 
     <!-- Available Through -->

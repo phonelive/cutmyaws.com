@@ -84,19 +84,39 @@ onBeforeUnmount(() => {
     <img src="/david.png" alt="David Plappert" width="80" height="80" loading="lazy" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover object-top border-2 border-gray-700">
     <h2 class="text-3xl font-bold mb-1">🗓️ Book a Free 15-Min Chat</h2>
     <p class="text-gray-400 mb-3">with David Plappert · 19 years on AWS</p>
+
+    <!-- Urgency + social proof -->
+    <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-sm text-brand-400 font-medium mb-3">
+      <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
+      Currently booking ~3 weeks out · 4 new projects/month
+    </div>
+
     <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-gray-500 mb-3">
       <span>⚡ 30 seconds to book</span>
       <span>☕ 15-minute call</span>
       <span>✅ Free</span>
       <span>💰 No savings = no fee</span>
     </div>
-    <p class="text-gray-600 text-xs mb-6">What to expect: I'll ask about your AWS setup, we'll see if there's a fit, and I'll explain exactly what the audit covers. No prep needed.</p>
+    <p class="text-gray-600 text-xs mb-4">What to expect: I'll ask about your AWS setup, we'll see if there's a fit, and I'll explain exactly what the audit covers. No prep needed.</p>
+
+    <!-- Testimonial -->
+    <div class="max-w-md mx-auto bg-gray-950 border border-gray-800 rounded-xl px-5 py-3 mb-6">
+      <p class="text-gray-400 text-sm italic">"David's a commando. He is fast and efficient at getting results."</p>
+      <p class="text-gray-600 text-xs mt-1">— CTO, Non-Profit w/ $10M Annual Budget</p>
+    </div>
+
     <div
       class="calendly-inline-widget mx-auto transition-[height] duration-300"
       :class="widgetHeight ? '' : 'h-[1300px] sm:h-[950px]'"
       :style="{ minWidth: '320px', width: '100%', ...(widgetHeight ? { height: widgetHeight } : {}) }"
       :data-url="calendlyUrl"
     ></div>
+
+    <!-- After booking + email alternative -->
+    <div class="mt-6 space-y-3">
+      <p class="text-gray-600 text-xs">After you book: you'll get a calendar invite and a confirmation email. Show up, we talk. That's it. ✅</p>
+      <p class="text-gray-600 text-sm">Prefer email? <a href="mailto:david@cutmyaws.com?subject=AWS%20Cost%20Question%20%E2%9C%82%EF%B8%8F" class="text-brand-400 hover:underline">david@cutmyaws.com</a> · I reply within 1 business day 📧</p>
+    </div>
   </div>
 </template>
 
