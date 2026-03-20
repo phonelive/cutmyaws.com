@@ -73,9 +73,9 @@ const selectedPct = computed(() => tiers.find(t => t.key === selectedTier.value)
 
 // Pricing breakdown (mirrors usePricing.ts)
 const fixedPct = 75
-const depositPct = 4
+const upfrontPct = 50
 
-const depositFee = computed(() => Math.round(annualizedSpend.value * depositPct / 100))
+const upfrontFee = computed(() => Math.round(totalFee.value * upfrontPct / 100))
 const totalFee = computed(() => Math.round(selectedSavings.value * fixedPct / 100))
 const yearOneNet = computed(() => selectedSavings.value - totalFee.value)
 const yearTwoPlus = computed(() => selectedSavings.value)
@@ -165,8 +165,6 @@ done
 # --- Annualized: 3-month avg × 12 ---
 AVG=$(echo "$COSTS" | awk -F'\\t' '{s+=$2;n++} END{avg=int(s/n+0.5); printf "%d",avg}')
 ANNUAL=$((AVG * 12))
-DEPOSIT=$(( (ANNUAL * 4 + 50) / 100 ))
-
 echo ""
 echo "=== 📊 Annualized Spend ==="
 echo "3-month avg: \\$$(commas $AVG)/mo"
@@ -192,8 +190,7 @@ else
   echo "in this account. Most businesses at this level are overpaying"
   echo "AWS by 30-40% without realizing it. 😅"
   echo ""
-  echo "To kick things off, 4% of your annualized spend is"
-  echo "\\$$(commas $DEPOSIT) — that gets the engagement started."
+  echo "The audit is free — book a chat and I'll show you the numbers."
   echo ""
   echo "👉 https://cutmyaws.com"
 fi`
@@ -212,7 +209,7 @@ async function copyCliCommand() {
     <div class="max-w-3xl mx-auto px-6 pt-12 sm:pt-16 pb-8 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold mb-3">🧮 Calculate Your Annualized AWS Bill</h1>
       <p class="text-gray-400 mb-2">This is how I calculate your annualized AWS spend for pricing.</p>
-      <p class="text-gray-500 text-sm">Used to determine the {{ depositPct }}% deposit and estimate your savings. 📊</p>
+      <p class="text-gray-500 text-sm">Used to estimate your savings and calculate your fee. 📊</p>
     </div>
 
     <!-- How it's calculated -->
@@ -363,9 +360,9 @@ async function copyCliCommand() {
             <p class="text-gray-600 text-xs mt-1">{{ fmt(average) }} × 12</p>
           </div>
           <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
-            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ depositPct }}% Deposit to Start</p>
-            <p class="text-2xl font-bold text-gray-100">{{ fmt(depositFee) }}</p>
-            <p class="text-gray-600 text-xs mt-1">Deducted from your total fee</p>
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ upfrontPct }}% Upfront</p>
+            <p class="text-2xl font-bold text-gray-100">{{ fmt(upfrontFee) }}</p>
+            <p class="text-gray-600 text-xs mt-1">Half the fee to start implementation</p>
           </div>
         </div>
 
@@ -393,10 +390,10 @@ async function copyCliCommand() {
           <div class="divide-y divide-gray-800">
             <div class="flex justify-between items-center p-4">
               <div>
-                <p class="text-gray-300 font-medium">💳 Deposit ({{ depositPct }}% of AWS annual spend)</p>
-                <p class="text-gray-600 text-xs">Deducted from total fee</p>
+                <p class="text-gray-300 font-medium">💳 Upfront ({{ upfrontPct }}% of fee)</p>
+                <p class="text-gray-600 text-xs">Half the fee to start implementation</p>
               </div>
-              <p class="text-gray-100 font-bold">{{ fmt(depositFee) }}</p>
+              <p class="text-gray-100 font-bold">{{ fmt(upfrontFee) }}</p>
             </div>
             <div class="flex justify-between items-center p-4">
               <div>

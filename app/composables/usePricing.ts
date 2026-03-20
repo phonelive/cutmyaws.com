@@ -2,8 +2,9 @@ export function usePricing() {
   // ── Pricing (change here, updates everywhere) ──
   // Free audit. You only pay when David fixes it.
   const pricing = {
-    depositPct: 4,       // Down payment: 4% of AWS annual spend to start implementation (after free audit)
     fixedPct: 75,        // 75% of annualized savings David finds AND fixes
+    upfrontPct: 50,      // 50% of the fee due upfront at implementation kickoff
+    verifyDays: 45,      // Remaining 50% due after this many days of seeing bill changes
     securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
     minAws: 5000,        // We work best with $5K+/mo AWS spend
     overageRate: 500,    // Hourly rate for out-of-scope work
@@ -28,9 +29,9 @@ export function usePricing() {
     const monthlySavings = Math.round(monthlySpend * wastePct / 100)
     const annualSavings = monthlySavings * 12
     const awsAnnual = monthlySpend * 12
-    const depositFee = Math.round(awsAnnual * pricing.depositPct / 100)
     const totalFee = Math.round(annualSavings * pricing.fixedPct / 100)
-    const feeAfterDeposit = totalFee - depositFee
+    const upfrontFee = Math.round(totalFee * pricing.upfrontPct / 100)
+    const remainderFee = totalFee - upfrontFee
     const yearOneNet = annualSavings - totalFee
     const monthsToRoi = monthlySavings > 0 ? Math.ceil(totalFee / monthlySavings) : 0
     const threeYearNet = (annualSavings * 3) - totalFee
@@ -41,9 +42,9 @@ export function usePricing() {
       monthlySavings,
       annualSavings,
       awsAnnual,
-      depositFee,
       totalFee,
-      feeAfterDeposit,
+      upfrontFee,
+      remainderFee,
       yearOneNet,
       monthsToRoi,
       threeYearNet,

@@ -21,10 +21,11 @@
 | **Audit** | Free (high-level: services, amounts, what's fixable) |
 | **Savings David fixes** | 75% of annualized verified savings |
 | **Savings found but not fixed** | Free |
-| **Deposit** | 4% of annualized AWS spend (only when client wants implementation, deducted from total fee) |
+| **Upfront** | 50% of the 75% fee when client wants implementation |
+| **Remainder** | Other 50% after 45 days of seeing savings in their bill |
 | **No savings** | No fee |
 
-Free audit → client decides → 4% deposit starts implementation → 75% of fixed savings at 90 days.
+Free audit → client decides → half the fee upfront starts implementation → other half after 45 days of bill savings.
 
 Pricing is centralized in `app/composables/usePricing.ts`. Change in ONE place.
 
@@ -146,4 +147,4 @@ First hire: 1099 AWS Implementation Contractor around month 4-5 (Jun-Jul 2026). 
 
 ## Compact Instructions
 
-When compacting, preserve: pricing structure (free audit, 75% of fixed savings, 4% deposit for implementation), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.
+When compacting, preserve: pricing structure (free audit, 75% of fixed savings, 50/50 split payment), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.

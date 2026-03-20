@@ -13,9 +13,9 @@ const exampleBefore = 25000
 const exampleSavings = 9000
 const exampleAnnual = exampleSavings * 12
 const exampleAwsAnnual = exampleBefore * 12
-const depositFee = Math.round(exampleAwsAnnual * pricing.depositPct / 100)
 const totalFee = Math.round(exampleAnnual * pricing.fixedPct / 100)
-const feeAfterDeposit = totalFee - depositFee
+const upfrontFee = Math.round(totalFee * pricing.upfrontPct / 100)
+const remainderFee = totalFee - upfrontFee
 
 function fmt(n) {
   return '$' + n.toLocaleString()
@@ -53,13 +53,13 @@ const meetings = [
         </div>
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
           <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 1</p>
-          <p class="text-2xl font-bold mb-1">{{ pricing.depositPct }}% Deposit</p>
-          <p class="text-gray-500 text-xs">Of annualized AWS spend. Only if you want implementation. Deducted from final fee.</p>
+          <p class="text-2xl font-bold mb-1">{{ pricing.upfrontPct }}% of Fee</p>
+          <p class="text-gray-500 text-xs">Half the {{ pricing.fixedPct }}% fee upfront. Only if you want implementation.</p>
         </div>
         <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-6 text-center">
           <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 2</p>
-          <p class="text-2xl font-bold mb-1">After Verification</p>
-          <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of verified savings fixed. 90 days after implementation. Deposit deducted.</p>
+          <p class="text-2xl font-bold mb-1">After {{ pricing.verifyDays }} Days</p>
+          <p class="text-gray-500 text-xs">Remaining {{ 100 - pricing.upfrontPct }}% after you see the savings in your bill.</p>
         </div>
       </div>
 
@@ -120,7 +120,7 @@ const meetings = [
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">5</span>
             <div>
               <p class="text-gray-200 font-medium">Payment</p>
-              <p class="text-gray-400 text-sm"><strong class="text-gray-200">The audit is free.</strong> No deposit, no payment. You see the findings before committing a dollar. If you want David to implement the fixes, a {{ pricing.depositPct }}% deposit (of annualized AWS spend) kicks off implementation.</p>
+              <p class="text-gray-400 text-sm"><strong class="text-gray-200">The audit is free.</strong> No payment. You see the findings before committing a dollar. If you want David to implement the fixes, {{ pricing.upfrontPct }}% of the {{ pricing.fixedPct }}% fee is due upfront to kick off implementation.</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -169,7 +169,7 @@ const meetings = [
           <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">4</span>
           <div>
             <p class="text-gray-200 font-medium">Payment</p>
-            <p class="text-gray-400 text-sm">No additional payment during implementation. The {{ pricing.depositPct }}% deposit (of annualized AWS spend) covers the kickoff. The fee is calculated and due after the 90-day verification period.</p>
+            <p class="text-gray-400 text-sm">No additional payment during implementation. The upfront {{ pricing.upfrontPct }}% covers the kickoff. The remaining {{ 100 - pricing.upfrontPct }}% is due {{ pricing.verifyDays }} days after implementation, once you've seen the savings in your bill.</p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -212,7 +212,7 @@ const meetings = [
             </div>
             <div>
               <p class="text-gray-200 font-medium">Payment</p>
-              <p class="text-gray-400"><strong class="text-gray-200">{{ pricing.fixedPct }}%</strong> of verified annual savings David actually implemented. Deposit ({{ pricing.depositPct }}%) deducted from total. Invoiced within 5 business days of verification call. Net 30 terms. If savings are $0: fee is $0. No minimums. Savings identified but not fixed? No charge.</p>
+              <p class="text-gray-400">Remaining <strong class="text-gray-200">{{ 100 - pricing.upfrontPct }}%</strong> of the {{ pricing.fixedPct }}% fee, based on verified annual savings David actually implemented. Invoiced within 5 business days of verification. Net 30 terms. If savings are $0: fee is $0. Savings identified but not fixed? No charge.</p>
             </div>
           </div>
         </div>
@@ -304,12 +304,12 @@ const meetings = [
           <div>
             <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Compensation</p>
             <ul class="text-gray-300 space-y-2">
-              <li><strong class="text-gray-100">Deposit:</strong> {{ pricing.depositPct }}% of Client's annualized AWS spend, due at implementation kickoff (after free audit) <span class="text-gray-500">(example: {{ fmt(depositFee) }} on {{ fmt(exampleAwsAnnual) }}/yr spend)</span>. Deducted from total fee. Non-refundable after implementation begins.</li>
+              <li><strong class="text-gray-100">Upfront payment:</strong> {{ pricing.upfrontPct }}% of the {{ pricing.fixedPct }}% fee, due at implementation kickoff (after free audit) <span class="text-gray-500">(example: {{ fmt(upfrontFee) }} on {{ fmt(totalFee) }} total fee)</span>. Non-refundable after implementation begins.</li>
               <li><strong class="text-gray-100">Fixed savings fee:</strong> {{ pricing.fixedPct }}% of verified annual savings that Consultant implemented <span class="text-gray-500">(example: {{ fmt(totalFee) }} on {{ fmt(exampleAnnual) }}/yr savings if all items fixed)</span></li>
               <li><strong class="text-gray-100">Unfixed savings:</strong> No fee. Savings identified but not implemented (due to dependencies, compliance, or constraints) are not charged.</li>
               <li><strong class="text-gray-100">Payment timing:</strong> Fee due 90 calendar days after final implementation deliverable, based on verified savings only. Deposit deducted from total.</li>
               <li><strong class="text-gray-100">Verification method:</strong> Side-by-side Cost Explorer comparison — 3-month average × 12 before vs. after</li>
-              <li><strong class="text-gray-100">Savings are $0:</strong> Fee is $0 (deposit non-refundable)</li>
+              <li><strong class="text-gray-100">Savings are $0:</strong> Remaining fee is $0 (upfront payment non-refundable)</li>
             </ul>
           </div>
           <div>
@@ -322,7 +322,7 @@ const meetings = [
           </div>
           <div>
             <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Termination</p>
-            <p class="text-gray-300">Either party may terminate with 5 business days written notice. Deposit ({{ pricing.depositPct }}%) is non-refundable after implementation begins. Client pays {{ pricing.fixedPct }}% of verified savings achieved up to termination date, minus deposit already paid. No fee on unfixed items. No kill fee. No penalties. Client keeps all deliverables.</p>
+            <p class="text-gray-300">Either party may terminate with 5 business days written notice. Upfront payment is non-refundable after implementation begins. Client pays {{ pricing.fixedPct }}% of verified savings achieved up to termination date, minus upfront amount already paid. No fee on unfixed items. No kill fee. No penalties. Client keeps all deliverables.</p>
           </div>
         </div>
       </div>
@@ -479,8 +479,8 @@ const meetings = [
             <h3 class="text-sm font-bold text-gray-200 uppercase tracking-wider mb-4">🚪 Termination</h3>
             <ul class="space-y-3 text-sm text-gray-400">
               <li><strong class="text-gray-200">Either party</strong> may terminate with 5 business days written notice.</li>
-              <li><strong class="text-gray-200">Deposit</strong> ({{ pricing.depositPct }}% of annualized AWS spend) is non-refundable after implementation begins.</li>
-              <li><strong class="text-gray-200">If terminated early:</strong> Client pays {{ pricing.fixedPct }}% of savings achieved to date (fixed items only), minus deposit. No fee on unfixed items. No kill fee.</li>
+              <li><strong class="text-gray-200">Upfront payment</strong> is non-refundable after implementation begins.</li>
+              <li><strong class="text-gray-200">If terminated early:</strong> Client pays {{ pricing.fixedPct }}% of savings achieved to date (fixed items only), minus upfront amount already paid. No fee on unfixed items. No kill fee.</li>
               <li><strong class="text-gray-200">Immediate termination:</strong> Delete the IAM role. David ceases all work immediately.</li>
               <li><strong class="text-gray-200">Post-termination:</strong> Client keeps all deliverables forever. David retains no copies of Client data.</li>
             </ul>
@@ -505,17 +505,17 @@ const meetings = [
           </div>
           <div class="flex justify-between items-center p-4">
             <div>
-              <p class="text-gray-200 font-medium text-sm">Day 1 — Deposit</p>
-              <p class="text-gray-500 text-xs">{{ pricing.depositPct }}% of {{ fmt(exampleAwsAnnual) }}/yr annualized</p>
+              <p class="text-gray-200 font-medium text-sm">Week 2 — Findings Call + Report</p>
+              <p class="text-gray-500 text-xs">Free audit · Client decides whether to proceed</p>
             </div>
-            <span class="text-brand-400 text-sm font-bold">{{ fmt(depositFee) }}</span>
+            <span class="text-green-400 text-sm font-bold">Free</span>
           </div>
           <div class="flex justify-between items-center p-4">
             <div>
-              <p class="text-gray-200 font-medium text-sm">Week 2 — Findings Call + Report Delivery</p>
-              <p class="text-gray-500 text-xs">45 min · Audit included — no separate fee</p>
+              <p class="text-gray-200 font-medium text-sm">Week 3 — Upfront Payment</p>
+              <p class="text-gray-500 text-xs">{{ pricing.upfrontPct }}% of {{ pricing.fixedPct }}% fee · kicks off implementation</p>
             </div>
-            <span class="text-gray-600 text-sm">$0</span>
+            <span class="text-brand-400 text-sm font-bold">{{ fmt(upfrontFee) }}</span>
           </div>
           <div class="flex justify-between items-center p-4">
             <div>
@@ -526,22 +526,15 @@ const meetings = [
           </div>
           <div class="flex justify-between items-center p-4">
             <div>
-              <p class="text-gray-200 font-medium text-sm">Week 8 — Implementation Complete</p>
-              <p class="text-gray-500 text-xs">90-day clock starts</p>
+              <p class="text-gray-200 font-medium text-sm">Week 14 — {{ pricing.verifyDays }}-Day Verification</p>
+              <p class="text-gray-500 text-xs">Remaining {{ 100 - pricing.upfrontPct }}% after seeing savings in your bill</p>
             </div>
-            <span class="text-gray-600 text-sm">$0</span>
-          </div>
-          <div class="flex justify-between items-center p-4">
-            <div>
-              <p class="text-gray-200 font-medium text-sm">Week 20 — 90-Day Verification Call</p>
-              <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of verified annual savings minus deposit</p>
-            </div>
-            <span class="text-brand-400 text-sm font-bold">{{ fmt(feeAfterDeposit) }}</span>
+            <span class="text-brand-400 text-sm font-bold">{{ fmt(remainderFee) }}</span>
           </div>
           <div class="flex justify-between items-center p-4 bg-gray-900/50">
             <div>
               <p class="text-gray-100 font-bold text-sm">Total paid ({{ pricing.fixedPct }}% max)</p>
-              <p class="text-gray-500 text-xs">{{ fmt(depositFee) }} deposit + {{ fmt(feeAfterDeposit) }} at verification</p>
+              <p class="text-gray-500 text-xs">{{ fmt(upfrontFee) }} upfront + {{ fmt(remainderFee) }} after {{ pricing.verifyDays }} days</p>
             </div>
             <span class="text-brand-400 font-bold">{{ fmt(totalFee) }}</span>
           </div>
