@@ -62,6 +62,16 @@ onMounted(async () => {
     })
   }
   window.addEventListener('message', onCalendlyMessage)
+
+  // Prevent Calendly iframe from stealing focus and scrolling the page
+  const observer = new MutationObserver(() => {
+    const iframe = document.querySelector('.calendly-inline-widget iframe')
+    if (iframe) {
+      iframe.setAttribute('tabindex', '-1')
+      observer.disconnect()
+    }
+  })
+  observer.observe(document.body, { childList: true, subtree: true })
 })
 
 onBeforeUnmount(() => {
