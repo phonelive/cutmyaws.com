@@ -8,26 +8,17 @@ useHead({
 
 const { pricing } = usePricing()
 
-// Example: $25K/mo, 36% waste (matches index.vue)
-const exampleBefore = 25000
-const exampleSavings = 9000
-const exampleAnnual = exampleSavings * 12
-const exampleAwsAnnual = exampleBefore * 12
-const totalFee = Math.round(exampleAnnual * pricing.fixedPct / 100)
-const upfrontFee = Math.round(totalFee * pricing.upfrontPct / 100)
-const remainderFee = totalFee - upfrontFee
-
 function fmt(n) {
   return '$' + n.toLocaleString()
 }
 
 const meetings = [
-  { name: 'Free Chat', when: 'Before engagement begins', duration: '15 min', format: 'Zoom', count: '1', phase: 'Audit' },
-  { name: 'Findings Call', when: '5–10 business days after access', duration: '45 min', format: 'Zoom', count: '1', phase: 'Audit' },
-  { name: 'Implementation Kickoff', when: 'After findings call', duration: '30 min', format: 'Zoom', count: '1', phase: 'Fix' },
+  { name: 'Free Intro Call', when: 'Before engagement begins', duration: '15 min', format: 'Zoom', count: '1', phase: 'Audit' },
+  { name: 'Findings Meeting', when: '5–10 business days after access', duration: '45 min', format: 'Zoom', count: '1', phase: 'Audit' },
+  { name: 'Implementation Kickoff', when: 'After findings meeting', duration: '30 min', format: 'Zoom', count: '1', phase: 'Fix' },
   { name: 'Weekly Check-ins', when: 'During implementation', duration: '15 min', format: 'Zoom', count: '1/week', phase: 'Fix' },
   { name: 'Final Review', when: 'Implementation complete', duration: '30 min', format: 'Zoom', count: '1', phase: 'Fix' },
-  { name: '90-Day Verification', when: '90 days post-delivery', duration: '30 min', format: 'Zoom', count: '1', phase: 'Proof' },
+  { name: 'Verification', when: 'Post-implementation', duration: '30 min', format: 'Zoom', count: '1', phase: 'Proof' },
 ]
 </script>
 
@@ -44,22 +35,22 @@ const meetings = [
     <div class="max-w-3xl mx-auto px-6 pb-12">
       <h2 class="text-xl font-bold mb-6 text-center">🗺️ Free Audit. Pay Only When You Want the Fix.</h2>
 
-      <!-- Two payments -->
+      <!-- Three step overview -->
       <div class="grid sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
           <p class="text-green-400 text-xs uppercase tracking-wider font-bold mb-2">Audit</p>
           <p class="text-2xl font-bold mb-1">Free</p>
-          <p class="text-gray-500 text-xs">Full audit + 45-min call + PDF. No charge. See the numbers first.</p>
+          <p class="text-gray-500 text-xs">Full audit + findings meeting + PDFs. No charge. See the numbers first.</p>
         </div>
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
-          <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 1</p>
-          <p class="text-2xl font-bold mb-1">{{ pricing.upfrontPct }}% of Fee</p>
-          <p class="text-gray-500 text-xs">Half the {{ pricing.fixedPct }}% fee upfront. Only if you want implementation.</p>
+          <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Implementation</p>
+          <p class="text-2xl font-bold mb-1">If You Want It</p>
+          <p class="text-gray-500 text-xs">David fixes what the audit found. Pricing discussed at findings meeting.</p>
         </div>
         <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-6 text-center">
-          <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 2</p>
-          <p class="text-2xl font-bold mb-1">After {{ pricing.verifyDays }} Days</p>
-          <p class="text-gray-500 text-xs">Remaining {{ 100 - pricing.upfrontPct }}% after you see the savings in your bill.</p>
+          <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment</p>
+          <p class="text-2xl font-bold mb-1">% of Savings</p>
+          <p class="text-gray-500 text-xs">You only pay a percentage of verified savings. No savings = no fee.</p>
         </div>
       </div>
 
@@ -75,7 +66,7 @@ const meetings = [
         <span>→</span>
         <span class="bg-gray-800 px-3 py-1 rounded-full">📊 Verify</span>
       </div>
-      <p class="text-gray-600 text-xs text-center mt-4">These are steps in the pipeline, not separate products. One engagement, one SOW, two payments.</p>
+      <p class="text-gray-600 text-xs text-center mt-4">These are steps in the pipeline, not separate products. One engagement, one SOW.</p>
     </div>
 
     <!-- ═══ Phase 1: The Audit ═══ -->
@@ -120,7 +111,7 @@ const meetings = [
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">5</span>
             <div>
               <p class="text-gray-200 font-medium">Payment</p>
-              <p class="text-gray-400 text-sm"><strong class="text-gray-200">The audit is free.</strong> No payment. You see the findings before committing a dollar. If you want David to implement the fixes, {{ pricing.upfrontPct }}% of the {{ pricing.fixedPct }}% fee is due upfront to kick off implementation.</p>
+              <p class="text-gray-400 text-sm"><strong class="text-gray-200">The audit is free.</strong> No payment. You see the findings before committing a dollar. If you want David to implement the fixes, pricing is discussed at the findings meeting.</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -155,7 +146,7 @@ const meetings = [
               <li>✅ Before/after comparison at each milestone</li>
               <li>✅ Rollback plan for every change</li>
             </ul>
-            <p class="text-gray-500 text-xs mt-2">⚠️ Not every item in the audit may be implementable. Dependencies, compliance requirements, org constraints, and third-party limitations can prevent certain changes. David works to maximize realized savings, but some items may be deferred or excluded. <strong class="text-gray-400">You only pay {{ pricing.fixedPct }}% on savings David actually fixes.</strong></p>
+            <p class="text-gray-500 text-xs mt-2">⚠️ Not every item in the audit may be implementable. Dependencies, compliance requirements, org constraints, and third-party limitations can prevent certain changes. David works to maximize realized savings, but some items may be deferred or excluded. <strong class="text-gray-400">You only pay on savings David actually fixes.</strong></p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -169,7 +160,7 @@ const meetings = [
           <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">4</span>
           <div>
             <p class="text-gray-200 font-medium">Payment</p>
-            <p class="text-gray-400 text-sm">No additional payment during implementation. The upfront {{ pricing.upfrontPct }}% covers the kickoff. The remaining {{ 100 - pricing.upfrontPct }}% is due {{ pricing.verifyDays }} days after implementation, once you've seen the savings in your bill.</p>
+            <p class="text-gray-400 text-sm">Payment terms are outlined in the SOW. You only pay a percentage of verified savings David actually fixes.</p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -190,11 +181,11 @@ const meetings = [
           <div class="space-y-4 text-sm">
             <div>
               <p class="text-gray-200 font-medium">When</p>
-              <p class="text-gray-400">Exactly 90 calendar days after the final implementation deliverable is marked complete.</p>
+              <p class="text-gray-400">After implementation is complete and savings have been verified in your bill.</p>
             </div>
             <div>
               <p class="text-gray-200 font-medium">How it works</p>
-              <p class="text-gray-400">David pulls Cost Explorer data for the 90-day post-implementation period. Compares against the 90-day period immediately before implementation. Annualizes the delta.</p>
+              <p class="text-gray-400">David pulls Cost Explorer data for the post-implementation period. Compares against the period immediately before implementation. Annualizes the delta.</p>
             </div>
             <div>
               <p class="text-gray-200 font-medium">What counts as savings</p>
@@ -212,7 +203,7 @@ const meetings = [
             </div>
             <div>
               <p class="text-gray-200 font-medium">Payment</p>
-              <p class="text-gray-400">Remaining <strong class="text-gray-200">{{ 100 - pricing.upfrontPct }}%</strong> of the {{ pricing.fixedPct }}% fee, based on verified annual savings David actually implemented. Invoiced within 5 business days of verification. Net 30 terms. If savings are $0: fee is $0. Savings identified but not fixed? No charge.</p>
+              <p class="text-gray-400">A percentage of verified annual savings David actually implemented, as outlined in your SOW. Invoiced within 5 business days of verification. Net 30 terms. If savings are $0: fee is $0. Savings identified but not fixed? No charge.</p>
             </div>
           </div>
         </div>
@@ -266,7 +257,7 @@ const meetings = [
 
       <div class="mt-4 bg-gray-900 rounded-lg border border-gray-800 p-4">
         <p class="text-gray-500 text-xs"><strong class="text-gray-300">Typical engagement:</strong> 7–10 meetings total (intro + findings + kickoff + weekly check-ins + final review + verification).</p>
-        <p class="text-gray-500 text-xs mt-1"><strong class="text-gray-300">Follow-up calls:</strong> 2 included (30 min each) during the 90-day verification period for questions. Additional calls billed at {{ fmt(pricing.overageRate) }}/hr.</p>
+        <p class="text-gray-500 text-xs mt-1"><strong class="text-gray-300">Follow-up calls:</strong> 2 included (30 min each) during the verification period for questions. Additional calls billed at {{ fmt(pricing.overageRate) }}/hr.</p>
       </div>
     </div>
 
@@ -304,12 +295,11 @@ const meetings = [
           <div>
             <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Compensation</p>
             <ul class="text-gray-300 space-y-2">
-              <li><strong class="text-gray-100">Upfront payment:</strong> {{ pricing.upfrontPct }}% of the {{ pricing.fixedPct }}% fee, due at implementation kickoff (after free audit) <span class="text-gray-500">(example: {{ fmt(upfrontFee) }} on {{ fmt(totalFee) }} total fee)</span>. Non-refundable after implementation begins.</li>
-              <li><strong class="text-gray-100">Fixed savings fee:</strong> {{ pricing.fixedPct }}% of verified annual savings that Consultant implemented <span class="text-gray-500">(example: {{ fmt(totalFee) }} on {{ fmt(exampleAnnual) }}/yr savings if all items fixed)</span></li>
+              <li><strong class="text-gray-100">Fee:</strong> A percentage of verified annual savings that Consultant implemented. Specific percentage outlined in each client's SOW.</li>
               <li><strong class="text-gray-100">Unfixed savings:</strong> No fee. Savings identified but not implemented (due to dependencies, compliance, or constraints) are not charged.</li>
-              <li><strong class="text-gray-100">Payment timing:</strong> Fee due 90 calendar days after final implementation deliverable, based on verified savings only. Deposit deducted from total.</li>
-              <li><strong class="text-gray-100">Verification method:</strong> Side-by-side Cost Explorer comparison — 3-month average × 12 before vs. after</li>
-              <li><strong class="text-gray-100">Savings are $0:</strong> Remaining fee is $0 (upfront payment non-refundable)</li>
+              <li><strong class="text-gray-100">Payment timing:</strong> Per SOW terms, based on verified savings only.</li>
+              <li><strong class="text-gray-100">Verification method:</strong> Side-by-side Cost Explorer comparison — before vs. after</li>
+              <li><strong class="text-gray-100">Savings are $0:</strong> Fee is $0. No savings = no fee.</li>
             </ul>
           </div>
           <div>
@@ -322,7 +312,7 @@ const meetings = [
           </div>
           <div>
             <p class="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Termination</p>
-            <p class="text-gray-300">Either party may terminate with 5 business days written notice. Upfront payment is non-refundable after implementation begins. Client pays {{ pricing.fixedPct }}% of verified savings achieved up to termination date, minus upfront amount already paid. No fee on unfixed items. No kill fee. No penalties. Client keeps all deliverables.</p>
+            <p class="text-gray-300">Either party may terminate with 5 business days written notice. Client pays for verified savings achieved up to termination date per SOW terms. No fee on unfixed items. No kill fee. No penalties. Client keeps all deliverables.</p>
           </div>
         </div>
       </div>
@@ -480,7 +470,7 @@ const meetings = [
             <ul class="space-y-3 text-sm text-gray-400">
               <li><strong class="text-gray-200">Either party</strong> may terminate with 5 business days written notice.</li>
               <li><strong class="text-gray-200">Upfront payment</strong> is non-refundable after implementation begins.</li>
-              <li><strong class="text-gray-200">If terminated early:</strong> Client pays {{ pricing.fixedPct }}% of savings achieved to date (fixed items only), minus upfront amount already paid. No fee on unfixed items. No kill fee.</li>
+              <li><strong class="text-gray-200">If terminated early:</strong> Client pays for verified savings achieved to date (fixed items only) per SOW terms. No fee on unfixed items. No kill fee.</li>
               <li><strong class="text-gray-200">Immediate termination:</strong> Delete the IAM role. David ceases all work immediately.</li>
               <li><strong class="text-gray-200">Post-termination:</strong> Client keeps all deliverables forever. David retains no copies of Client data.</li>
             </ul>
@@ -492,65 +482,51 @@ const meetings = [
     <!-- ═══ Example Engagement Timeline ═══ -->
     <div class="max-w-3xl mx-auto px-6 py-12">
       <h2 class="text-xl font-bold mb-2">📅 Example Engagement Timeline</h2>
-      <p class="text-gray-500 text-sm mb-6">Full engagement for a {{ fmt(exampleBefore) }}/mo AWS account with ~36% waste (assuming all savings get fixed).</p>
+      <p class="text-gray-500 text-sm mb-6">Typical engagement flow from first call to verified savings.</p>
 
       <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden">
         <div class="divide-y divide-gray-800">
           <div class="flex justify-between items-center p-4">
             <div>
-              <p class="text-gray-200 font-medium text-sm">Week 0 — Free Chat</p>
-              <p class="text-gray-500 text-xs">15 min · Free · Client grants read-only access</p>
-            </div>
-            <span class="text-gray-600 text-sm">{{ fmt(0) }}</span>
-          </div>
-          <div class="flex justify-between items-center p-4">
-            <div>
-              <p class="text-gray-200 font-medium text-sm">Week 2 — Findings Call + Report</p>
-              <p class="text-gray-500 text-xs">Free audit · Client decides whether to proceed</p>
+              <p class="text-gray-200 font-medium text-sm">Week 0 — Free Intro Call</p>
+              <p class="text-gray-500 text-xs">15 min · Free · Meet David, discuss your account</p>
             </div>
             <span class="text-green-400 text-sm font-bold">Free</span>
           </div>
           <div class="flex justify-between items-center p-4">
             <div>
-              <p class="text-gray-200 font-medium text-sm">Week 3 — Upfront Payment</p>
-              <p class="text-gray-500 text-xs">{{ pricing.upfrontPct }}% of {{ pricing.fixedPct }}% fee · kicks off implementation</p>
+              <p class="text-gray-200 font-medium text-sm">Weeks 1–2 — Free Audit</p>
+              <p class="text-gray-500 text-xs">Read-only access · David audits the account</p>
             </div>
-            <span class="text-brand-400 text-sm font-bold">{{ fmt(upfrontFee) }}</span>
+            <span class="text-green-400 text-sm font-bold">Free</span>
+          </div>
+          <div class="flex justify-between items-center p-4">
+            <div>
+              <p class="text-gray-200 font-medium text-sm">Week 2 — Findings Meeting</p>
+              <p class="text-gray-500 text-xs">Delivers Audit PDF, Security PDF, Implementation Recommendations PDF</p>
+            </div>
+            <span class="text-green-400 text-sm font-bold">Free</span>
           </div>
           <div class="flex justify-between items-center p-4">
             <div>
               <p class="text-gray-200 font-medium text-sm">Weeks 3–8 — Implementation</p>
               <p class="text-gray-500 text-xs">Kickoff + weekly check-ins + final review</p>
             </div>
-            <span class="text-gray-600 text-sm">$0</span>
-          </div>
-          <div class="flex justify-between items-center p-4">
-            <div>
-              <p class="text-gray-200 font-medium text-sm">Week 14 — {{ pricing.verifyDays }}-Day Verification</p>
-              <p class="text-gray-500 text-xs">Remaining {{ 100 - pricing.upfrontPct }}% after seeing savings in your bill</p>
-            </div>
-            <span class="text-brand-400 text-sm font-bold">{{ fmt(remainderFee) }}</span>
+            <span class="text-gray-500 text-sm">Per SOW</span>
           </div>
           <div class="flex justify-between items-center p-4 bg-gray-900/50">
             <div>
-              <p class="text-gray-100 font-bold text-sm">Total paid ({{ pricing.fixedPct }}% max)</p>
-              <p class="text-gray-500 text-xs">{{ fmt(upfrontFee) }} upfront + {{ fmt(remainderFee) }} after {{ pricing.verifyDays }} days</p>
+              <p class="text-gray-200 font-medium text-sm">Post-Implementation — Verification & Payment</p>
+              <p class="text-gray-500 text-xs">Side-by-side bill comparison · You pay a % of verified savings</p>
             </div>
-            <span class="text-brand-400 font-bold">{{ fmt(totalFee) }}</span>
+            <span class="text-brand-400 text-sm font-bold">% of savings</span>
           </div>
           <div class="flex justify-between items-center p-4 bg-gray-900/50">
             <div>
-              <p class="text-green-400 font-bold text-sm">Client keeps — year 1</p>
-              <p class="text-gray-500 text-xs">{{ fmt(exampleAnnual) }} savings − {{ fmt(totalFee) }} fee</p>
-            </div>
-            <span class="text-green-400 font-bold">{{ fmt(exampleAnnual - totalFee) }}</span>
-          </div>
-          <div class="flex justify-between items-center p-4 bg-gray-900/50">
-            <div>
-              <p class="text-green-400 font-bold text-sm">Client keeps — every year after</p>
+              <p class="text-green-400 font-bold text-sm">Savings repeat — every year after</p>
               <p class="text-gray-500 text-xs">100% of savings, zero ongoing fees</p>
             </div>
-            <span class="text-green-400 font-bold">{{ fmt(exampleAnnual) }}<span class="text-gray-500 text-xs">/yr</span></span>
+            <span class="text-green-400 font-bold">Forever 🎉</span>
           </div>
         </div>
       </div>

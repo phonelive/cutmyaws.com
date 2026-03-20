@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 
-const { pricing, promoActive, promoDaysLeft, minAwsK, calendly, calculateExample } = usePricing()
+const { pricing, minAwsK } = usePricing()
 
 
 // ── Mobile sticky CTA visibility ──
@@ -49,26 +49,6 @@ onMounted(() => {
   }
 })
 
-// ── ROI Calculator ──
-const calcAwsSpend = ref(25000)
-const calcWastePct = ref(30)
-const calcMonthlySavings = computed(() => Math.round(calcAwsSpend.value * (calcWastePct.value / 100)))
-const calcAnnualSavings = computed(() => calcMonthlySavings.value * 12)
-const calcUpfrontFee = computed(() => Math.round(calcTotalFee.value * pricing.upfrontPct / 100))
-const calcRemainderFee = computed(() => calcTotalFee.value - calcUpfrontFee.value)
-const calcTotalFee = computed(() => Math.round(calcAnnualSavings.value * pricing.fixedPct / 100))
-const calcKeep = computed(() => calcAnnualSavings.value - calcTotalFee.value)
-const calcRoi = computed(() => {
-  if (calcTotalFee.value === 0) return 0
-  return Math.round((calcKeep.value / calcTotalFee.value) * 100) / 100
-})
-const calcMonthsToRoi = computed(() => {
-  if (calcMonthlySavings.value === 0) return 0
-  return Math.ceil(calcTotalFee.value / calcMonthlySavings.value)
-})
-const calcFiveYearSavings = computed(() => calcAnnualSavings.value * 5)
-const calcFiveYearNet = computed(() => calcFiveYearSavings.value - calcTotalFee.value)
-
 // ── Stats ──
 const stats = [
   { value: '19 Years', label: '☁️ Of AWS expertise. In production since 2007.' },
@@ -91,7 +71,7 @@ const wasteSources = [
 const whyCards = [
   { emoji: '🧑‍💻', title: 'Keep your tech team building value', description: 'Your engineers should be shipping product, not hunting for savings. I dig into your architecture, find the misalignment, and do the one-time cleanup so they don\'t have to. No recurring retainer. No ongoing distraction. Just results. 🚀' },
   { emoji: '🙅', title: 'Not a dashboard. Not an AI. A human.', description: 'Cloud cost optimization tools show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. Real cloud cost optimization is a person, not a platform. And I only make money when you do. 🤝' },
-  { emoji: '💰', title: 'You don\'t pay until you see results', description: `The audit is free. You see the full report before spending a dollar. If you want me to fix it, half the fee starts implementation — the other half isn't due until ${pricing.verifyDays} days after you see the savings in your bill. I carry the risk, not you. 🎯` },
+  { emoji: '💰', title: 'You don\'t pay until you see results', description: 'The audit is free. You see the full report before spending a dollar. If you want me to fix it, you only pay a percentage of the verified savings. No savings? No fee. I carry the risk, not you. 🎯' },
   { emoji: '📉', title: 'Growing ≠ efficient', description: 'Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you\'re paying for infrastructure you forgot existed. That\'s not negligence — that\'s just building a business. Let me clean it up. 🧾' },
 ]
 
@@ -114,17 +94,13 @@ const notFitItems = [
 // ── FAQ questions ──
 const faqQuestions = [
   { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. I\'ll send you a congratulatory email.' },
-  { emoji: '🤨', question: 'When do I actually pay?', answer: `The chat is free. The audit is free. You don't pay a dime until you've seen the report and decided you want me to fix it. Then half the ${pricing.fixedPct}% fee starts implementation. The other half isn't due until <strong>${pricing.verifyDays} days after implementation</strong> &mdash; after you've seen the savings show up in your bill. No savings? No fee. 😅` },
+  { emoji: '🤨', question: 'When do I actually pay?', answer: 'The intro call is free. The audit is free. You don\'t pay a dime until you\'ve seen the report and decided you want me to fix it. I only charge a percentage of verified savings &mdash; savings that actually show up in your AWS bill. No savings? No fee. 😅' },
   { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
   { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
   { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
   { emoji: '🤖', question: 'How is this different from tools like CloudHealth or ProsperOps?', answer: 'Those are dashboards that scan your account and show you charts. I\'m a person who reads your architecture, understands your business, gets on a call with you, and tells you exactly what to change and why. I find the structural misalignment between your tech and your business that no tool can see. 😏' },
 ]
 
-// ── Example numbers ──
-const exampleBefore = 25000
-const exampleSavings = 9000
-const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 100)
 </script>
 
 <template>
@@ -258,19 +234,19 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
         <p class="text-gray-400 text-center mb-4 max-w-xl mx-auto">One engagement. I audit, I fix, you pay on results. No savings? No fee. 🤝</p>
 
-        <!-- Two payments callout -->
+        <!-- Key message -->
         <div class="max-w-2xl mx-auto bg-brand-500/10 border border-brand-500/30 rounded-xl p-5 mb-12 text-center">
-          <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay when you want me to fix it.</p>
-          <p class="text-gray-400 text-sm">Half the fee to start implementation &middot; other half due {{ pricing.verifyDays }} days after you see the savings in your bill.</p>
+          <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay a percentage of verified savings.</p>
+          <p class="text-gray-400 text-sm">No savings? No fee. It's that simple.</p>
         </div>
 
         <div class="max-w-2xl mx-auto space-y-4">
 
-          <!-- Step 1: Free Chat -->
+          <!-- Step 1: Intro Call -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
-              <h3 class="text-lg font-bold">🗓️ Free Chat <span class="text-gray-500 text-sm font-normal">&middot; 15 min</span></h3>
+              <h3 class="text-lg font-bold">🗓️ Intro Call <span class="text-gray-500 text-sm font-normal">&middot; 15 min &middot; free</span></h3>
             </div>
             <p class="text-gray-400">We meet, I ask questions about your business, and we figure out if there's a fit. No payment. No AWS access. Just a conversation. 🔍</p>
           </div>
@@ -283,288 +259,69 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <h3 class="text-lg font-bold">📋 Audit <span class="text-gray-500 text-sm font-normal">&middot; 5–10 business days &middot; free</span></h3>
             </div>
-            <p class="text-gray-400 mb-3">You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. I dig into your architecture, billing history, and resource utilization. Then I walk you through what I found &mdash; which services are costing you, how much you can save, and what it takes to fix it. No charge. 📄</p>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Findings call</span>
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ High-level savings report</span>
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Service-by-service breakdown</span>
-              <span v-if="promoActive" class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/30">🎁 + FREE Security Audit ({{ promoDaysLeft }}d left)</span>
+            <p class="text-gray-400">You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. I dig into your architecture, billing history, and resource utilization. No charge. 📄</p>
+          </div>
+
+          <div class="text-center text-gray-600 text-sm">↓</div>
+
+          <!-- Step 3: Findings Meeting -->
+          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-6 sm:p-8">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
+              <h3 class="text-lg font-bold">📊 Findings Meeting <span class="text-gray-500 text-sm font-normal">&middot; free</span></h3>
+            </div>
+            <p class="text-gray-400 mb-3">I walk your team through everything I found. You get three deliverables you keep forever &mdash; no charge. 🤝</p>
+            <div class="space-y-2">
+              <div class="bg-gray-950 rounded-lg p-3 border border-gray-800 flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">📋</span>
+                <div>
+                  <p class="text-gray-200 font-medium text-sm">Audit PDF</p>
+                  <p class="text-gray-500 text-xs">Service-by-service savings breakdown with dollar amounts.</p>
+                </div>
+              </div>
+              <div class="bg-gray-950 rounded-lg p-3 border border-gray-800 flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">🛡️</span>
+                <div>
+                  <p class="text-gray-200 font-medium text-sm">Security PDF</p>
+                  <p class="text-gray-500 text-xs">Public S3 buckets, overprivileged IAM, security group misconfigs, unencrypted resources, missing logging.</p>
+                </div>
+              </div>
+              <div class="bg-gray-950 rounded-lg p-3 border border-gray-800 flex items-start gap-3">
+                <span class="text-brand-400 mt-0.5">🔧</span>
+                <div>
+                  <p class="text-gray-200 font-medium text-sm">Implementation Recommendations PDF</p>
+                  <p class="text-gray-500 text-xs">What to change, why, and how &mdash; whether your team does it or I do.</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="text-center text-gray-600 text-sm">↓ Want me to fix it? Half the {{ pricing.fixedPct }}% fee kicks off implementation.</div>
+          <div class="text-center text-gray-600 text-sm">↓ Want me to fix it?</div>
 
-          <!-- Step 3: Implementation -->
+          <!-- Step 4: Implementation -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
-              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
+              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
               <h3 class="text-lg font-bold">🔧 Implementation <span class="text-gray-500 text-sm font-normal">&middot; 2–8 weeks</span></h3>
             </div>
             <p class="text-gray-400">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. Everything follows standard SDLC &mdash; dev first, tested, then promoted to production with your team. No cowboy deploys. 💪</p>
           </div>
 
-          <div class="text-center text-gray-600 text-sm">↓ {{ pricing.verifyDays }} days later...</div>
+          <div class="text-center text-gray-600 text-sm">↓</div>
 
-          <!-- Step 4: Verification & Payment -->
-          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-6 sm:p-8">
+          <!-- Step 5: Verification -->
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
-              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
+              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">5</span>
               <h3 class="text-lg font-bold">📊 Verification & Payment</h3>
             </div>
-            <p class="text-gray-400 mb-3">{{ pricing.verifyDays }} days after implementation, we pull up your AWS bill. Before. After. Side by side. The remaining half of the fee is based on <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections. If the savings didn't show up, I don't get paid. 💰</p>
-            <div class="bg-gray-950 rounded-xl p-4 space-y-2 text-sm">
-              <div class="flex justify-between"><span class="text-gray-400">Total fee</span><span class="text-brand-400 font-bold">{{ pricing.fixedPct }}% of savings I fixed</span></div>
-              <div class="flex justify-between"><span class="text-gray-400">Half upfront, half after {{ pricing.verifyDays }} days</span><span class="text-green-400">✓</span></div>
-              <div class="flex justify-between"><span class="text-gray-400">Savings I didn't fix?</span><span class="text-green-400 font-bold">Free</span></div>
-              <div class="flex justify-between"><span class="text-gray-400">No savings?</span><span class="text-green-400 font-bold">No fee</span></div>
-            </div>
+            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. I only charge a percentage of <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections. If the savings didn't show up, I don't get paid. 💰</p>
           </div>
 
         </div>
 
-        <!-- Security Audit Add-on -->
-        <div class="max-w-2xl mx-auto mt-6">
-          <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 relative">
-            <div v-if="promoActive" class="absolute -top-3 right-6 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">🎁 FREE for {{ promoDaysLeft }} more day{{ promoDaysLeft === 1 ? '' : 's' }}!</div>
-            <div v-else class="absolute -top-3 right-6 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-full">ADD-ON</div>
-            <div class="flex items-center gap-3">
-              <span class="text-xl">🛡️</span>
-              <div>
-                <p class="font-bold text-sm">Security Audit <span class="text-gray-500 font-normal">&middot; {{ pricing.securityPct }}% of AWS annual spend<span v-if="promoActive"> &middot; <strong class="text-green-400">FREE during promo</strong></span></span></p>
-                <p class="text-gray-500 text-xs">Public S3 buckets, overprivileged IAM, security group misconfigs, unencrypted resources, missing logging. Delivered as part of the audit.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pricing summary -->
-        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixedPct }}%+ of savings year 1, and 100% every year after. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
-      </div>
-    </section>
-
-    <!-- ROI Calculator -->
-    <section id="calculator">
-      <div class="max-w-5xl mx-auto px-6 py-24">
-      <h2 class="text-3xl font-bold mb-2 text-center">🧮 Calculate Your Savings</h2>
-      <p class="text-gray-400 text-center mb-2">Cloud cost optimization with no monthly fees. You pay once. Keep the savings forever. 💰</p>
-      <p class="text-gray-500 text-center mb-10 text-sm">Drag the sliders or type your actual AWS spend below.</p>
-
-      <div class="max-w-3xl mx-auto bg-gray-950 border border-gray-800 rounded-2xl p-8">
-        <!-- Inputs -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <!-- Monthly spend -->
-          <div>
-            <label class="text-gray-300 font-medium block mb-3">💸 Monthly AWS Spend</label>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-gray-500 text-xl">$</span>
-              <input
-                v-model.number="calcAwsSpend"
-                type="number"
-                :min="pricing.minAws"
-                max="500000"
-                step="1000"
-                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-2xl font-bold text-brand-400 focus:border-brand-500 focus:outline-none"
-              >
-            </div>
-            <input
-              v-model.number="calcAwsSpend"
-              type="range"
-              :min="pricing.minAws"
-              max="500000"
-              step="5000"
-              class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-500"
-            >
-            <div class="flex justify-between text-xs text-gray-600 mt-1">
-              <span>{{ minAwsK }}</span>
-              <span>$250K</span>
-              <span>$500K</span>
-            </div>
-          </div>
-          <!-- Waste % -->
-          <div>
-            <label class="text-gray-300 font-medium block mb-3">🔍 Estimated Waste</label>
-            <div class="flex items-center gap-2 mb-3">
-              <input
-                v-model.number="calcWastePct"
-                type="number"
-                min="5"
-                max="60"
-                step="1"
-                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-2xl font-bold text-red-400 focus:border-red-500 focus:outline-none"
-              >
-              <span class="text-gray-500 text-xl">%</span>
-            </div>
-            <input
-              v-model.number="calcWastePct"
-              type="range"
-              min="10"
-              max="50"
-              step="5"
-              class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-red-500"
-            >
-            <div class="flex justify-between text-xs text-gray-600 mt-1">
-              <span>10% lean</span>
-              <span>30% typical</span>
-              <span>50% yikes</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Savings found -->
-        <div class="bg-gray-900 rounded-xl p-5 border border-gray-800 mb-6 text-center">
-          <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">🔥 You're wasting roughly</p>
-          <p class="text-3xl font-bold text-red-400">${{ calcMonthlySavings.toLocaleString() }}<span class="text-gray-500 text-lg">/mo</span> &nbsp; = &nbsp; ${{ calcAnnualSavings.toLocaleString() }}<span class="text-gray-500 text-lg">/yr</span></p>
-        </div>
-
-        <!-- Pricing breakdown -->
-        <div class="bg-gray-900 rounded-xl p-5 border-2 border-brand-500 mb-6">
-          <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">✂️ Free audit &middot; {{ pricing.fixedPct }}% of savings I fix &middot; savings I don't fix are free</p>
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between">
-              <span class="text-gray-500">Audit + report</span>
-              <span class="font-semibold text-green-400">Free</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Upfront ({{ pricing.upfrontPct }}% of fee)</span>
-              <span class="font-semibold">${{ calcUpfrontFee.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">After {{ pricing.verifyDays }} days</span>
-              <span class="font-semibold">${{ calcRemainderFee.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Max fee ({{ pricing.fixedPct }}% if all savings fixed)</span>
-              <span class="font-semibold">${{ calcTotalFee.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between text-lg">
-              <span class="font-bold text-green-400">You keep yr 1</span>
-              <span class="font-bold text-green-400">${{ calcKeep.toLocaleString() }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">First-year ROI</span>
-              <span class="font-bold text-brand-400">{{ calcRoi }}x</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- ROI highlight bar -->
-        <div class="bg-green-400/10 border border-green-400/30 rounded-xl p-5 mb-6">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-            <div>
-              <p class="text-green-400 text-2xl font-bold">{{ calcMonthsToRoi }} mo</p>
-              <p class="text-gray-400 text-xs">⏱️ Time to break even</p>
-            </div>
-            <div>
-              <p class="text-green-400 text-2xl font-bold">${{ calcAnnualSavings.toLocaleString() }}</p>
-              <p class="text-gray-400 text-xs">🚀 You keep every year after year 1</p>
-            </div>
-            <div>
-              <p class="text-green-400 text-2xl font-bold">${{ calcFiveYearNet.toLocaleString() }}</p>
-              <p class="text-gray-400 text-xs">💰 5-year net savings (after fee)</p>
-            </div>
-          </div>
-        </div>
-
-        <p class="text-gray-600 text-xs text-center mb-6">No monthly fees. No subscriptions. No recurring charges. You pay once and keep 100% of the savings every year after. ✂️</p>
-
-        <!-- CTA -->
-        <div class="text-center">
-          <a
-            href="#book"
-            class="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-lg text-center"
-          >
-            🗓️ Book a Free 15-Min Chat →
-          </a>
-        </div>
-      </div>
-      </div>
-    </section>
-
-    <!-- Example -->
-    <section id="example">
-      <div class="max-w-5xl mx-auto px-6 py-24">
-      <h2 class="text-3xl font-bold mb-2 text-center">🧮 Real Math, Fake Company</h2>
-      <p class="text-gray-400 text-center mb-2">A ${{ (exampleBefore).toLocaleString() }}/mo SaaS company that swore their AWS was "pretty optimized" 👀</p>
-      <p class="text-brand-400 font-semibold text-center mb-8">One-time fee. Paid from your recurring savings. ~{{ ex.monthsToRoi }}-month ROI. 🎯</p>
-
-      <!-- Shared finding -->
-      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8">
-        <div class="flex justify-between mb-2">
-          <span class="text-gray-400">🔥 Monthly waste found (whoops)</span>
-          <span class="font-semibold text-red-400">${{ exampleSavings.toLocaleString() }}/mo</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-gray-400">💰 Annual savings (just vibing in their account)</span>
-          <span class="font-semibold">${{ ex.annualSavings.toLocaleString() }}/yr</span>
-        </div>
-      </div>
-
-      <!-- Two payments -->
-      <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
-        <h3 class="font-bold text-center mb-6">💳 Two Payments. That's It.</h3>
-        <div class="space-y-5 text-sm">
-          <!-- Free audit -->
-          <div class="bg-gray-950 rounded-xl p-5 border border-gray-800">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-gray-200 font-bold">📋 Audit + Report</span>
-              <span class="text-green-400 font-bold text-lg">Free</span>
-            </div>
-            <p class="text-gray-500 text-xs">High-level audit: which services, how much waste, what it takes to fix. You see the numbers before you spend a dollar.</p>
-          </div>
-          <!-- Payment 1 -->
-          <div class="bg-gray-950 rounded-xl p-5 border border-gray-800">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-gray-200 font-bold">Payment 1 &mdash; Upfront</span>
-              <span class="text-brand-400 font-bold text-lg">${{ ex.upfrontFee.toLocaleString() }}</span>
-            </div>
-            <p class="text-gray-500 text-xs">{{ pricing.upfrontPct }}% of the {{ pricing.fixedPct }}% fee (${{ ex.totalFee.toLocaleString() }}). Only if you want me to fix it. Kicks off implementation.</p>
-          </div>
-          <!-- What happens in between -->
-          <div class="text-center text-gray-600 text-xs space-y-1">
-            <p>🔧 Implementation &middot; ⏳ {{ pricing.verifyDays }} days to see it in your bill</p>
-          </div>
-          <!-- Payment 2 -->
-          <div class="bg-gray-950 rounded-xl p-5 border-2 border-brand-500">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-gray-200 font-bold">Payment 2 &mdash; After {{ pricing.verifyDays }} Days</span>
-              <span class="text-brand-400 font-bold text-lg">${{ ex.remainderFee.toLocaleString() }}</span>
-            </div>
-            <p class="text-gray-500 text-xs">Remaining {{ 100 - pricing.upfrontPct }}% of the fee &mdash; after you've seen the savings show up in your AWS bill. No savings? No charge. 🤙</p>
-          </div>
-          <hr class="border-gray-700">
-          <div class="flex justify-between text-base">
-            <span class="font-bold text-gray-300">Total max ({{ pricing.fixedPct }}%)</span>
-            <span class="font-bold">${{ ex.totalFee.toLocaleString() }}</span>
-          </div>
-          <div class="flex justify-between text-base">
-            <span class="font-bold text-brand-400">🎉 You keep (year 1)</span>
-            <span class="font-bold text-brand-400">${{ ex.yearOneNet.toLocaleString() }}</span>
-          </div>
-          <div class="flex justify-between text-base">
-            <span class="font-bold text-green-400">🚀 You keep (every year after)</span>
-            <span class="font-bold text-green-400">${{ ex.annualSavings.toLocaleString() }}</span>
-          </div>
-        </div>
-      </div>
-      <!-- ROI -->
-      <div class="max-w-2xl mx-auto bg-green-400/10 border border-green-400/30 rounded-2xl p-8 mt-8">
-        <h3 class="font-bold text-center mb-6">📊 Return on Investment</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-          <div>
-            <p class="text-green-400 text-3xl font-bold">{{ ex.monthsToRoi }} mo</p>
-            <p class="text-gray-400 text-sm mt-1">⏱️ Time to ROI</p>
-          </div>
-          <div>
-            <p class="text-green-400 text-3xl font-bold">${{ ex.yearOneNet.toLocaleString() }}</p>
-            <p class="text-gray-400 text-sm mt-1">🎉 Year 1 net savings</p>
-          </div>
-          <div>
-            <p class="text-green-400 text-3xl font-bold">${{ ex.threeYearNet.toLocaleString() }}</p>
-            <p class="text-gray-400 text-sm mt-1">🚀 3-year net savings</p>
-          </div>
-        </div>
-        <p class="text-gray-500 text-xs text-center mt-4">One-time fee. Every dollar saved after that is yours. Forever. ✂️</p>
-      </div>
+        <!-- Summary -->
+        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">One-time fee. No monthly charges. No subscriptions. You pay once and keep the savings forever. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
       </div>
     </section>
 

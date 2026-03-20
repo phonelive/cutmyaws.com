@@ -16,18 +16,17 @@
 
 ## Pricing
 
-| | Fee |
+Specific pricing percentages are **not published on the website**. Pricing is discussed during the engagement after the client sees the audit findings.
+
+| | Public messaging |
 |--|-----|
-| **Audit** | Free (high-level: services, amounts, what's fixable) |
-| **Savings David fixes** | 75% of annualized verified savings |
-| **Savings found but not fixed** | Free |
-| **Upfront** | 50% of the 75% fee when client wants implementation |
-| **Remainder** | Other 50% after 45 days of seeing savings in their bill |
+| **Audit** | Free |
+| **Fee** | Percentage of verified savings — discussed during engagement |
 | **No savings** | No fee |
 
-Free audit → client decides → half the fee upfront starts implementation → other half after 45 days of bill savings.
+**Internal reference only (not shown on site):** 75% of verified savings, $500/hr overage. See [docs/products-pricing.md](docs/products-pricing.md) for full internal details.
 
-Pricing is centralized in `app/composables/usePricing.ts`. Change in ONE place.
+Pricing constants are in `app/composables/usePricing.ts` (minAws, overageRate only — percentages removed from site).
 
 → Full details: [docs/products-pricing.md](docs/products-pricing.md)
 
@@ -111,7 +110,7 @@ LinkedIn personal profile is primary organic channel (2x/week). YouTube (@CutMyA
 | Monthly costs | ~$3K |
 | Target margin | 96% |
 
-**Back-loaded:** Fees arrive 90 days post-implementation. Months 7-12 is where the big checks land.
+**Back-loaded:** Fees arrive after implementation verification. Months 7-12 is where the big checks land.
 
 **Annual Checkup:** ~33% of clients return every 12-24 months. Same pricing, no discount. ~$25K avg repeat engagement. Creates $300K+ annual floor by Year 3.
 
@@ -147,4 +146,4 @@ First hire: 1099 AWS Implementation Contractor around month 4-5 (Jun-Jul 2026). 
 
 ## Compact Instructions
 
-When compacting, preserve: pricing structure (free audit, 75% of fixed savings, 50/50 split payment), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.
+When compacting, preserve: pricing approach (free audit, percentage of verified savings, no savings = no fee), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.

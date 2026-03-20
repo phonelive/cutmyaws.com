@@ -1,6 +1,5 @@
 <script setup>
 const route = useRoute()
-const { promoActive, promoDaysLeft, securityPct } = usePricing()
 
 // Hide book button on booking-related pages
 const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
@@ -10,13 +9,6 @@ const hideBookBtn = computed(() => ['/book', '/confirmed'].includes(route.path))
   <div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
     <!-- Sticky header -->
     <div class="sticky top-0 z-50 bg-gray-950/95 backdrop-blur-sm">
-      <!-- Promo Banner -->
-      <div v-if="promoActive" class="bg-brand-600 text-white text-center py-1.5 px-4 text-xs sm:text-sm font-medium">
-        <a href="#book" class="hover:underline">
-          🛡️ FREE Security Audit (normally {{ securityPct }}% of AWS annual spend) — ends in {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }}!
-        </a>
-      </div>
-
       <!-- Nav -->
       <nav class="border-b border-gray-800/50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between">

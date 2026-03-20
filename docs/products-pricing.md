@@ -2,76 +2,65 @@
 
 ## The Offering
 
-Free audit. You only pay 75% of the savings David actually fixes.
+Free audit. You only pay a percentage of verified savings.
+
+> **NOTE:** Specific percentages are **not published on the website**. The site says "percentage of verified savings" and "no savings, no fee." Pricing details are discussed during the engagement after the client sees the audit findings.
+
+### Internal Reference (not shown on site)
 
 | | Fee |
 |--|-----|
-| **Audit** | Free (high-level: services, amounts, what's fixable) |
+| **Audit** | Free |
 | **Savings David fixes** | 75% of annualized verified savings |
 | **Savings found but not fixed** | Free — no charge |
-| **Deposit** | 4% of annualized AWS spend (only when client wants implementation, deducted from total) |
 | **No savings** | No fee |
+| **Overage rate** | $500/hr for out-of-scope work |
 
-- Free audit removes all barriers — client sees the numbers before spending a dollar
-- Deposit only required when client decides they want David to fix it
-- Fee due 90 days after implementation, based on verified savings only
-- Unfixed savings are not charged
+### What the website says
+
+| | Public messaging |
+|--|-----|
+| **Audit** | Free |
+| **Fee** | Percentage of verified savings |
+| **No savings** | No fee |
 
 ## Pricing
 
-All pricing is centralized in `app/composables/usePricing.ts`:
+Only `minAws` and `overageRate` remain in `app/composables/usePricing.ts`:
 
 ```js
 const pricing = {
-  depositPct: 4,       // Down payment: 4% of AWS annual spend to start implementation (after free audit)
-  fixedPct: 75,        // 75% of annualized savings David finds AND fixes
-  securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
   minAws: 5000,        // We work best with $5K+/mo AWS spend
   overageRate: 500,    // Hourly rate for out-of-scope work
 }
 ```
 
-**Change pricing in ONE place** — the entire site updates automatically. All template references use `{{ pricing.* }}`.
+Specific fee percentages, deposit amounts, and calculators have been removed from the site. Pricing is discussed during the Findings Meeting.
 
-### Pricing Flow
+### Engagement Flow
 
 ```
-🗓️ FREE CHAT             Free (15 min)
+🗓️ FREE INTRO CALL       Free (15 min)
         ↓
    Grant read-only access (no payment yet)
         ↓
    5-10 business days    (David audits the account)
         ↓
-📋 FINDINGS CALL          High-level: services, amounts, what's fixable
+📋 FINDINGS MEETING       Delivers: Audit PDF, Security PDF, Implementation Recommendations PDF
    │                      Free — no charge for the audit
    │
    └─ Want David to fix it?
       │
-      ├─ No → Walk away free. Keep the report.
+      ├─ No → Walk away free. Keep the reports.
       │
-      └─ Yes → 4% deposit (of AWS annual spend, deducted from total)
+      └─ Yes → Pricing discussed, engagement begins
                      ↓
                🔧 IMPLEMENTATION
                      ↓
-               ⏳ 90 DAYS LATER
-                     ↓
-               📊 VERIFICATION    75% of VERIFIED savings David fixed
-                                  (minus deposit; no savings = $0 owed)
-                                  (unfixed savings = $0 owed)
+               📊 VERIFICATION & PAYMENT
+                  Percentage of verified savings David fixed
+                  (no savings = $0 owed)
 ```
-
-### Example ($25K/mo AWS spend, 36% waste found, all savings fixed)
-
-| Phase | Amount |
-|-------|-------:|
-| Free Chat | Free |
-| Audit + Findings | Free |
-| Deposit (4% of $300K annual) | $12,000 |
-| Implementation | $0 (during) |
-| 90 Days After Implementation (75% of $108K − deposit) | $69,000 |
-| **Total (75%)** | **$81,000** |
-| **Client keeps year 1** | **$27,000** |
-| **Client keeps every year after** | **$108,000** |
 
 ## AWS Marketplace
 
@@ -87,7 +76,7 @@ const pricing = {
 
 Actual dollar amounts are set per client via **private offers**. When David closes a deal:
 1. Calculate the client's verified savings
-2. Create a private offer with the specific dollar amount (75% of fixed savings)
+2. Create a private offer with the specific dollar amount
 3. Client accepts through AWS Marketplace
 4. Payment processed through AWS (2.5% Marketplace fee)
 

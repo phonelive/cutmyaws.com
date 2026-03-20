@@ -49,7 +49,7 @@ export default defineNuxtConfig({
         // GEO/AEO: help AI systems understand the page
         { name: 'subject', content: 'Cloud Cost Optimization & AWS FinOps Consulting' },
         { name: 'topic', content: 'Cloud cost optimization, AWS cost savings, and business-aligned technology audits for small businesses' },
-        { name: 'summary', content: 'Cut My AWS offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K+/mo. Free audit — you only pay 75% of savings David actually fixes. No savings, no fee. 19 years AWS experience. Not a dashboard — a real consultant.' },
+        { name: 'summary', content: 'Cut My AWS offers cloud cost optimization and business-aligned AWS consulting for companies spending $5K+/mo. Free audit — you only pay a percentage of verified savings. No savings, no fee. 19 years AWS experience. Not a dashboard — a real consultant.' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -99,7 +99,7 @@ export default defineNuxtConfig({
                 },
                 areaServed: 'US',
                 serviceType: ['Cloud Cost Optimization', 'AWS Cost Optimization', 'Cloud Cost Optimization Solutions', 'Cloud Cost Optimization Services', 'FinOps Consulting', 'Cloud Cost Audit', 'Serverless Migration', 'Business-Aligned Technology Audit'],
-                priceRange: '75% of verified savings fixed (free audit, no fee on unfixed)',
+                priceRange: 'Percentage of verified savings (free audit, no savings = no fee)',
                 knowsAbout: ['Cloud Cost Optimization', 'Cloud Cost Optimization Solutions', 'Cloud Cost Optimization Strategies', 'Cloud Cost Savings', 'Amazon Web Services', 'AWS Lambda', 'Serverless Architecture', 'FinOps', 'FinOps Consulting', 'AWS FinOps', 'AWS EC2', 'AWS RDS', 'AWS S3', 'DevOps'],
                 email: 'david@cutmyaws.com',
                 sameAs: [
@@ -121,14 +121,14 @@ export default defineNuxtConfig({
                 '@type': 'Service',
                 '@id': `${siteUrl}/#service`,
                 name: 'AWS Cost Audit & Implementation',
-                description: 'Free AWS cost audit showing where you can save. If you want David to fix it: half the 75% fee upfront, other half 45 days after you see the savings. Free audit, no fee on unfixed savings.',
+                description: 'Free AWS cost audit showing where you can save. If you want David to fix it, you pay a percentage of verified savings. Free audit, no savings = no fee.',
                 provider: { '@id': `${siteUrl}/#organization` },
                 serviceType: 'AWS Cost Optimization',
                 offers: {
                   '@type': 'Offer',
-                  price: '75% of verified annual savings fixed',
+                  price: 'Percentage of verified savings',
                   priceCurrency: 'USD',
-                  description: 'Free 15-min chat. Free audit. Half the 75% fee upfront to start implementation, other half after 45 days. No fee on unfixed savings. No savings = no fee.'
+                  description: 'Free 15-min chat. Free audit. You only pay a percentage of verified savings David actually fixes. No savings = no fee.'
                 }
               },
               {
@@ -143,7 +143,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'When do I pay for the AWS cost audit?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'The chat is free. The audit is free. You don\'t pay until you\'ve seen the report and decided you want David to fix it. Half the 75% fee upfront kicks off implementation. The other half is due 45 days later, after you\'ve seen the savings in your bill. No fee on unfixed savings. No savings = no fee.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'The chat is free. The audit is free. You don\'t pay until you\'ve seen the findings and decided you want David to fix it. You only pay a percentage of verified savings. No savings = no fee.' }
                   },
                   {
                     '@type': 'Question',
@@ -168,7 +168,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'What is the maximum fee for Cut My AWS services?',
-                    acceptedAnswer: { '@type': 'Answer', text: '75% of verified annual savings that David actually fixes. The audit is free. Savings found but not fixed are not charged. Half the fee upfront, other half 45 days after implementation when you\'ve seen it in your bill.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'A percentage of verified savings that David actually fixes. The audit is free. Pricing is discussed after you see the findings. No savings = no fee.' }
                   }
                 ]
               }

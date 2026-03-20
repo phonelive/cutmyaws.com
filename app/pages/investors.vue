@@ -6,25 +6,19 @@ useHead({
   ],
 })
 
-const { pricing, promoActive, promoDaysLeft, minAwsK, calendly, calculateExample } = usePricing()
-
-// Example: $25K/mo AWS spend, 36% waste found
-const exampleAwsMonthly = 25000
-const exampleWastePct = 36
-const ex = calculateExample(exampleAwsMonthly, exampleWastePct)
-const monthsToRoi = ex.monthsToRoi
+const { minAwsK } = usePricing()
 
 // ── Stats ──
 const stats = [
   { value: '30–40%', label: 'Average waste per account (yes, really 😳)' },
-  { value: `${monthsToRoi} mo`, label: 'Time to ROI — faster than your next board meeting', color: 'text-green-400' },
+  { value: 'Free', label: 'The audit costs nothing — you see the numbers first', color: 'text-green-400' },
   { value: '19 yrs', label: 'AWS experience — since before it was cool (2007)' },
 ]
 
 // ── Value prop cards ──
 const valueProps = [
   { emoji: '💸', title: 'Pay on results', description: 'No retainer. No hourly. You pay a percentage of verified savings — if I don\'t find waste, you owe nothing. Wild concept for consulting, I know. 🤷' },
-  { emoji: '⏱️', title: `${monthsToRoi}-month ROI`, description: `Most engagements pay for themselves within ${monthsToRoi} months. After that, every dollar saved goes straight to runway. CFOs love this. Investors love it more. 😏` },
+  { emoji: '⏱️', title: 'Fast ROI', description: 'Most engagements pay for themselves quickly. After that, every dollar saved goes straight to runway. CFOs love this. Investors love it more. 😏' },
   { emoji: '🔁', title: 'No recurring fees', description: 'I\'m not another SaaS on your portfolio\'s credit card. One engagement, permanent savings. The only thing that recurs is the money your companies keep. Every. Single. Month.' },
 ]
 
@@ -70,7 +64,7 @@ const faqQuestions = [
           <div class="flex-1">
             <p class="text-brand-400 text-sm font-bold uppercase tracking-wide mb-3">Every startup I audit wastes 30–40% on AWS</p>
             <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-              Your portfolio is <span class="text-red-400">burning ${{ (ex.monthlySavings / 1000).toFixed(0) }}K+/mo</span> on AWS nobody audited.
+              Your portfolio is <span class="text-red-400">burning thousands every month</span> on AWS nobody audited.
             </h1>
             <p class="text-gray-400 text-lg mb-4">
               One engagement. Permanent savings. No savings? <strong class="text-gray-200">No fee.</strong>
@@ -138,23 +132,23 @@ const faqQuestions = [
     <!-- Dollar Example -->
     <section>
       <div class="max-w-3xl mx-auto px-6 py-16 text-center">
-        <h2 class="text-2xl font-bold mb-2">The math on a typical portfolio company 🧮</h2>
-        <p class="text-gray-500 text-sm mb-8">${{ (exampleAwsMonthly / 1000).toFixed(0) }}K/mo AWS spend · {{ exampleWastePct }}% waste found</p>
+        <h2 class="text-2xl font-bold mb-2">What a typical portfolio company looks like 🧮</h2>
+        <p class="text-gray-500 text-sm mb-8">Most accounts are wasting 30–40% on AWS</p>
         <div class="grid sm:grid-cols-3 gap-6">
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-green-400 text-3xl font-bold">${{ (ex.annualSavings / 1000).toFixed(0) }}K</p>
-            <p class="text-gray-500 text-sm mt-2">Annual savings found</p>
+            <p class="text-green-400 text-3xl font-bold">30–40%</p>
+            <p class="text-gray-500 text-sm mt-2">Waste found in a typical account</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-brand-400 text-3xl font-bold">${{ (ex.totalFee / 1000).toFixed(0) }}K</p>
-            <p class="text-gray-500 text-sm mt-2">Max total fee ({{ pricing.fixedPct }}%)</p>
+            <p class="text-brand-400 text-3xl font-bold">% of savings</p>
+            <p class="text-gray-500 text-sm mt-2">You only pay a percentage of verified savings</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-green-400 text-3xl font-bold">${{ (ex.annualSavings / 1000).toFixed(0) }}K</p>
-            <p class="text-gray-500 text-sm mt-2">Saved every year after — forever 🎉</p>
+            <p class="text-green-400 text-3xl font-bold">Forever</p>
+            <p class="text-gray-500 text-sm mt-2">Savings repeat every year — one-time fee 🎉</p>
           </div>
         </div>
-        <p class="text-gray-600 text-xs mt-6">Year 1 net: ${{ (ex.yearOneNet / 1000).toFixed(0) }}K kept · Year 2+: full ${{ (ex.annualSavings / 1000).toFixed(0) }}K/yr goes straight to runway</p>
+        <p class="text-gray-600 text-xs mt-6">Free audit · Percentage of verified savings · No savings = no fee</p>
       </div>
     </section>
 
@@ -227,9 +221,6 @@ const faqQuestions = [
     <section>
       <SecuritySection />
     </section>
-
-    <!-- Security Promo (if active) -->
-    <SecurityPromo />
 
     <!-- About David -->
     <section>

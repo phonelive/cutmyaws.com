@@ -71,16 +71,6 @@ const selectedSavings = computed(() => {
 })
 const selectedPct = computed(() => tiers.find(t => t.key === selectedTier.value).pct)
 
-// Pricing breakdown (mirrors usePricing.ts)
-const fixedPct = 75
-const upfrontPct = 50
-
-const upfrontFee = computed(() => Math.round(totalFee.value * upfrontPct / 100))
-const totalFee = computed(() => Math.round(selectedSavings.value * fixedPct / 100))
-const yearOneNet = computed(() => selectedSavings.value - totalFee.value)
-const yearTwoPlus = computed(() => selectedSavings.value)
-const fiveYearNet = computed(() => (selectedSavings.value * 5) - totalFee.value)
-
 function fmt(n) {
   return '$' + n.toLocaleString()
 }
@@ -208,8 +198,8 @@ async function copyCliCommand() {
     <!-- Header -->
     <div class="max-w-3xl mx-auto px-6 pt-12 sm:pt-16 pb-8 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold mb-3">🧮 Calculate Your Annualized AWS Bill</h1>
-      <p class="text-gray-400 mb-2">This is how I calculate your annualized AWS spend for pricing.</p>
-      <p class="text-gray-500 text-sm">Used to estimate your savings and calculate your fee. 📊</p>
+      <p class="text-gray-400 mb-2">This is how I calculate your annualized AWS spend.</p>
+      <p class="text-gray-500 text-sm">Used to estimate your potential savings. 📊</p>
     </div>
 
     <!-- How it's calculated -->
@@ -360,70 +350,32 @@ async function copyCliCommand() {
             <p class="text-gray-600 text-xs mt-1">{{ fmt(average) }} × 12</p>
           </div>
           <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
-            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ upfrontPct }}% Upfront</p>
-            <p class="text-2xl font-bold text-gray-100">{{ fmt(upfrontFee) }}</p>
-            <p class="text-gray-600 text-xs mt-1">Half the fee to start implementation</p>
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Typical Waste</p>
+            <p class="text-2xl font-bold text-green-400">30–40%</p>
+            <p class="text-gray-600 text-xs mt-1">found in most accounts</p>
           </div>
         </div>
 
-        <!-- Savings estimates (clickable) -->
-        <h2 class="text-lg font-bold mb-4">📉 Estimated Savings Range <span class="text-gray-500 text-sm font-normal">— click to update pricing below</span></h2>
+        <!-- Savings estimates -->
+        <h2 class="text-lg font-bold mb-4">📉 Estimated Savings Range</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <button
+          <div
             v-for="tier in tiers"
             :key="tier.key"
-            @click="selectedTier = tier.key"
-            class="rounded-xl p-5 text-left transition-all cursor-pointer"
-            :class="selectedTier === tier.key
-              ? 'bg-gray-900 border-2 border-green-500/50 ring-1 ring-green-500/20'
-              : 'bg-gray-900 border border-gray-800 hover:border-gray-700'"
+            class="rounded-xl p-5 text-left bg-gray-900 border border-gray-800"
+            :class="tier.key === 'average' ? 'border-2 border-green-500/50 ring-1 ring-green-500/20' : ''"
           >
             <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ tier.label }} ({{ tier.pct }}%)</p>
             <p class="text-xl font-bold text-green-400">{{ fmt(tierSavings(tier.pct)) }}<span class="text-gray-500 text-sm">/yr</span></p>
             <p class="text-gray-600 text-xs mt-1">{{ fmt(Math.round(tierSavings(tier.pct) / 12)) }}/mo</p>
-          </button>
+          </div>
         </div>
 
-        <!-- Pricing breakdown (using selected tier) -->
-        <h2 class="text-lg font-bold mb-4">💰 Pricing Breakdown <span class="text-gray-500 text-sm font-normal">(at {{ selectedPct }}% savings)</span></h2>
-        <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden mb-8">
-          <div class="divide-y divide-gray-800">
-            <div class="flex justify-between items-center p-4">
-              <div>
-                <p class="text-gray-300 font-medium">💳 Upfront ({{ upfrontPct }}% of fee)</p>
-                <p class="text-gray-600 text-xs">Half the fee to start implementation</p>
-              </div>
-              <p class="text-gray-100 font-bold">{{ fmt(upfrontFee) }}</p>
-            </div>
-            <div class="flex justify-between items-center p-4">
-              <div>
-                <p class="text-gray-300 font-medium">✂️ Total fee ({{ fixedPct }}% if all savings fixed)</p>
-                <p class="text-gray-600 text-xs">Audit + implementation + 90-day verification</p>
-              </div>
-              <p class="text-gray-100 font-bold">{{ fmt(totalFee) }}</p>
-            </div>
-            <div class="flex justify-between items-center p-4 bg-gray-950/50">
-              <div>
-                <p class="text-green-400 font-medium">✅ You keep — year 1</p>
-                <p class="text-gray-600 text-xs">{{ fmt(selectedSavings) }} savings - {{ fmt(totalFee) }} fee</p>
-              </div>
-              <p class="text-green-400 font-bold">{{ fmt(yearOneNet) }}</p>
-            </div>
-            <div class="flex justify-between items-center p-4 bg-gray-950/50">
-              <div>
-                <p class="text-green-400 font-medium">✅ You keep — every year after</p>
-                <p class="text-gray-600 text-xs">100% of savings, zero ongoing fees</p>
-              </div>
-              <p class="text-green-400 font-bold">{{ fmt(yearTwoPlus) }}<span class="text-gray-500 text-sm">/yr</span></p>
-            </div>
-            <div class="flex justify-between items-center p-4 bg-gray-950/50">
-              <div>
-                <p class="text-green-400 font-medium">🏆 5-year net savings</p>
-                <p class="text-gray-600 text-xs">Total savings minus one-time fee</p>
-              </div>
-              <p class="text-green-400 font-bold text-xl">{{ fmt(fiveYearNet) }}</p>
-            </div>
-          </div>
+        <!-- How it works -->
+        <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 mb-8">
+          <h2 class="text-lg font-bold mb-3">✂️ How It Works</h2>
+          <p class="text-gray-400 text-sm mb-2">The audit is free. You see the findings before spending a dollar.</p>
+          <p class="text-gray-400 text-sm">If you want David to fix it, you pay a percentage of verified savings. No savings = no fee.</p>
         </div>
 
         <!-- CTA -->

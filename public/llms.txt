@@ -12,19 +12,17 @@ Businesses spending $5,000 or more per month on AWS who need cloud cost optimiza
 
 ## How does it work?
 
-1. **Free Chat** (free, 15 min): Book a chat, meet David, figure out if it's a fit.
-2. **Free Audit** (5-10 business days): David gets read-only access, audits your account, and walks you through the findings — which services are costing you, how much you can save, and what it takes to fix. High-level report included. No charge.
-3. **Implementation** (if you want David to fix it): 4% deposit to start, David implements all feasible optimizations.
-4. **Verification** (90 days later): Side-by-side bill comparison. You pay 75% of verified savings David actually fixed. Deposit deducted from total.
+1. **Free Intro Call** (15 min): Book a chat, meet David, figure out if it's a fit.
+2. **Free Audit** (5-10 business days): David gets read-only access, audits your account, and delivers a full findings meeting with an Audit PDF, Security PDF, and Implementation Recommendations PDF.
+3. **Findings Meeting**: David walks you through everything — what's costing you, how much you can save, and what it takes to fix. No charge.
+4. **Implementation** (if you want David to fix it): David implements all feasible optimizations.
+5. **Verification & Payment**: Side-by-side bill comparison. You pay a percentage of verified savings David actually fixed.
 
 ## Pricing
 
-- Free 15-min chat
+- Free intro call
 - Free audit and findings report
-- If you want David to fix it: 4% deposit (of annualized AWS spend) to start implementation — deducted from total fee
-- 75% of annualized savings David finds AND fixes
-- No fee on savings found but not fixed
-- Fee due 90 days after implementation, based on verified realized savings only
+- Percentage of verified savings — discussed during the engagement
 - No savings = no fee
 
 ## What makes Cut My AWS different from cloud cost optimization tools?
@@ -34,7 +32,6 @@ Businesses spending $5,000 or more per month on AWS who need cloud cost optimiza
 - Free audit — you see the numbers before spending a dollar
 - Business-aligned: finds the mismatch between tech and business, not just billing waste
 - Serverless architecture expertise (Lambda, API Gateway, S3, SES)
-- Transparent pricing published on website — unlike most cloud cost optimization services
 - Performance-based fee (pay only on verified cloud cost savings David fixes)
 - Read-only access only for audit phase
 - Cloud cost optimization done right: architecture-driven, not chart-driven
