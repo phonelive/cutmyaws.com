@@ -52,7 +52,7 @@ const wasteSources = [
 const whyCards = [
   { emoji: '🧑‍💻', title: 'Keep your tech team building value', description: 'Your engineers should be shipping product, not hunting for savings. I dig into your architecture, find the misalignment, and do the one-time cleanup so they don\'t have to. No recurring retainer. No ongoing distraction. Just results. 🚀' },
   { emoji: '🙅', title: 'Not a dashboard. Not an AI. A human.', description: 'Cloud cost optimization tools show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. Real cloud cost optimization is a person, not a platform. And I only make money when you do. 🤝' },
-  { emoji: '💰', title: 'You don\'t pay until you see results', description: 'The audit is free. You see the full report before spending a dollar. If you want me to fix it, you only pay a percentage of the verified savings. No savings? No fee. I carry the risk, not you. 🎯' },
+  { emoji: '💰', title: 'Guaranteed ROI', description: 'The audit is free. You see the full report before spending a dollar. If you want me to fix it, you only pay a percentage of actual savings that show up on your bill. Not projections &mdash; real numbers. No savings? No fee. I carry the risk, not you. 🎯' },
   { emoji: '📉', title: 'Growing ≠ efficient', description: 'Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you\'re paying for infrastructure you forgot existed. That\'s not negligence — that\'s just building a business. Let me clean it up. 🧾' },
 ]
 
@@ -69,7 +69,7 @@ const fitItems = [
 // ── FAQ questions ──
 const faqQuestions = [
   { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. And if the savings are small enough that implementation isn\'t worth the hassle, I\'ll tell you that too. I\'ll send you a congratulatory email either way.' },
-  { emoji: '🤨', question: 'When do I actually pay?', answer: 'The intro call is free. The audit is free. You don\'t pay a dime until you\'ve seen the report and decided you want me to fix it. I only charge a percentage of verified savings &mdash; savings that actually show up in your AWS bill. No savings? No fee. 😅' },
+  { emoji: '🤨', question: 'When do I actually pay?', answer: 'The intro call is free. The audit is free. You don\'t pay a dime until you\'ve seen the report and decided you want me to fix it. I only charge a percentage of actual savings &mdash; real reductions that show up on your AWS bill. Not projections. Guaranteed ROI. No savings? No fee. 😅' },
   { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
   { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
   { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
@@ -91,12 +91,12 @@ const faqQuestions = [
       <div class="flex flex-col lg:flex-row gap-16 items-center">
         <!-- Left: Text -->
         <div class="flex-1">
-          <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Free audit. You only pay on savings I find.</p>
+          <p class="text-brand-400 font-semibold mb-6 text-lg">✂️ Free audit. You only pay on actual savings. Guaranteed ROI.</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             Your AWS bill is a symptom.<br>
             <span class="text-brand-400">I find the cure.</span>
           </h1>
-          <p class="text-lg text-gray-400 mb-8">You pay a % of what I save you. No savings? No fee. 💸</p>
+          <p class="text-lg text-gray-400 mb-8">You only pay a % of actual, verified savings on your bill. Guaranteed ROI. 💸</p>
           <div class="flex flex-col items-start gap-3 mb-8">
             <a
               href="#book"
@@ -126,7 +126,7 @@ const faqQuestions = [
             <!-- Quick value props -->
             <div class="space-y-2 text-left text-sm">
               <div class="flex items-center gap-2 text-gray-400">
-                <span class="text-brand-400">✅</span> You only pay a % of savings found
+                <span class="text-brand-400">✅</span> You only pay on actual savings. Guaranteed ROI.
               </div>
               <div class="flex items-center gap-2 text-gray-400">
                 <span class="text-brand-400">✅</span> No savings? No fee. Period.
@@ -209,8 +209,8 @@ const faqQuestions = [
 
         <!-- Key message -->
         <div class="max-w-2xl mx-auto bg-brand-500/10 border border-brand-500/30 rounded-xl p-5 mb-12 text-center">
-          <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay a percentage of verified savings.</p>
-          <p class="text-gray-400 text-sm">No savings? No fee. It's that simple.</p>
+          <p class="text-brand-400 font-semibold text-lg mb-1">The audit is free. You only pay on actual savings. Guaranteed ROI.</p>
+          <p class="text-gray-400 text-sm">Not projections &mdash; real reductions on your AWS bill. No savings? No fee.</p>
         </div>
 
         <div class="max-w-2xl mx-auto space-y-4">
@@ -288,7 +288,7 @@ const faqQuestions = [
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">5</span>
               <h3 class="text-lg font-bold">📊 Verification & Payment</h3>
             </div>
-            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. I only charge a percentage of <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections. If the savings didn't show up, I don't get paid. 💰</p>
+            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. I only charge a percentage of <strong class="text-gray-200">actual savings on your bill</strong> &mdash; not projections, not estimates. If the savings didn't show up, I don't get paid. Guaranteed ROI. 💰</p>
           </div>
 
         </div>
