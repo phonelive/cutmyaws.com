@@ -86,8 +86,8 @@ async function submit() {
 
   try {
     const apiBase = window.location.hostname.includes('dev.')
-      ? 'https://65mpltfwv1.execute-api.us-east-1.amazonaws.com'
-      : 'https://uox8zbhk8l.execute-api.us-east-1.amazonaws.com'
+      ? 'https://omoylzwhgh.execute-api.us-east-1.amazonaws.com'
+      : 'https://u1dn6uuy6i.execute-api.us-east-1.amazonaws.com'
 
     const res = await fetch(`${apiBase}/leads`, {
       method: 'POST',
