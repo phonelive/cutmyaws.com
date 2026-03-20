@@ -146,15 +146,15 @@ const faqQuestions = [
             <p class="text-gray-500 text-sm mt-2">Annual savings found</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
-            <p class="text-brand-400 text-3xl font-bold">${{ (ex.fixFee / 1000).toFixed(0) }}K</p>
-            <p class="text-gray-500 text-sm mt-2">Max total fee ({{ pricing.reportPct }}% + {{ pricing.implPct }}%)</p>
+            <p class="text-brand-400 text-3xl font-bold">${{ (ex.totalFee / 1000).toFixed(0) }}K</p>
+            <p class="text-gray-500 text-sm mt-2">Max total fee ({{ pricing.fixedPct }}%)</p>
           </div>
           <div class="bg-gray-950 border border-gray-800 rounded-2xl p-6">
             <p class="text-green-400 text-3xl font-bold">${{ (ex.annualSavings / 1000).toFixed(0) }}K</p>
             <p class="text-gray-500 text-sm mt-2">Saved every year after — forever 🎉</p>
           </div>
         </div>
-        <p class="text-gray-600 text-xs mt-6">Year 1 net: ${{ (ex.fixNet / 1000).toFixed(0) }}K kept · Year 2+: full ${{ (ex.annualSavings / 1000).toFixed(0) }}K/yr goes straight to runway</p>
+        <p class="text-gray-600 text-xs mt-6">Year 1 net: ${{ (ex.yearOneNet / 1000).toFixed(0) }}K kept · Year 2+: full ${{ (ex.annualSavings / 1000).toFixed(0) }}K/yr goes straight to runway</p>
       </div>
     </section>
 

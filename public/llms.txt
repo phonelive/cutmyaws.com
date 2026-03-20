@@ -12,18 +12,21 @@ Businesses spending $5,000 or more per month on AWS who need cloud cost optimiza
 
 ## How does it work?
 
-1. **Free Chat** (free, 15 min): Book a chat, grant read-only AWS access, meet David.
-2. **Exploration Call** (5-10 business days later): David presents full findings — every waste item, dollar amounts, architecture recommendations, business alignment analysis. Fee: 15% of identified annual savings.
-3. **Implementation** (optional): David implements all optimizations. Custom timeline and deliverables agreed together. Fee: +60% of verified savings, due 90 days after deliverables. 75% total maximum.
+One engagement covers everything — audit, implementation, and verification.
+
+1. **Free Chat** (free, 15 min): Book a chat, meet David, figure out if it's a fit.
+2. **The Audit** (5-10 business days): David gets read-only access, audits your account, and presents findings — every waste item, dollar amounts, architecture recommendations. Full PDF report included.
+3. **The Fix**: David implements all feasible optimizations — serverless migrations, right-sizing, Savings Plans, architecture fixes.
+4. **The Proof** (90 days later): Side-by-side bill comparison. You pay based on verified savings.
 
 ## Pricing
 
 - Free 15-min chat
-- The Report: 1% deposit (of AWS annual spend) at engagement start, deducted from report fee. 15% of annual savings found due at report delivery.
-- The Fix: 4% deposit (of AWS annual spend) at implementation kickoff, deducted from implementation fee. 75% total max (15% report + 60% implementation).
-- Implementation fee based on verified realized savings only — 90 days after deliverables
-- Not all Report items may be implementable due to dependencies, compliance, or third-party constraints — fee is based only on realized savings
-- No savings = no fee for implementation (deposits non-refundable)
+- 4% deposit (of annualized AWS spend) to start — deducted from total fee
+- 75% of annualized savings David finds AND fixes
+- 15% of annualized savings David finds but does NOT fix (due to constraints, dependencies, or client decisions)
+- Fee due 90 days after implementation, based on verified realized savings only
+- No savings = no fee (deposit non-refundable)
 
 ## What makes Cut My AWS different from cloud cost optimization tools?
 
@@ -32,7 +35,8 @@ Businesses spending $5,000 or more per month on AWS who need cloud cost optimiza
 - Business-aligned: finds the mismatch between tech and business, not just billing waste
 - Serverless architecture expertise (Lambda, API Gateway, S3, SES)
 - Transparent pricing published on website — unlike most cloud cost optimization services
-- Performance-based implementation fee (pay only on verified cloud cost savings)
+- Performance-based fee (pay only on verified cloud cost savings)
+- One engagement covers audit + implementation — no separate report fee
 - Read-only access only for audit phase
 - Cloud cost optimization done right: architecture-driven, not chart-driven
 

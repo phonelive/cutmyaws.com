@@ -1,11 +1,10 @@
 export function usePricing() {
   // ── Pricing (change here, updates everywhere) ──
+  // One product: David audits + fixes. You pay after results.
   const pricing = {
-    depositPct: 1,       // Down payment: 1% of AWS annual spend to start (The Report)
-    fixDepositPct: 4,    // Down payment: 4% of AWS annual spend to start (The Fix)
-    reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
-    implPct: 60,         // Implementation portion
-    fixPct: 75,          // The Fix: 75% total (15% report + 60% implementation)
+    depositPct: 4,       // Down payment: 4% of AWS annual spend to start
+    fixedPct: 75,        // 75% of annualized savings found AND fixed
+    unfixedPct: 15,      // 15% of annualized savings found but NOT fixed
     securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
     minAws: 5000,        // We work best with $5K+/mo AWS spend
     overageRate: 500,    // Hourly rate for out-of-scope work
@@ -25,33 +24,29 @@ export function usePricing() {
   const calendly = (campaign: string) => `/book?c=${campaign}`
 
   // ── Example / calculator helper ──
+  // Assumes all savings get fixed (75% fee) — best case for David, worst case for client.
+  // In practice, unfixed items are only 15%.
   function calculateExample(monthlySpend: number, wastePct: number) {
     const monthlySavings = Math.round(monthlySpend * wastePct / 100)
     const annualSavings = monthlySavings * 12
     const awsAnnual = monthlySpend * 12
     const depositFee = Math.round(awsAnnual * pricing.depositPct / 100)
-    const reportFee = Math.round(annualSavings * pricing.reportPct / 100)
-    const reportRemainder = reportFee - depositFee
-    const fixDepositFee = Math.round(awsAnnual * pricing.fixDepositPct / 100)
-    const fixFee = Math.round(annualSavings * pricing.fixPct / 100)
-    const reportNet = annualSavings - reportFee
-    const fixNet = annualSavings - fixFee
-    const monthsToRoi = monthlySavings > 0 ? Math.ceil(fixFee / monthlySavings) : 0
-    const threeYearNet = (annualSavings * 3) - fixFee
+    const totalFee = Math.round(annualSavings * pricing.fixedPct / 100)
+    const feeAfterDeposit = totalFee - depositFee
+    const yearOneNet = annualSavings - totalFee
+    const monthsToRoi = monthlySavings > 0 ? Math.ceil(totalFee / monthlySavings) : 0
+    const threeYearNet = (annualSavings * 3) - totalFee
     const fiveYearSavings = annualSavings * 5
-    const fiveYearNet = fiveYearSavings - fixFee
+    const fiveYearNet = fiveYearSavings - totalFee
 
     return {
       monthlySavings,
       annualSavings,
       awsAnnual,
       depositFee,
-      reportFee,
-      reportRemainder,
-      fixDepositFee,
-      fixFee,
-      reportNet,
-      fixNet,
+      totalFee,
+      feeAfterDeposit,
+      yearOneNet,
       monthsToRoi,
       threeYearNet,
       fiveYearSavings,

@@ -1,30 +1,30 @@
-# Products & Pricing
+# Pricing — One Product
 
-## Products
+## The Offering
 
-Two separate products, purchased sequentially:
+One engagement covers everything: audit, implementation, and verification.
 
-| Product | Fee | Deposit | What it is |
-|---------|-----|---------|------------|
-| **The Report** | 15% of annual savings found | 1% of AWS annual spend (deducted from fee) | Read-only audit, 5-10 business days. Deliverable: detailed report with every waste item, dollar amounts, root causes, and fixes. |
-| **The Fix** | 60% of verified annual savings | 4% of AWS annual spend (deducted from fee) | Hands-on implementation of optimizations from The Report. Savings verified against actual bill after 90 days. No verified savings = no fee. |
+| | Fee |
+|--|-----|
+| **Savings found AND fixed** | 75% of annualized savings |
+| **Savings found but NOT fixed** | 15% of annualized savings |
+| **Deposit to start** | 4% of annualized AWS spend (deducted from total fee) |
+| **No savings** | No fee |
 
-- **The Fix requires The Report first** — they are separate engagements, not a bundle
-- **Max total if both purchased:** 75% of annual savings (15% + 60%)
-- **On the website:** `fixPct: 75` represents the combined max total, not The Fix alone
-- **On AWS Marketplace:** listed as 2 separate pricing dimensions (15% and 60%)
+- One product, not two — audit + implementation bundled together
+- No separate "report" fee — the audit is included in the engagement
+- Fee due 90 days after implementation, based on verified savings only
+- Not all findings may be fixable (dependencies, compliance, constraints) — unfixed items are only 15%
 
 ## Pricing
 
-All pricing is centralized in `app/pages/index.vue` in the `pricing` object:
+All pricing is centralized in `app/composables/usePricing.ts`:
 
 ```js
 const pricing = {
-  depositPct: 1,       // Down payment: 1% of AWS annual spend to start (The Report)
-  fixDepositPct: 4,    // Down payment: 4% of AWS annual spend to start (The Fix)
-  reportPct: 15,       // The Report: 15% of annual savings (deposit deducted)
-  implPct: 60,         // Implementation portion
-  fixPct: 75,          // The Fix: 75% total (15% report + 60% implementation)
+  depositPct: 4,       // Down payment: 4% of AWS annual spend to start
+  fixedPct: 75,        // 75% of annualized savings found AND fixed
+  unfixedPct: 15,      // 15% of annualized savings found but NOT fixed
   securityPct: 10,     // Security Audit: 10% of AWS annual spend (free during promo)
   minAws: 5000,        // We work best with $5K+/mo AWS spend
   overageRate: 500,    // Hourly rate for out-of-scope work
@@ -36,45 +36,36 @@ const pricing = {
 ### Pricing Flow
 
 ```
-🗓️ INTRO CALL           Free (15 min)
+🗓️ FREE CHAT             Free (15 min)
         ↓
-   1% deposit            (of AWS annual spend, deducted from report fee)
+   4% deposit            (of AWS annual spend, deducted from total fee)
         ↓
    5-10 business days    (David audits the account)
         ↓
-📋 EXPLORATION CALL      15% of annual savings found (minus deposit)
-   │                     Client receives full report PDF
+📋 FINDINGS CALL          45 min — walk through every finding + full PDF
+   │                      No separate fee — included in the engagement
    │
-   └─ Want implementation?
-      │
-      ├─ No → Done. Team implements from the report.
-      │
-      └─ Yes → Scope timeline, deliverables together
-               ↓
-         4% deposit      (of AWS annual spend, deducted from impl fee)
+   └─ David implements everything he can
                ↓
          🔧 IMPLEMENTATION
                ↓
          ⏳ 90 DAYS LATER
                ↓
-         📊 THE PROOF       +60% of VERIFIED REALIZED savings due
+         📊 THE PROOF       75% of VERIFIED savings I fixed
+                            15% of savings I found but didn't fix
                             (minus deposit; no savings = $0 owed)
-
-Max total: 75% (15% report + 60% implementation)
-Note: Not all Report items may be implementable due to dependencies,
-compliance, or third-party constraints. Fee is based only on realized savings.
 ```
 
-### Example ($25K/mo AWS spend, 30% waste found)
+### Example ($25K/mo AWS spend, 36% waste found, all savings fixed)
 
 | Phase | Amount |
 |-------|-------:|
-| Intro Call | Free |
-| Report Deposit (1% of $300K annual) | $3,000 |
-| Exploration Call (15% of $108K − deposit) | $13,200 |
-| Implementation Deposit (4% of $300K annual) | $12,000 |
-| 90 Days After Implementation (+60% − deposit) | $52,800 |
-| **Total max (75%)** | **$81,000** |
+| Free Chat | Free |
+| Deposit (4% of $300K annual) | $12,000 |
+| Findings Call + Report | $0 (included) |
+| Implementation | $0 (during) |
+| 90 Days After Implementation (75% of $108K − deposit) | $69,000 |
+| **Total (75%)** | **$81,000** |
 | **Client keeps year 1** | **$27,000** |
 | **Client keeps every year after** | **$108,000** |
 
@@ -92,8 +83,8 @@ compliance, or third-party constraints. Fee is based only on realized savings.
 
 | Dimension | Fee | API Identifier |
 |-----------|-----|----------------|
-| The Report - AWS Cost Audit & Optimization Plan | 15% of annual savings | `TheReportAWSCostAuditOptimizationPlan` |
-| The Fix - Hands-On Implementation | 60% of verified annual savings | `TheFixHandsOnImplementation` |
+| AWS Cost Audit & Implementation - Fixed Savings | 75% of verified annual savings | `AWSCostAuditImplementationFixedSavings` |
+| AWS Cost Audit & Implementation - Unfixed Savings | 15% of identified annual savings | `AWSCostAuditImplementationUnfixedSavings` |
 
 **Categories:** Assessments, Implementation, Cloud Financial Management
 **Product logo:** `public/marketplace-product-logo.png` (400x400, `/tmp/marketplace-product-logo.html`)
@@ -101,17 +92,11 @@ compliance, or third-party constraints. Fee is based only on realized savings.
 ### How Marketplace Pricing Works
 
 Actual dollar amounts are set per client via **private offers**. The dimensions are line items on the contract. When David closes a deal:
-1. Calculate the client's savings
-2. Create a private offer with the specific dollar amount for whichever dimension(s) apply
+1. Calculate the client's savings (fixed vs unfixed)
+2. Create a private offer with the specific dollar amounts
 3. Client accepts through AWS Marketplace
 4. Payment processed through AWS (2.5% Marketplace fee)
 
 ### Marketplace vs Website Pricing
 
-| | Website | AWS Marketplace |
-|--|---------|-----------------|
-| The Report | 15% | 15% (separate dimension) |
-| The Fix | 75% total max (report + impl bundled) | 60% (implementation only, separate dimension) |
-| Combined | 75% max | 15% + 60% = 75% max |
-
-Same math, different packaging. Website shows 75% as the all-in max. Marketplace splits them because they're separate purchases.
+Same pricing, same model. One engagement. 75% on fixed savings, 15% on unfixed savings. Marketplace uses separate dimensions for accounting.

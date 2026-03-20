@@ -55,28 +55,18 @@ const calcWastePct = ref(30)
 const calcMonthlySavings = computed(() => Math.round(calcAwsSpend.value * (calcWastePct.value / 100)))
 const calcAnnualSavings = computed(() => calcMonthlySavings.value * 12)
 const calcDepositFee = computed(() => Math.round(calcAwsSpend.value * 12 * pricing.depositPct / 100))
-const calcReportFee = computed(() => Math.round(calcAnnualSavings.value * pricing.reportPct / 100))
-const calcReportRemainder = computed(() => calcReportFee.value - calcDepositFee.value)
-const calcFixDepositFee = computed(() => Math.round(calcAwsSpend.value * 12 * pricing.fixDepositPct / 100))
-const calcFixFee = computed(() => Math.round(calcAnnualSavings.value * pricing.fixPct / 100))
-const calcKeepReport = computed(() => calcAnnualSavings.value - calcReportFee.value)
-const calcKeepFix = computed(() => calcAnnualSavings.value - calcFixFee.value)
-const calcRoiReport = computed(() => {
-  if (calcReportFee.value === 0) return 0
-  return Math.round((calcKeepReport.value / calcReportFee.value) * 100) / 100
+const calcTotalFee = computed(() => Math.round(calcAnnualSavings.value * pricing.fixedPct / 100))
+const calcKeep = computed(() => calcAnnualSavings.value - calcTotalFee.value)
+const calcRoi = computed(() => {
+  if (calcTotalFee.value === 0) return 0
+  return Math.round((calcKeep.value / calcTotalFee.value) * 100) / 100
 })
-const calcRoiFix = computed(() => {
-  if (calcFixFee.value === 0) return 0
-  return Math.round((calcKeepFix.value / calcFixFee.value) * 100) / 100
-})
-// Months to break even on The Fix (when cumulative monthly savings > total fix fee)
 const calcMonthsToRoi = computed(() => {
   if (calcMonthlySavings.value === 0) return 0
-  return Math.ceil(calcFixFee.value / calcMonthlySavings.value)
+  return Math.ceil(calcTotalFee.value / calcMonthlySavings.value)
 })
-// 5-year total savings
 const calcFiveYearSavings = computed(() => calcAnnualSavings.value * 5)
-const calcFiveYearNet = computed(() => calcFiveYearSavings.value - calcFixFee.value)
+const calcFiveYearNet = computed(() => calcFiveYearSavings.value - calcTotalFee.value)
 
 // ── Stats ──
 const stats = [
@@ -100,7 +90,7 @@ const wasteSources = [
 const whyCards = [
   { emoji: '🧑‍💻', title: 'Keep your tech team building value', description: 'Your engineers should be shipping product, not hunting for savings. I dig into your architecture, find the misalignment, and do the one-time cleanup so they don\'t have to. No recurring retainer. No ongoing distraction. Just results. 🚀' },
   { emoji: '🙅', title: 'Not a dashboard. Not an AI. A human.', description: 'Cloud cost optimization tools show charts. AI generates summaries. I read your architecture, understand your business, and tell you exactly what to change and why. Real cloud cost optimization is a person, not a platform. And I only make money when you do. 🤝' },
-  { emoji: '💰', title: 'You don\'t pay until you see results', description: 'This is a one-time commitment, not an ongoing contract. The implementation fee isn\'t due until you\'ve experienced the savings for 90 days. You only pay on realized savings. No savings? No fee. I carry the risk, not you. 🎯' },
+  { emoji: '💰', title: 'You don\'t pay until you see results', description: 'A small deposit kicks things off, but the real fee isn\'t due until you\'ve experienced the savings for 90 days. You only pay on realized savings. No savings? No fee. I carry the risk, not you. 🎯' },
   { emoji: '📉', title: 'Growing ≠ efficient', description: 'Nobody sets out to waste money on AWS. You launch fast, scale fast, and three years later you\'re paying for infrastructure you forgot existed. That\'s not negligence — that\'s just building a business. Let me clean it up. 🧾' },
 ]
 
@@ -123,7 +113,7 @@ const notFitItems = [
 // ── FAQ questions ──
 const faqQuestions = [
   { emoji: '🤔', question: 'What if you don\'t find any savings?', answer: 'Then you have the most optimized AWS account I\'ve ever seen, and honestly? I\'ll be impressed. In my career this has happened exactly zero times, but I hear there\'s a first time for everything. I\'ll send you a congratulatory email.' },
-  { emoji: '🤨', question: 'When do I actually pay?', answer: `The initial chat is free &mdash; no payment, no commitment. If it's a fit, a ${pricing.depositPct}% deposit (of your AWS annual spend) kicks off the audit &mdash; deducted from The Report fee. ${pricing.reportPct}% of annualized savings (minus the deposit) is due when The Report is delivered. If you opt for implementation, there's a ${pricing.fixDepositPct}% deposit (of AWS annual spend) at kickoff &mdash; deducted from the implementation fee. The remaining ${pricing.implPct}% isn't due until <strong>90 days after deliverables</strong> &mdash; and only on verified savings. 😅` },
+  { emoji: '🤨', question: 'When do I actually pay?', answer: `The initial chat is free &mdash; no payment, no commitment. If it's a fit, a ${pricing.depositPct}% deposit (of your AWS annual spend) kicks off the engagement &mdash; deducted from your total fee. I audit your account, present findings, and implement fixes. The fee isn't due until <strong>90 days after implementation</strong> &mdash; ${pricing.fixedPct}% of savings I fix, ${pricing.unfixedPct}% of savings I find but don't fix. Only on verified savings. No savings? No fee. 😅` },
   { emoji: '🎯', question: 'Is this just a cost audit or something more?', answer: 'Way more. Cloud cost optimization tools tell you <em>what</em> you\'re spending. I tell you <em>why</em> your tech doesn\'t match your business &mdash; and that\'s where the real cloud cost savings live. I\'m a serverless architect who does cloud cost optimization the way it should be done &mdash; business-aligned, not dashboard-driven. The savings are a side effect of good architecture. 🏗️' },
   { emoji: '📏', question: 'What size AWS accounts do you work with?', answer: `We work best with AWS accounts spending ${minAwsK}+/mo. Below that, there usually isn't enough waste to justify an engagement. Above that? Even better &mdash; more infrastructure means more savings to find. 🫡` },
   { emoji: '🧑‍💻', question: 'Can\'t my team just optimize this ourselves?', answer: 'They can try! But cloud cost optimization isn\'t scanning dashboards for random savings. I\'m reading your architecture, understanding your business, and finding the structural mismatches &mdash; the kind of waste that no cloud cost optimization tool surfaces. It\'s the difference between a thermometer and a doctor. 🌡️' },
@@ -265,7 +255,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     <section id="how-it-works">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Four steps. One call. One PDF. You decide how far to go after you see the numbers. 🤝</p>
+        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">One engagement. I audit, I fix, you pay on results. No savings? No fee. 🤝</p>
 
         <div class="max-w-2xl mx-auto space-y-6">
 
@@ -279,27 +269,27 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               </div>
             </div>
             <p class="text-gray-400 mb-3">We meet, I ask questions about your business, and we figure out if there's a fit. No payment. No AWS access. Just a conversation. 🔍</p>
-            <p class="text-gray-500 text-sm">If it's a fit, a {{ pricing.depositPct }}% deposit (based on <NuxtLink to="/onboarding/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink>) kicks off the audit. You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>, and I get to work.</p>
+            <p class="text-gray-500 text-sm">If it's a fit, a {{ pricing.depositPct }}% deposit (based on <NuxtLink to="/onboarding/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink>) kicks off the engagement. You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>, and I get to work.</p>
           </div>
 
           <!-- Arrow -->
           <div class="text-center text-gray-600 text-lg">⏳ 5–10 business days</div>
 
-          <!-- Step 2: The Report -->
+          <!-- Step 2: The Audit -->
           <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
               <div>
-                <h3 class="text-lg font-bold">📋 The Report</h3>
-                <p class="text-gray-500 text-sm">{{ pricing.reportPct }}% of annualized savings found (deposit deducted)</p>
+                <h3 class="text-lg font-bold">📋 The Audit</h3>
+                <p class="text-gray-500 text-sm">Full audit &middot; included in the engagement</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-3">A <strong class="text-gray-200">45-minute call</strong> where I walk your team through every finding, plus a <strong class="text-gray-200">full PDF</strong> you keep forever &mdash; line-by-line savings, architecture recommendations, and where your tech doesn't match your business. 📄</p>
+            <p class="text-gray-400 mb-3">A <strong class="text-gray-200">45-minute call</strong> where I walk your team through every finding, plus a <strong class="text-gray-200">full PDF</strong> you keep forever &mdash; line-by-line savings, architecture recommendations, and where your tech doesn't match your business. Then I get to work fixing it. 📄</p>
             <div class="flex flex-wrap gap-2 text-xs">
               <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ 45-min live call</span>
               <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Full PDF report</span>
               <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Architecture recs</span>
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ DIY implementation guide</span>
+              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Implementation included</span>
               <span v-if="promoActive" class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/30">🎁 FREE Security Audit ({{ promoDaysLeft }}d left)</span>
             </div>
           </div>
@@ -316,24 +306,23 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
               </div>
             </div>
             <p class="text-gray-400">A one-time PDF covering public S3 buckets, overprivileged IAM roles, security group misconfigs, unencrypted resources, and missing logging. Prioritized: critical → high → medium. 🔍</p>
-            <p v-if="promoActive" class="text-green-400 text-sm font-semibold mt-3">🎁 Free with The Report during promo. After that, {{ pricing.securityPct }}% of AWS annual spend.</p>
+            <p v-if="promoActive" class="text-green-400 text-sm font-semibold mt-3">🎁 Free during promo. After that, {{ pricing.securityPct }}% of AWS annual spend.</p>
           </div>
 
           <!-- Arrow -->
-          <div class="text-center text-gray-600 text-lg">🤔 Want me to actually fix it?</div>
+          <div class="text-center text-gray-600 text-lg">🔧 Implementation</div>
 
           <!-- Step 3: The Fix -->
-          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8 relative">
-            <div class="absolute -top-3 right-6 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">OPTIONAL</div>
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
-              <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
+              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
               <div>
                 <h3 class="text-lg font-bold">🔧 The Fix</h3>
-                <p class="text-gray-500 text-sm">{{ pricing.fixDepositPct }}% deposit at kickoff &middot; you keep {{ 100 - pricing.fixPct }}%+ year 1, 100% every year after</p>
+                <p class="text-gray-500 text-sm">I implement everything I can</p>
               </div>
             </div>
-            <p class="text-gray-400 mb-3">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. {{ pricing.fixDepositPct }}% deposit (of AWS annual spend) at kickoff, deducted from the implementation fee. Everything follows standard SDLC &mdash; changes go into a dev environment first, get tested, and I work with your team to promote to production. No cowboy deploys. 💪</p>
-            <p class="text-gray-500 text-sm">⚠️ Not every Report item may be implementable &mdash; dependencies and constraints happen. You only pay the {{ pricing.implPct }}% on <strong class="text-gray-400">realized, verified savings</strong>.</p>
+            <p class="text-gray-400 mb-3">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. Everything follows standard SDLC &mdash; changes go into a dev environment first, get tested, and I work with your team to promote to production. No cowboy deploys. 💪</p>
+            <p class="text-gray-500 text-sm">⚠️ Not every item may be implementable &mdash; dependencies and constraints happen. Savings I fix: {{ pricing.fixedPct }}%. Savings I find but can't fix: only {{ pricing.unfixedPct }}%. You only pay on <strong class="text-gray-400">realized, verified savings</strong>.</p>
           </div>
 
           <!-- Arrow -->
@@ -342,19 +331,19 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           <!-- Step 4: The Proof -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
-              <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
+              <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
               <div>
                 <h3 class="text-lg font-bold">📊 The Proof</h3>
-                <p class="text-gray-500 text-sm">+{{ pricing.implPct }}% of verified annual savings</p>
+                <p class="text-gray-500 text-sm">{{ pricing.fixedPct }}% of fixed savings &middot; {{ pricing.unfixedPct }}% of unfixed</p>
               </div>
             </div>
-            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. The {{ pricing.implPct }}% is based on <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections. If the savings didn't show up, I don't get paid. 💰</p>
+            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. {{ pricing.fixedPct }}% on savings I implemented, {{ pricing.unfixedPct }}% on savings I found but didn't fix &mdash; based on <strong class="text-gray-200">actual, verified savings</strong>. Deposit deducted. If the savings didn't show up, I don't get paid. 💰</p>
           </div>
 
         </div>
 
         <!-- Pricing summary -->
-        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixPct }}%+ of savings year 1, and 100% every year after. Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
+        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixedPct }}%+ of savings year 1, and 100% every year after. One engagement, one fee, permanent savings. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
       </div>
     </section>
 
@@ -432,42 +421,25 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           <p class="text-3xl font-bold text-red-400">${{ calcMonthlySavings.toLocaleString() }}<span class="text-gray-500 text-lg">/mo</span> &nbsp; = &nbsp; ${{ calcAnnualSavings.toLocaleString() }}<span class="text-gray-500 text-lg">/yr</span></p>
         </div>
 
-        <!-- Two plan comparison -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <!-- The Report -->
-          <div class="bg-gray-900 rounded-xl p-5 border border-gray-800">
-            <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">📋 The Report ({{ pricing.reportPct }}%)</p>
-            <div class="space-y-2 text-sm">
-              <div class="flex justify-between">
-                <span class="text-gray-500">You pay</span>
-                <span class="font-semibold">${{ calcReportFee.toLocaleString() }}</span>
-              </div>
-              <div class="flex justify-between text-lg">
-                <span class="font-bold text-green-400">You keep yr 1</span>
-                <span class="font-bold text-green-400">${{ calcKeepReport.toLocaleString() }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-500">First-year ROI</span>
-                <span class="font-bold text-brand-400">{{ calcRoiReport }}x</span>
-              </div>
+        <!-- Pricing breakdown -->
+        <div class="bg-gray-900 rounded-xl p-5 border-2 border-brand-500 mb-6">
+          <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">✂️ One engagement &middot; {{ pricing.fixedPct }}% of savings fixed &middot; {{ pricing.unfixedPct }}% of savings found but not fixed</p>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500">Deposit ({{ pricing.depositPct }}% of AWS annual spend)</span>
+              <span class="font-semibold">${{ calcDepositFee.toLocaleString() }}</span>
             </div>
-          </div>
-          <!-- The Fix -->
-          <div class="bg-gray-900 rounded-xl p-5 border-2 border-brand-500">
-            <p class="text-gray-400 text-xs uppercase tracking-wider mb-3">🔧 The Fix ({{ pricing.fixPct }}% total)</p>
-            <div class="space-y-2 text-sm">
-              <div class="flex justify-between">
-                <span class="text-gray-500">You pay</span>
-                <span class="font-semibold">${{ calcFixFee.toLocaleString() }}</span>
-              </div>
-              <div class="flex justify-between text-lg">
-                <span class="font-bold text-green-400">You keep yr 1</span>
-                <span class="font-bold text-green-400">${{ calcKeepFix.toLocaleString() }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-500">First-year ROI</span>
-                <span class="font-bold text-brand-400">{{ calcRoiFix }}x</span>
-              </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Max fee ({{ pricing.fixedPct }}% if all savings fixed)</span>
+              <span class="font-semibold">${{ calcTotalFee.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between text-lg">
+              <span class="font-bold text-green-400">You keep yr 1</span>
+              <span class="font-bold text-green-400">${{ calcKeep.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">First-year ROI</span>
+              <span class="font-bold text-brand-400">{{ calcRoi }}x</span>
             </div>
           </div>
         </div>
@@ -477,7 +449,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
             <div>
               <p class="text-green-400 text-2xl font-bold">{{ calcMonthsToRoi }} mo</p>
-              <p class="text-gray-400 text-xs">⏱️ Time to break even (The Fix)</p>
+              <p class="text-gray-400 text-xs">⏱️ Time to break even</p>
             </div>
             <div>
               <p class="text-green-400 text-2xl font-bold">${{ calcAnnualSavings.toLocaleString() }}</p>
@@ -485,7 +457,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             </div>
             <div>
               <p class="text-green-400 text-2xl font-bold">${{ calcFiveYearNet.toLocaleString() }}</p>
-              <p class="text-gray-400 text-xs">💰 5-year net savings (after The Fix fee)</p>
+              <p class="text-gray-400 text-xs">💰 5-year net savings (after fee)</p>
             </div>
           </div>
         </div>
@@ -526,7 +498,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
 
       <!-- Payment timeline -->
       <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
-        <h3 class="font-bold text-center mb-6">💳 When You Pay (with The Fix)</h3>
+        <h3 class="font-bold text-center mb-6">💳 When You Pay</h3>
         <div class="space-y-4 text-sm">
           <div class="flex justify-between items-center">
             <div>
@@ -538,45 +510,45 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
           <div class="text-gray-500 text-xs pl-4">15 min. No commitment. We figure out if it's a fit.</div>
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-gray-300 font-medium">💳 Audit Deposit</span>
+              <span class="text-gray-300 font-medium">💳 Deposit</span>
               <span class="text-gray-500 ml-2">After chat</span>
             </div>
             <span class="font-semibold">${{ ex.depositFee.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annual AWS spend = ${{ ex.depositFee.toLocaleString() }} (deducted from The Report fee)</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annual AWS spend = ${{ ex.depositFee.toLocaleString() }} (deducted from your total fee)</div>
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-gray-300 font-medium">📋 The Report (45-min call + PDF)</span>
+              <span class="text-gray-300 font-medium">📋 Audit + Findings Call</span>
               <span class="text-gray-500 ml-2">~2 weeks</span>
             </div>
-            <span class="font-semibold">${{ ex.reportRemainder.toLocaleString() }}</span>
+            <span class="font-semibold text-green-400">$0</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.reportPct }}% of ${{ ex.annualSavings.toLocaleString() }} = ${{ ex.reportFee.toLocaleString() }} minus ${{ ex.depositFee.toLocaleString() }} deposit = ${{ ex.reportRemainder.toLocaleString() }}</div>
+          <div class="text-gray-500 text-xs pl-4">45-min call + full PDF. Included in the engagement — no separate fee.</div>
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-gray-300 font-medium">🔧 The Fix Deposit (Implementation Kickoff)</span>
-              <span class="text-gray-500 ml-2">~3 weeks</span>
+              <span class="text-gray-300 font-medium">🔧 Implementation</span>
+              <span class="text-gray-500 ml-2">Weeks 3–8</span>
             </div>
-            <span class="font-semibold">${{ ex.fixDepositFee.toLocaleString() }}</span>
+            <span class="font-semibold text-green-400">$0</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.fixDepositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annual AWS spend = ${{ ex.fixDepositFee.toLocaleString() }} (deducted from implementation fee)</div>
+          <div class="text-gray-500 text-xs pl-4">I fix everything I can. You don't pay anything during implementation.</div>
           <div class="flex justify-between items-center">
             <div>
               <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
               <span class="text-gray-500 ml-2">~4-5 months</span>
             </div>
-            <span class="font-semibold">${{ (ex.fixFee - ex.reportFee - ex.fixDepositFee).toLocaleString() }}</span>
+            <span class="font-semibold">${{ ex.feeAfterDeposit.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.implPct }}% of <strong>verified</strong> savings only, minus ${{ ex.fixDepositFee.toLocaleString() }} deposit already paid. No savings? No charge. 🤙</div>
+          <div class="text-gray-500 text-xs pl-4">{{ pricing.fixedPct }}% of <strong>verified</strong> savings I fixed, {{ pricing.unfixedPct }}% of savings I found but didn't fix. Minus ${{ ex.depositFee.toLocaleString() }} deposit. No savings? No charge. 🤙</div>
           <hr class="border-gray-700">
           <div class="flex justify-between text-base">
-            <span class="font-bold text-gray-300">Total max ({{ pricing.fixPct }}%)</span>
-            <span class="font-bold">${{ ex.fixFee.toLocaleString() }}</span>
+            <span class="font-bold text-gray-300">Total max ({{ pricing.fixedPct }}%)</span>
+            <span class="font-bold">${{ ex.totalFee.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">${{ ex.depositFee.toLocaleString() }} + ${{ ex.reportRemainder.toLocaleString() }} + ${{ ex.fixDepositFee.toLocaleString() }} + ${{ (ex.fixFee - ex.reportFee - ex.fixDepositFee).toLocaleString() }} = ${{ ex.fixFee.toLocaleString() }} (deposits deducted from fees)</div>
+          <div class="text-gray-500 text-xs pl-4">${{ ex.depositFee.toLocaleString() }} deposit + ${{ ex.feeAfterDeposit.toLocaleString() }} at verification = ${{ ex.totalFee.toLocaleString() }}</div>
           <div class="flex justify-between text-base">
             <span class="font-bold text-brand-400">🎉 You keep (year 1)</span>
-            <span class="font-bold text-brand-400">${{ ex.fixNet.toLocaleString() }}</span>
+            <span class="font-bold text-brand-400">${{ ex.yearOneNet.toLocaleString() }}</span>
           </div>
           <div class="flex justify-between text-base">
             <span class="font-bold text-green-400">🚀 You keep (every year after that, forever)</span>
@@ -593,7 +565,7 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
             <p class="text-gray-400 text-sm mt-1">⏱️ Time to ROI</p>
           </div>
           <div>
-            <p class="text-green-400 text-3xl font-bold">${{ ex.fixNet.toLocaleString() }}</p>
+            <p class="text-green-400 text-3xl font-bold">${{ ex.yearOneNet.toLocaleString() }}</p>
             <p class="text-gray-400 text-sm mt-1">🎉 Year 1 net savings</p>
           </div>
           <div>
@@ -603,8 +575,6 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         </div>
         <p class="text-gray-500 text-xs text-center mt-4">One-time fee. Every dollar saved after that is yours. Forever. ✂️</p>
       </div>
-
-      <p class="text-gray-500 text-sm text-center mt-6">Just want The Report? {{ pricing.reportPct }}%, a 45-min call, a PDF, and your team handles the rest. You keep ${{ ex.reportNet.toLocaleString() }} year one. 💰</p>
       </div>
     </section>
 

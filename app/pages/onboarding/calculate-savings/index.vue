@@ -71,17 +71,16 @@ const selectedSavings = computed(() => {
 })
 const selectedPct = computed(() => tiers.find(t => t.key === selectedTier.value).pct)
 
-// Pricing breakdown (mirrors index.vue pricing object)
-const reportPct = 15
-const fixPct = 75
-const depositPct = 1
+// Pricing breakdown (mirrors usePricing.ts)
+const fixedPct = 75
+const unfixedPct = 15
+const depositPct = 4
 
 const depositFee = computed(() => Math.round(annualizedSpend.value * depositPct / 100))
-const reportFee = computed(() => Math.round(selectedSavings.value * reportPct / 100))
-const fixFee = computed(() => Math.round(selectedSavings.value * fixPct / 100))
-const yearOneNet = computed(() => selectedSavings.value - fixFee.value)
+const totalFee = computed(() => Math.round(selectedSavings.value * fixedPct / 100))
+const yearOneNet = computed(() => selectedSavings.value - totalFee.value)
 const yearTwoPlus = computed(() => selectedSavings.value)
-const fiveYearNet = computed(() => (selectedSavings.value * 5) - fixFee.value)
+const fiveYearNet = computed(() => (selectedSavings.value * 5) - totalFee.value)
 
 function fmt(n) {
   return '$' + n.toLocaleString()
@@ -167,7 +166,7 @@ done
 # --- Annualized: 3-month avg × 12 ---
 AVG=$(echo "$COSTS" | awk -F'\\t' '{s+=$2;n++} END{avg=int(s/n+0.5); printf "%d",avg}')
 ANNUAL=$((AVG * 12))
-ONE_PCT=$(( (ANNUAL + 50) / 100 ))
+DEPOSIT=$(( (ANNUAL * 4 + 50) / 100 ))
 
 echo ""
 echo "=== 📊 Annualized Spend ==="
@@ -194,8 +193,8 @@ else
   echo "in this account. Most businesses at this level are overpaying"
   echo "AWS by 30-40% without realizing it. 😅"
   echo ""
-  echo "To kick things off, 1% of your annualized spend is"
-  echo "\\$$(commas $ONE_PCT) — that gets the audit started."
+  echo "To kick things off, 4% of your annualized spend is"
+  echo "\\$$(commas $DEPOSIT) — that gets the engagement started."
   echo ""
   echo "👉 https://cutmyaws.com"
 fi`
@@ -365,9 +364,9 @@ async function copyCliCommand() {
             <p class="text-gray-600 text-xs mt-1">{{ fmt(average) }} × 12</p>
           </div>
           <div class="bg-gray-900 rounded-xl border border-gray-800 p-5 text-center">
-            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">1% to Get Started</p>
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">{{ depositPct }}% Deposit to Start</p>
             <p class="text-2xl font-bold text-gray-100">{{ fmt(depositFee) }}</p>
-            <p class="text-gray-600 text-xs mt-1">Deducted from The Report fee</p>
+            <p class="text-gray-600 text-xs mt-1">Deducted from your total fee</p>
           </div>
         </div>
 
@@ -395,22 +394,22 @@ async function copyCliCommand() {
           <div class="divide-y divide-gray-800">
             <div class="flex justify-between items-center p-4">
               <div>
-                <p class="text-gray-300 font-medium">📋 The Report ({{ reportPct }}% of savings)</p>
-                <p class="text-gray-600 text-xs">Full audit PDF + 45-min walkthrough call</p>
+                <p class="text-gray-300 font-medium">💳 Deposit ({{ depositPct }}% of AWS annual spend)</p>
+                <p class="text-gray-600 text-xs">Deducted from total fee</p>
               </div>
-              <p class="text-gray-100 font-bold">{{ fmt(reportFee) }}</p>
+              <p class="text-gray-100 font-bold">{{ fmt(depositFee) }}</p>
             </div>
             <div class="flex justify-between items-center p-4">
               <div>
-                <p class="text-gray-300 font-medium">🔧 The Fix ({{ fixPct }}% total including report)</p>
-                <p class="text-gray-600 text-xs">Implementation + 90-day verification</p>
+                <p class="text-gray-300 font-medium">✂️ Total fee ({{ fixedPct }}% if all savings fixed)</p>
+                <p class="text-gray-600 text-xs">Audit + implementation + 90-day verification</p>
               </div>
-              <p class="text-gray-100 font-bold">{{ fmt(fixFee) }}</p>
+              <p class="text-gray-100 font-bold">{{ fmt(totalFee) }}</p>
             </div>
             <div class="flex justify-between items-center p-4 bg-gray-950/50">
               <div>
                 <p class="text-green-400 font-medium">✅ You keep — year 1</p>
-                <p class="text-gray-600 text-xs">{{ fmt(selectedSavings) }} savings - {{ fmt(fixFee) }} fee</p>
+                <p class="text-gray-600 text-xs">{{ fmt(selectedSavings) }} savings - {{ fmt(totalFee) }} fee</p>
               </div>
               <p class="text-green-400 font-bold">{{ fmt(yearOneNet) }}</p>
             </div>

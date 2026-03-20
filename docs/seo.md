@@ -4,8 +4,7 @@
 
 Located in `nuxt.config.ts` as a script tag. Includes:
 - `ProfessionalService` — the business entity
-- `Service` (The Report) — 15% audit service
-- `Service` (The Fix) — 60% implementation service
+- `Service` — AWS Cost Audit & Implementation (75% fixed / 15% unfixed)
 - `FAQPage` — 6 Q&A pairs for rich results
 - `WebPage` — ties it all together
 

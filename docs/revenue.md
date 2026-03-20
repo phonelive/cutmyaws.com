@@ -7,34 +7,31 @@
 | **Target annual profit** | $1,000,000 |
 | **Average client AWS spend** | $25,000/mo ($300K/yr) |
 | **Average waste found** | 30-36% ($90K-$108K/yr savings) |
-| **The Report fee (15%)** | $13,500-$16,200 per client |
-| **The Fix fee (75% total)** | $67,500-$81,000 per client |
-| **Average revenue per full engagement** | ~$75,000 |
-| **Clients needed for $1M (Report + Fix)** | ~14 clients |
-| **Clients needed for $1M (Report only)** | ~67 clients |
-| **Blended (50% convert to Fix)** | ~20 clients |
+| **Fee (75% of savings fixed)** | $67,500-$81,000 per client |
+| **Average revenue per engagement** | ~$75,000 |
+| **Clients needed for $1M** | ~14 clients |
 
 ## Revenue Scenarios
 
-| Scenario | Clients | Report-only | Report + Fix | Revenue |
-|----------|---------|------------|--------------|---------|
-| Conservative | 20 | 10 @ $15K | 10 @ $75K | $900K |
-| Target | 22 | 10 @ $15K | 12 @ $75K | $1.05M |
-| Aggressive | 25 | 10 @ $15K | 15 @ $75K | $1.275M |
+| Scenario | Clients | Revenue |
+|----------|---------|---------|
+| Conservative | 12 @ $75K | $900K |
+| Target | 14 @ $75K | $1.05M |
+| Aggressive | 17 @ $75K | $1.275M |
 
 ## Monthly Cadence to Hit $1M
 
-| Month | Intro Calls | Reports Delivered | Fix Starts | Cumulative Revenue |
-|-------|-------------|-------------------|------------|-------------------|
+| Month | Intro Calls | Audits Delivered | Implementations | Cumulative Revenue |
+|-------|-------------|-----------------|-----------------|-------------------|
 | 1-2 | 8-10 | 0 | 0 | $0 (pipeline building) |
-| 3 | 4-5 | 3-4 | 0 | $45K-$60K (report fees) |
-| 4 | 4-5 | 3-4 | 1-2 | $90K-$120K |
-| 5 | 4-5 | 3-4 | 2-3 | $135K-$180K |
-| 6 | 4-5 | 3-4 | 2-3 | $180K-$240K |
-| 7-9 | 4-5/mo | 3-4/mo | 2-3/mo | First Fix fees come due (90 days post-impl) |
-| 10-12 | 4-5/mo | 3-4/mo | 2-3/mo | Fix fees stacking → $800K-$1.2M |
+| 3 | 4-5 | 3-4 | 0 | Deposits only (~$36K-$48K) |
+| 4 | 4-5 | 3-4 | 1-2 | $48K-$72K |
+| 5 | 4-5 | 3-4 | 2-3 | $72K-$108K |
+| 6 | 4-5 | 3-4 | 2-3 | $108K-$144K |
+| 7-9 | 4-5/mo | 3-4/mo | 2-3/mo | First fees come due (90 days post-impl) |
+| 10-12 | 4-5/mo | 3-4/mo | 2-3/mo | Fees stacking → $800K-$1.2M |
 
-**Key insight:** Fix fees ($52K-$65K per client) don't come due until 90 days after implementation. Revenue is back-loaded — months 7-12 are where the big checks arrive.
+**Key insight:** Fees ($69K+ per client after deposit) don't come due until 90 days after implementation. Revenue is back-loaded — months 7-12 are where the big checks arrive.
 
 ## Sales Funnel Targets
 
@@ -43,8 +40,7 @@ Awareness (ads, organic, referrals)
   → 200-300 website visitors/mo
     → 8-10 intro calls booked/mo (3-5% conversion rate)
       → 6-8 qualified (spending $5K+/mo)
-        → 4-5 sign Report ($15K each)
-          → 2-3 convert to Fix ($60K-$75K additional)
+        → 3-4 sign engagement ($75K each)
 ```
 
 ## Lead Sources (in priority order)
@@ -75,7 +71,7 @@ Awareness (ads, organic, referrals)
 
 ## Annual Checkup (Repeat Revenue)
 
-~33% of clients return every 12-24 months for another Report/Fix cycle. Same pricing (15% Report, 75% total with Fix) — no discount. Lower revenue is a natural result of a healthier account, not a price cut. Includes free security scan.
+~33% of clients return every 12-24 months for another audit + fix cycle. Same pricing (75% fixed, 15% unfixed) — no discount. Lower revenue is a natural result of a healthier account, not a price cut. Includes free security scan.
 
 | | First Engagement | Annual Checkup |
 |--|--|--|
@@ -84,7 +80,7 @@ Awareness (ads, organic, referrals)
 | Avg full engagement revenue | ~$75K | ~$25K |
 | Acquisition cost | $150-500 (ads) | $0 (existing relationship) |
 | Delivery time | 5-10 days | 3-5 days (already know the account) |
-| Fix conversion rate | ~50% | ~60-70% (trust established) |
+| Engagement conversion | ~100% (single product) | ~100% (trust established) |
 
 **Why it works:** Drift is real — new devs, new services, config rot. 12-24 months of untouched infrastructure creates real waste again.
 

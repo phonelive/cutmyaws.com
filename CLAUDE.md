@@ -14,15 +14,18 @@
 | **Framework** | Nuxt 4 (static) + Tailwind CSS on S3 + CloudFront |
 | **Deployment** | Push to `main` → dev, git tag → prod (GitHub Actions → S3 + CloudFront) |
 
-## Products & Pricing
+## Pricing — One Product
 
-| Product | Fee | Deposit |
-|---------|-----|---------|
-| **The Report** | 15% of annual savings | 1% of AWS annual spend |
-| **The Fix** | 60% of verified savings | 4% of AWS annual spend |
-| **Max total** | 75% (15% + 60%) | — |
+| | Fee |
+|--|-----|
+| **Savings I find AND fix** | 75% of annualized savings |
+| **Savings I find but do NOT fix** | 15% of annualized savings |
+| **Deposit to start** | 4% of annualized AWS spend (deducted from total fee) |
+| **No savings** | No fee |
 
-Pricing is centralized in `app/pages/index.vue` in the `pricing` object. Change in ONE place.
+One engagement: audit + implementation + 90-day verification. Fee due after verification.
+
+Pricing is centralized in `app/composables/usePricing.ts`. Change in ONE place.
 
 → Full details: [docs/products-pricing.md](docs/products-pricing.md)
 
@@ -65,17 +68,17 @@ Schema.org JSON-LD in `nuxt.config.ts`. AI crawlers allowed in `robots.txt`. `ll
 
 → Full details: [docs/seo.md](docs/seo.md)
 
-## Paid Advertising — $100/day total
+## Paid Advertising — $90/day total
 
 | Platform | Budget | Status | Details |
 |----------|--------|--------|---------|
-| Google Ads (120-353-4001) | $70/day, 7 campaigns | Active | [docs/ads-google.md](docs/ads-google.md) |
-| Reddit Ads (u/cutmyaws) | $30/day, 3 campaigns | Active (testing) | [docs/ads-reddit.md](docs/ads-reddit.md) |
+| Google Ads (120-353-4001) | $60/day, 2 active (5 paused) | Active | [docs/ads-google.md](docs/ads-google.md) |
+| Reddit Ads (u/cutmyaws) | $30/day, 1 active ad (Human only) | Active (testing) | [docs/ads-reddit.md](docs/ads-reddit.md) |
 | LinkedIn Ads (525710547) | $0/day | All paused | [docs/ads-other.md](docs/ads-other.md) |
 | Bing/Microsoft (G145R2VD) | $0/day | Not working | [docs/ads-other.md](docs/ads-other.md) |
 
-**Top performers:** Google Investors ($45/day, 14.43% CTR, 3 conversions, $55.31 CPA) and Google Serverless ($15/day, 13.64% CTR, 1 conversion, $25.58 CPA — best CPA).
-**Reddit deadline:** If 0 bookings by 2026-03-28, kill Reddit ads and move $30/day to Google. Currently 94 clicks, $133.88 spent, 0 bookings.
+**Google (as of Mar 17 EOD):** $213.60 spent, 125 clicks, 4 conversions, $53.40 avg CPA, 11.70% CTR. Investors ($45/day, 3 conv) + Serverless ($15/day, 1 conv, best CPA $25.58). V2 paused.
+**Reddit (as of Mar 17 EOD):** $166.75 spent, 103 clicks, 0 bookings. Only Human ad active ($30/day, 7 clicks, 0.389% CTR). 25pct and NATGateway paused. Kill deadline: 2026-03-28. **11 days remain.**
 
 → UTM standards, conversion tracking, promos: [docs/ads-tracking.md](docs/ads-tracking.md)
 
@@ -101,12 +104,12 @@ LinkedIn personal profile is primary organic channel (2x/week). YouTube (@CutMyA
 
 | Metric | Value |
 |--------|-------|
-| Avg engagement revenue | ~$75K (Report + Fix) |
-| Clients needed | ~20 (at 50% Fix conversion) |
+| Avg engagement revenue | ~$75K |
+| Clients needed | ~14 |
 | Monthly costs | ~$3K |
 | Target margin | 96% |
 
-**Back-loaded:** Fix fees ($52-65K) arrive 90 days post-implementation. Months 7-12 is where the big checks land.
+**Back-loaded:** Fees arrive 90 days post-implementation. Months 7-12 is where the big checks land.
 
 **Annual Checkup:** ~33% of clients return every 12-24 months. Same pricing, no discount. ~$25K avg repeat engagement. Creates $300K+ annual floor by Year 3.
 
@@ -114,7 +117,7 @@ LinkedIn personal profile is primary organic channel (2x/week). YouTube (@CutMyA
 
 ## Hiring
 
-First hire: 1099 AWS Implementation Contractor around month 4-5 (Jun-Jul 2026). Executes Fix optimizations from David's Reports. Start hourly ($125-175/hr), shift to revenue share (20-30%). Doubles Fix capacity from 2-3 to 5-7 concurrent engagements.
+First hire: 1099 AWS Implementation Contractor around month 4-5 (Jun-Jul 2026). Executes optimizations from David's audits. Start hourly ($125-175/hr), shift to revenue share (20-30%). Doubles capacity from 2-3 to 5-7 concurrent engagements.
 
 → Full details: [docs/hiring.md](docs/hiring.md)
 
@@ -142,4 +145,4 @@ First hire: 1099 AWS Implementation Contractor around month 4-5 (Jun-Jul 2026). 
 
 ## Compact Instructions
 
-When compacting, preserve: pricing structure (15%/75%), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.
+When compacting, preserve: pricing structure (75% fixed / 15% unfixed / 4% deposit), brand voice rules, key file paths, conversion funnel architecture, ad platform account IDs/budgets, and the $1M revenue model. Refer to `docs/` files for full details.

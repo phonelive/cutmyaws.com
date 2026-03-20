@@ -26,15 +26,15 @@ const ex = calculateExample(props.awsMonthly, props.wastePct)
           <p class="text-gray-500 text-sm mt-2">Annual savings found</p>
         </a>
         <a href="#book" class="bg-gray-950 border border-gray-800 rounded-2xl p-6 block hover:border-brand-500/50 transition-colors">
-          <p class="text-brand-400 text-3xl font-bold">${{ (ex.fixFee / 1000).toFixed(0) }}K</p>
-          <p class="text-gray-500 text-sm mt-2">Max total fee ({{ pricing.reportPct }}% + {{ pricing.implPct }}%)</p>
+          <p class="text-brand-400 text-3xl font-bold">${{ (ex.totalFee / 1000).toFixed(0) }}K</p>
+          <p class="text-gray-500 text-sm mt-2">Max total fee ({{ pricing.fixedPct }}%)</p>
         </a>
         <a href="#book" class="bg-gray-950 border border-gray-800 rounded-2xl p-6 block hover:border-brand-500/50 transition-colors">
           <p class="text-green-400 text-3xl font-bold">${{ (ex.annualSavings / 1000).toFixed(0) }}K</p>
           <p class="text-gray-500 text-sm mt-2">Returned to the mission — every year 🏛️</p>
         </a>
       </div>
-      <p class="text-gray-600 text-xs mt-6">Year 1 net: ${{ (ex.fixNet / 1000).toFixed(0) }}K kept · Year 2+: full ${{ (ex.annualSavings / 1000).toFixed(0) }}K/yr goes straight to your budget</p>
+      <p class="text-gray-600 text-xs mt-6">Year 1 net: ${{ (ex.yearOneNet / 1000).toFixed(0) }}K kept · Year 2+: full ${{ (ex.annualSavings / 1000).toFixed(0) }}K/yr goes straight to your budget</p>
     </div>
   </section>
 </template>
