@@ -4,12 +4,12 @@
 
 | Platform | Campaigns | Daily Budget | Status |
 |----------|-----------|-------------|--------|
-| Google Ads (120-353-4001) | 7 campaigns | **$70/day** | **Active** |
-| Reddit Ads (u/cutmyaws) | 3 campaigns | **$30/day** | **Active** |
+| Google Ads (120-353-4001) | 2 active, 5 paused | **$60/day** | **Active** |
+| Reddit Ads (u/cutmyaws) | 1 campaign, 1 active ad (Human) | **$30/day** | **Active** |
 | Bing/Microsoft Ads (G145R2VD) | CutMyAWS-V2 | $0/day | **Not working** |
 | LinkedIn Ads (525710547) | 2 campaigns | $0/day | **All paused** |
 
-**Strategy (2026-03-14):** All campaigns use conversion objective (not clicks/traffic). Google Investors is top performer. Reddit testing 3 campaigns at $10/day each with conversion objective — evaluate by 2026-03-28. If no bookings, kill Reddit and move $30/day to Google.
+**Strategy (2026-03-17):** Google V2 paused (0 conv). Reddit 25pct and NATGateway ads paused — only Human ad active. Reddit kill deadline: 2026-03-28 if 0 bookings. Consider scaling Google Serverless with freed budget.
 
 ## UTM Parameter Standard
 

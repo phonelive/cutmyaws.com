@@ -85,6 +85,29 @@ The contact list has targeting problems. Several contacts are off-target for an 
 
 **Recommendation:** Tighten Botdog filters to focus on SaaS/tech companies. Filter out financial services, hardware, publishers, and (obviously) cloud cost optimization competitors. Each wasted InMail credit is a missed shot at a real prospect.
 
+## LinkedIn Profile Stats (as of 2026-03-17)
+
+| Metric | Value |
+|--------|-------|
+| Followers | 2,065 |
+| Profile viewers (last 90 days) | 110 |
+| Post impressions (last 90 days) | 2,546 |
+
+### Post Performance
+
+| Post | Date | Impressions | Reactions | Comments | Reposts |
+|------|------|-------------|-----------|----------|---------|
+| NAT Gateway gym membership | Mar 17 | 10 (just posted) | 0 | 1 (self) | 0 |
+| "19 years paying AWS bills I didn't understand" | Mar 13 | 2,458 | 12 | 1 | 1 |
+| Ground Floor Government Podcast (video) | ~Nov 2025 | 509 | 3 | 1 | 0 |
+| Ground Floor Government Podcast (text) | ~Nov 2025 | 270 | 0 | 0 | 0 |
+| Ground Floor Government Podcast #3 | ~Nov 2025 | 110 | 2 | 0 | 0 |
+
+**Notes:**
+- First CutMyAWS post (Mar 13) hit 2,458 impressions with 12 reactions — strong for a new account pivot
+- Older posts were Ground Floor Government Podcast content (pre-CutMyAWS)
+- Posting cadence just ramped up: 2 CutMyAWS posts in 4 days
+
 ## Content Bank (first month)
 
 1. Launch post: "I spent 19 years paying AWS bills I didn't fully understand..."

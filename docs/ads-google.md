@@ -9,26 +9,32 @@
 
 **Negative keywords (all campaigns):** aws free tier, aws certification, aws training, aws jobs, aws tutorial, aws pricing calculator
 
-## Budget Recommendations (as of Mar 16)
+## Budget & Performance (as of Mar 17 EOD)
 
-**Current: $70/day across 3 active campaigns (4 paused)**
+**Current: $60/day across 2 active campaigns (5 paused)**
 
-| Campaign | Budget | Clicks | Conv | CPA | CTR | Verdict |
-|----------|--------|--------|------|-----|-----|---------|
-| Investors | $45/day | 103 | 3 | $55.31 | 14.49% | Keep |
-| Serverless | $15/day | 18 | 1 | $25.58 | 13.53% | **Scale up** |
-| V2 | $10/day | 3 | 0 | — | 1.92% | **Pause** |
+| Campaign | Budget | Status | Clicks | Impr | CTR | Avg CPC | Cost | Conv | Conv Rate | CPA |
+|----------|--------|--------|--------|------|-----|---------|------|------|-----------|-----|
+| Investors | $45/day | **Active** | 104 | 772 | 13.59% | $1.65 | $171.18 | 3 | 2.88% | $57.06 |
+| Serverless | $15/day | **Active** | 18 | 139 | 12.95% | $1.42 | $25.58 | 1 | 5.56% | $25.58 |
+| V2 | $10/day | Paused | 3 | 156 | 1.92% | $5.61 | $16.84 | 0 | 0% | — |
+| Symptom | $5/day | Paused | 0 | 1 | 0% | — | $0 | 0 | 0% | — |
+| 25pct | $5/day | Paused | 0 | 2 | 0% | — | $0 | 0 | 0% | — |
+| Human | $5/day | Paused | 0 | 5 | 0% | — | $0 | 0 | 0% | — |
+| Audit | $5/day | Paused | 0 | 0 | 0% | — | $0 | 0 | 0% | — |
+| **Total** | **$60/day** | | **125** | **1,068** | **11.70%** | **$1.71** | **$213.60** | **4** | **3.20%** | **$53.40** |
 
-- **Pause V2, scale Serverless:** V2 has 0 conversions, 1.92% CTR, $16.84 spent — dead weight. Serverless has best CPA ($25.58), best conv rate (5.56%), highest Clarity engagement (18 sessions), and 13.53% CTR. Recommend: pause V2, increase Serverless to $45/day.
-- **Investors ($45/day):** Keep. 3 conversions, 14.49% CTR. Volume driver.
-- **Total account (Mar 1-16):** 1,008 impr, 124 clicks, 12.30% CTR, $1.68 CPC, $208.33 spent, 4 conversions, $52.08 avg CPA.
+- **V2 paused** — 0 conversions, 1.92% CTR. Dead weight removed.
+- **Serverless** — Best CPA ($25.58), best conv rate (5.56%). Consider scaling budget.
+- **Investors** — Volume driver. 3 conversions, 13.59% CTR.
+- **Next move:** Scale Serverless to $25-45/day with the freed V2 budget.
 
 ## Campaign 1: CutMyAWS-Investors — $45/day (TOP PERFORMER)
 
 - **Bid Strategy:** Maximize conversions
-- **Networks:** Google Search + Search Partners
+- **Networks:** Google Search only (Search Partners disabled 2026-03-17 — Clarity showed 70% of /investors sessions were junk FacebookApp traffic via syndicatedsearch.goog with 11% scroll depth)
 - **Landing:** `cutmyaws.com/investors`
-- **Performance (as of Mar 16):** 103 clicks, 710 impr, **14.49% CTR**, $1.61 CPC, $165.92 spend, **3 conversions**, $55.31 CPA, 2.91% conv rate
+- **Performance (as of Mar 17 EOD):** 104 clicks, 772 impr, **13.59% CTR**, $1.65 CPC, $171.18 spend, **3 conversions**, $57.06 CPA, 2.88% conv rate
 - **Note (historical):** Before 2026-03-14 tracking fix, 2 of 3 early conversions were false positives from old `manual_event_SUBMIT_LEAD_FORM`. Primary conversion is now `booking_confirmed` (fires on /confirmed with invitee name).
 - **54 keywords** (Broad): cloud optimization tools, aws cost review, optimizing cloud spend, aws waste, cost optimization cloud, cloud optimisation, aws overspending, cloud cost optimization, reduce cloud costs, cut aws bill, aws cost savings, cloud spend optimization, aws finops, lower aws bill, aws cost audit, aws cost optimization, aws consulting, finops consulting, cloud cost audit, reduce aws bill, + 34 more
 - **Headlines:** Cut Your AWS Bill by 30-40% | No Savings = No Fee | Free 15-Min Intro Call | 19 Years of AWS Experience | Pay Only on Verified Savings | AWS Cost Audit for Startups | 9-Month ROI on Average | Not a Dashboard. A Real Human. | Stop Overpaying AWS | No Retainer. No Hourly. | Extend Your Startup's Runway | Free Security Audit Included | Trusted by Caterpillar & PBS | AWS Cost Optimization Expert
@@ -39,7 +45,8 @@
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com`
-- **Performance (as of Mar 16):** 3 clicks, 156 impr, 1.92% CTR, $5.61 CPC, $16.84 spend, 0 conversions
+- **Status:** Paused (0 conversions, 1.92% CTR — dead weight)
+- **Performance (as of Mar 17 EOD):** 3 clicks, 156 impr, 1.92% CTR, $5.61 CPC, $16.84 spend, 0 conversions
 - **Cleanup (2026-03-14):** Paused 20 bad keywords (savings plans, tools, AWS features like compute optimizer, audit manager, trusted advisor)
 - **49 keywords** (Broad, 20 paused): aws cloud cost optimization, aws optimization, aws cost optimisation, ec2 cost optimization, aws architecture review, aws cost cutting, cloud cost optimization aws, rds cost optimization, s3 cost optimization, aws audit, eks cost optimization, aws lambda cost optimization, + more
 - **Headlines:** Cut Your AWS Bill 30%+ | AWS Cost Optimization Expert | 19 Years AWS Experience | No Savings = No Fee | Not a Dashboard. A Human. | Free 15-Min Intro Call | $5K+/mo AWS Spend? | Senior AWS Architect | Pay For Only Real Savings | AWS Cost Audit & Fix | Business-Aligned AWS Audit | Transparent % Pricing | Stop Overpaying for AWS | AWS Bill Analysis | Proven AWS Savings
@@ -50,7 +57,7 @@
 - **Angle:** Problem awareness — "your bill is a symptom"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (as of Mar 16):** 0 clicks, 1 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 17):** 0 clicks, 1 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-symptom`
 - **Path:** aws / audit
 - **Keywords (10, Broad):** aws bill too high, aws costs growing, why is my aws bill so high, aws spending too much, aws bill keeps increasing, aws overspending, cloud spend out of control, aws infrastructure costs, aws bill analysis, aws cost problem
@@ -62,7 +69,7 @@
 - **Angle:** Hard number + risk reversal — "save 25% in 90 days"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (as of Mar 16):** 0 clicks, 2 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 17):** 0 clicks, 2 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-25pct`
 - **Path:** aws / savings
 - **Keywords (10, Broad):** reduce aws costs, cut aws bill, lower aws bill, aws cost reduction, save on aws, aws cost savings, reduce cloud costs, cut cloud costs, aws bill optimization, aws spending optimization
@@ -74,7 +81,7 @@
 - **Angle:** Differentiation — "not a dashboard, a human"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (as of Mar 16):** 0 clicks, 5 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 17):** 0 clicks, 5 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-human`
 - **Path:** aws / consultant
 - **Keywords (10, Broad):** aws cost consultant, aws consulting, finops consultant, cloud cost consultant, aws architect for hire, cloud cost optimization consultant, aws cost optimization services, hire aws expert, aws cost optimization consultant, finops consulting
@@ -86,7 +93,7 @@
 - **Angle:** Technical — "still running EC2 24/7?"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (as of Mar 16):** 18 clicks, 133 impr, **13.53% CTR**, $1.42 CPC, $25.58 spend, **1 conversion**, $25.58 CPA, 5.56% conv rate
+- **Performance (as of Mar 17):** 18 clicks, 139 impr, **12.95% CTR**, $1.42 CPC, $25.58 spend, **1 conversion**, $25.58 CPA, 5.56% conv rate
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-serverless`
 - **Path:** aws / serverless
 - **Keywords (10, Broad):** serverless migration aws, ec2 cost optimization, ec2 to lambda migration, rds cost optimization, ec2 to serverless, aws serverless consultant, migrate ec2 to containers, aws architecture modernization, ec2 right sizing, aws lambda migration
@@ -98,7 +105,7 @@
 - **Angle:** Direct intent — "AWS cost audit"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
-- **Performance (as of Mar 16):** 0 clicks, 0 impr, $0.00 spend, 0 conversions
+- **Performance (as of Mar 17):** 0 clicks, 0 impr, $0.00 spend, 0 conversions
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-audit`
 - **Path:** aws / audit
 - **Keywords (10, Broad):** aws cost audit, aws architecture review, cloud cost audit, aws account audit, aws infrastructure audit, aws cost analysis, aws spend analysis, aws cost review, audit aws account, aws bill review service

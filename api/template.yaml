@@ -33,7 +33,7 @@
 
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: CutMyAWS Pre-Qualification API
+Description: CutMyAWS API
 
 # -----------------------------------------------------------------------------
 # Parameters — Stage set via samconfig.toml, secrets injected by GitHub Actions
@@ -71,7 +71,7 @@ Parameters:
 
 Globals:
   Function:
-    Timeout: 15
+    Timeout: 30
     MemorySize: 256
     Architectures:
       - arm64
@@ -101,10 +101,10 @@ Resources:
   # Access logging will be added later via API Gateway account-level
   # CloudWatch role configuration.
   # ---------------------------------------------------------------------------
-  PreQualApi:
+  CutMyApi:
     Type: AWS::Serverless::HttpApi
     Properties:
-      StageName: !Ref Stage
+      StageName: $default
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
 
   # ---------------------------------------------------------------------------
@@ -126,13 +126,13 @@ Resources:
         CatchAll:
           Type: HttpApi
           Properties:
-            ApiId: !Ref PreQualApi
+            ApiId: !Ref CutMyApi
             Path: /{proxy+}
             Method: ANY
         Root:
           Type: HttpApi
           Properties:
-            ApiId: !Ref PreQualApi
+            ApiId: !Ref CutMyApi
             Path: /
             Method: ANY
       Policies:
@@ -174,7 +174,7 @@ Resources:
 Outputs:
   ApiUrl:
     Description: API Gateway endpoint URL
-    Value: !Sub "https://${PreQualApi}.execute-api.us-east-1.amazonaws.com/${Stage}"
+    Value: !Sub "https://${CutMyApi}.execute-api.us-east-1.amazonaws.com"
   FunctionName:
     Description: Lambda function name
     Value: !Ref RouterFunction

@@ -28,15 +28,6 @@ const firstName = computed(() => {
   return parts[0] || ''
 })
 
-const awsSpendOptions = [
-  '$5K - $10K',
-  '$10K - $25K',
-  '$25K - $50K',
-  '$50K - $100K',
-  '$100K - $250K',
-  '$250K+',
-]
-
 const availabilityOptions = [
   'Mon morning',
   'Mon afternoon',
@@ -95,10 +86,10 @@ async function submit() {
 
   try {
     const apiBase = window.location.hostname.includes('dev.')
-      ? 'https://api.dev.cutmyaws.com'
-      : 'https://api.cutmyaws.com'
+      ? 'https://65mpltfwv1.execute-api.us-east-1.amazonaws.com'
+      : 'https://uox8zbhk8l.execute-api.us-east-1.amazonaws.com'
 
-    const res = await fetch(`${apiBase}/prequal`, {
+    const res = await fetch(`${apiBase}/leads`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -244,15 +235,14 @@ async function submit() {
         <!-- AWS Monthly Spend -->
         <div>
           <label for="awsMonthly" class="text-gray-300 text-sm font-medium block mb-1">Monthly AWS Spend *</label>
-          <select
+          <input
             id="awsMonthly"
             v-model="form.awsMonthly"
+            type="text"
             required
-            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-gray-100 focus:border-brand-500 focus:outline-none"
+            placeholder="~$15K/mo"
+            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:border-brand-500 focus:outline-none"
           >
-            <option value="" disabled>Select range...</option>
-            <option v-for="opt in awsSpendOptions" :key="opt" :value="opt">{{ opt }}</option>
-          </select>
         </div>
 
         <!-- Best Times to Meet -->

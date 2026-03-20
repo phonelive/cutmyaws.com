@@ -36,7 +36,7 @@
 #
 # @return [Boolean] true if sent, false on error
 #
-def send_prequal_notification(lead)
+def send_lead_notification(lead)
   begin
     ses_client_opts = { region: 'us-east-1' }
     if ENV['IS_LOCAL'] && !ENV['IS_LOCAL'].empty?
@@ -66,7 +66,7 @@ def send_prequal_notification(lead)
     EMAIL
 
     ses.send_email({
-      source: 'prequal@cutmyaws.com',
+      source: 'leads@cutmyaws.com',
       destination: {
         to_addresses: ['david@cutmyaws.com']
       },

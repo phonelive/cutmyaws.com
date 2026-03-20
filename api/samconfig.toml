@@ -24,7 +24,7 @@ region = "us-east-1"
 # -----------------------------------------------------------------------------
 # Deployed on push to `dev` branch.
 # SSM params: /cutmyaws/dev/*
-# API URL: https://{api-id}.execute-api.us-east-1.amazonaws.com/dev
+# API URL: https://{api-id}.execute-api.us-east-1.amazonaws.com
 # -----------------------------------------------------------------------------
 [dev.deploy.parameters]
 stack_name = "cutmyaws-dev-api"
@@ -41,8 +41,7 @@ tags = "project=cutmyaws env=dev"
 # -----------------------------------------------------------------------------
 # Deployed on push to `main` branch.
 # SSM params: /cutmyaws/prod/*
-# API URL: https://{api-id}.execute-api.us-east-1.amazonaws.com/prod
-# Future: api.cutmyaws.com custom domain
+# API URL: https://{api-id}.execute-api.us-east-1.amazonaws.com
 # -----------------------------------------------------------------------------
 [prod.deploy.parameters]
 stack_name = "cutmyaws-prod-api"

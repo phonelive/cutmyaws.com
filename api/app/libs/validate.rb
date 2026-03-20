@@ -14,16 +14,6 @@
 #
 # =============================================================================
 
-# Valid AWS monthly spend options (must match frontend dropdown)
-VALID_AWS_SPEND_OPTIONS = [
-  "$5K - $10K",
-  "$10K - $25K",
-  "$25K - $50K",
-  "$50K - $100K",
-  "$100K - $250K",
-  "$250K+",
-].freeze
-
 # Common disposable email domains (spam prevention)
 DISPOSABLE_EMAIL_DOMAINS = %w[
   mailinator.com guerrillamail.com tempmail.com throwaway.email
@@ -41,10 +31,10 @@ DISPOSABLE_EMAIL_DOMAINS = %w[
 # @return [Array<String>] Array of error messages (empty if valid)
 #
 # @example
-#   errors = validate_prequal(name: "Jo", email: "bad", aws_monthly: "free", company: "x")
+#   errors = validate_lead(name: "Jo", email: "bad", aws_monthly: "free", company: "x")
 #   # => ["Name must be at least 2 characters", "Invalid email format", ...]
 #
-def validate_prequal(data)
+def validate_lead(data)
   errors = []
 
   # ---------------------------------------------------------------------------
@@ -76,11 +66,13 @@ def validate_prequal(data)
   end
 
   # ---------------------------------------------------------------------------
-  # AWS Monthly Spend: must be valid dropdown option
+  # AWS Monthly Spend: free text, at least 1 character
   # ---------------------------------------------------------------------------
   aws_monthly = data[:aws_monthly].to_s.strip
-  unless VALID_AWS_SPEND_OPTIONS.include?(aws_monthly)
-    errors << "Please select your monthly AWS spend"
+  if aws_monthly.empty?
+    errors << "Please enter your monthly AWS spend"
+  elsif aws_monthly.length > 255
+    errors << "AWS spend must be 255 characters or fewer"
   end
 
   # ---------------------------------------------------------------------------
