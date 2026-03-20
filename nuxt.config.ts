@@ -121,14 +121,14 @@ export default defineNuxtConfig({
                 '@type': 'Service',
                 '@id': `${siteUrl}/#service`,
                 name: 'AWS Cost Audit & Implementation',
-                description: 'Free AWS cost audit showing where you can save. If you want David to fix it: 4% deposit to start implementation, 75% of verified savings fixed. Fee due 90 days after implementation. Free audit, no fee on unfixed savings.',
+                description: 'Free AWS cost audit showing where you can save. If you want David to fix it: half the 75% fee upfront, other half 45 days after you see the savings. Free audit, no fee on unfixed savings.',
                 provider: { '@id': `${siteUrl}/#organization` },
                 serviceType: 'AWS Cost Optimization',
                 offers: {
                   '@type': 'Offer',
                   price: '75% of verified annual savings fixed',
                   priceCurrency: 'USD',
-                  description: 'Free 15-min chat. Free audit. 4% deposit to start implementation (deducted from total fee). 75% of savings David fixes. No fee on unfixed savings. Fee due 90 days after implementation. No savings = no fee.'
+                  description: 'Free 15-min chat. Free audit. Half the 75% fee upfront to start implementation, other half after 45 days. No fee on unfixed savings. No savings = no fee.'
                 }
               },
               {
@@ -143,7 +143,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'When do I pay for the AWS cost audit?',
-                    acceptedAnswer: { '@type': 'Answer', text: 'The chat is free. The audit is free. You don\'t pay until you\'ve seen the report and decided you want David to fix it. A 4% deposit kicks off implementation, deducted from total fee. 75% of verified savings David fixes, due 90 days after implementation. No fee on unfixed savings. No savings = no fee.' }
+                    acceptedAnswer: { '@type': 'Answer', text: 'The chat is free. The audit is free. You don\'t pay until you\'ve seen the report and decided you want David to fix it. Half the 75% fee upfront kicks off implementation. The other half is due 45 days later, after you\'ve seen the savings in your bill. No fee on unfixed savings. No savings = no fee.' }
                   },
                   {
                     '@type': 'Question',
@@ -168,7 +168,7 @@ export default defineNuxtConfig({
                   {
                     '@type': 'Question',
                     name: 'What is the maximum fee for Cut My AWS services?',
-                    acceptedAnswer: { '@type': 'Answer', text: '75% of verified annual savings that David actually fixes. The audit is free. Savings found but not fixed are not charged. Fee is due 90 days after implementation, based on actual verified bill reduction. 4% deposit to start implementation, deducted from the total.' }
+                    acceptedAnswer: { '@type': 'Answer', text: '75% of verified annual savings that David actually fixes. The audit is free. Savings found but not fixed are not charged. Half the fee upfront, other half 45 days after implementation when you\'ve seen it in your bill.' }
                   }
                 ]
               }
