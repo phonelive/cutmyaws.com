@@ -42,34 +42,41 @@ const meetings = [
 
     <!-- ═══ Engagement Overview ═══ -->
     <div class="max-w-3xl mx-auto px-6 pb-12">
-      <h2 class="text-xl font-bold mb-6 text-center">🗺️ One Engagement, Three Phases</h2>
-      <div class="grid sm:grid-cols-3 gap-4">
+      <h2 class="text-xl font-bold mb-6 text-center">🗺️ One Engagement. Two Payments.</h2>
+
+      <!-- Two payments -->
+      <div class="grid sm:grid-cols-2 gap-4 mb-6">
         <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
-          <p class="text-3xl mb-2">📋</p>
-          <h3 class="font-bold mb-1">The Audit</h3>
-          <p class="text-brand-400 text-sm font-bold mb-2">Included</p>
-          <p class="text-gray-500 text-xs">5–10 business days. Full audit + 45-min call + PDF report.</p>
+          <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 1</p>
+          <p class="text-2xl font-bold mb-1">{{ pricing.depositPct }}% Deposit</p>
+          <p class="text-gray-500 text-xs">Of annualized AWS spend. Kicks things off. Deducted from final fee.</p>
         </div>
         <div class="bg-gray-900 rounded-xl border-2 border-brand-500 p-6 text-center">
-          <p class="text-3xl mb-2">🔧</p>
-          <h3 class="font-bold mb-1">The Fix</h3>
-          <p class="text-brand-400 text-sm font-bold mb-2">{{ pricing.fixedPct }}% of fixed savings</p>
-          <p class="text-gray-500 text-xs">Custom timeline. Pay only on realized savings.</p>
-        </div>
-        <div class="bg-gray-900 rounded-xl border border-gray-800 p-6 text-center">
-          <p class="text-3xl mb-2">📊</p>
-          <h3 class="font-bold mb-1">The Proof</h3>
-          <p class="text-brand-400 text-sm font-bold mb-2">90 days later</p>
-          <p class="text-gray-500 text-xs">Side-by-side bill comparison. Pay only on verified savings.</p>
+          <p class="text-brand-400 text-xs uppercase tracking-wider font-bold mb-2">Payment 2</p>
+          <p class="text-2xl font-bold mb-1">After Verification</p>
+          <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of savings fixed, {{ pricing.unfixedPct }}% of savings found but not fixed. 90 days after implementation.</p>
         </div>
       </div>
-      <p class="text-gray-600 text-xs text-center mt-4">One engagement covers the audit, implementation, and verification. {{ pricing.fixedPct }}% on savings I fix, {{ pricing.unfixedPct }}% on savings I find but can't fix.</p>
+
+      <!-- Pipeline steps -->
+      <div class="flex items-center justify-center gap-2 text-xs text-gray-500">
+        <span class="bg-gray-800 px-3 py-1 rounded-full">🗓️ Free Chat</span>
+        <span>→</span>
+        <span class="bg-gray-800 px-3 py-1 rounded-full">📋 Audit</span>
+        <span>→</span>
+        <span class="bg-gray-800 px-3 py-1 rounded-full">🛡️ Security</span>
+        <span>→</span>
+        <span class="bg-gray-800 px-3 py-1 rounded-full">🔧 Fix</span>
+        <span>→</span>
+        <span class="bg-gray-800 px-3 py-1 rounded-full">📊 Verify</span>
+      </div>
+      <p class="text-gray-600 text-xs text-center mt-4">These are steps in the pipeline, not separate products. One engagement, one SOW, two payments.</p>
     </div>
 
     <!-- ═══ Phase 1: The Audit ═══ -->
     <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-xl font-bold mb-6">📋 Phase 1: The Audit</h2>
+        <h2 class="text-xl font-bold mb-6">📋 Step 1: Audit</h2>
         <div class="space-y-4">
           <div class="flex items-start gap-4">
             <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">1</span>
@@ -125,7 +132,7 @@ const meetings = [
 
     <!-- ═══ Phase 2: The Fix ═══ -->
     <div class="max-w-3xl mx-auto px-6 py-12">
-      <h2 class="text-xl font-bold mb-6">🔧 Phase 2: The Fix</h2>
+      <h2 class="text-xl font-bold mb-6">🔧 Step 2: Implementation</h2>
       <div class="space-y-4">
         <div class="flex items-start gap-4">
           <span class="bg-brand-500/20 text-brand-400 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">1</span>
@@ -174,7 +181,7 @@ const meetings = [
     <!-- ═══ Phase 3: The Proof ═══ -->
     <section class="py-12">
       <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-xl font-bold mb-6">📊 Phase 3: The Proof</h2>
+        <h2 class="text-xl font-bold mb-6">📊 Step 3: Verification & Payment</h2>
         <div class="bg-gray-950 rounded-xl border border-gray-800 p-6">
           <div class="space-y-4 text-sm">
             <div>

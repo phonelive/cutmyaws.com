@@ -255,95 +255,89 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
     <section id="how-it-works">
       <div class="max-w-5xl mx-auto px-6 py-24">
         <h2 class="text-3xl font-bold mb-4 text-center">How It Works 🧰</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">One engagement. I audit, I fix, you pay on results. No savings? No fee. 🤝</p>
+        <p class="text-gray-400 text-center mb-4 max-w-xl mx-auto">One engagement. I audit, I fix, you pay on results. No savings? No fee. 🤝</p>
 
-        <div class="max-w-2xl mx-auto space-y-6">
+        <!-- Two payments callout -->
+        <div class="max-w-2xl mx-auto bg-brand-500/10 border border-brand-500/30 rounded-xl p-5 mb-12 text-center">
+          <p class="text-brand-400 font-semibold text-lg mb-1">Two payments. That's it.</p>
+          <p class="text-gray-400 text-sm">{{ pricing.depositPct }}% deposit to start &middot; remainder due 90 days after I prove the savings are real.</p>
+        </div>
+
+        <div class="max-w-2xl mx-auto space-y-4">
 
           <!-- Step 1: Free Chat -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
-              <div>
-                <h3 class="text-lg font-bold">🗓️ Free Chat</h3>
-                <p class="text-gray-500 text-sm">15 min &middot; free</p>
-              </div>
+              <h3 class="text-lg font-bold">🗓️ Free Chat <span class="text-gray-500 text-sm font-normal">&middot; 15 min</span></h3>
             </div>
-            <p class="text-gray-400 mb-3">We meet, I ask questions about your business, and we figure out if there's a fit. No payment. No AWS access. Just a conversation. 🔍</p>
-            <p class="text-gray-500 text-sm">If it's a fit, a {{ pricing.depositPct }}% deposit (based on <NuxtLink to="/onboarding/calculate-savings" class="text-brand-400 hover:underline">annualized AWS spend</NuxtLink>) kicks off the engagement. You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>, and I get to work.</p>
+            <p class="text-gray-400">We meet, I ask questions about your business, and we figure out if there's a fit. No payment. No AWS access. Just a conversation. 🔍</p>
           </div>
 
-          <!-- Arrow -->
-          <div class="text-center text-gray-600 text-lg">⏳ 5–10 business days</div>
+          <div class="text-center text-gray-600 text-sm">↓ If it's a fit: {{ pricing.depositPct }}% deposit kicks off the engagement</div>
 
-          <!-- Step 2: The Audit -->
-          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-6 sm:p-8">
+          <!-- Step 2: Audit -->
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
-              <div>
-                <h3 class="text-lg font-bold">📋 The Audit</h3>
-                <p class="text-gray-500 text-sm">Full audit &middot; included in the engagement</p>
-              </div>
+              <h3 class="text-lg font-bold">📋 Audit <span class="text-gray-500 text-sm font-normal">&middot; 5–10 business days</span></h3>
             </div>
-            <p class="text-gray-400 mb-3">A <strong class="text-gray-200">45-minute call</strong> where I walk your team through every finding, plus a <strong class="text-gray-200">full PDF</strong> you keep forever &mdash; line-by-line savings, architecture recommendations, and where your tech doesn't match your business. Then I get to work fixing it. 📄</p>
+            <p class="text-gray-400 mb-3">You <NuxtLink to="/onboarding/give-david-access" class="text-brand-400 hover:underline">grant read-only access</NuxtLink>. I dig into your architecture, billing history, and resource utilization. Then I walk your team through every finding on a <strong class="text-gray-200">45-minute call</strong> and hand you a <strong class="text-gray-200">full PDF</strong> you keep forever. 📄</p>
             <div class="flex flex-wrap gap-2 text-xs">
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ 45-min live call</span>
+              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ 45-min findings call</span>
               <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Full PDF report</span>
               <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Architecture recs</span>
-              <span class="bg-gray-950 text-gray-400 px-3 py-1 rounded-full border border-gray-800">✅ Implementation included</span>
-              <span v-if="promoActive" class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/30">🎁 FREE Security Audit ({{ promoDaysLeft }}d left)</span>
+              <span v-if="promoActive" class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/30">🎁 + FREE Security Audit ({{ promoDaysLeft }}d left)</span>
             </div>
           </div>
 
-          <!-- Security Audit Add-on (compact) -->
-          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8 relative">
-            <div v-if="promoActive" class="absolute -top-3 right-6 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">🎁 FREE for {{ promoDaysLeft }} more day{{ promoDaysLeft === 1 ? '' : 's' }}!</div>
-            <div v-else class="absolute -top-3 right-6 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-full">ADD-ON</div>
-            <div class="flex items-center gap-3 mb-3">
-              <span class="bg-gray-700 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">🔒</span>
-              <div>
-                <h3 class="text-lg font-bold">🛡️ Security Audit</h3>
-                <p class="text-gray-500 text-sm">{{ pricing.securityPct }}% of AWS annual spend<span v-if="promoActive"> &middot; <strong class="text-green-400">FREE during promo</strong></span></p>
-              </div>
-            </div>
-            <p class="text-gray-400">A one-time PDF covering public S3 buckets, overprivileged IAM roles, security group misconfigs, unencrypted resources, and missing logging. Prioritized: critical → high → medium. 🔍</p>
-            <p v-if="promoActive" class="text-green-400 text-sm font-semibold mt-3">🎁 Free during promo. After that, {{ pricing.securityPct }}% of AWS annual spend.</p>
-          </div>
+          <div class="text-center text-gray-600 text-sm">↓</div>
 
-          <!-- Arrow -->
-          <div class="text-center text-gray-600 text-lg">🔧 Implementation</div>
-
-          <!-- Step 3: The Fix -->
+          <!-- Step 3: Implementation -->
           <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
-              <div>
-                <h3 class="text-lg font-bold">🔧 The Fix</h3>
-                <p class="text-gray-500 text-sm">I implement everything I can</p>
-              </div>
+              <h3 class="text-lg font-bold">🔧 Implementation <span class="text-gray-500 text-sm font-normal">&middot; 2–8 weeks</span></h3>
             </div>
-            <p class="text-gray-400 mb-3">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. Everything follows standard SDLC &mdash; changes go into a dev environment first, get tested, and I work with your team to promote to production. No cowboy deploys. 💪</p>
-            <p class="text-gray-500 text-sm">⚠️ Not every item may be implementable &mdash; dependencies and constraints happen. Savings I fix: {{ pricing.fixedPct }}%. Savings I find but can't fix: only {{ pricing.unfixedPct }}%. You only pay on <strong class="text-gray-400">realized, verified savings</strong>.</p>
+            <p class="text-gray-400">I implement the optimizations &mdash; serverless migrations, right-sizing, Savings Plans, architecture fixes. Everything follows standard SDLC &mdash; dev first, tested, then promoted to production with your team. No cowboy deploys. 💪</p>
           </div>
 
-          <!-- Arrow -->
-          <div class="text-center text-gray-600 text-lg">⏳ 90 days later...</div>
+          <div class="text-center text-gray-600 text-sm">↓ 90 days later...</div>
 
-          <!-- Step 4: The Proof -->
-          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
+          <!-- Step 4: Verification & Payment -->
+          <div class="bg-gray-900 border-2 border-brand-500 rounded-2xl p-6 sm:p-8">
             <div class="flex items-center gap-3 mb-3">
               <span class="bg-brand-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">4</span>
-              <div>
-                <h3 class="text-lg font-bold">📊 The Proof</h3>
-                <p class="text-gray-500 text-sm">{{ pricing.fixedPct }}% of fixed savings &middot; {{ pricing.unfixedPct }}% of unfixed</p>
-              </div>
+              <h3 class="text-lg font-bold">📊 Verification & Payment</h3>
             </div>
-            <p class="text-gray-400">We pull up your AWS bill. Before. After. Side by side. {{ pricing.fixedPct }}% on savings I implemented, {{ pricing.unfixedPct }}% on savings I found but didn't fix &mdash; based on <strong class="text-gray-200">actual, verified savings</strong>. Deposit deducted. If the savings didn't show up, I don't get paid. 💰</p>
+            <p class="text-gray-400 mb-3">We pull up your AWS bill. Before. After. Side by side. Based on <strong class="text-gray-200">actual, verified savings</strong> &mdash; not projections. If the savings didn't show up, I don't get paid. 💰</p>
+            <div class="bg-gray-950 rounded-xl p-4 space-y-2 text-sm">
+              <div class="flex justify-between"><span class="text-gray-400">Savings I found <strong class="text-gray-200">and fixed</strong></span><span class="text-brand-400 font-bold">{{ pricing.fixedPct }}%</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">Savings I found <strong class="text-gray-200">but didn't fix</strong></span><span class="text-gray-300 font-bold">{{ pricing.unfixedPct }}%</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">Deposit deducted from total</span><span class="text-green-400">✓</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">No savings?</span><span class="text-green-400 font-bold">No fee</span></div>
+            </div>
           </div>
 
         </div>
 
+        <!-- Security Audit Add-on -->
+        <div class="max-w-2xl mx-auto mt-6">
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 relative">
+            <div v-if="promoActive" class="absolute -top-3 right-6 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">🎁 FREE for {{ promoDaysLeft }} more day{{ promoDaysLeft === 1 ? '' : 's' }}!</div>
+            <div v-else class="absolute -top-3 right-6 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-full">ADD-ON</div>
+            <div class="flex items-center gap-3">
+              <span class="text-xl">🛡️</span>
+              <div>
+                <p class="font-bold text-sm">Security Audit <span class="text-gray-500 font-normal">&middot; {{ pricing.securityPct }}% of AWS annual spend<span v-if="promoActive"> &middot; <strong class="text-green-400">FREE during promo</strong></span></span></p>
+                <p class="text-gray-500 text-xs">Public S3 buckets, overprivileged IAM, security group misconfigs, unencrypted resources, missing logging. Delivered as part of the audit.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Pricing summary -->
-        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixedPct }}%+ of savings year 1, and 100% every year after. One engagement, one fee, permanent savings. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
+        <p class="text-gray-500 text-sm text-center mt-8 max-w-lg mx-auto">You keep {{ 100 - pricing.fixedPct }}%+ of savings year 1, and 100% every year after. <NuxtLink to="/agreements" class="text-brand-400 hover:underline">Full terms →</NuxtLink></p>
       </div>
     </section>
 
@@ -496,62 +490,42 @@ const ex = calculateExample(exampleBefore, (exampleSavings / exampleBefore) * 10
         </div>
       </div>
 
-      <!-- Payment timeline -->
+      <!-- Two payments -->
       <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
-        <h3 class="font-bold text-center mb-6">💳 When You Pay</h3>
-        <div class="space-y-4 text-sm">
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-300 font-medium">🗓️ Free Chat</span>
-              <span class="text-gray-500 ml-2">Day 1</span>
+        <h3 class="font-bold text-center mb-6">💳 Two Payments. That's It.</h3>
+        <div class="space-y-5 text-sm">
+          <!-- Payment 1 -->
+          <div class="bg-gray-950 rounded-xl p-5 border border-gray-800">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-200 font-bold">Payment 1 &mdash; Deposit</span>
+              <span class="text-brand-400 font-bold text-lg">${{ ex.depositFee.toLocaleString() }}</span>
             </div>
-            <span class="font-semibold text-green-400">Free</span>
+            <p class="text-gray-500 text-xs">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annualized AWS spend. Kicks off the engagement. Deducted from your final fee.</p>
           </div>
-          <div class="text-gray-500 text-xs pl-4">15 min. No commitment. We figure out if it's a fit.</div>
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-300 font-medium">💳 Deposit</span>
-              <span class="text-gray-500 ml-2">After chat</span>
+          <!-- What happens in between -->
+          <div class="text-center text-gray-600 text-xs space-y-1">
+            <p>📋 Audit &middot; 🔧 Implementation &middot; ⏳ 90-day verification</p>
+            <p>You don't pay anything during this. I do the work.</p>
+          </div>
+          <!-- Payment 2 -->
+          <div class="bg-gray-950 rounded-xl p-5 border-2 border-brand-500">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-200 font-bold">Payment 2 &mdash; After Verification</span>
+              <span class="text-brand-400 font-bold text-lg">${{ ex.feeAfterDeposit.toLocaleString() }}</span>
             </div>
-            <span class="font-semibold">${{ ex.depositFee.toLocaleString() }}</span>
+            <p class="text-gray-500 text-xs">{{ pricing.fixedPct }}% of verified savings I fixed, {{ pricing.unfixedPct }}% of savings I found but didn't fix &mdash; minus your ${{ ex.depositFee.toLocaleString() }} deposit. No savings? No charge. 🤙</p>
           </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.depositPct }}% of ${{ ex.awsAnnual.toLocaleString() }} annual AWS spend = ${{ ex.depositFee.toLocaleString() }} (deducted from your total fee)</div>
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-300 font-medium">📋 Audit + Findings Call</span>
-              <span class="text-gray-500 ml-2">~2 weeks</span>
-            </div>
-            <span class="font-semibold text-green-400">$0</span>
-          </div>
-          <div class="text-gray-500 text-xs pl-4">45-min call + full PDF. Included in the engagement — no separate fee.</div>
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-300 font-medium">🔧 Implementation</span>
-              <span class="text-gray-500 ml-2">Weeks 3–8</span>
-            </div>
-            <span class="font-semibold text-green-400">$0</span>
-          </div>
-          <div class="text-gray-500 text-xs pl-4">I fix everything I can. You don't pay anything during implementation.</div>
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-300 font-medium">📊 90 Days After Implementation</span>
-              <span class="text-gray-500 ml-2">~4-5 months</span>
-            </div>
-            <span class="font-semibold">${{ ex.feeAfterDeposit.toLocaleString() }}</span>
-          </div>
-          <div class="text-gray-500 text-xs pl-4">{{ pricing.fixedPct }}% of <strong>verified</strong> savings I fixed, {{ pricing.unfixedPct }}% of savings I found but didn't fix. Minus ${{ ex.depositFee.toLocaleString() }} deposit. No savings? No charge. 🤙</div>
           <hr class="border-gray-700">
           <div class="flex justify-between text-base">
             <span class="font-bold text-gray-300">Total max ({{ pricing.fixedPct }}%)</span>
             <span class="font-bold">${{ ex.totalFee.toLocaleString() }}</span>
           </div>
-          <div class="text-gray-500 text-xs pl-4">${{ ex.depositFee.toLocaleString() }} deposit + ${{ ex.feeAfterDeposit.toLocaleString() }} at verification = ${{ ex.totalFee.toLocaleString() }}</div>
           <div class="flex justify-between text-base">
             <span class="font-bold text-brand-400">🎉 You keep (year 1)</span>
             <span class="font-bold text-brand-400">${{ ex.yearOneNet.toLocaleString() }}</span>
           </div>
           <div class="flex justify-between text-base">
-            <span class="font-bold text-green-400">🚀 You keep (every year after that, forever)</span>
+            <span class="font-bold text-green-400">🚀 You keep (every year after)</span>
             <span class="font-bold text-green-400">${{ ex.annualSavings.toLocaleString() }}</span>
           </div>
         </div>
