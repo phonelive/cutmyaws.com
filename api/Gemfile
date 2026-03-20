@@ -5,6 +5,7 @@ gem 'bundler'
 # Standard library gems required for Ruby 3.4+
 gem 'json'
 gem 'ostruct'
+gem 'rexml'
 gem 'uri'
 gem 'net-http', require: 'net/http'
 gem 'irb'
