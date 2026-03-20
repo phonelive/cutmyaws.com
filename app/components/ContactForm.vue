@@ -14,7 +14,7 @@ const form = ref({
   email: '',
   company: '',
   awsMonthly: '',
-  availability: [],
+  availability: '',
   notes: '',
 })
 
@@ -27,19 +27,6 @@ const firstName = computed(() => {
   const parts = form.value.name.trim().split(/\s+/)
   return parts[0] || ''
 })
-
-const availabilityOptions = [
-  'Mon morning',
-  'Mon afternoon',
-  'Tue morning',
-  'Tue afternoon',
-  'Wed morning',
-  'Wed afternoon',
-  'Thu morning',
-  'Thu afternoon',
-  'Fri morning',
-  'Fri afternoon',
-]
 
 const shareUrl = encodeURIComponent('https://cutmyaws.com')
 
@@ -75,7 +62,7 @@ async function submit() {
   if (!form.value.email.trim()) { error.value = 'Email is required'; return }
   if (!form.value.awsMonthly) { error.value = 'Please select your monthly AWS spend'; return }
   if (!form.value.company.trim()) { error.value = 'Please tell us about your company'; return }
-  if (form.value.availability.length === 0) { error.value = 'Please select at least one time that works for you'; return }
+  if (!form.value.availability.trim()) { error.value = 'Please share when works best for you'; return }
 
   if (!turnstileToken.value) {
     error.value = 'Please complete the verification below, or email david@cutmyaws.com directly.'
@@ -97,7 +84,7 @@ async function submit() {
         email: form.value.email.trim(),
         company: form.value.company.trim(),
         awsMonthly: form.value.awsMonthly,
-        availability: form.value.availability.join(', '),
+        availability: form.value.availability.trim(),
         notes: form.value.notes.trim(),
         turnstileToken: turnstileToken.value,
         utmSource: route.query.utm_source || '',
@@ -188,7 +175,7 @@ async function submit() {
         <!-- Urgency -->
         <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-sm text-brand-400 font-medium">
           <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
-          Currently booking ~3 weeks out · 4 new projects/month
+          Currently booking ~3 weeks out
         </div>
       </div>
 
@@ -247,26 +234,15 @@ async function submit() {
 
         <!-- Best Times to Meet -->
         <div>
-          <label class="text-gray-300 text-sm font-medium block mb-2">Best times for a 15-min call? * <span class="text-gray-600 font-normal">(select all that work)</span></label>
-          <div class="grid grid-cols-2 gap-2">
-            <label
-              v-for="opt in availabilityOptions"
-              :key="opt"
-              class="flex items-center gap-2 bg-gray-900 border rounded-lg px-3 py-2 cursor-pointer transition-colors text-sm"
-              :class="form.availability.includes(opt) ? 'border-brand-500 text-gray-200' : 'border-gray-800 text-gray-500 hover:border-gray-700'"
-            >
-              <input
-                type="checkbox"
-                :value="opt"
-                v-model="form.availability"
-                class="sr-only"
-              >
-              <span class="w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-colors" :class="form.availability.includes(opt) ? 'bg-brand-500 border-brand-500' : 'border-gray-600'">
-                <svg v-if="form.availability.includes(opt)" class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-              </span>
-              {{ opt }}
-            </label>
-          </div>
+          <label for="availability" class="text-gray-300 text-sm font-medium block mb-1">Best time of week for a 15-min call? *</label>
+          <input
+            id="availability"
+            v-model="form.availability"
+            type="text"
+            required
+            placeholder="e.g. Tue/Thu mornings, or anytime after 2pm"
+            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:border-brand-500 focus:outline-none"
+          >
         </div>
 
         <!-- Notes (optional) -->
