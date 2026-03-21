@@ -135,12 +135,6 @@ Resources:
             ApiId: !Ref CutMyApi
             Path: /
             Method: ANY
-        CheckAbandonedLeads:
-          Type: Schedule
-          Properties:
-            Schedule: rate(30 minutes)
-            Description: Check for abandoned lead forms (partial, 1hr+ stale)
-            Input: '{"run_method": "check_abandoned_leads"}'
       Policies:
         # SES: Send notification emails to David
         - Statement:
