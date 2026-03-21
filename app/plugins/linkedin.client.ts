@@ -1,4 +1,6 @@
 export default defineNuxtPlugin(() => {
+  if (!useIsProd()) return
+
   const w = window as any
   w._linkedin_partner_id = '8785714'
   w._linkedin_data_partner_ids = w._linkedin_data_partner_ids || []
@@ -13,7 +15,4 @@ export default defineNuxtPlugin(() => {
   s.async = true
   s.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js'
   document.head.appendChild(s)
-
-  // Conversion fires from ContactForm.vue on successful form submit
-  // (LinkedIn conversion_id 26412858 tracked via useTracking)
 })

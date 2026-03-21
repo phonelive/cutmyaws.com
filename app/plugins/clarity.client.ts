@@ -1,4 +1,6 @@
 export default defineNuxtPlugin(() => {
+  if (!useIsProd()) return
+
   const w = window as any
   w.clarity = w.clarity || function (...args: any[]) {
     (w.clarity.q = w.clarity.q || []).push(args)

@@ -97,15 +97,15 @@ Resources:
   # CORS is handled by Lambda (router.rb OPTIONS handler + api_response.rb).
   # Do NOT configure CORS here — API Gateway's CORS handling can strip
   # Content-Type from Lambda responses, breaking JSON parsing.
-  #
-  # Access logging will be added later via API Gateway account-level
-  # CloudWatch role configuration.
   # ---------------------------------------------------------------------------
   CutMyApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       StageName: $default
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
+      AccessLogSettings:
+        DestinationArn: !GetAtt ApiAccessLogGroup.Arn
+        Format: '{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","path":"$context.path","status":"$context.status","latency":"$context.responseLatency","userAgent":"$context.identity.userAgent","requestTime":"$context.requestTime"}'
 
   # ---------------------------------------------------------------------------
   # Lambda Function — Router
@@ -159,14 +159,118 @@ Resources:
               Resource: "*"
 
   # ---------------------------------------------------------------------------
-  # CloudWatch Log Group — explicit creation for retention control
+  # CloudWatch Log Groups
   # ---------------------------------------------------------------------------
-  # Lambda function logs (application-level: requests, DB queries, errors)
   RouterLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
       RetentionInDays: 60
+
+  ApiAccessLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/apigateway/cutmyaws-${Stage}-access"
+      RetentionInDays: 60
+
+  # ---------------------------------------------------------------------------
+  # CloudWatch Alarms — proactive monitoring
+  # ---------------------------------------------------------------------------
+
+  # Lambda errors — alert when error count > 3 in 5 minutes
+  LambdaErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-lambda-errors"
+      AlarmDescription: !Sub "Lambda errors exceeded threshold (${Stage})"
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref RouterFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 3
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  # Lambda throttling — alert on any throttle
+  LambdaThrottleAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-lambda-throttles"
+      AlarmDescription: !Sub "Lambda throttled (${Stage})"
+      Namespace: AWS/Lambda
+      MetricName: Throttles
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref RouterFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 0
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  # Lambda duration — alert when p99 > 10 seconds (timeout is 30s)
+  LambdaDurationAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-lambda-duration"
+      AlarmDescription: !Sub "Lambda duration too high — approaching timeout (${Stage})"
+      Namespace: AWS/Lambda
+      MetricName: Duration
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref RouterFunction
+      ExtendedStatistic: p99
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 10000
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  # API Gateway 5xx errors — alert on server errors
+  Api5xxAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-api-5xx"
+      AlarmDescription: !Sub "API Gateway 5xx errors (${Stage})"
+      Namespace: AWS/ApiGateway
+      MetricName: 5xx
+      Dimensions:
+        - Name: ApiId
+          Value: !Ref CutMyApi
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 3
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  # ---------------------------------------------------------------------------
+  # SNS Topic — alarm notifications to David
+  # ---------------------------------------------------------------------------
+  AlarmTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub "cutmyaws-${Stage}-alarms"
+
+  AlarmEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref AlarmTopic
+      Protocol: email
+      Endpoint: david@cutmyaws.com
 
 # -----------------------------------------------------------------------------
 # Outputs — used by GitHub Actions for verification and custom domain setup

@@ -1,5 +1,7 @@
 export function useTracking() {
   function trackEvent(name: string, opts: { event_category?: string, event_label?: string, linkedin_conversion_id?: number, reddit_event?: string } = {}) {
+    if (!useIsProd()) return
+
     const w = window as any
     // GA4
     if (w.dataLayer) {

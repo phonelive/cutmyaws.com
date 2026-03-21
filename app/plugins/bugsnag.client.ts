@@ -2,6 +2,8 @@ import Bugsnag from '@bugsnag/js'
 import BugsnagPluginVue from '@bugsnag/plugin-vue'
 
 export default defineNuxtPlugin((nuxtApp) => {
+  if (!useIsProd()) return
+
   Bugsnag.start({
     apiKey: '60c69015742479a1ff227007d0811389',
     plugins: [new BugsnagPluginVue()],

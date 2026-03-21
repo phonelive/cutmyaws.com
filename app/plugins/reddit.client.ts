@@ -1,4 +1,6 @@
 export default defineNuxtPlugin(() => {
+  if (!useIsProd()) return
+
   const w = window as any
   if (!w.rdt) {
     w.rdt = function (...args: any[]) { w.rdt.sendEvent ? w.rdt.sendEvent.apply(w.rdt, args) : w.rdt.callQueue.push(args) }
@@ -12,7 +14,4 @@ export default defineNuxtPlugin(() => {
 
   w.rdt('init', 'a2_inkp2wvyvllm', { optOut: false, useDecimalCurrencyValues: true })
   w.rdt('track', 'PageVisit')
-
-  // Conversion fires from ContactForm.vue on successful form submit
-  // (Reddit 'Lead' event tracked via useTracking)
 })

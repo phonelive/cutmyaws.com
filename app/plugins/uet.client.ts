@@ -1,4 +1,6 @@
 export default defineNuxtPlugin(() => {
+  if (!useIsProd()) return
+
   const w = window as any
   w.uetq = w.uetq || []
 
