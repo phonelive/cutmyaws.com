@@ -28,9 +28,11 @@ const benefits = [
 const migrationSavings = [
   { emoji: '🖥️', from: 'EC2 running 24/7', to: 'Lambda + API Gateway', savings: '40-70%', why: 'You\'re paying for 168 hours/week. Your app is busy for maybe 40. Lambda charges per-request.' },
   { emoji: '🏗️', from: 'Self-managed RDS', to: 'DynamoDB / Aurora Serverless', savings: '30-60%', why: 'That db.r5.2xlarge is great for your 50-user app. So is a $200/mo serverless database.' },
+  { emoji: '🐳', from: 'EC2 (manual deploys)', to: 'ECS Fargate (Docker)', savings: '30-50%', why: 'Already have Docker images? Fargate runs your containers without managing servers. No EC2 instances, no patching, no capacity planning. Just push your image and go.' },
   { emoji: '🔄', from: 'ECS/EKS with ALB', to: 'Lambda + API Gateway', savings: '50-80%', why: 'ALB alone costs $20/mo before a single request. API Gateway + Lambda? Pennies until real traffic hits.' },
   { emoji: '⏰', from: 'Cron jobs on EC2', to: 'EventBridge + Lambda', savings: '80-95%', why: 'Running a whole server to execute a script for 30 seconds every hour. That\'s 29 minutes and 30 seconds of waste.' },
   { emoji: '📦', from: 'SQS consumers on EC2', to: 'SQS + Lambda triggers', savings: '60-80%', why: 'Lambda polls SQS for you. No idle consumers. No auto-scaling groups. Just code that runs when messages arrive.' },
+  { emoji: '🌐', from: 'EC2/Nginx static hosting', to: 'S3 + CloudFront', savings: '80-95%', why: 'Running a whole server to serve static files is like hiring a chauffeur to deliver mail. S3 + CloudFront: global CDN, SSL, zero servers. Pennies per month.' },
 ]
 
 // ── ROI section ──
