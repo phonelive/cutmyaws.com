@@ -10,6 +10,8 @@ const route = useRoute()
 
 // Session ID — unique per form instance, persists across auto-saves
 const sessionId = ref('')
+// Session token — HMAC-signed, issued by server after Turnstile verification, 1hr expiry
+const sessionToken = ref('')
 
 // Form state
 const form = ref({
@@ -25,6 +27,7 @@ const submitted = ref(false)
 const submitting = ref(false)
 const error = ref('')
 const turnstileToken = ref('')
+let turnstileWidgetId = null
 
 const firstName = computed(() => {
   const parts = form.value.name.trim().split(/\s+/)
@@ -50,46 +53,91 @@ const isEmailValid = computed(() => emailRegex.test(form.value.email.trim()))
 
 // ── Auto-save (debounced) ──
 let autoSaveTimer = null
+let refreshTimer = null
 
 function scheduleAutoSave() {
   if (autoSaveTimer) clearTimeout(autoSaveTimer)
-  autoSaveTimer = setTimeout(autoSave, 2000) // 2 seconds after last keystroke
+  autoSaveTimer = setTimeout(autoSave, 2000)
 }
 
 async function autoSave() {
-  // Skip if nothing useful yet
   const f = form.value
   if (!f.name.trim() && !f.email.trim() && !f.company.trim() && !f.awsMonthly.trim()) return
   if (submitted.value) return
 
+  const payload = {
+    sessionId: sessionId.value,
+    name: f.name.trim(),
+    email: f.email.trim(),
+    company: f.company.trim(),
+    awsMonthly: f.awsMonthly.trim(),
+    availability: f.availability.trim(),
+    notes: f.notes.trim(),
+    utmSource: route.query.utm_source || '',
+    utmMedium: route.query.utm_medium || '',
+    utmCampaign: route.query.utm_campaign || props.campaign,
+    pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+  }
+
+  // First save: include Turnstile token. Subsequent: include session token.
+  if (sessionToken.value) {
+    payload.sessionToken = sessionToken.value
+  } else if (turnstileToken.value) {
+    payload.turnstileToken = turnstileToken.value
+  } else {
+    return // No auth available yet — wait for Turnstile to render
+  }
+
   try {
-    await fetch(`${apiBase.value}/leads/partial`, {
+    const res = await fetch(`${apiBase.value}/leads/partial`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionId: sessionId.value,
-        name: f.name.trim(),
-        email: f.email.trim(),
-        company: f.company.trim(),
-        awsMonthly: f.awsMonthly.trim(),
-        availability: f.availability.trim(),
-        notes: f.notes.trim(),
-        utmSource: route.query.utm_source || '',
-        utmMedium: route.query.utm_medium || '',
-        utmCampaign: route.query.utm_campaign || props.campaign,
-        pageUrl: typeof window !== 'undefined' ? window.location.href : '',
-      }),
+      body: JSON.stringify(payload),
     })
+
+    const data = await res.json()
+
+    // Server returns a session token on first Turnstile-verified save
+    if (data.sessionToken) {
+      sessionToken.value = data.sessionToken
+    }
+
+    // Token expired — re-authenticate
+    if (res.status === 401) {
+      sessionToken.value = ''
+      refreshTurnstile()
+    }
   } catch (e) {
-    // Silent fail — auto-save is best-effort
+    // Silent fail
   }
+}
+
+// ── Refresh Turnstile + session token every 50 min ──
+function refreshTurnstile() {
+  if (window.turnstile && turnstileWidgetId != null) {
+    window.turnstile.reset(turnstileWidgetId)
+    turnstileToken.value = ''
+    sessionToken.value = ''
+  }
+}
+
+function startRefreshTimer() {
+  if (refreshTimer) clearInterval(refreshTimer)
+  refreshTimer = setInterval(() => {
+    if (!submitted.value) {
+      refreshTurnstile()
+      // Auto-save with new Turnstile token to get fresh session token
+      setTimeout(() => {
+        if (turnstileToken.value) autoSave()
+      }, 3000) // Wait for Turnstile to re-render
+    }
+  }, 50 * 60 * 1000) // 50 minutes
 }
 
 // ── Watch form for events + auto-save ──
 watch(form, () => {
   const { trackEvent } = useTracking()
 
-  // Fire lead_started once (first interaction with any data)
   if (!firedStarted.value) {
     const f = form.value
     if (f.name.trim() || f.email.trim() || f.company.trim() || f.awsMonthly.trim()) {
@@ -98,19 +146,18 @@ watch(form, () => {
     }
   }
 
-  // Fire lead_email_valid once when email becomes valid
   if (!firedEmailValid.value && isEmailValid.value) {
     firedEmailValid.value = true
     trackEvent('lead_email_valid', { event_category: 'engagement', event_label: form.value.email.split('@')[1] })
   }
 
-  // Schedule auto-save
   scheduleAutoSave()
 }, { deep: true })
 
 // ── Cleanup ──
 onBeforeUnmount(() => {
   if (autoSaveTimer) clearTimeout(autoSaveTimer)
+  if (refreshTimer) clearInterval(refreshTimer)
 })
 
 // Load Turnstile
@@ -131,13 +178,14 @@ onMounted(() => {
 
 function renderTurnstile() {
   if (window.turnstile) {
-    window.turnstile.render(`#turnstile-${props.anchorId}`, {
+    turnstileWidgetId = window.turnstile.render(`#turnstile-${props.anchorId}`, {
       sitekey: '0x4AAAAAACrv6ddaepEh0qEx',
       callback: (token) => { turnstileToken.value = token },
       'error-callback': () => { turnstileToken.value = '' },
       theme: 'dark',
       size: 'flexible',
     })
+    startRefreshTimer()
   }
 }
 
@@ -150,7 +198,7 @@ async function submit() {
   if (!form.value.company.trim()) { error.value = 'Please tell us about your company'; return }
   if (!form.value.availability.trim()) { error.value = 'Please share when works best for you'; return }
 
-  if (!turnstileToken.value) {
+  if (!sessionToken.value && !turnstileToken.value) {
     error.value = 'Please complete the verification below, or email david@cutmyaws.com directly.'
     return
   }
@@ -166,13 +214,14 @@ async function submit() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         sessionId: sessionId.value,
+        sessionToken: sessionToken.value || undefined,
         name: form.value.name.trim(),
         email: form.value.email.trim(),
         company: form.value.company.trim(),
         awsMonthly: form.value.awsMonthly.trim(),
         availability: form.value.availability.trim(),
         notes: form.value.notes.trim(),
-        turnstileToken: turnstileToken.value,
+        turnstileToken: !sessionToken.value ? turnstileToken.value : undefined,
         utmSource: route.query.utm_source || '',
         utmMedium: route.query.utm_medium || '',
         utmCampaign: route.query.utm_campaign || props.campaign,

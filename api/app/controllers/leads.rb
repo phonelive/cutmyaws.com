@@ -3,8 +3,13 @@
 # =============================================================================
 #
 # POST /leads          — full form submit (conversion)
-# POST /leads/partial  — auto-save as user types (no Turnstile required)
+# POST /leads/partial  — auto-save as user types
 # GET  /leads          — health check
+#
+# AUTH FLOW:
+#   1. First auto-save includes Turnstile token → server verifies → returns sessionToken
+#   2. Subsequent auto-saves + final submit use sessionToken (HMAC-signed, 1hr expiry)
+#   3. Frontend refreshes Turnstile every 50 min to get a new sessionToken
 #
 # =============================================================================
 
@@ -23,6 +28,7 @@ def leads_post(event, context)
       availability:  body['availability'],
       notes:         body['notes'],
       session_id:    body['sessionId'],
+      session_token: body['sessionToken'],
       turnstile:     body['turnstileToken'],
       utm_source:    body['utmSource'],
       utm_medium:    body['utmMedium'],
@@ -37,19 +43,32 @@ def leads_post(event, context)
       next api_error_validation(errors.join('. '), { fields: errors })
     end
 
-    # Turnstile
-    if data[:turnstile].nil? || data[:turnstile].empty?
-      puts "[LEAD] Missing Turnstile token"
-      next api_error_forbidden('Bot detection failed — please try again or email david@cutmyaws.com')
+    # Auth: session token (preferred) or Turnstile (fallback)
+    authenticated = false
+
+    if data[:session_token] && !data[:session_token].empty?
+      if validate_session_token(data[:session_token], data[:session_id].to_s)
+        authenticated = true
+        puts "[LEAD] Authenticated via session token"
+      else
+        puts "[LEAD] Session token invalid/expired — falling back to Turnstile"
+      end
     end
 
-    turnstile_valid = validate_turnstile(data[:turnstile])
-    unless turnstile_valid
-      puts "[LEAD] Turnstile validation failed for #{data[:email]}"
-      next api_error_forbidden('Bot detection failed — please try again or email david@cutmyaws.com')
+    unless authenticated
+      if data[:turnstile].nil? || data[:turnstile].empty?
+        puts "[LEAD] No auth — missing both session token and Turnstile"
+        next api_error_forbidden('Session expired — please refresh the page or email david@cutmyaws.com')
+      end
+
+      turnstile_valid = validate_turnstile(data[:turnstile])
+      unless turnstile_valid
+        puts "[LEAD] Turnstile validation failed for #{data[:email]}"
+        next api_error_forbidden('Bot detection failed — please try again or email david@cutmyaws.com')
+      end
     end
 
-    # Save/update lead — upsert by session_id if present
+    # Save/update lead
     ip_address = event.dig('requestContext', 'http', 'sourceIp') ||
                  event.dig('headers', 'x-forwarded-for')&.split(',')&.first&.strip
     user_agent = event.dig('headers', 'user-agent') || event.dig('headers', 'User-Agent')
@@ -58,27 +77,16 @@ def leads_post(event, context)
       conn = ActiveRecord::Base.connection
 
       if data[:session_id] && !data[:session_id].empty?
-        # Update existing partial lead to submitted
         conn.execute(
           ActiveRecord::Base.sanitize_sql_array([
             "UPDATE leads SET name = ?, email = ?, company = ?, aws_monthly = ?, availability = ?, notes = ?, status = 'submitted', turnstile_success = ?, ip_address = ?, user_agent = ?, utm_source = ?, utm_medium = ?, utm_campaign = ?, page_url = ? WHERE session_id = ?",
-            data[:name].strip,
-            data[:email].strip.downcase,
-            data[:company].strip,
-            data[:aws_monthly],
-            data[:availability],
-            data[:notes].to_s.strip,
-            true,
-            ip_address,
-            user_agent&.slice(0, 500),
-            data[:utm_source],
-            data[:utm_medium],
-            data[:utm_campaign],
-            data[:page_url],
+            data[:name].strip, data[:email].strip.downcase, data[:company].strip,
+            data[:aws_monthly], data[:availability], data[:notes].to_s.strip,
+            true, ip_address, user_agent&.slice(0, 500),
+            data[:utm_source], data[:utm_medium], data[:utm_campaign], data[:page_url],
             data[:session_id],
           ])
         )
-        # If no rows updated (no partial existed), insert fresh
         rows_affected = conn.execute("SELECT ROW_COUNT() AS c").first[0]
         if rows_affected == 0
           insert_lead(conn, data, ip_address, user_agent, 'submitted')
@@ -113,7 +121,10 @@ def leads_post(event, context)
 end
 
 # -----------------------------------------------------------------------------
-# POST /leads/partial — auto-save as user types (no Turnstile)
+# POST /leads/partial — auto-save as user types
+# -----------------------------------------------------------------------------
+# First call: requires Turnstile token → returns sessionToken
+# Subsequent calls: requires sessionToken (no Turnstile needed)
 # -----------------------------------------------------------------------------
 def leads_partial_post(event, context)
   api_handler(event, context) do
@@ -122,6 +133,29 @@ def leads_partial_post(event, context)
     session_id = body['sessionId'].to_s.strip
     if session_id.empty? || session_id.length > 36
       next api_error_bad_request('Invalid session ID')
+    end
+
+    # Auth: try session token first, then Turnstile
+    session_token = body['sessionToken'].to_s.strip
+    turnstile_token = body['turnstileToken'].to_s.strip
+    new_session_token = nil
+
+    if !session_token.empty?
+      unless validate_session_token(session_token, session_id)
+        puts "[LEAD:PARTIAL] Session token expired for #{session_id}"
+        next api_error(401, 'Session expired — re-authenticating', 'TOKEN_EXPIRED')
+      end
+    elsif !turnstile_token.empty?
+      # First save — verify Turnstile and issue session token
+      turnstile_valid = validate_turnstile(turnstile_token)
+      unless turnstile_valid
+        puts "[LEAD:PARTIAL] Turnstile failed for #{session_id}"
+        next api_error_forbidden('Bot detection failed — please try again or email david@cutmyaws.com')
+      end
+      new_session_token = generate_session_token(session_id)
+      puts "[LEAD:PARTIAL] Turnstile verified, session token issued for #{session_id}"
+    else
+      next api_error(401, 'Authentication required', 'AUTH_REQUIRED')
     end
 
     # Extract fields (all optional for partial saves)
@@ -136,9 +170,11 @@ def leads_partial_post(event, context)
     utm_campaign = body['utmCampaign'].to_s.strip.slice(0, 100)
     page_url   = body['pageUrl'].to_s.strip.slice(0, 500)
 
-    # Skip if no useful data
+    # Skip DB write if no useful data
     if name.empty? && email.empty? && company.empty? && aws_monthly.empty?
-      next api_success({ saved: false, reason: 'no_data' })
+      result = { saved: false, reason: 'no_data' }
+      result[:sessionToken] = new_session_token if new_session_token
+      next api_success(result)
     end
 
     ip_address = event.dig('requestContext', 'http', 'sourceIp') ||
@@ -147,17 +183,13 @@ def leads_partial_post(event, context)
     begin
       conn = ActiveRecord::Base.connection
 
-      # Upsert: insert if new session, update if exists
-      # Only update if status is still 'partial' (don't overwrite submitted leads)
       existing = conn.execute(
         ActiveRecord::Base.sanitize_sql_array([
-          "SELECT id, status FROM leads WHERE session_id = ? LIMIT 1",
-          session_id,
+          "SELECT id, status FROM leads WHERE session_id = ? LIMIT 1", session_id,
         ])
       )
 
       if existing.any?
-        # Don't overwrite submitted leads
         if existing.first[1] == 'submitted'
           next api_success({ saved: false, reason: 'already_submitted' })
         end
@@ -166,8 +198,7 @@ def leads_partial_post(event, context)
           ActiveRecord::Base.sanitize_sql_array([
             "UPDATE leads SET name = ?, email = ?, company = ?, aws_monthly = ?, availability = ?, notes = ?, utm_source = ?, utm_medium = ?, utm_campaign = ?, page_url = ? WHERE session_id = ? AND status = 'partial'",
             name, email, company, aws_monthly, availability, notes,
-            utm_source, utm_medium, utm_campaign, page_url,
-            session_id,
+            utm_source, utm_medium, utm_campaign, page_url, session_id,
           ])
         )
       else
@@ -180,13 +211,15 @@ def leads_partial_post(event, context)
         )
       end
 
-      puts "[LEAD:PARTIAL] Auto-saved: #{session_id} — #{name} / #{email}"
+      puts "[LEAD:PARTIAL] Saved: #{session_id} — #{name} / #{email}"
     rescue StandardError => e
       puts "[ERROR] Partial save failed: #{e.class}: #{e.message}"
       puts e.backtrace&.first(3)&.join("\n")
     end
 
-    api_success({ saved: true })
+    result = { saved: true }
+    result[:sessionToken] = new_session_token if new_session_token
+    api_success(result)
   end
 end
 
@@ -195,11 +228,7 @@ end
 # -----------------------------------------------------------------------------
 def leads_get(event, context)
   api_handler(event, context) do
-    api_success({
-      service: 'cutmyaws-leads',
-      env: ENV['env'],
-      status: 'ok',
-    })
+    api_success({ service: 'cutmyaws-leads', env: ENV['env'], status: 'ok' })
   end
 end
 
@@ -210,21 +239,10 @@ def insert_lead(conn, data, ip_address, user_agent, status)
   conn.execute(
     ActiveRecord::Base.sanitize_sql_array([
       "INSERT INTO leads (session_id, status, name, email, company, aws_monthly, availability, notes, turnstile_success, ip_address, user_agent, utm_source, utm_medium, utm_campaign, page_url, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
-      data[:session_id],
-      status,
-      data[:name].strip,
-      data[:email].strip.downcase,
-      data[:company].strip,
-      data[:aws_monthly],
-      data[:availability],
-      data[:notes].to_s.strip,
-      true,
-      ip_address,
-      user_agent&.slice(0, 500),
-      data[:utm_source],
-      data[:utm_medium],
-      data[:utm_campaign],
-      data[:page_url],
+      data[:session_id], status, data[:name].strip, data[:email].strip.downcase,
+      data[:company].strip, data[:aws_monthly], data[:availability],
+      data[:notes].to_s.strip, true, ip_address, user_agent&.slice(0, 500),
+      data[:utm_source], data[:utm_medium], data[:utm_campaign], data[:page_url],
     ])
   )
 end
