@@ -14,6 +14,6 @@ export default defineNuxtPlugin(() => {
   s.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js'
   document.head.appendChild(s)
 
-  // Link clicks are engagement only — real conversion fires on /confirmed with name
-  // (LinkedIn conversion tracked via useTracking in confirmed.vue)
+  // Conversion fires from ContactForm.vue on successful form submit
+  // (LinkedIn conversion_id 26412858 tracked via useTracking)
 })
