@@ -170,7 +170,7 @@ Resources:
   ApiAccessLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub "/aws/apigateway/cutmyaws-${Stage}-access"
+      LogGroupName: !Sub "/cutmyaws/${Stage}/apigateway-access"
       RetentionInDays: 60
 
   # ---------------------------------------------------------------------------
