@@ -127,6 +127,13 @@ Resources:
             ApiId: !Ref CutMyApi
             Path: /
             Method: ANY
+        DailyDigest:
+          Type: Schedule
+          Properties:
+            Schedule: cron(45 10 * * ? *)
+            Description: !Sub "Daily leads digest at 5:45am CT (${Stage})"
+            Input: '{"run_method": "daily_digest"}'
+            Enabled: true
       Policies:
         - Statement:
             - Effect: Allow

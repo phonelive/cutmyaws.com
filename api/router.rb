@@ -84,6 +84,7 @@ def router(event:, context:)
       allowed_run_methods = %w[
         router_test
         check_abandoned_leads
+        daily_digest
       ].freeze
 
       method_name = event['run_method'].to_s
