@@ -83,6 +83,7 @@ def router(event:, context:)
     if event['run_method']
       allowed_run_methods = %w[
         router_test
+        check_abandoned_leads
       ].freeze
 
       method_name = event['run_method'].to_s

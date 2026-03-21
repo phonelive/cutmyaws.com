@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   campaign: { type: String, default: 'inline' },
@@ -7,6 +7,9 @@ const props = defineProps({
 })
 
 const route = useRoute()
+
+// Session ID — unique per form instance, persists across auto-saves
+const sessionId = ref('')
 
 // Form state
 const form = ref({
@@ -30,8 +33,91 @@ const firstName = computed(() => {
 
 const shareUrl = encodeURIComponent('https://cutmyaws.com')
 
+// ── Event tracking flags (fire once per session) ──
+const firedStarted = ref(false)
+const firedEmailValid = ref(false)
+
+// ── API base URL ──
+const apiBase = computed(() =>
+  typeof window !== 'undefined' && window.location.hostname.includes('dev.')
+    ? 'https://api.dev.cutmyaws.com'
+    : 'https://api.cutmyaws.com'
+)
+
+// ── Email validation ──
+const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/
+const isEmailValid = computed(() => emailRegex.test(form.value.email.trim()))
+
+// ── Auto-save (debounced) ──
+let autoSaveTimer = null
+
+function scheduleAutoSave() {
+  if (autoSaveTimer) clearTimeout(autoSaveTimer)
+  autoSaveTimer = setTimeout(autoSave, 2000) // 2 seconds after last keystroke
+}
+
+async function autoSave() {
+  // Skip if nothing useful yet
+  const f = form.value
+  if (!f.name.trim() && !f.email.trim() && !f.company.trim() && !f.awsMonthly.trim()) return
+  if (submitted.value) return
+
+  try {
+    await fetch(`${apiBase.value}/leads/partial`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sessionId: sessionId.value,
+        name: f.name.trim(),
+        email: f.email.trim(),
+        company: f.company.trim(),
+        awsMonthly: f.awsMonthly.trim(),
+        availability: f.availability.trim(),
+        notes: f.notes.trim(),
+        utmSource: route.query.utm_source || '',
+        utmMedium: route.query.utm_medium || '',
+        utmCampaign: route.query.utm_campaign || props.campaign,
+        pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+      }),
+    })
+  } catch (e) {
+    // Silent fail — auto-save is best-effort
+  }
+}
+
+// ── Watch form for events + auto-save ──
+watch(form, () => {
+  const { trackEvent } = useTracking()
+
+  // Fire lead_started once (first interaction with any data)
+  if (!firedStarted.value) {
+    const f = form.value
+    if (f.name.trim() || f.email.trim() || f.company.trim() || f.awsMonthly.trim()) {
+      firedStarted.value = true
+      trackEvent('lead_started', { event_category: 'engagement', event_label: props.campaign })
+    }
+  }
+
+  // Fire lead_email_valid once when email becomes valid
+  if (!firedEmailValid.value && isEmailValid.value) {
+    firedEmailValid.value = true
+    trackEvent('lead_email_valid', { event_category: 'engagement', event_label: form.value.email.split('@')[1] })
+  }
+
+  // Schedule auto-save
+  scheduleAutoSave()
+}, { deep: true })
+
+// ── Cleanup ──
+onBeforeUnmount(() => {
+  if (autoSaveTimer) clearTimeout(autoSaveTimer)
+})
+
 // Load Turnstile
 onMounted(() => {
+  // Generate session ID
+  sessionId.value = crypto.randomUUID()
+
   if (!document.querySelector('script[src*="challenges.cloudflare.com"]')) {
     const script = document.createElement('script')
     script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
@@ -72,18 +158,18 @@ async function submit() {
   submitting.value = true
 
   try {
-    const apiBase = window.location.hostname.includes('dev.')
-      ? 'https://api.dev.cutmyaws.com'
-      : 'https://api.cutmyaws.com'
+    // Cancel any pending auto-save
+    if (autoSaveTimer) clearTimeout(autoSaveTimer)
 
-    const res = await fetch(`${apiBase}/leads`, {
+    const res = await fetch(`${apiBase.value}/leads`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        sessionId: sessionId.value,
         name: form.value.name.trim(),
         email: form.value.email.trim(),
         company: form.value.company.trim(),
-        awsMonthly: form.value.awsMonthly,
+        awsMonthly: form.value.awsMonthly.trim(),
         availability: form.value.availability.trim(),
         notes: form.value.notes.trim(),
         turnstileToken: turnstileToken.value,
