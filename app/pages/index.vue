@@ -252,10 +252,10 @@ const faqQuestions = [
                   <p class="text-gray-500 text-xs">Service-by-service savings breakdown with dollar amounts.</p>
                 </div>
               </div>
-              <div class="bg-gray-950 rounded-lg p-3 border border-gray-800 flex items-start gap-3">
-                <span class="text-brand-400 mt-0.5">🛡️</span>
+              <div class="bg-gray-950 rounded-lg p-3 border border-green-500/30 flex items-start gap-3">
+                <span class="text-green-400 mt-0.5">🛡️</span>
                 <div>
-                  <p class="text-gray-200 font-medium text-sm">Security PDF</p>
+                  <p class="text-gray-200 font-medium text-sm">Security PDF <span class="text-green-400 text-xs font-bold ml-2">FREE until 4/15</span></p>
                   <p class="text-gray-500 text-xs">Public S3 buckets, overprivileged IAM, security group misconfigs, unencrypted resources, missing logging.</p>
                 </div>
               </div>

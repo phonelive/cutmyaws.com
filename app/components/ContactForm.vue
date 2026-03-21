@@ -261,7 +261,7 @@ async function submit() {
         <!-- Urgency -->
         <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-sm text-brand-400 font-medium">
           <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
-          Currently booking ~3 weeks out
+          🛡️ Free Security Audit with every engagement through 4/15
         </div>
       </div>
 
