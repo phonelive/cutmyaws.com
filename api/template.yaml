@@ -29,11 +29,6 @@
 #
 # AWS ACCOUNT: 731039145080 (Cut My AWS)
 #
-# TODO: Add these once github-deploy IAM user has logs:* and sns:* permissions:
-#   - API Gateway access logging (AccessLogSettings on CutMyApi)
-#   - CloudWatch alarms (Lambda errors, throttles, duration, API 5xx)
-#   - SNS topic for alarm notifications
-#
 # =============================================================================
 
 AWSTemplateFormatVersion: '2010-09-09'
@@ -81,7 +76,6 @@ Globals:
     Architectures:
       - arm64
     Runtime: ruby3.4
-    # X-Ray tracing for end-to-end request visibility
     Tracing: Active
     Environment:
       Variables:
@@ -99,21 +93,17 @@ Resources:
   # ---------------------------------------------------------------------------
   # API Gateway HTTP API
   # ---------------------------------------------------------------------------
-  # CORS is handled by Lambda (router.rb OPTIONS handler + api_response.rb).
-  # Do NOT configure CORS here — API Gateway's CORS handling can strip
-  # Content-Type from Lambda responses, breaking JSON parsing.
-  # ---------------------------------------------------------------------------
   CutMyApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       StageName: $default
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
+      AccessLogSettings:
+        DestinationArn: !GetAtt ApiAccessLogGroup.Arn
+        Format: '{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","path":"$context.path","status":"$context.status","latency":"$context.responseLatency","userAgent":"$context.identity.userAgent","requestTime":"$context.requestTime"}'
 
   # ---------------------------------------------------------------------------
   # Lambda Function — Router
-  # ---------------------------------------------------------------------------
-  # Single function handles all routes via dynamic routing in router.rb.
-  # See router.rb for routing pattern: {path}_{method}(event, context)
   # ---------------------------------------------------------------------------
   RouterFunction:
     Type: AWS::Serverless::Function
@@ -138,21 +128,18 @@ Resources:
             Path: /
             Method: ANY
       Policies:
-        # SES: Send notification emails to David
         - Statement:
             - Effect: Allow
               Action:
                 - ses:SendEmail
                 - ses:SendRawEmail
               Resource: "*"
-        # SSM: Read secrets at runtime (fallback for local dev / IRB console)
         - Statement:
             - Effect: Allow
               Action:
                 - ssm:GetParameter
               Resource:
                 - !Sub "arn:aws:ssm:us-east-1:731039145080:parameter/cutmyaws/${Stage}/*"
-        # X-Ray: Tracing for end-to-end request visibility
         - Statement:
             - Effect: Allow
               Action:
@@ -161,17 +148,116 @@ Resources:
               Resource: "*"
 
   # ---------------------------------------------------------------------------
-  # CloudWatch Log Group — explicit creation for retention control
+  # CloudWatch Log Groups
   # ---------------------------------------------------------------------------
-  # Lambda function logs (application-level: requests, DB queries, errors)
   RouterLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
       RetentionInDays: 60
 
+  ApiAccessLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/cutmyaws/${Stage}/apigateway-access"
+      RetentionInDays: 60
+
+  # ---------------------------------------------------------------------------
+  # CloudWatch Alarms
+  # ---------------------------------------------------------------------------
+  LambdaErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-lambda-errors"
+      AlarmDescription: !Sub "Lambda errors exceeded threshold (${Stage})"
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref RouterFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 3
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  LambdaThrottleAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-lambda-throttles"
+      AlarmDescription: !Sub "Lambda throttled (${Stage})"
+      Namespace: AWS/Lambda
+      MetricName: Throttles
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref RouterFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 0
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  LambdaDurationAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-lambda-duration"
+      AlarmDescription: !Sub "Lambda duration approaching timeout (${Stage})"
+      Namespace: AWS/Lambda
+      MetricName: Duration
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref RouterFunction
+      ExtendedStatistic: p99
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 10000
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  Api5xxAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "cutmyaws-${Stage}-api-5xx"
+      AlarmDescription: !Sub "API Gateway 5xx errors (${Stage})"
+      Namespace: AWS/ApiGateway
+      MetricName: 5xx
+      Dimensions:
+        - Name: ApiId
+          Value: !Ref CutMyApi
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 3
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  # ---------------------------------------------------------------------------
+  # SNS Topic — alarm notifications
+  # ---------------------------------------------------------------------------
+  AlarmTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub "cutmyaws-${Stage}-alarms"
+
+  AlarmEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref AlarmTopic
+      Protocol: email
+      Endpoint: david@cutmyaws.com
+
 # -----------------------------------------------------------------------------
-# Outputs — used by GitHub Actions for verification and custom domain setup
+# Outputs
 # -----------------------------------------------------------------------------
 Outputs:
   ApiUrl:
