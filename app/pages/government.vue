@@ -88,9 +88,9 @@ const faqQuestions = [
       :steps="steps"
     />
 
-    <!-- Contact Form -->
+    <!-- Contact Form (top) -->
     <section id="book-section">
-      <ContactForm campaign="government" />
+      <ContactForm campaign="gov-top" />
     </section>
 
     <!-- Value Props -->
@@ -154,18 +154,10 @@ const faqQuestions = [
       />
     </section>
 
-    <!-- Bottom CTA -->
-    <CtaSection
-      headline="Every dollar saved goes back to the mission."
-      subtext="One engagement. Permanent savings. Available through AWS Marketplace and Carahsoft. No recurring contracts. 🏛️"
-      cta-link="#book"
-      :bg="false"
-    >
-      <p class="text-gray-600 text-sm mt-3">
-        Procurement questions?
-        <a href="mailto:david@cutmyaws.com?subject=Government%20AWS%20Audit%20%E2%9C%82%EF%B8%8F&body=Hey%20David%2C%0A%0AOur%20agency%20spends%20%5B%24%5D%2Fmo%20on%20AWS.%20Let's%20talk%20about%20an%20audit." class="text-brand-400 hover:underline">Email David</a> — happy to work with your procurement office 📋
-      </p>
-    </CtaSection>
+    <!-- Contact Form (bottom) -->
+    <section>
+      <ContactForm campaign="gov-bottom" anchor-id="book-gov-bottom" />
+    </section>
 
     <!-- Mobile sticky CTA -->
     <MobileStickyCtaBar link="#book" />

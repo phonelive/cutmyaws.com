@@ -11,7 +11,7 @@ useHead({
 })
 
 const route = useRoute()
-const campaign = route.query.c || 'book'
+const campaign = route.query.c || 'book-main'
 
 onMounted(() => {
   const { trackEvent } = useTracking()
