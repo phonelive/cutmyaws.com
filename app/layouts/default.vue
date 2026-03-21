@@ -3,12 +3,30 @@ const route = useRoute()
 
 // Hide book button on booking-related pages
 const hideBookBtn = computed(() => ['/book'].includes(route.path))
+
+// Security audit promo — ends 4/15/2026
+const promoEnd = new Date('2026-04-15T23:59:59')
+const now = new Date()
+const promoActive = now < promoEnd
+const promoDaysLeft = Math.max(0, Math.ceil((promoEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
     <!-- Sticky header -->
     <div class="sticky top-0 z-50 bg-gray-950/95 backdrop-blur-sm">
+      <!-- Hello bar — free security audit promo -->
+      <div v-if="promoActive" class="bg-green-600 text-white text-center py-1.5 px-4 text-xs sm:text-sm font-medium">
+        <a href="#book" class="hover:underline">
+          🛡️ FREE Security Audit with every engagement — {{ promoDaysLeft }} day{{ promoDaysLeft === 1 ? '' : 's' }} left!
+        </a>
+      </div>
+
+      <!-- Booking notice -->
+      <div class="bg-gray-900 text-center py-1 px-4 text-xs text-gray-400 border-b border-gray-800/50">
+        📅 Currently booking ~3 weeks out due to high demand
+      </div>
+
       <!-- Nav -->
       <nav class="border-b border-gray-800/50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between">
