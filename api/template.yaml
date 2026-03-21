@@ -68,6 +68,10 @@ Parameters:
     Type: String
     NoEcho: true
     Description: Cloudflare Turnstile secret key (from SSM)
+  SlackWebhookUrl:
+    Type: String
+    NoEcho: true
+    Description: Slack incoming webhook URL (from SSM)
 
 Globals:
   Function:
@@ -88,6 +92,7 @@ Globals:
         DB_PASS: !Ref DbPass
         DB_NAME: !Ref DbName
         TURNSTILE_SECRET_KEY: !Ref TurnstileSecretKey
+        SLACK_WEBHOOK_URL: !Ref SlackWebhookUrl
 
 Resources:
   # ---------------------------------------------------------------------------

@@ -56,6 +56,10 @@ def send_lead_notification(lead)
     })
 
     puts "[SES] Notification sent for #{lead[:name]} (#{lead[:email]})"
+
+    # Also notify Slack
+    slack_notify_lead(lead, type: 'submitted')
+
     return true
 
   rescue StandardError => e
@@ -114,6 +118,10 @@ def send_abandoned_lead_notification(lead)
     })
 
     puts "[SES] Abandoned lead notification sent for #{lead[:email]}"
+
+    # Also notify Slack
+    slack_notify_lead(lead, type: 'abandoned')
+
     return true
 
   rescue StandardError => e

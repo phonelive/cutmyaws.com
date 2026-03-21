@@ -230,6 +230,7 @@ jobs:
           echo "DB_PASS=$(get_ssm /cutmyaws/${ENV}/db/pass)" >> $GITHUB_ENV
           echo "DB_NAME=$(get_ssm /cutmyaws/${ENV}/db/name)" >> $GITHUB_ENV
           echo "TURNSTILE_SECRET_KEY=$(get_ssm /cutmyaws/${ENV}/turnstile/secret_key)" >> $GITHUB_ENV
+          echo "SLACK_WEBHOOK_URL=$(get_ssm /cutmyaws/${ENV}/slack/webhook_url)" >> $GITHUB_ENV
 
           echo "All SSM parameters resolved."
 
@@ -252,7 +253,8 @@ jobs:
               "DbUser=${{ env.DB_USER }}" \
               "DbPass=${{ env.DB_PASS }}" \
               "DbName=${{ env.DB_NAME }}" \
-              "TurnstileSecretKey=${{ env.TURNSTILE_SECRET_KEY }}"
+              "TurnstileSecretKey=${{ env.TURNSTILE_SECRET_KEY }}" \
+              "SlackWebhookUrl=${{ env.SLACK_WEBHOOK_URL }}"
 
       # -----------------------------------------------------------------------
       # 12. Warm Lambda and verify deployment

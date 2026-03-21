@@ -109,6 +109,19 @@ def daily_digest(event)
     })
 
     puts "[DIGEST] Sent digest: #{total} leads (#{submitted.count} submitted, #{notified.count} abandoned, #{partial.count} partial)"
+
+    # Also send to Slack
+    slack_summary = "Past 7 days: *#{submitted.count}* submitted, *#{notified.count}* abandoned, *#{partial.count}* partial (*#{total}* total)"
+    if submitted.any?
+      slack_summary += "\n\n*Submitted:*\n"
+      submitted.each { |l| slack_summary += "• #{l[:name].empty? ? '(no name)' : l[:name]} — #{l[:email]} — #{l[:aws_monthly].empty? ? '?' : l[:aws_monthly]}/mo\n" }
+    end
+    if notified.any?
+      slack_summary += "\n*Abandoned:*\n"
+      notified.each { |l| slack_summary += "• #{l[:name].empty? ? '(no name)' : l[:name]} — #{l[:email]}\n" }
+    end
+    slack_notify_digest(slack_summary)
+
     return true
 
   rescue StandardError => e
