@@ -93,14 +93,14 @@ Resources:
   # ---------------------------------------------------------------------------
   # API Gateway HTTP API
   # ---------------------------------------------------------------------------
+  # NOTE: AccessLogSettings removed — SAM HttpApi with $default stage has a
+  # known issue resolving log group ARN. Enable via AWS console instead:
+  # API Gateway → cutmyaws API → Stages → $default → Logging → Enable
   CutMyApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       StageName: $default
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
-      AccessLogSettings:
-        DestinationArn: !GetAtt ApiAccessLogGroup.Arn
-        Format: '{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","path":"$context.path","status":"$context.status","latency":"$context.responseLatency","userAgent":"$context.identity.userAgent","requestTime":"$context.requestTime"}'
 
   # ---------------------------------------------------------------------------
   # Lambda Function — Router
@@ -154,12 +154,6 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
-      RetentionInDays: 60
-
-  ApiAccessLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub "/cutmyaws/${Stage}/apigateway-access"
       RetentionInDays: 60
 
   # ---------------------------------------------------------------------------
