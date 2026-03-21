@@ -114,11 +114,15 @@ def daily_digest(event)
     slack_summary = "Past 7 days: *#{submitted.count}* submitted, *#{notified.count}* abandoned, *#{partial.count}* partial (*#{total}* total)"
     if submitted.any?
       slack_summary += "\n\n*Submitted:*\n"
-      submitted.each { |l| slack_summary += "• #{l[:name].empty? ? '(no name)' : l[:name]} — #{l[:email]} — #{l[:aws_monthly].empty? ? '?' : l[:aws_monthly]}/mo\n" }
+      submitted.each { |l| slack_summary += format_lead_slack(l) }
     end
     if notified.any?
       slack_summary += "\n*Abandoned:*\n"
-      notified.each { |l| slack_summary += "• #{l[:name].empty? ? '(no name)' : l[:name]} — #{l[:email]}\n" }
+      notified.each { |l| slack_summary += format_lead_slack(l) }
+    end
+    if partial.any?
+      slack_summary += "\n*Partial / In-Progress:*\n"
+      partial.each { |l| slack_summary += format_lead_slack(l) }
     end
     slack_notify_digest(slack_summary)
 
@@ -136,13 +140,28 @@ def format_lead(lead, num)
   email_display = lead[:email].empty? ? '(no email)' : lead[:email]
 
   text = "  #{num}. #{name_display} — #{email_display}\n"
-  text += "     Company:    #{lead[:company].empty? ? '(none)' : lead[:company]}\n"
-  text += "     AWS Spend:  #{lead[:aws_monthly].empty? ? '(none)' : lead[:aws_monthly]}\n"
-  text += "     Status:     #{lead[:status]}\n"
-  text += "     Campaign:   #{lead[:utm_campaign].empty? ? '(none)' : lead[:utm_campaign]}\n"
-  text += "     Source:     #{lead[:utm_source].empty? ? '(none)' : lead[:utm_source]} / #{lead[:utm_medium].empty? ? '(none)' : lead[:utm_medium]}\n"
-  text += "     Page:       #{lead[:page_url].empty? ? '(none)' : lead[:page_url]}\n"
-  text += "     Created:    #{lead[:created_at]}\n"
+  text += "     Company:      #{lead[:company].empty? ? '(none)' : lead[:company]}\n"
+  text += "     AWS Spend:    #{lead[:aws_monthly].empty? ? '(none)' : lead[:aws_monthly]}\n"
+  text += "     Best Times:   #{lead[:availability].to_s.empty? ? '(none)' : lead[:availability]}\n"
+  text += "     Notes:        #{lead[:notes].to_s.strip.empty? ? '(none)' : lead[:notes]}\n"
+  text += "     Status:       #{lead[:status]}\n"
+  text += "     Campaign:     #{lead[:utm_campaign].empty? ? '(none)' : lead[:utm_campaign]}\n"
+  text += "     Source:       #{lead[:utm_source].empty? ? '(none)' : lead[:utm_source]} / #{lead[:utm_medium].empty? ? '(none)' : lead[:utm_medium]}\n"
+  text += "     Page:         #{lead[:page_url].empty? ? '(none)' : lead[:page_url]}\n"
+  text += "     Created:      #{lead[:created_at]}\n"
   text += "\n"
+  text
+end
+
+def format_lead_slack(lead)
+  name = lead[:name].empty? ? '(no name)' : lead[:name]
+  email = lead[:email].empty? ? '(no email)' : lead[:email]
+
+  text = "• *#{name}* — #{email}\n"
+  text += "    Company: #{lead[:company].empty? ? '(none)' : lead[:company]} | AWS: #{lead[:aws_monthly].empty? ? '(none)' : lead[:aws_monthly]}\n"
+  text += "    Best Times: #{lead[:availability].to_s.empty? ? '(none)' : lead[:availability]}\n"
+  text += "    Notes: #{lead[:notes].to_s.strip.empty? ? '(none)' : lead[:notes]}\n"
+  text += "    Campaign: #{lead[:utm_campaign].empty? ? '(none)' : lead[:utm_campaign]} | Source: #{lead[:utm_source].empty? ? '(none)' : lead[:utm_source]}/#{lead[:utm_medium].empty? ? '(none)' : lead[:utm_medium]}\n"
+  text += "    Page: #{lead[:page_url].empty? ? '(none)' : lead[:page_url]} | Created: #{lead[:created_at]}\n"
   text
 end
