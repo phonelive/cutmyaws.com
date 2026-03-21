@@ -29,6 +29,11 @@
 #
 # AWS ACCOUNT: 731039145080 (Cut My AWS)
 #
+# TODO: Add these once github-deploy IAM user has logs:* and sns:* permissions:
+#   - API Gateway access logging (AccessLogSettings on CutMyApi)
+#   - CloudWatch alarms (Lambda errors, throttles, duration, API 5xx)
+#   - SNS topic for alarm notifications
+#
 # =============================================================================
 
 AWSTemplateFormatVersion: '2010-09-09'
@@ -103,9 +108,6 @@ Resources:
     Properties:
       StageName: $default
       Description: !Sub "CutMyAWS Pre-Qualification API (${Stage})"
-      AccessLogSettings:
-        DestinationArn: !GetAtt ApiAccessLogGroup.Arn
-        Format: '{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","path":"$context.path","status":"$context.status","latency":"$context.responseLatency","userAgent":"$context.identity.userAgent","requestTime":"$context.requestTime"}'
 
   # ---------------------------------------------------------------------------
   # Lambda Function — Router
@@ -159,118 +161,14 @@ Resources:
               Resource: "*"
 
   # ---------------------------------------------------------------------------
-  # CloudWatch Log Groups
+  # CloudWatch Log Group — explicit creation for retention control
   # ---------------------------------------------------------------------------
+  # Lambda function logs (application-level: requests, DB queries, errors)
   RouterLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/aws/lambda/cutmyaws-${Stage}-router"
       RetentionInDays: 60
-
-  ApiAccessLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub "/cutmyaws/${Stage}/apigateway-access"
-      RetentionInDays: 60
-
-  # ---------------------------------------------------------------------------
-  # CloudWatch Alarms — proactive monitoring
-  # ---------------------------------------------------------------------------
-
-  # Lambda errors — alert when error count > 3 in 5 minutes
-  LambdaErrorAlarm:
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: !Sub "cutmyaws-${Stage}-lambda-errors"
-      AlarmDescription: !Sub "Lambda errors exceeded threshold (${Stage})"
-      Namespace: AWS/Lambda
-      MetricName: Errors
-      Dimensions:
-        - Name: FunctionName
-          Value: !Ref RouterFunction
-      Statistic: Sum
-      Period: 300
-      EvaluationPeriods: 1
-      Threshold: 3
-      ComparisonOperator: GreaterThanThreshold
-      TreatMissingData: notBreaching
-      AlarmActions:
-        - !Ref AlarmTopic
-
-  # Lambda throttling — alert on any throttle
-  LambdaThrottleAlarm:
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: !Sub "cutmyaws-${Stage}-lambda-throttles"
-      AlarmDescription: !Sub "Lambda throttled (${Stage})"
-      Namespace: AWS/Lambda
-      MetricName: Throttles
-      Dimensions:
-        - Name: FunctionName
-          Value: !Ref RouterFunction
-      Statistic: Sum
-      Period: 300
-      EvaluationPeriods: 1
-      Threshold: 0
-      ComparisonOperator: GreaterThanThreshold
-      TreatMissingData: notBreaching
-      AlarmActions:
-        - !Ref AlarmTopic
-
-  # Lambda duration — alert when p99 > 10 seconds (timeout is 30s)
-  LambdaDurationAlarm:
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: !Sub "cutmyaws-${Stage}-lambda-duration"
-      AlarmDescription: !Sub "Lambda duration too high — approaching timeout (${Stage})"
-      Namespace: AWS/Lambda
-      MetricName: Duration
-      Dimensions:
-        - Name: FunctionName
-          Value: !Ref RouterFunction
-      ExtendedStatistic: p99
-      Period: 300
-      EvaluationPeriods: 2
-      Threshold: 10000
-      ComparisonOperator: GreaterThanThreshold
-      TreatMissingData: notBreaching
-      AlarmActions:
-        - !Ref AlarmTopic
-
-  # API Gateway 5xx errors — alert on server errors
-  Api5xxAlarm:
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: !Sub "cutmyaws-${Stage}-api-5xx"
-      AlarmDescription: !Sub "API Gateway 5xx errors (${Stage})"
-      Namespace: AWS/ApiGateway
-      MetricName: 5xx
-      Dimensions:
-        - Name: ApiId
-          Value: !Ref CutMyApi
-      Statistic: Sum
-      Period: 300
-      EvaluationPeriods: 1
-      Threshold: 3
-      ComparisonOperator: GreaterThanThreshold
-      TreatMissingData: notBreaching
-      AlarmActions:
-        - !Ref AlarmTopic
-
-  # ---------------------------------------------------------------------------
-  # SNS Topic — alarm notifications to David
-  # ---------------------------------------------------------------------------
-  AlarmTopic:
-    Type: AWS::SNS::Topic
-    Properties:
-      TopicName: !Sub "cutmyaws-${Stage}-alarms"
-
-  AlarmEmailSubscription:
-    Type: AWS::SNS::Subscription
-    Properties:
-      TopicArn: !Ref AlarmTopic
-      Protocol: email
-      Endpoint: david@cutmyaws.com
 
 # -----------------------------------------------------------------------------
 # Outputs — used by GitHub Actions for verification and custom domain setup
