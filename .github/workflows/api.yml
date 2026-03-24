@@ -89,7 +89,7 @@ jobs:
           fi
 
   build-and-deploy:
-    runs-on: ubuntu-24.04-arm
+    runs-on: 4-core_arm64
     timeout-minutes: 10
     needs: [detect-changes]
     if: |
