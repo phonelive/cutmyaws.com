@@ -1,5 +1,29 @@
 # Decommission — AWS Account Closure (research 2026-10-03)
 
+## ▶ Resume here (paused 2026-10-03)
+
+**Done**
+- [x] Inventory of account `731039145080` across all 17 enabled regions (section 2)
+- [x] Cross-project dependency check, including org-level checks (section 3)
+- [x] Full backup pushed to the private repo `phonelive/cutmyaws-aws-backup` and verified from a fresh clone: all 419 SHA-256 checksums OK (section 4)
+- [x] This doc, on branch `decommission/aws-account-closure`, draft PR #2
+
+**Nothing in AWS has been changed or deleted.** The account is ACTIVE and both sites, APIs and alarms are still running. Local `main` was left as it was (1 unpushed commit `917320e`, which is also on this branch and in the backup bundle).
+
+**Open decisions (yours)**
+1. cutmyazure.com: move its Route 53 zone to the `pl` account? (Recommended: yes. It's a separate live site plus email.)
+2. cutmyaws.com: move its zone to `pl` (keeps @cutmyaws.com email and the davidplappert.com redirect), or let it die?
+3. Then go ahead with closing?
+
+**Remaining steps once decided** → section 5, in order:
+- [ ] Migrate the zone(s) chosen above; confirm with `dig NS <domain>` and a test email
+- [ ] Save the SSM secret values to a password manager (`aws ssm get-parameters-by-path --path /cutmyaws --recursive --with-decryption --profile cutmyaws`). Run this yourself; it is intentionally not in git.
+- [ ] Optional: dump the TiDB lead DB
+- [ ] Disable the GitHub Actions workflows and delete the `*_CUTMYAWS` repo secrets
+- [ ] `aws organizations close-account --account-id 731039145080 --profile pl`
+- [ ] Remove `[profile cutmyaws]` from `~/.aws/config`; decide on domain auto-renew in `pl`
+- [ ] Merge or close PR #2
+
 Goal: back up everything, then close the Cut My AWS AWS account(s) without touching any other project.
 
 **Status:** research done, backup done and verified. **Account NOT closed yet.** Blocking decisions are listed below.
