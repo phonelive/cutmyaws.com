@@ -2,6 +2,8 @@
 
 > Full details in `docs/` — this file has highlights and references.
 
+> **⚠️ DECOMMISSIONING (2026-10-03):** AWS account 731039145080 is being closed. Backup: private repo `phonelive/cutmyaws-aws-backup`. Findings, dependencies and plan: [docs/decommission.md](docs/decommission.md).
+
 ## Quick Reference
 
 | | Value |
