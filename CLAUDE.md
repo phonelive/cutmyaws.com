@@ -2,6 +2,8 @@
 
 > Full details in `docs/` — this file has highlights and references.
 
+> **⚠️ DECOMMISSIONING (2026-10-03):** AWS account 731039145080 is being closed. Backup: private repo `phonelive/cutmyaws-aws-backup`. Findings, dependencies and plan: [docs/decommission.md](docs/decommission.md).
+
 ## Quick Reference
 
 | | Value |
@@ -73,13 +75,13 @@ Schema.org JSON-LD in `nuxt.config.ts`. AI crawlers allowed in `robots.txt`. `ll
 
 | Platform | Budget | Status | Details |
 |----------|--------|--------|---------|
-| Google Ads (120-353-4001) | $60/day, 2 active (5 paused) | Active | [docs/ads-google.md](docs/ads-google.md) |
-| Reddit Ads (u/cutmyaws) | $30/day, 1 active ad (Human only) | Active (testing) | [docs/ads-reddit.md](docs/ads-reddit.md) |
+| Google Ads (120-353-4001) | $70/day, 3 v3 campaigns (bid strategy learning) | v3 launched, 0 impressions | [docs/ads-google.md](docs/ads-google.md) |
+| Reddit Ads (u/cutmyaws) | $30/day, 1 active (v3-reddit) | Active | [docs/ads-reddit.md](docs/ads-reddit.md) |
 | LinkedIn Ads (525710547) | $0/day | All paused | [docs/ads-other.md](docs/ads-other.md) |
 | Bing/Microsoft (G145R2VD) | $0/day | Not working | [docs/ads-other.md](docs/ads-other.md) |
 
-**Google (as of Mar 17 EOD):** $213.60 spent, 125 clicks, 4 conversions, $53.40 avg CPA, 11.70% CTR. Investors ($45/day, 3 conv) + Serverless ($15/day, 1 conv, best CPA $25.58). V2 paused.
-**Reddit (as of Mar 17 EOD):** $166.75 spent, 103 clicks, 0 bookings. Only Human ad active ($30/day, 7 clicks, 0.389% CTR). 25pct and NATGateway paused. Kill deadline: 2026-03-28. **11 days remain.**
+**Google (as of Mar 23):** v3 campaigns launched (Main $40/day, Investors $20/day, Serverless $10/day) but stuck in bid strategy learning with 0 impressions. All old campaigns paused. Total pre-v3 (Mar 11-23): $228.61 spent, 120 clicks, 3 conversions, $76.20 avg CPA. "cloud optimisation" keyword consumed 64% of budget.
+**Reddit (as of Mar 23):** $280.14 spent, 141 clicks, 0 bookings. v3-reddit active (33 clicks, 0.703% CTR, $79.88 spent). Kill deadline: 2026-03-28. **5 days remain.**
 
 → UTM standards, conversion tracking, promos: [docs/ads-tracking.md](docs/ads-tracking.md)
 

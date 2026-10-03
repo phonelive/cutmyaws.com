@@ -39,26 +39,27 @@ Start with **FreeAudit** as the only active ad at $30/day. "Free audit" is the s
 
 ---
 
-## Budget
+## Budget & Performance
 
-| Ad | Budget | Status |
-|----|--------|--------|
-| FreeAudit | $30/day | Active |
-| GuaranteedROI | — | Ready to test |
-| NotADashboard | — | Ready to test |
-| **Total** | **$30/day** | |
+| Ad | Budget | Status | Performance (as of Mar 23) |
+|----|--------|--------|---------------------------|
+| v3-reddit (FreeAudit) | $30/day | Active | 4,695 impr, 33 clicks, $2.42 CPC, 0.703% CTR, $79.88 spent, 0 conv |
+| GuaranteedROI | — | Ready to test | — |
+| NotADashboard | — | Ready to test | — |
+| **Total** | **$30/day** | | |
 
 ## Old Campaigns (all paused/inactive)
 
 | Campaign | Lifetime Performance | Status |
 |----------|---------------------|--------|
-| CutMyAWS-Human | 1,798 impr, 7 clicks, 0.389% CTR, $31.47 spent, 0 conv | Paused |
-| CutMyAWS-NATGateway | 1,343 impr, 4 clicks, 0.298% CTR, $30.80 spent, 0 conv | Paused |
-| CutMyAWS-25pct | 1,332 impr, 2 clicks, 0.150% CTR, $30.23 spent, 0 conv | Paused |
-| CutMyAWS-Investors (traffic) | 9,532 impr, 58 clicks, 0.608% CTR, $34.40 spent | Inactive |
-| Cut My AWS V1 (traffic) | 6,056 impr, 31 clicks, 0.512% CTR, $30.87 spent | Inactive |
+| CutMyAWS-Human | 4,355 impr, 12 clicks, $5.38 CPC, 0.276% CTR, $64.52 spent, 0 conv | Inactive |
+| CutMyAWS-NATGateway | 1,347 impr, 4 clicks, $7.71 CPC, 0.297% CTR, $30.85 spent, 0 conv | Inactive |
+| CutMyAWS-25pct | 1,346 impr, 2 clicks, $15.32 CPC, 0.149% CTR, $30.65 spent, 0 conv | Inactive |
+| CutMyAWS-Investors-Conversion | 174 impr, 1 click, $8.98 CPC, $8.98 spent, 0 conv | Inactive |
+| CutMyAWS-Investors (traffic) | 9,532 impr, 58 clicks, $0.59 CPC, 0.608% CTR, $34.40 spent | Inactive |
+| Cut My AWS V1 (traffic) | 6,056 impr, 31 clicks, $1.00 CPC, 0.512% CTR, $30.87 spent | Inactive |
 
-**Reddit total (through Mar 17): 103 clicks, $166.75 spent, 0 bookings.** Kill deadline was 2026-03-28 — rebuild with new voice first.
+**Reddit total (as of Mar 23): 141 clicks, $280.14 spent, 0 bookings.** 27,505 impressions, $1.99 avg CPC, 0.513% CTR. Kill deadline: 2026-03-28. **5 days remain.**
 
 ## Reddit Ad Assets
 

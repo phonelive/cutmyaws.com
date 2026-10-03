@@ -54,34 +54,37 @@ Free AWS Audit | Guaranteed ROI | No Savings = No Fee | 19 Years AWS | Free Intr
 
 ---
 
-## Campaign 1: CutMyAWS-Main — $30/day
+## Campaign 1: CutMyAWS-Main — $40/day (Bid Strategy Learning)
 
 - **Angle:** Broad AWS cost optimization — "free audit, guaranteed ROI"
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-main`
+- **Performance (as of Mar 23):** 0 clicks, 0 impr, $0.00 spend — stuck in bid strategy learning (97.3%)
 - **Path:** aws / audit
 - **Keywords (Broad):** aws cost optimization, reduce aws costs, cut aws bill, aws cost savings, cloud cost optimization, aws finops, lower aws bill, aws cost audit, aws consulting, finops consulting, cloud cost audit, reduce aws bill, aws overspending, aws waste, cloud spend optimization, optimizing cloud spend, aws cost review
 - **Headlines:** Free AWS Audit | Guaranteed ROI | No Savings = No Fee | Pay Only on Actual Savings | 19 Years of AWS Experience | Not a Dashboard. A Human. | Free 15-Min Intro Call | Stop Overpaying for AWS | AWS Bill Too High? | I Fix It. You Keep Saving. | Actual Savings. Guaranteed. | Your AWS Audit Is Free | One Engagement. Done. | A Real Architect. Not AI.
 - **Descriptions:** Free AWS audit. You only pay a % of actual savings on your bill. Guaranteed ROI. | 19 years of AWS. I audit your account for free. You decide. No savings? No fee. | Not a dashboard. A real architect reads your account and shows you what to fix. | Free audit, free report. If you want me to fix it, you only pay on real savings.
 
-## Campaign 2: CutMyAWS-Investors — $20/day
+## Campaign 2: CutMyAWS-Investors — $20/day (Bid Strategy Learning)
 
 - **Angle:** Portfolio companies burning cash on AWS
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com/investors?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-investors`
+- **Performance (as of Mar 23):** 0 clicks, 0 impr, $0.00 spend — stuck in bid strategy learning (97.3%)
 - **Path:** aws / portfolio
 - **Keywords (Broad):** cloud optimization tools, aws cost review, optimizing cloud spend, aws waste, cost optimization cloud, aws overspending, cloud cost optimization, reduce cloud costs, cut aws bill, aws cost savings, cloud spend optimization, aws finops, lower aws bill, aws cost audit, aws cost optimization, aws consulting, finops consulting, cloud cost audit, reduce aws bill, startup aws costs
 - **Headlines:** Free AWS Audit | Guaranteed ROI | No Savings = No Fee | Extend Your Runway | 19 Years of AWS Experience | Not a Dashboard. A Human. | Free 15-Min Intro Call | Portfolio AWS Waste? | Pay Only on Actual Savings | One Engagement. Done. | Stop Burning Cash on AWS | Your AWS Audit Is Free | Actual Savings. Guaranteed. | A Real Architect. Not AI.
 - **Descriptions:** Free AWS audit. You only pay a % of actual savings on your bill. Guaranteed ROI. | Your portfolio companies are overpaying AWS. Free audit. No savings? No fee. | Not a dashboard. A real architect reads your account and shows you what to fix. | 19 years of AWS. I audit for free. One engagement, permanent savings. No retainer.
 
-## Campaign 3: CutMyAWS-Serverless — $10/day
+## Campaign 3: CutMyAWS-Serverless — $10/day (Bid Strategy Learning)
 
 - **Angle:** Technical — EC2/RDS modernization
 - **Bid Strategy:** Maximize conversions
 - **Networks:** Google Search only
 - **Landing:** `cutmyaws.com?utm_source=google&utm_medium=cpc&utm_campaign=cutmyaws-serverless`
+- **Performance (as of Mar 23):** 0 clicks, 0 impr, $0.00 spend — stuck in bid strategy learning (97.4%)
 - **Path:** aws / serverless
 - **Keywords (Broad):** serverless migration aws, ec2 cost optimization, ec2 to lambda migration, rds cost optimization, ec2 to serverless, aws serverless consultant, migrate ec2 to containers, aws architecture modernization, ec2 right sizing, aws lambda migration
 - **Headlines:** Free AWS Audit | Still Running EC2 24/7? | Serverless Migration Expert | Guaranteed ROI | No Savings = No Fee | 19 Years AWS Experience | Free 15-Min Intro Call | Right-Size Your AWS | Pay Only on Actual Savings | Not a Dashboard. A Human. | A Real Architect. Not AI. | I Fix It. You Keep Saving.
@@ -91,12 +94,14 @@ Free AWS Audit | Guaranteed ROI | No Savings = No Fee | 19 Years AWS | Free Intr
 
 ## Budget Summary
 
-| Campaign | Budget | Landing |
-|----------|--------|---------|
-| Main | $30/day | cutmyaws.com |
-| Investors | $20/day | cutmyaws.com/investors |
-| Serverless | $10/day | cutmyaws.com |
-| **Total** | **$60/day** | |
+| Campaign | Budget | Landing | Status (Mar 23) |
+|----------|--------|---------|-----------------|
+| Main | $40/day | cutmyaws.com | Bid strategy learning (0 impr) |
+| Investors | $20/day | cutmyaws.com/investors | Bid strategy learning (0 impr) |
+| Serverless | $10/day | cutmyaws.com | Bid strategy learning (0 impr) |
+| **Total** | **$70/day** | | **Zero ads serving** |
+
+**Risk (Mar 23):** All 3 v3 campaigns stuck in "Maximize conversions" learning with zero conversion history. Zero impressions across all keywords. Consider switching to "Maximize clicks" temporarily or un-pausing old Investors campaign as a bridge.
 
 ## Old Campaigns (all paused)
 
